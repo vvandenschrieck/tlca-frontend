@@ -1,0 +1,11 @@
+{
+    "course": {
+        "type": {
+            "training": "Training",
+            "ucourse": "µCourse"
+        }
+    },
+    "global": {
+        "powered_by": "Powered by"
+    }
+}
