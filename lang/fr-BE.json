@@ -1,0 +1,11 @@
+{
+    "course": {
+        "type": {
+            "training": "Formation",
+            "ucourse": "µCours"
+        }
+    },
+    "global": {
+        "powered_by": "Propulsé par"
+    }
+}

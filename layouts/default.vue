@@ -57,13 +57,19 @@
       </v-list>
     </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>{{ $t('global.powered_by') }} AEI Consulting – v1.1.1.</span>
+      <v-spacer/>
+      <div>
+        <language-switcher/>
+      </div>
     </v-footer>
   </v-app>
 </template>
 
 <script>
+import LanguageSwitcher from '~/components/LanguageSwitcher.vue'
 export default {
+  components: { LanguageSwitcher },
   name: 'DefaultLayout',
   data() {
     return {
