@@ -1,5 +1,5 @@
 <template>
-  <v-select :items="availableLocales" dense solo item-text="name" item-value="code" v-model="currentLocale">
+  <v-select v-model="currentLocale" :items="availableLocales" dense solo item-text="name" item-value="code">
     <template #selection="{ item }">
       <v-list-item dense>
         <v-list-item-content><v-list-item-title>{{ item.name }}</v-list-item-title></v-list-item-content>

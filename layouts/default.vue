@@ -58,9 +58,9 @@
     </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
       <span>{{ $t('global.powered_by') }} AEI Consulting – v1.1.1.</span>
-      <v-spacer/>
+      <v-spacer />
       <div>
-        <language-switcher/>
+        <language-switcher />
       </div>
     </v-footer>
   </v-app>
@@ -69,8 +69,8 @@
 <script>
 import LanguageSwitcher from '~/components/LanguageSwitcher.vue'
 export default {
-  components: { LanguageSwitcher },
   name: 'DefaultLayout',
+  components: { LanguageSwitcher },
   data() {
     return {
       clipped: false,
