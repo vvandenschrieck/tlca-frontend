@@ -1,7 +1,7 @@
 <template>
-  <v-row justify="start" align="stretch">
-    <v-col v-for="course in courses" :key="course.code" cols="12" md="3" sm="4">
-      <course-card :course="course" class="card" />
+  <v-row justify="center" align="center">
+    <v-col v-for="course in courses" :key="course.code">
+      <course-card :course="course" />
     </v-col>
   </v-row>
 </template>
@@ -12,7 +12,7 @@ import { gql } from 'graphql-tag'
 export default {
   apollo: {
     courses: gql`query {
-      courses(limit:4) {
+      courses {
         banner
         code
         name
@@ -23,9 +23,3 @@ export default {
   name: 'IndexPage'
 }
 </script>
-
-<style scoped>
-.card {
-  height: 100%;
-}
-</style>

@@ -2,14 +2,13 @@
   <v-hover v-slot="{ hover }">
     <v-card to="inspire" :elevation="hover ? 12 : 2">
       <v-img :src="course.banner">
-      <div id="type">
-        <span v-if="course.type === 'ucourse'" class="label-default">{{ $t('course.type.ucourse') }}</span>
-        <span v-else-if="course.type === 'training'" class="label-default">{{ $t('course.type.training') }}</span>
-      </div>
+        <div id="type">
+          <span v-if="course.type === 'ucourse'" class="label-default">{{ $t('course.type.ucourse') }}</span>
+          <span v-else-if="course.type === 'training'" class="label-default">{{ $t('course.type.training') }}</span>
+        </div>
       </v-img>
-      <v-card-title>
-        {{ course.code }}<br />{{ course.name }}
-      </v-card-title>
+      <v-card-title>{{ course.code }}</v-card-title>
+      <v-card-subtitle><div class="name">{{ course.name }}</div></v-card-subtitle>
     </v-card>
   </v-hover>
 </template>
@@ -27,6 +26,15 @@ export default {
 </script>
 
 <style scoped>
+.name {
+  display: -webkit-box;
+  min-height: 20px;
+  max-height: 45px;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 #type {
   bottom: 0px;
   margin: 0px 10px 10px 0;
