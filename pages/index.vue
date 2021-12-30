@@ -18,6 +18,9 @@
 <script>
 import { gql } from 'graphql-tag';
 import TabList from '~/components/homepage/TabList.vue';
+import CourseCard from '~/components/cards/CourseCard.vue';
+import ProgramCard from '~/components/cards/ProgramCard.vue';
+import PartnerCard from '~/components/cards/PartnerCard.vue';
 
 export default {
   name: 'IndexPage',
@@ -52,19 +55,19 @@ export default {
       panels: [{
         name: 'courses',
         component: {
-          name: 'CourseCard',
+          name: CourseCard,
           propName: 'course'
         }
       }, {
         name: 'programs',
         component: {
-          name: 'ProgramCard',
+          name: ProgramCard,
           propName: 'program'
         }
       }, {
         name: 'partners',
         component: {
-          name: 'PartnerCard',
+          name: PartnerCard,
           propName: 'partner'
         }
       }]

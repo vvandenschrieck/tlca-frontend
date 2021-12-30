@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import GenericCard from '~/components/GenericCard.vue';
+import GenericCard from '~/components/cards/GenericCard.vue';
 
 export default {
   name: 'CourseCard',
