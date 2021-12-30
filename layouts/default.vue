@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <space-navigator />
     <v-app-bar clipped-left dense fixed app>
       <v-toolbar-title v-text="title" />
@@ -11,7 +11,7 @@
       </v-container>
     </v-main>
     <v-footer absolute app>
-      <span>{{ $t('global.powered_by') }} AEI Consulting – v1.2.0.</span>
+      <small>{{ $t('global.powered_by') }} AEI Consulting – v1.2.0.</small>
       <v-spacer />
       <div>
         <language-switcher />

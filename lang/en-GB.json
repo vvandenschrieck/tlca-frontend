@@ -1,11 +1,29 @@
 {
     "course": {
+        "_": "Course | Courses",
+        "no": "There are no course available for now.",
         "type": {
+            "project": "Project",
             "training": "Training",
             "ucourse": "µCourse"
         }
     },
+    "partner": {
+        "_": "Partner | Partners",
+        "no": "There are no partner available for now."
+    },
+    "program": {
+        "_": "Program | Programs",
+        "no": "There are no program available for now."
+    },
     "global": {
         "powered_by": "Powered by"
+    },
+    "homepage": {
+        "welcome": "Welcome!",
+        "presentation": "<p>The <em>TLC Academy</em> is the best place where you can <b>learn anything</b> and gain competencies!</p><p>Whether for medium or long term trainings, or for a simple micro-course, learn at your <b>own pace</b> and accumulate <b>competency stars</b> to strenghten your personal profile.</p>",
+        "see_all_courses": "See all courses",
+        "see_all_programs": "See all programs",
+        "see_all_partners": "See all partners"
     }
 }

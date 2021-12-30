@@ -1,11 +1,26 @@
 {
     "course": {
+        "_": "Cours",
         "type": {
+            "project": "Projet",
             "training": "Formation",
             "ucourse": "µCours"
         }
     },
+    "partner": {
+        "_": "Partenaire | Partenaires"
+    },
+    "program": {
+        "_": "Programme | Programmes"
+    },
     "global": {
         "powered_by": "Propulsé par"
+    },
+    "homepage": {
+        "welcome": "Bienvenue !",
+        "presentation": "<p>La <em>TLC Academy</em> est le meilleur endroit où vous pouvez <b>tout apprendre</b> et acquérir des compétences !</p><p>Que ce soit pour des formations à moyen ou long terme, ou pour un simple micro-cours, apprenez à votre <b>propre rythme</b> et accumulez des <b>étoiles de compétence</b> pour renforcer votre profil personnel.</p>",
+        "see_all_courses": "Voir tous les cours",
+        "see_all_programs": "Voir tous les programmes",
+        "see_all_partners": "Voir tous les partenaires"
     }
 }
