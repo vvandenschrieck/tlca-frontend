@@ -4,6 +4,7 @@
     <v-app-bar clipped-left dense fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <sign-in-form />
     </v-app-bar>
     <v-main>
       <v-container>
@@ -22,11 +23,12 @@
 
 <script>
 import LanguageSwitcher from '~/components/LanguageSwitcher.vue';
+import SignInForm from '~/components/SignInForm.vue';
 import SpaceNavigator from '~/components/SpaceNavigator.vue';
 
 export default {
   name: 'DefaultLayout',
-  components: { LanguageSwitcher, SpaceNavigator },
+  components: { LanguageSwitcher, SpaceNavigator, SignInForm },
   data() {
     return {
       title: 'TLCA'
