@@ -34,3 +34,9 @@ export default {
   }
 }
 </script>
+
+<style>
+h2 {
+  margin-bottom: 0.8rem;
+}
+</style>

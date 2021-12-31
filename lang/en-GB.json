@@ -1,7 +1,10 @@
 {
+    "competency": {
+        "_": "Competency | Competencies"
+    },
     "course": {
         "_": "Course | Courses",
-        "no": "There are no course available for now.",
+        "no": "There are no courses available for now.",
         "type": {
             "project": "Project",
             "training": "Training",
@@ -10,14 +13,20 @@
     },
     "partner": {
         "_": "Partner | Partners",
-        "no": "There are no partner available for now."
+        "no": "There are no partners available for now."
     },
     "program": {
         "_": "Program | Programs",
-        "no": "There are no program available for now."
+        "no": "There are no programs available for now."
     },
     "global": {
-        "powered_by": "Powered by"
+        "powered_by": "Powered by",
+        "spaces": {
+            "home": "Home",
+            "learn": "Learn",
+            "manage": "Manage",
+            "teach": "Teach"
+        }
     },
     "homepage": {
         "welcome": "Welcome!",
