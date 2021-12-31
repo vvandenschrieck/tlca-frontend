@@ -1,4 +1,9 @@
 {
+    "authentication": {
+        "signin": "Sign in",
+        "signout": "Sign out",
+        "signup": "Sign up"
+    },
     "competency": {
         "_": "Competency | Competencies"
     },
@@ -11,13 +16,12 @@
             "ucourse": "µCourse"
         }
     },
-    "partner": {
-        "_": "Partner | Partners",
-        "no": "There are no partners available for now."
+    "error": {
+        "_": "Error",
+        "invalidCredentials": "Invalid credentials"
     },
-    "program": {
-        "_": "Program | Programs",
-        "no": "There are no programs available for now."
+    "general": {
+        "cancel": "Cancel"
     },
     "global": {
         "powered_by": "Powered by",
@@ -34,5 +38,17 @@
         "see_all_courses": "See all courses",
         "see_all_programs": "See all programs",
         "see_all_partners": "See all partners"
+    },
+    "partner": {
+        "_": "Partner | Partners",
+        "no": "There are no partners available for now."
+    },
+    "program": {
+        "_": "Program | Programs",
+        "no": "There are no programs available for now."
+    },
+    "user": {
+        "email": "Email",
+        "password": "Password"
     }
 }
