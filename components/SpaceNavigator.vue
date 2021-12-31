@@ -8,19 +8,16 @@
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title v-text="item.title" />
-              </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
       <v-list v-show="!miniVariant" width="calc(100% - 56px)">
-        <v-subheader inset>{{ hoveredSpace.title }}</v-subheader>
+        <v-subheader v-t="hoveredSpace.title" inset />
         <v-divider />
         <v-list-item v-for="(item, i) in hoveredSpace.sections" :key="i" :to="item.to">
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title v-t="{ path: item.title, choice: 2 }" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -35,41 +32,44 @@ export default {
     return {
       miniVariant: true,
       spaces: [{
-        title: 'Home',
+        title: 'global.spaces.home',
         icon: 'mdi-home',
         to: { name: 'index' },
         sections: [{
-          title: 'Courses',
+          title: 'course._',
           to: { name: 'courses' }
         }, {
-          title: 'Partners',
+          title: 'program._',
+          to: { name: 'programs' }
+        }, {
+          title: 'partner._',
           to: { name: 'partners' }
         }]
       }, {
-        title: 'Manage',
+        title: 'global.spaces.manage',
         icon: 'mdi-view-dashboard',
         to: { name: 'manage' },
         sections: [{
-          title: 'Courses',
+          title: 'course._',
           to: { name: 'manage-courses' }
         }, {
-          title: 'Competencies',
+          title: 'competency._',
           to: { name: 'manage-competencies' }
         }]
       }, {
-        title: 'Teach',
+        title: 'global.spaces.teach',
         icon: 'mdi-human-male-board',
         to: { name: 'teach' },
         sections: [{
-          title: 'Courses',
+          title: 'course._',
           to: { name: 'teach-courses' }
         }]
       }, {
-        title: 'Learn',
+        title: 'global.spaces.learn',
         icon: 'mdi-school',
         to: { name: 'learn' },
         sections: [{
-          title: 'Courses',
+          title: 'course._',
           to: { name: 'learn-courses' }
         }]
       }],
