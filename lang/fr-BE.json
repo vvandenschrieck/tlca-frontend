@@ -1,6 +1,10 @@
 {
+    "competency": {
+        "_": "Compétence | Compétences"
+    },
     "course": {
         "_": "Cours",
+        "no": "Il n'y a pas de cours disponibles pour le moment.",
         "type": {
             "project": "Projet",
             "training": "Formation",
@@ -8,13 +12,21 @@
         }
     },
     "partner": {
-        "_": "Partenaire | Partenaires"
+        "_": "Partenaire | Partenaires",
+        "no": "Il n'y a pas de partenaires disponibles pour le moment."
     },
     "program": {
-        "_": "Programme | Programmes"
+        "_": "Programme | Programmes",
+        "no": "Il n'y a pas de programmes disponibles pour le moment."
     },
     "global": {
-        "powered_by": "Propulsé par"
+        "powered_by": "Propulsé par",
+        "spaces": {
+            "home": "Accueil",
+            "learn": "Apprendre",
+            "manage": "Gérer",
+            "teach": "Enseigner"
+        }
     },
     "homepage": {
         "welcome": "Bienvenue !",
