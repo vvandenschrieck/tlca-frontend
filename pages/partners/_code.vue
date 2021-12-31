@@ -1,10 +1,10 @@
 <template>
-  <div v-if="course">
+  <div v-if="partner">
     <v-card flat color="grey lighten-3" class="my-2">
       <v-breadcrumbs divider="/" :items="navItems" class="py-2"></v-breadcrumbs>
     </v-card>
-    <h2 v-text="course.name" />
-    <div>{{ course }}</div>
+    <h2 v-text="partner.name" />
+    <div>{{ partner }}</div>
   </div>
 </template>
 
@@ -12,25 +12,25 @@
 import { gql } from 'graphql-tag';
 
 export default {
-  name: 'CoursePage',
+  name: 'PartnerPage',
   computed: {
     navItems() {
       return [{
-        text: this.$tc('course._', 2),
+        text: this.$tc('partner._', 2),
         exact: true,
-        to: { name: 'courses' }
+        to: { name: 'partners' }
       }, {
-        text: this.$route.params.code
+        text: this.partner.abbreviation ?? this.partner.name
       }];
     }
   },
   apollo: {
-    course: {
-      query: gql`query Course($code: String!) {
-        course(code: $code) {
+    partner: {
+      query: gql`query Partner($code: String!) {
+        partner(code: $code) {
+          abbreviation
           code
           name
-          type
         }
       }`,
       variables() {
