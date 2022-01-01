@@ -4,7 +4,9 @@
     <v-app-bar clipped-left dense fixed app>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <sign-in-form />
+      <span>User: {{$auth.user }}.</span>
+      <v-spacer />
+      <sign-in-form v-if="!$auth.user" />
     </v-app-bar>
     <v-main>
       <v-container>
