@@ -1,36 +1,42 @@
 <template>
-  <div>
-    <v-card flat color="grey lighten-3" class="my-2">
-      <v-breadcrumbs divider="/" :items="navItems" class="py-2"></v-breadcrumbs>
-    </v-card>
-    <h2 v-t="{ path: 'program._', choice: 2 }" />
-    <card-list :name="panel.name" :component="panel.component" :items="programs" />
-  </div>
+  <list-page :title="title" :name="name" :component="component" :items="programs" :nav-items="navItems" />
 </template>
 
 <script>
 import { gql } from 'graphql-tag';
 import ProgramCard from '~/components/cards/ProgramCard.vue';
-import CardList from '~/components/cards/CardList.vue';
 
 export default {
   name: 'ProgramsPage',
-  components: { CardList },
   data() {
     return {
-      navItems: [{
-        text: this.$tc('program._', 2),
-        exact: true,
-        to: { name: 'programs' }
-      }],
-      panel: {
-        name: 'programs',
-        component: {
-          name: ProgramCard,
-          propName: 'program'
-        }
+      name: 'programs',
+      component: {
+        name: ProgramCard,
+        propName: 'program'
       }
     };
+  },
+  head() {
+    return {
+      title: this.title
+    }
+  },
+  computed: {
+    navItems() {
+      return [{
+        text: this.$tc('global.spaces.home'),
+        exact: true,
+        to: { name: 'index' }
+      },{
+        text: this.title,
+        exact: true,
+        to: { name: 'programs' }
+      }];
+    },
+    title() {
+      return this.$tc('program._', 2);
+    }
   },
   apollo: {
     programs: gql`query {

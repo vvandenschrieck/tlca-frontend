@@ -2,7 +2,7 @@
   <v-app>
     <space-navigator v-if="$auth.user" />
     <v-app-bar clipped-left dense fixed app>
-      <v-toolbar-title v-text="title" />
+      <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
       <sign-in-form v-if="!$auth.user" />
       <user-menu v-else />
@@ -23,14 +23,8 @@
 </template>
 
 <script>
-import LanguageSwitcher from '~/components/LanguageSwitcher.vue';
-import SignInForm from '~/components/SignInForm.vue';
-import SpaceNavigator from '~/components/SpaceNavigator.vue';
-import UserMenu from '~/components/UserMenu.vue';
-
 export default {
   name: 'DefaultLayout',
-  components: { LanguageSwitcher, SpaceNavigator, SignInForm, UserMenu },
   data() {
     return {
       title: 'TLCA'

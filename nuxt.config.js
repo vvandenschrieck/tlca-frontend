@@ -16,7 +16,13 @@ export default {
   },
   css: [],
   plugins: [],
-  components: true,
+  components: {
+    dirs: [
+      '~/components',
+      '~/components/cards',
+      '~/components/homespace'
+    ]
+  },
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify'

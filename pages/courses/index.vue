@@ -1,36 +1,42 @@
 <template>
-  <div>
-    <v-card flat color="grey lighten-3" class="my-2">
-      <v-breadcrumbs divider="/" :items="navItems" class="py-2"></v-breadcrumbs>
-    </v-card>
-    <h2 v-t="{ path: 'course._', choice: 2 }" />
-    <card-list :name="panel.name" :component="panel.component" :items="courses" />
-  </div>
+  <list-page :title="title" :name="name" :component="component" :items="courses" :nav-items="navItems" />
 </template>
 
 <script>
 import { gql } from 'graphql-tag';
 import CourseCard from '~/components/cards/CourseCard.vue';
-import CardList from '~/components/cards/CardList.vue';
 
 export default {
   name: 'CoursesPage',
-  components: { CardList },
   data() {
     return {
-      navItems: [{
-        text: this.$tc('course._', 2),
-        exact: true,
-        to: { name: 'courses' }
-      }],
-      panel: {
-        name: 'courses',
-        component: {
-          name: CourseCard,
-          propName: 'course'
-        }
+      name: 'courses',
+      component: {
+        name: CourseCard,
+        propName: 'course'
       }
     };
+  },
+  head() {
+    return {
+      title: this.title
+    }
+  },
+  computed: {
+    navItems() {
+      return [{
+        text: this.$tc('global.spaces.home'),
+        exact: true,
+        to: { name: 'index' }
+      },{
+        text: this.title,
+        exact: true,
+        to: { name: 'courses' }
+      }];
+    },
+    title() {
+      return this.$tc('course._', 2);
+    }
   },
   apollo: {
     courses: gql`query {
