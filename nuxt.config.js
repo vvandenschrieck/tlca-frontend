@@ -43,8 +43,8 @@ export default {
       }
     },
     redirect: {
-      login: '/login',
-      logout: '/login?logout=true',
+      login: '/',
+      logout: '/',
       callback: false,
       home: '/dashboard'
     }
