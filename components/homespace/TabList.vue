@@ -1,5 +1,5 @@
 <template>
-  <card-list :name="name" :component="component" :items="items">
+  <card-list :name="name" :component="component" :items="items" :pagination="{ perPage: 4 }">
     <template #append>
       <div align="center" class="py-8">
         <v-btn :to="{ name: name }">{{ $t(`homepage.see_all_${name}`) }}</v-btn>
