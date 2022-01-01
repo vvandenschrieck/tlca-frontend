@@ -5,11 +5,8 @@
 </template>
 
 <script>
-import GenericCard from '~/components/cards/GenericCard.vue';
-
 export default {
   name: 'PartnerCard',
-  components: { GenericCard },
   props: {
     partner: {
       type: Object,

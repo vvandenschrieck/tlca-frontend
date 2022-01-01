@@ -9,11 +9,8 @@
 </template>
 
 <script>
-import CardList from '~/components/cards/CardList.vue';
-
 export default {
   name: 'TabList',
-  components: { CardList },
   props: {
     component: {
       type: Object,

@@ -17,38 +17,12 @@
 
 <script>
 import { gql } from 'graphql-tag';
-import TabList from '~/components/homepage/TabList.vue';
 import CourseCard from '~/components/cards/CourseCard.vue';
 import ProgramCard from '~/components/cards/ProgramCard.vue';
 import PartnerCard from '~/components/cards/PartnerCard.vue';
 
 export default {
   name: 'IndexPage',
-  components: { TabList },
-  apollo: {
-    courses: gql`query {
-      courses(limit: 4) {
-        banner
-        code
-        name
-        type
-      }
-    }`,
-    programs: gql`query {
-      programs(limit: 4) {
-        code
-        name
-      }
-    }`,
-    partners: gql`query {
-      partners(limit: 4) {
-        abbreviation
-        banner
-        code
-        name
-      }
-    }`
-  },
   data() {
     return {
       selectedPanel: 0,
@@ -73,10 +47,39 @@ export default {
       }]
     }
   },
+  head() {
+    return {
+      title: this.$t('global.spaces.home')
+    }
+  },
   methods: {
     getPanelItems(name) {
       return this[name];
     }
+  },
+  apollo: {
+    courses: gql`query {
+      courses(limit: 4) {
+        banner
+        code
+        name
+        type
+      }
+    }`,
+    programs: gql`query {
+      programs(limit: 4) {
+        code
+        name
+      }
+    }`,
+    partners: gql`query {
+      partners(limit: 4) {
+        abbreviation
+        banner
+        code
+        name
+      }
+    }`
   }
 }
 </script>

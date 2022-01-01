@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" width="50%" persistent>
+  <v-dialog v-model="dialog" :persistent="formBusy">
     <template #activator="{ on, attrs }">
       <v-tooltip bottom open-delay="1000">
         <template #activator="{ on:tooltip }">

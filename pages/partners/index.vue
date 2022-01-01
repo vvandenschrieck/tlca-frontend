@@ -1,36 +1,42 @@
 <template>
-  <div>
-    <v-card flat color="grey lighten-3" class="my-2">
-      <v-breadcrumbs divider="/" :items="navItems" class="py-2"></v-breadcrumbs>
-    </v-card>
-    <h2 v-t="{ path: 'partner._', choice: 2 }" />
-    <card-list :name="panel.name" :component="panel.component" :items="partners" />
-  </div>
+  <list-page :title="title" :name="name" :component="component" :items="partners" :nav-items="navItems" />
 </template>
 
 <script>
 import { gql } from 'graphql-tag';
 import PartnerCard from '~/components/cards/PartnerCard.vue';
-import CardList from '~/components/cards/CardList.vue';
 
 export default {
   name: 'PartnersPage',
-  components: { CardList },
   data() {
     return {
-      navItems: [{
-        text: this.$tc('partner._', 2),
-        exact: true,
-        to: { name: 'partners' }
-      }],
-      panel: {
-        name: 'partners',
-        component: {
-          name: PartnerCard,
-          propName: 'partner'
-        }
+      name: 'partners',
+      component: {
+        name: PartnerCard,
+        propName: 'partner'
       }
     };
+  },
+  head() {
+    return {
+      title: this.title
+    }
+  },
+  computed: {
+    navItems() {
+      return [{
+        text: this.$tc('global.spaces.home'),
+        exact: true,
+        to: { name: 'index' }
+      },{
+        text: this.title,
+        exact: true,
+        to: { name: 'partners' }
+      }];
+    },
+    title() {
+      return this.$tc('partner._', 2);
+    }
   },
   apollo: {
     partners: gql`query {
