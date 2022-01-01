@@ -4,7 +4,7 @@
       <v-card-title>{{ $t('homepage.welcome') }}</v-card-title>
       <v-card-text><div v-html="$t('homepage.presentation')"></div></v-card-text>
     </v-card>
-    <v-tabs v-model="selectedPanel" centered class="pt-5">
+    <v-tabs v-model="selectedPanel" centered show-arrows class="pt-5">
       <v-tab v-for="panel in panels" :key="panel.name">{{ $tc(`${panel.name.slice(0, -1)}._`, 2) }}</v-tab>
     </v-tabs>
     <v-tabs-items v-model="selectedPanel">
