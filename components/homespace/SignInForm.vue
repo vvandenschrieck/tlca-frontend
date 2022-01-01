@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" :persistent="formBusy">
+  <v-dialog v-model="dialog" :persistent="formBusy" max-width="500" :fullscreen="$vuetify.breakpoint.xsOnly">
     <template #activator="{ on, attrs }">
       <v-tooltip bottom open-delay="1000">
         <template #activator="{ on:tooltip }">
@@ -21,7 +21,6 @@
           <v-text-field v-model="password" type="password" :label="$t('user.password')" required></v-text-field>
         </v-form>
       </v-card-text>
-      <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn :disabled="formBusy" color="error" text @click="cancel()">{{ $t('general.cancel') }}</v-btn>
