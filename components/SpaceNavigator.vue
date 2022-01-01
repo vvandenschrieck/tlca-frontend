@@ -9,18 +9,18 @@
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title v-text="item.title" />
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
       <v-list v-show="!miniVariant" width="calc(100% - 56px)">
-        <v-subheader v-t="hoveredSpace.title" inset />
+        <v-subheader inset>{{ $t(hoveredSpace.title) }}</v-subheader>
         <v-divider />
         <v-list-item v-for="(item, i) in hoveredSpace.sections" :key="i" :to="item.to">
           <v-list-item-content>
-            <v-list-item-title v-t="{ path: item.title, choice: 2 }" />
+            <v-list-item-title>{{ $tc(item.title, 2) }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -34,48 +34,6 @@ export default {
   data() {
     return {
       miniVariant: true,
-      spaces: [{
-        title: 'global.spaces.home',
-        icon: 'mdi-home',
-        to: { name: 'index' },
-        sections: [{
-          title: 'course._',
-          to: { name: 'courses' }
-        }, {
-          title: 'program._',
-          to: { name: 'programs' }
-        }, {
-          title: 'partner._',
-          to: { name: 'partners' }
-        }]
-      }, {
-        title: 'global.spaces.manage',
-        icon: 'mdi-view-dashboard',
-        to: { name: 'manage' },
-        sections: [{
-          title: 'course._',
-          to: { name: 'manage-courses' }
-        }, {
-          title: 'competency._',
-          to: { name: 'manage-competencies' }
-        }]
-      }, {
-        title: 'global.spaces.teach',
-        icon: 'mdi-human-male-board',
-        to: { name: 'teach' },
-        sections: [{
-          title: 'course._',
-          to: { name: 'teach-courses' }
-        }]
-      }, {
-        title: 'global.spaces.learn',
-        icon: 'mdi-school',
-        to: { name: 'learn' },
-        sections: [{
-          title: 'course._',
-          to: { name: 'learn-courses' }
-        }]
-      }],
       hoveredItem: undefined
     }
   },
@@ -93,6 +51,55 @@ export default {
         }
       }
       return 0;
+    },
+    spaces() {
+      const spaces = [{
+        title: 'global.spaces.home',
+        icon: 'mdi-home',
+        to: { name: 'index' },
+        show: true,
+        sections: [{
+          title: 'course._',
+          to: { name: 'courses' }
+        }, {
+          title: 'program._',
+          to: { name: 'programs' }
+        }, {
+          title: 'partner._',
+          to: { name: 'partners' }
+        }]
+      }, {
+        title: 'global.spaces.manage',
+        icon: 'mdi-view-dashboard',
+        to: { name: 'manage' },
+        show: this.$auth.user,
+        sections: [{
+          title: 'course._',
+          to: { name: 'manage-courses' }
+        }, {
+          title: 'competency._',
+          to: { name: 'manage-competencies' }
+        }]
+      }, {
+        title: 'global.spaces.teach',
+        icon: 'mdi-human-male-board',
+        to: { name: 'teach' },
+        show: this.$auth.user,
+        sections: [{
+          title: 'course._',
+          to: { name: 'teach-courses' }
+        }]
+      }, {
+        title: 'global.spaces.learn',
+        icon: 'mdi-school',
+        to: { name: 'learn' },
+        show: this.$auth.user,
+        sections: [{
+          title: 'course._',
+          to: { name: 'learn-courses' }
+        }]
+      }];
+      return spaces.filter(s => s.show);
     }
   },
   methods: {
