@@ -2,6 +2,7 @@ import { LocalScheme } from '~auth/runtime';
 
 import meGql from '~/gql/me.gql';
 import signInGql from '~/gql/signIn.gql';
+import signOutGql from '~/gql/signOut.gql';
 
 export default class GraphQLScheme extends LocalScheme {
   async login(credentials, { reset = true } = {}) {
@@ -45,6 +46,17 @@ export default class GraphQLScheme extends LocalScheme {
       this.$auth.callOnError(error, { method: 'fetchUser' })
       return Promise.reject(error)
     });
+  }
+
+  async logout() {
+    const { apolloProvider: { defaultClient: apolloClient }, $apolloHelpers } = this.$auth.ctx.app;
+
+    await apolloClient.mutate({
+        mutation: signOutGql
+    }).catch(() => {});
+
+    $apolloHelpers.onLogout();
+    return this.$auth.reset({ resetInterceptor: false });
   }
 
   initializeRequestInterceptor() {}

@@ -1,7 +1,14 @@
 <template>
   <v-dialog v-model="dialog" width="50%" persistent>
     <template #activator="{ on, attrs }">
-      <v-btn v-bind="attrs" outlined small v-on="on">{{ $t('authentication.signin') }}</v-btn>
+      <v-tooltip bottom open-delay="1000">
+        <template #activator="{ on:tooltip }">
+          <v-btn v-bind="attrs" icon v-on="{ ...on, ...tooltip }">
+            <v-icon>mdi-login</v-icon>
+          </v-btn>
+        </template>
+        <span>{{ $t('authentication.signin') }}</span>
+      </v-tooltip>
     </template>
     <v-card>
       <v-card-title class="text-h5 grey lighten-2">{{ $t('authentication.signin') }}</v-card-title>
