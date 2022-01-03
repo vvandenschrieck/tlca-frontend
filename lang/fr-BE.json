@@ -69,7 +69,9 @@
     },
     "partner": {
         "_": "Partenaire | Partenaires",
-        "no": "Il n'y a pas de partenaires disponibles pour le moment."
+        "no": "Il n'y a pas de partenaires disponibles pour le moment.",
+        "abbreviation": "Abréviation",
+        "website": "Site web"
     },
     "program": {
         "_": "Programme | Programmes",

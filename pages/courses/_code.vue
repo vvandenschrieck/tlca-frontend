@@ -3,7 +3,7 @@
     <v-card flat color="grey lighten-3" class="my-2">
       <v-breadcrumbs divider="/" :items="navItems" class="py-2"></v-breadcrumbs>
     </v-card>
-    <h2 v-text="course.name" />
+    <h2>{{ course.name }}</h2>
     <v-row>
       <v-col cols="12" md="9">
         <v-card>
