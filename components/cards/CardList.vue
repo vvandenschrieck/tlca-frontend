@@ -2,7 +2,7 @@
   <div v-if="items">
     <div v-if="items.length">
       <v-row justify="start" align="stretch">
-        <v-col v-for="item in pageItems" :key="item.code" cols="12" md="3" sm="4">
+        <v-col v-for="item in pageItems" :key="item.code" cols="12" :md="12 / cardsPerPage" sm="4">
           <component :is="component.name" v-bind="{ [component.propName]: item }" class="card" />
         </v-col>
       </v-row>
@@ -40,6 +40,10 @@ export default {
       default: undefined
     },
     itemsPerPage: {
+      type: Number,
+      default: 4
+    },
+    cardsPerPage: {
       type: Number,
       default: 4
     }
