@@ -20,6 +20,7 @@ export default {
     dirs: [
       '~/components',
       '~/components/cards',
+      '~/components/courses',
       '~/components/homespace'
     ]
   },
@@ -30,7 +31,8 @@ export default {
   modules: [
     '@nuxtjs/apollo',
     '@nuxtjs/auth-next',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@nuxtjs/moment'
   ],
   apollo: {
     clientConfigs: {

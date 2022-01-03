@@ -35,6 +35,14 @@ export default {
 
 <style>
 h2 {
-  margin-bottom: 0.8rem;
+  margin-top: 0.8rem;
+  margin-bottom: 1.0rem;
+}
+h3 {
+  margin-top: 0.6rem;
+  margin-bottom: 0.2rem;
+}
+p {
+  text-align: justify;
 }
 </style>

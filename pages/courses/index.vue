@@ -28,7 +28,7 @@ export default {
         text: this.$tc('global.spaces.home'),
         exact: true,
         to: { name: 'index' }
-      },{
+      }, {
         text: this.title,
         exact: true,
         to: { name: 'courses' }
