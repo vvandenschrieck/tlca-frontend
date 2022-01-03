@@ -4,7 +4,7 @@
       <v-breadcrumbs divider="/" :items="navItems" class="py-2"></v-breadcrumbs>
     </v-card>
     <h2>{{ title }}</h2>
-    <card-list :name="name" :component="component" :items="items" />
+    <card-list :name="name" :component="component" :items="items" :items-per-page="8" />
   </div>
 </template>
 

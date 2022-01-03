@@ -5,11 +5,34 @@
         "signup": "S'inscrire"
     },
     "competency": {
-        "_": "Compétence | Compétences"
+        "_": "Compétence | Compétences",
+        "category": {
+            "no": "Pas de catégorie",
+            "basic": "Basique",
+            "advanced": "Avancée"
+        },
+        "description": "@:global.description._",
+        "show_by": {
+            "level": "Montrer par niveau",
+            "category": "Montrer par catégorie"
+        }
     },
     "course": {
         "_": "Cours",
+        "colophon": "Colophon",
+        "competencies": "Compétences",
+        "description": "@:global.description._",
+        "field": "Domaine",
+        "language": "Langue",
         "no": "Il n'y a pas de cours disponibles pour le moment.",
+        "schedule": {
+            "_": "Calendrier",
+            "start": "Date de début",
+            "end": "Date de fin",
+            "registrationsStart": "Début des inscriptions",
+            "registrationsEnd": "Fin des inscriptions",
+            "evaluationsEnd": "Fin des évaluations"
+        },
         "type": {
             "project": "Projet",
             "training": "Formation",
@@ -24,6 +47,11 @@
         "cancel": "Annuler"
     },
     "global": {
+        "description": {
+            "_": "Description",
+            "no": "Pas de @.lower:global.description._"
+        },
+        "information": "Information",
         "powered_by": "Propulsé par",
         "spaces": {
             "home": "Accueil",
