@@ -7,7 +7,7 @@
     <v-tabs v-model="selectedPanel" centered show-arrows class="pt-5">
       <v-tab v-for="panel in panels" :key="panel.name">{{ $tc(`${panel.name.slice(0, -1)}._`, 2) }}</v-tab>
     </v-tabs>
-    <v-tabs-items v-model="selectedPanel">
+    <v-tabs-items v-model="selectedPanel" class="overflow-visible">
       <v-tab-item v-for="panel in panels" :key="panel.name" class="pt-5">
         <tab-list :name="panel.name" :component="panel.component" :items="getPanelItems(panel.name)" />
       </v-tab-item>
