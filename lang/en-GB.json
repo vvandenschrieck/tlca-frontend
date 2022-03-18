@@ -1,8 +1,8 @@
 {
     "authentication": {
-        "signin": "Sign in",
-        "signout": "Sign out",
-        "signup": "Sign up"
+        "sign_in": "Sign in",
+        "sign_out": "Sign out",
+        "sign_up": "Sign up"
     },
     "competency": {
         "_": "Competency | Competencies",
