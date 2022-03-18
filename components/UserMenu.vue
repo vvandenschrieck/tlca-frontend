@@ -15,7 +15,7 @@
       </v-list-item>
       <v-divider />
       <v-list-item>
-        <v-list-item-title @click="signOut()">{{ $t('authentication.signout') }}</v-list-item-title>
+        <v-list-item-title @click="signOut()">{{ $t('authentication.sign_out') }}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>

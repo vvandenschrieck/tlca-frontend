@@ -7,11 +7,11 @@
             <v-icon>mdi-login</v-icon>
           </v-btn>
         </template>
-        <span>{{ $t('authentication.signin') }}</span>
+        <span>{{ $t('authentication.sign_in') }}</span>
       </v-tooltip>
     </template>
     <v-card>
-      <v-card-title class="text-h5 grey lighten-2">{{ $t('authentication.signin') }}</v-card-title>
+      <v-card-title class="text-h5 grey lighten-2">{{ $t('authentication.sign_in') }}</v-card-title>
       <v-card-text>
         <v-alert v-if="error" type="error" outlined dense class="mt-5">
           {{ $t(error) }}
@@ -24,7 +24,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn :disabled="formBusy" color="error" text @click="cancel()">{{ $t('general.cancel') }}</v-btn>
-        <v-btn :loading="formBusy" color="primary" text @click="signIn()">{{ $t('authentication.signin') }}</v-btn>
+        <v-btn :loading="formBusy" color="primary" text @click="signIn()">{{ $t('authentication.sign_in') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -41,6 +41,13 @@ export default {
       formBusy: false,
       password: ''
     };
+  },
+  watch: {
+    dialog(value) {
+      if (!value) {
+        this.cancel();
+      }
+    }
   },
   methods: {
     cancel() {
