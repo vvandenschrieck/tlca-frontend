@@ -29,9 +29,9 @@
             "_": "Calendrier",
             "start": "Date de début",
             "end": "Date de fin",
-            "registrationsStart": "Début des inscriptions",
-            "registrationsEnd": "Fin des inscriptions",
-            "evaluationsEnd": "Fin des évaluations"
+            "registrations_start": "Début des inscriptions",
+            "registrations_end": "Fin des inscriptions",
+            "evaluations_end": "Fin des évaluations"
         },
         "type": {
             "project": "Projet",
@@ -41,7 +41,7 @@
     },
     "error": {
         "_": "Erreur",
-        "invalidCredentials": "Mauvais identifiants"
+        "invalid_credentials": "Mauvais identifiants"
     },
     "general": {
         "cancel": "Annuler"
@@ -79,6 +79,8 @@
     },
     "user": {
         "email": "E-mail",
+        "first_name": "Prénom",
+        "last_name": "Nom",
         "password": "Mot de passe"
     }
 }

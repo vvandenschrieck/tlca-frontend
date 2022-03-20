@@ -29,9 +29,9 @@
             "_": "Schedule",
             "start": "Start date",
             "end": "End date",
-            "registrationsStart": "Start of registrations",
-            "registrationsEnd": "End of registrations",
-            "evaluationsEnd": "End of evaluations"
+            "registrations_start": "Start of registrations",
+            "registrations_end": "End of registrations",
+            "evaluations_end": "End of evaluations"
         },
         "type": {
             "project": "Project",
@@ -41,7 +41,10 @@
     },
     "error": {
         "_": "Error",
-        "invalidCredentials": "Invalid credentials"
+        "EXISTING_EMAIL_ADDRESS": "An account with the specified email address already exists",
+        "INVALID_CREDENTIALS": "Invalid credentials",
+        "INVALID_EMAIL_ADDRESS": "Invalid email address",
+        "MISSING_FIELDS": "Some mandatory fields are missing"
     },
     "general": {
         "cancel": "Cancel"
@@ -79,6 +82,8 @@
     },
     "user": {
         "email": "Email",
+        "first_name": "First Name",
+        "last_name": "Last Name",
         "password": "Password"
     }
 }
