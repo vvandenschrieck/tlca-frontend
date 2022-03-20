@@ -29,9 +29,9 @@
             "_": "Schedule",
             "start": "Start date",
             "end": "End date",
-            "registrations_start": "Start of registrations",
-            "registrations_end": "End of registrations",
-            "evaluations_end": "End of evaluations"
+            "registrationsStart": "Start of registrations",
+            "registrationsEnd": "End of registrations",
+            "evaluationsEnd": "End of evaluations"
         },
         "type": {
             "project": "Project",

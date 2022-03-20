@@ -23,9 +23,9 @@
             </v-tab-item>
             <v-tab-item v-if="course.schedule">
               <v-timeline>
-                <v-timeline-item v-for="(event, i) in schedule" :key="i" small right :color="event.time.isAfter() ? 'grey' : undefined">
-                  <span slot="opposite">{{ $t(`course.schedule.${event.description}`) }}</span>
-                  {{ event.time.format('llll') }}
+                <v-timeline-item v-for="(event, i) in schedule" :key="i" small right :color="event.date.isAfter() ? 'grey' : undefined">
+                  <span slot="opposite">{{ $t(`course.schedule.${event.name}`) }}</span>
+                  {{ event.date.format('llll') }}
                 </v-timeline-item>
               </v-timeline>
             </v-tab-item>
@@ -86,17 +86,9 @@ export default {
       }];
     },
     schedule() {
-      const schedule = [];
-      for (const event in this.course.schedule) {
-        if (['registrationsStart', 'registrationsEnd', 'start', 'end', 'evaluationsEnd'].includes(event)) {
-          schedule.push({
-            time: this.$moment(this.course.schedule[event]),
-            description: event
-          });
-        }
-      }
-      schedule.sort((a, b) => a.time - b.time);
-      return schedule;
+      return this.course.schedule
+        .map(({ name, date }) => ({ name, date: this.$moment(date) }))
+        .sort((a, b) => a.date - b.date);
     }
   },
   apollo: {
@@ -119,11 +111,8 @@ export default {
           language
           name
           schedule {
-            registrationsStart
-            registrationsEnd
-            start
-            end
-            evaluationsEnd
+            name
+            date
           }
           type
         }
