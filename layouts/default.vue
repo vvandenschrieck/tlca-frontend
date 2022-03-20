@@ -4,7 +4,10 @@
     <v-app-bar clipped-left dense fixed app>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
-      <sign-in-form v-if="!$auth.user" />
+      <template v-if="!$auth.user">
+        <sign-up-form />
+        <sign-in-form />
+      </template>
       <user-menu v-else />
     </v-app-bar>
     <v-main>
