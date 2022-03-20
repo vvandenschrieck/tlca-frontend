@@ -23,9 +23,9 @@
             </v-tab-item>
             <v-tab-item v-if="course.schedule">
               <v-timeline>
-                <v-timeline-item v-for="(event, i) in schedule" :key="i" small right :color="event.past ? 'grey' : undefined">
-                  <span slot="opposite">{{ $t(`course.schedule.${event.name}`) }}</span>
-                  {{ event.date }}
+                <v-timeline-item v-for="{ name, date } in schedule" :key="name" small right :color="isInPast(date) ? 'grey' : undefined">
+                  <span slot="opposite">{{ $t(`course.schedule.${name}`) }}</span>
+                  {{ formatDateTimeFull(date) }}
                 </v-timeline-item>
               </v-timeline>
             </v-tab-item>
@@ -46,9 +46,13 @@
 <script>
 import { gql } from 'graphql-tag';
 import { DateTime } from 'luxon';
+import datetime from '@/mixins/datetime.js';
 
 export default {
   name: 'CoursePage',
+  mixins: [
+    datetime
+  ],
   data() {
     return {
       currentTab: 'competencies'
@@ -89,9 +93,7 @@ export default {
     schedule() {
       return this.course.schedule
         .map(({ name, date }) => ({ name, date: DateTime.fromISO(date) }))
-        .map(event => ({ ...event, past: event.date <= DateTime.now }))
-        .sort((a, b) => a.date - b.date)
-        .map(event => ({ ...event, date: event.date.setLocale(this.$i18n.locale).toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY) }))
+        .sort((a, b) => a.date - b.date);
     }
   },
   apollo: {
