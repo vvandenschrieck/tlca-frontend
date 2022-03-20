@@ -31,8 +31,7 @@ export default {
   modules: [
     '@nuxtjs/apollo',
     '@nuxtjs/auth-next',
-    '@nuxtjs/i18n',
-    '@nuxtjs/moment'
+    '@nuxtjs/i18n'
   ],
   apollo: {
     clientConfigs: {
