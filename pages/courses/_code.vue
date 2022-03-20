@@ -23,9 +23,9 @@
             </v-tab-item>
             <v-tab-item v-if="course.schedule">
               <v-timeline>
-                <v-timeline-item v-for="(event, i) in schedule" :key="i" small right :color="event.date.isAfter() ? 'grey' : undefined">
+                <v-timeline-item v-for="(event, i) in schedule" :key="i" small right :color="event.past ? 'grey' : undefined">
                   <span slot="opposite">{{ $t(`course.schedule.${event.name}`) }}</span>
-                  {{ event.date.format('llll') }}
+                  {{ event.date }}
                 </v-timeline-item>
               </v-timeline>
             </v-tab-item>
@@ -45,6 +45,7 @@
 
 <script>
 import { gql } from 'graphql-tag';
+import { DateTime } from 'luxon';
 
 export default {
   name: 'CoursePage',
@@ -87,8 +88,10 @@ export default {
     },
     schedule() {
       return this.course.schedule
-        .map(({ name, date }) => ({ name, date: this.$moment(date) }))
-        .sort((a, b) => a.date - b.date);
+        .map(({ name, date }) => ({ name, date: DateTime.fromISO(date) }))
+        .map(event => ({ ...event, past: event.date <= DateTime.now }))
+        .sort((a, b) => a.date - b.date)
+        .map(event => ({ ...event, date: event.date.setLocale(this.$i18n.locale).toLocaleString(DateTime.DATETIME_MED_WITH_WEEKDAY) }))
     }
   },
   apollo: {
