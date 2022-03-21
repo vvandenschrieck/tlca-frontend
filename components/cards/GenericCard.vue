@@ -17,22 +17,22 @@ export default {
   props: {
     banner: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     label: {
       type: String,
-      default: undefined
+      default: undefined,
     },
     to: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     innerBanner() {
-      return this.banner ?? 'default-banner.png';
-    }
-  }
+      return this.banner ?? '/default-banner.png'
+    },
+  },
 }
 </script>
 
