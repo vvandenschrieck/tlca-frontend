@@ -1,0 +1,8 @@
+query GetPartners {
+    partners {
+        abbreviation
+        banner
+        code
+        name
+    }
+}

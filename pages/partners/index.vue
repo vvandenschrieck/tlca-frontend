@@ -1,10 +1,25 @@
 <template>
-  <list-page :title="title" :name="name" :component="component" :items="partners" :nav-items="navItems" />
+  <ApolloQuery :query="require('../../gql/getPartners.gql')">
+    <template #default="{ result: { loading, error, data } }">
+      <div v-if="loading">Loading...</div>
+
+      <div v-else-if="error">An error occurred</div>
+
+      <div v-else-if="data">
+        <list-page
+          :title="title"
+          :name="name"
+          :component="component"
+          :items="data.partners"
+          :nav-items="navItems"
+        />
+      </div>
+    </template>
+  </ApolloQuery>
 </template>
 
 <script>
-import { gql } from 'graphql-tag';
-import PartnerCard from '~/components/cards/PartnerCard.vue';
+import PartnerCard from '~/components/cards/PartnerCard.vue'
 
 export default {
   name: 'PartnersPage',
@@ -13,40 +28,33 @@ export default {
       name: 'partners',
       component: {
         name: PartnerCard,
-        propName: 'partner'
-      }
-    };
+        propName: 'partner',
+      },
+    }
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
     }
   },
   computed: {
     navItems() {
-      return [{
-        text: this.$tc('global.spaces.home'),
-        exact: true,
-        to: { name: 'index' }
-      }, {
-        text: this.title,
-        exact: true,
-        to: { name: 'partners' }
-      }];
+      return [
+        {
+          text: this.$tc('global.spaces.home'),
+          exact: true,
+          to: { name: 'index' },
+        },
+        {
+          text: this.title,
+          exact: true,
+          to: { name: 'partners' },
+        },
+      ]
     },
     title() {
-      return this.$tc('partner._', 2);
-    }
+      return this.$tc('partner._', 2)
+    },
   },
-  apollo: {
-    partners: gql`query {
-      partners {
-        abbreviation
-        banner
-        code
-        name
-      }
-    }`
-  }
 }
 </script>

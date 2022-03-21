@@ -71,6 +71,9 @@ typings/
 # Nuxt generate
 dist
 
+# Uploaded files
+static/uploads
+
 # vuepress build output
 .vuepress/dist
 
