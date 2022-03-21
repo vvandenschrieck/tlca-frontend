@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 export default {
   ssr: false,
   head: {
@@ -31,12 +29,12 @@ export default {
       '~/components/homespace',
     ],
   },
-  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/dotenv', '@nuxtjs/vuetify'],
+  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/vuetify'],
   modules: ['@nuxtjs/apollo', '@nuxtjs/auth-next', '@nuxtjs/i18n'],
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: process.env.GRAPHQL_ENDPOINT,
+        httpEndpoint: process.env.NODE_ENV !== 'production' ? 'http://localhost:4001' : 'https://api.tlca.eu',
       },
     },
   },
