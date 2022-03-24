@@ -19,7 +19,7 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-  css: [],
+  css: ['@mdi/font/css/materialdesignicons.css'],
   plugins: [],
   components: {
     dirs: [
@@ -34,7 +34,10 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: process.env.NODE_ENV !== 'production' ? 'http://localhost:4001' : 'https://api.tlca.eu',
+        httpEndpoint:
+          process.env.NODE_ENV !== 'production'
+            ? 'http://localhost:4001'
+            : 'https://api.tlca.eu',
       },
     },
   },
@@ -74,6 +77,7 @@ export default {
   },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    defaultAssets: false
   },
   build: {},
 }
