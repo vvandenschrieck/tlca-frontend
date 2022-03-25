@@ -1,5 +1,9 @@
 <template>
-  <generic-card :banner="course.banner" :to="{ name: 'courses-code', params: { code: course.code } }" :label="$t(`course.type.${course.type}`)">
+  <generic-card
+    :banner="course.banner"
+    :to="{ name: 'courses-code', params: { code: course.code } }"
+    :label="$t(`course.type.${course.type}`)"
+  >
     <v-card-title>{{ course.code }}</v-card-title>
     <v-card-subtitle>
       <div class="name">{{ course.name }}</div>
@@ -13,9 +17,9 @@ export default {
   props: {
     course: {
       type: Object,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>
 
