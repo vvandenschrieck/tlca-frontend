@@ -1,0 +1,8 @@
+query GetCourses {
+    courses {
+        banner
+        code
+        name
+        type
+    }
+}

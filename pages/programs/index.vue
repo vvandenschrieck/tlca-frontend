@@ -1,50 +1,43 @@
 <template>
-  <list-page :title="title" :name="name" :component="component" :items="programs" :nav-items="navItems" />
+  <ApolloQuery :query="require('../../gql/getPrograms.gql')">
+    <template #default="{ result: { error, data }, isLoading }">
+      <div v-if="isLoading || data">
+        <list-page
+          :title="title"
+          :prop-name="propName"
+          :component="component"
+          :items="data && data.programs"
+          :nav-items="homespaceNavItems('program')"
+        />
+      </div>
+
+      <div v-else-if="error">An error occurred</div>
+    </template>
+  </ApolloQuery>
 </template>
 
 <script>
-import { gql } from 'graphql-tag';
-import ProgramCard from '~/components/cards/ProgramCard.vue';
+import ProgramCard from '~/components/cards/ProgramCard.vue'
+import breadcrumb from '@/mixins/breadcrumb.js'
 
 export default {
   name: 'ProgramsPage',
+  mixins: [breadcrumb],
   data() {
     return {
-      name: 'programs',
-      component: {
-        name: ProgramCard,
-        propName: 'program'
-      }
-    };
+      propName: 'program',
+      component: ProgramCard,
+    }
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
     }
   },
   computed: {
-    navItems() {
-      return [{
-        text: this.$tc('global.spaces.home'),
-        exact: true,
-        to: { name: 'index' }
-      }, {
-        text: this.title,
-        exact: true,
-        to: { name: 'programs' }
-      }];
-    },
     title() {
-      return this.$tc('program._', 2);
-    }
+      return this.$tc('program._', 2)
+    },
   },
-  apollo: {
-    programs: gql`query {
-      programs {
-        code
-        name
-      }
-    }`
-  }
 }
 </script>

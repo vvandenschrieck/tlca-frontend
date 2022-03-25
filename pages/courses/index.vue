@@ -1,52 +1,43 @@
 <template>
-  <list-page :title="title" :name="name" :component="component" :items="courses" :nav-items="navItems" />
+  <ApolloQuery :query="require('../../gql/getCourses.gql')">
+    <template #default="{ result: { error, data }, isLoading }">
+      <div v-if="isLoading || data">
+        <list-page
+          :title="title"
+          :prop-name="propName"
+          :component="component"
+          :items="data && data.courses"
+          :nav-items="homespaceNavItems('course')"
+        />
+      </div>
+
+      <div v-else-if="error">An error occurred</div>
+    </template>
+  </ApolloQuery>
 </template>
 
 <script>
-import { gql } from 'graphql-tag';
-import CourseCard from '~/components/cards/CourseCard.vue';
+import CourseCard from '~/components/cards/CourseCard.vue'
+import breadcrumb from '@/mixins/breadcrumb.js'
 
 export default {
   name: 'CoursesPage',
+  mixins: [breadcrumb],
   data() {
     return {
-      name: 'courses',
-      component: {
-        name: CourseCard,
-        propName: 'course'
-      }
-    };
+      propName: 'course',
+      component: CourseCard,
+    }
   },
   head() {
     return {
-      title: this.title
+      title: this.title,
     }
   },
   computed: {
-    navItems() {
-      return [{
-        text: this.$tc('global.spaces.home'),
-        exact: true,
-        to: { name: 'index' }
-      }, {
-        text: this.title,
-        exact: true,
-        to: { name: 'courses' }
-      }];
-    },
     title() {
-      return this.$tc('course._', 2);
-    }
+      return this.$tc('course._', 2)
+    },
   },
-  apollo: {
-    courses: gql`query {
-      courses {
-        banner
-        code
-        name
-        type
-      }
-    }`
-  }
 }
 </script>
