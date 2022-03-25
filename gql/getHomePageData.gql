@@ -1,0 +1,20 @@
+query getHomePageData {
+    courses(limit: 4) {
+        banner
+        code
+        name
+        type
+    }
+
+    programs(limit: 4) {
+        code
+        name
+    }
+
+    partners(limit: 4) {
+        abbreviation
+        banner
+        code
+        name
+    }
+}

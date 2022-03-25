@@ -2,8 +2,18 @@
   <div v-if="items">
     <div v-if="items.length">
       <v-row justify="start" align="stretch">
-        <v-col v-for="item in pageItems" :key="item.code" cols="12" :md="12 / cardsPerPage" sm="4">
-          <component :is="component.name" v-bind="{ [component.propName]: item }" class="card" />
+        <v-col
+          v-for="item in pageItems"
+          :key="item.code"
+          cols="12"
+          :md="12 / cardsPerPage"
+          sm="4"
+        >
+          <component
+            :is="component"
+            v-bind="{ [propName]: item }"
+            class="card"
+          />
         </v-col>
       </v-row>
       <div v-if="showPagination" class="text-center mt-5">
@@ -11,7 +21,7 @@
       </div>
       <slot name="append"></slot>
     </div>
-    <div v-else align="center">{{ $t(`${name.slice(0, -1)}.no`) }}</div>
+    <div v-else align="center">{{ $t(`${name}.no`) }}</div>
   </div>
   <!-- Boilerplate when items is not loaded yet -->
   <div v-else>
@@ -29,42 +39,42 @@ export default {
   props: {
     component: {
       type: Object,
-      required: true
+      required: true,
     },
-    name: {
+    propName: {
       type: String,
-      required: true
+      required: true,
     },
     items: {
       type: Array,
-      default: undefined
+      default: undefined,
     },
     itemsPerPage: {
       type: Number,
-      default: 4
+      default: 4,
     },
     cardsPerPage: {
       type: Number,
-      default: 4
-    }
+      default: 4,
+    },
   },
   data() {
     return {
-      currentPage: 1
-    };
+      currentPage: 1,
+    }
   },
   computed: {
     pageItems() {
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      return this.items.slice(start, start + this.itemsPerPage);
+      const start = (this.currentPage - 1) * this.itemsPerPage
+      return this.items.slice(start, start + this.itemsPerPage)
     },
     length() {
-      return Math.ceil(this.items.length / this.itemsPerPage);
+      return Math.ceil(this.items.length / this.itemsPerPage)
     },
     showPagination() {
-      return this.items.length > this.itemsPerPage;
-    }
-  }
+      return this.items.length > this.itemsPerPage
+    },
+  },
 }
 </script>
 

@@ -1,10 +1,15 @@
 <template>
   <div>
-    <v-card flat color="grey lighten-3" class="my-2">
-      <v-breadcrumbs divider="/" :items="navItems" class="py-2"></v-breadcrumbs>
-    </v-card>
+    <bread-crumb :items="navItems" />
+
     <h2>{{ title }}</h2>
-    <card-list :name="name" :component="component" :items="items" :items-per-page="8" />
+
+    <card-list
+      :component="component"
+      :items="items"
+      :items-per-page="8"
+      :prop-name="propName"
+    />
   </div>
 </template>
 
@@ -14,24 +19,24 @@ export default {
   props: {
     component: {
       type: Object,
-      required: true
+      required: true,
     },
     items: {
       type: Array,
-      default: undefined
-    },
-    name: {
-      type: String,
-      required: true
+      default: undefined,
     },
     navItems: {
       type: Array,
-      required: true
+      required: true,
+    },
+    propName: {
+      type: String,
+      required: true,
     },
     title: {
       type: String,
-      required: true
-    }
-  }
+      required: true,
+    },
+  },
 }
 </script>

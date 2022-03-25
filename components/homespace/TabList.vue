@@ -1,8 +1,15 @@
 <template>
-  <card-list :name="name" :component="component" :items="items" :pagination="{ perPage: 4 }">
+  <card-list
+    :component="component"
+    :items="items"
+    :pagination="{ perPage: 4 }"
+    :prop-name="propName"
+  >
     <template #append>
       <div align="center" class="py-8">
-        <v-btn :to="{ name: name }">{{ $t(`homepage.see_all_${name}`) }}</v-btn>
+        <v-btn :to="{ name }">
+          {{ $t(`homepage.see_all_${name}`) }}
+        </v-btn>
       </div>
     </template>
   </card-list>
@@ -14,16 +21,21 @@ export default {
   props: {
     component: {
       type: Object,
-      required: true
-    },
-    name: {
-      type: String,
-      required: true
+      required: true,
     },
     items: {
       type: Array,
-      default: undefined
+      default: undefined,
     },
+    propName: {
+      type: String,
+      required: true,
+    },
+  },
+  computed: {
+    name() {
+      return this.propName + 's';
+    }
   }
 }
 </script>
