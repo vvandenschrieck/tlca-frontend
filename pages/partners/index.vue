@@ -1,35 +1,32 @@
 <template>
   <ApolloQuery :query="require('../../gql/getPartners.gql')">
-    <template #default="{ result: { loading, error, data } }">
-      <div v-if="loading">Loading...</div>
-
-      <div v-else-if="error">An error occurred</div>
-
-      <div v-else-if="data">
+    <template #default="{ result: { error, data }, isLoading }">
+      <div v-if="isLoading || data">
         <list-page
           :title="title"
-          :name="name"
+          :prop-name="propName"
           :component="component"
-          :items="data.partners"
-          :nav-items="navItems"
+          :items="data && data.partners"
+          :nav-items="homespaceNavItems('partner')"
         />
       </div>
+
+      <div v-else-if="error">An error occurred</div>
     </template>
   </ApolloQuery>
 </template>
 
 <script>
 import PartnerCard from '~/components/cards/PartnerCard.vue'
+import breadcrumb from '@/mixins/breadcrumb.js'
 
 export default {
   name: 'PartnersPage',
+  mixins: [breadcrumb],
   data() {
     return {
-      name: 'partners',
-      component: {
-        name: PartnerCard,
-        propName: 'partner',
-      },
+      propName: 'partner',
+      component: PartnerCard,
     }
   },
   head() {
@@ -38,20 +35,6 @@ export default {
     }
   },
   computed: {
-    navItems() {
-      return [
-        {
-          text: this.$tc('global.spaces.home'),
-          exact: true,
-          to: { name: 'index' },
-        },
-        {
-          text: this.title,
-          exact: true,
-          to: { name: 'partners' },
-        },
-      ]
-    },
     title() {
       return this.$tc('partner._', 2)
     },
