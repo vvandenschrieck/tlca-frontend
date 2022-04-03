@@ -2,12 +2,13 @@
   <ApolloQuery :query="require('../gql/getHomePageData.gql')">
     <template #default="{ result: { error, data }, isLoading }">
       <div v-if="isLoading || data">
-        <v-card flat color="grey lighten-2" class="mt-2">
+        <v-card flat color="grey lighten-3" class="mt-2">
           <v-card-title>{{ $t('homepage.welcome') }}</v-card-title>
           <v-card-text>
             <div v-html="$t('homepage.presentation')"></div>
           </v-card-text>
         </v-card>
+
         <v-tabs v-model="selectedPanel" centered show-arrows class="pt-5">
           <v-tab v-for="panel in panels" :key="panel.propName">
             {{ $tc(`${panel.propName}._`, 2) }}
