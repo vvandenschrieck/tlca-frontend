@@ -21,7 +21,7 @@
       </div>
       <slot name="append"></slot>
     </div>
-    <div v-else align="center">{{ $t(`${name}.no`) }}</div>
+    <div v-else align="center">{{ $t(`${propName}.no`) }}</div>
   </div>
   <!-- Boilerplate when items is not loaded yet -->
   <div v-else>
