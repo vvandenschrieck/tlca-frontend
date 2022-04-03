@@ -1,6 +1,8 @@
 <template>
   <div>
-    Dashboard
+    <h2>Dashboard</h2>
+
+    <p>{{ $auth.user }}</p>
   </div>
 </template>
 
