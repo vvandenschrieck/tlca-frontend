@@ -1,0 +1,6 @@
+query GetProgram($code: String!) {
+    program(code: $code) {
+        code
+        name
+    }
+}

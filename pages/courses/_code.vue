@@ -8,7 +8,7 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="course">
-        <bread-crumb :items="homespaceNavItems('course', $route.params.code)" />
+        <bread-crumb :items="homespaceNavItems('course', course.code)" />
 
         <h2>{{ course.name }}</h2>
 
@@ -40,7 +40,10 @@
                         right
                         :color="isInPast(date) ? 'grey' : undefined"
                       >
-                        <span slot="opposite" v-t="`course.schedule.${name}`"></span>
+                        <span
+                          slot="opposite"
+                          v-t="`course.schedule.${name}`"
+                        ></span>
                         {{ formatDateTimeFull(date) }}
                       </v-timeline-item>
                     </v-timeline>
