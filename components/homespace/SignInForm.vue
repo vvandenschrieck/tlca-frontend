@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" :persistent="formBusy" max-width="500" :fullscreen="$vuetify.breakpoint.xsOnly">
     <template #activator="{ on, attrs }">
-      <v-tooltip bottom open-delay="1000">
+      <v-tooltip bottom open-delay="500">
         <template #activator="{ on:tooltip }">
           <v-btn v-bind="attrs" icon v-on="{ ...on, ...tooltip }">
             <v-icon>mdi-login</v-icon>
