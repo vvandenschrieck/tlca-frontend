@@ -33,6 +33,7 @@
             "registrationsEnd": "Fin des inscriptions",
             "evaluationsEnd": "Fin des évaluations"
         },
+        "tags": "Tags",
         "type": {
             "project": "Projet",
             "training": "Formation",
@@ -52,6 +53,7 @@
             "no": "Pas de @.lower:global.description._"
         },
         "information": "Information",
+        "loading": "Chargement...",
         "powered_by": "Propulsé par",
         "spaces": {
             "home": "Accueil",
