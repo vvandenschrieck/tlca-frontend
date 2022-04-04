@@ -16,7 +16,7 @@
       </v-tooltip>
     </template>
     <v-card>
-      <v-form ref="form" class="mt-5" @submit.prevent="signIn()">
+      <v-form ref="form" @submit.prevent="signIn()">
         <v-card-title
           v-t="'authentication.sign_in'"
           class="text-h5 grey lighten-2"
