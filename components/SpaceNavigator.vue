@@ -16,7 +16,7 @@
         </v-list>
       </v-navigation-drawer>
       <v-list v-show="!miniVariant" width="calc(100% - 56px)">
-        <v-subheader inset>{{ $t(hoveredSpace.title) }}</v-subheader>
+        <v-subheader v-t="hoveredSpace.title" inset></v-subheader>
         <v-divider />
         <v-list-item v-for="(item, i) in hoveredSpace.sections" :key="i" :to="item.to">
           <v-list-item-content>
@@ -72,7 +72,7 @@ export default {
         title: 'global.spaces.manage',
         icon: 'mdi-view-dashboard',
         to: { name: 'manage' },
-        show: this.$auth.user,
+        show: this.$auth.user && this.$auth.user.roles.includes('manager'),
         sections: [{
           title: 'course._',
           to: { name: 'manage-courses' }
@@ -84,7 +84,7 @@ export default {
         title: 'global.spaces.teach',
         icon: 'mdi-human-male-board',
         to: { name: 'teach' },
-        show: this.$auth.user,
+        show: this.$auth.user && this.$auth.user.roles.includes('teacher'),
         sections: [{
           title: 'course._',
           to: { name: 'teach-courses' }
@@ -93,10 +93,25 @@ export default {
         title: 'global.spaces.learn',
         icon: 'mdi-school',
         to: { name: 'learn' },
-        show: this.$auth.user,
+        show: this.$auth.user && this.$auth.user.roles.includes('student'),
         sections: [{
           title: 'course._',
           to: { name: 'learn-courses' }
+        }]
+      }, {
+        title: 'global.spaces.admin',
+        icon: 'mdi-account-cog',
+        to: { name: 'admin' },
+        show: this.$auth.user && this.$auth.user.roles.includes('admin'),
+        sections: [{
+          title: 'course._',
+          to: { name: 'admin-courses' }
+        }, {
+          title: 'competency._',
+          to: { name: 'admin-competencies' }
+        }, {
+          title: 'partner._',
+          to: { name: 'admin-partners' }
         }]
       }];
       return spaces.filter(s => s.show);

@@ -56,6 +56,7 @@
         "loading": "Chargement...",
         "powered_by": "Propulsé par",
         "spaces": {
+            "admin": "Admin",
             "home": "Accueil",
             "learn": "Apprendre",
             "manage": "Gérer",
