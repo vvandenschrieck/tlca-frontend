@@ -1,6 +1,6 @@
 export default {
   methods: {
-    infoItems(section, source, fields) {
+    generateInfoItems(section, source, fields) {
       const items = []
       for (const [field, icon] of Object.entries(fields)) {
         const value = source[field]

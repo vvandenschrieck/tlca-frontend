@@ -1,6 +1,6 @@
 <template>
   <ApolloQuery
-    :query="require('../../gql/getCourse.gql')"
+    :query="query"
     :update="updateCourse"
     :variables="{ code: $route.params.code }"
   >
@@ -62,9 +62,31 @@
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
             <info-panel
+              v-if="$auth.user"
+              :title="$t('course.registration._')"
+              icon="mdi-book"
+              :items="registrationItems(course)"
+              class="mb-5"
+            >
+              <div v-if="$auth.user" class="text-center">
+                <v-btn v-if="canRegister(course)" small color="success">
+                  <v-icon left>mdi-plus</v-icon>
+                  {{ $t('course.register') }}
+                </v-btn>
+                <v-btn
+                  v-else-if="canRequestInvite(course)"
+                  small
+                  color="success"
+                >
+                  <v-icon left>mdi-email-plus</v-icon>
+                  {{ $t('course.request_invite') }}
+                </v-btn>
+              </div>
+            </info-panel>
+            <info-panel
               :title="$t('global.information')"
               icon="mdi-information"
-              :items="course.infoItems"
+              :items="infoItems(course)"
             />
           </v-col>
         </v-row>
@@ -87,14 +109,51 @@ export default {
   data() {
     return {
       currentTab: 'competencies',
-      infoItemFields: {
-        field: 'mdi-school',
-        language: 'mdi-message',
-        tags: 'mdi-tag-multiple',
-      },
+      query: this.$auth.user
+        ? require('../../gql/getCourseAuth.gql')
+        : require('../../gql/getCourse.gql'),
     }
   },
   methods: {
+    canRegister(course) {
+      return (
+        course.visibility === 'PUBLIC' &&
+        this.$auth.user &&
+        !(course.isCoordinator || course.isTeacher || course.isRegistered)
+      )
+    },
+    canRequestInvite(course) {
+      return (
+        course.visibility === 'INVITE_ONLY' &&
+        this.$auth.user &&
+        !(
+          course.isCoordinator ||
+          course.isTeacher ||
+          course.isRegistered ||
+          course.hasRequestedInvitation
+        )
+      )
+    },
+    infoItems(course) {
+      const infoItemFields = {
+        field: 'mdi-school',
+        language: 'mdi-message',
+        tags: 'mdi-tag-multiple',
+      }
+      return this.generateInfoItems('course', course, infoItemFields)
+    },
+    registrationItems(course) {
+      const items = []
+      if (this.$auth.user) {
+        const visibility = course.visibility.toLowerCase()
+        items.push({
+          icon: 'mdi-eye',
+          text: this.$t(`course.registration.${visibility}`),
+          tooltip: this.$t('course.visibility'),
+        })
+      }
+      return items
+    },
     schedule(course) {
       return course.schedule
         .map(({ name, date }) => ({ name, date: DateTime.fromISO(date) }))
@@ -102,7 +161,6 @@ export default {
     },
     updateCourse(data) {
       const course = data.course
-      course.infoItems = this.infoItems('course', course, this.infoItemFields)
       if (course.schedule) {
         course.schedule = this.schedule(course)
       }
