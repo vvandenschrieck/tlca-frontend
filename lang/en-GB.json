@@ -25,6 +25,13 @@
         "field": "Field",
         "language": "Language",
         "no": "There are no courses available for now.",
+        "register": "Register",
+        "registration": {
+            "_": "Registration",
+            "invite_only": "By invite only",
+            "public": "Public"
+        },
+        "request_invite": "Request an invite",
         "schedule": {
             "_": "Schedule",
             "start": "Start date",
@@ -38,7 +45,8 @@
             "project": "Project",
             "training": "Training",
             "ucourse": "µCourse"
-        }
+        },
+        "visibility": "Visibility"
     },
     "error": {
         "_": "Error",

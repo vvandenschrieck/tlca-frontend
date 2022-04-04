@@ -13,6 +13,10 @@ query GetCourse($code: String!) {
         }
         description
         field
+        hasRequestedInvitation
+        isCoordinator
+        isRegistered
+        isTeacher
         language
         name
         schedule {

@@ -25,6 +25,13 @@
         "field": "Domaine",
         "language": "Langue",
         "no": "Il n'y a pas de cours disponibles pour le moment.",
+        "register": "S'inscrire",
+        "registration": {
+            "_": "Inscription",
+            "invite_only": "Sur invitation uniquement",
+            "public": "Public"
+        },
+        "request_invite": "Demander une invitation",
         "schedule": {
             "_": "Calendrier",
             "start": "Date de début",
@@ -38,11 +45,15 @@
             "project": "Projet",
             "training": "Formation",
             "ucourse": "µCours"
-        }
+        },
+        "visibility": "Visibilité"
     },
     "error": {
         "_": "Erreur",
-        "invalid_credentials": "Mauvais identifiants"
+        "EXISTING_EMAIL_ADDRESS": "Un compte avec l'adresse e-mail spécifiée existe déjà",
+        "INVALID_CREDENTIALS": "Mauvais identifiants",
+        "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
+        "MISSING_FIELDS": "Certains champs obligatoires sont manquants"
     },
     "general": {
         "cancel": "Annuler"

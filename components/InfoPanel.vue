@@ -22,6 +22,7 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <slot></slot>
     </v-card-text>
   </v-card>
 </template>
