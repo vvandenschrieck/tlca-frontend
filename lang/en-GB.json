@@ -59,6 +59,7 @@
         "loading": "Loading...",
         "powered_by": "Powered by",
         "spaces": {
+            "admin": "Admin",
             "home": "Home",
             "learn": "Learn",
             "manage": "Manage",
