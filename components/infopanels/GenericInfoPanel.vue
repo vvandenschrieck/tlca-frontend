@@ -10,9 +10,9 @@
           <v-list-item-icon class="ma-0">
             <v-tooltip left open-delay="500">
               <template #activator="{ on, attrs }">
-                <v-icon v-bind="attrs" size="16" v-on="on">{{
-                  item.icon
-                }}</v-icon>
+                <v-icon v-bind="attrs" size="16" v-on="on">
+                  {{ item.icon }}
+                </v-icon>
               </template>
               <span>{{ item.tooltip }}</span>
             </v-tooltip>
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'InfoPanel',
+  name: 'GenericInfoPanel',
   props: {
     title: {
       type: String,
