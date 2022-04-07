@@ -1,8 +1,8 @@
 <template>
   <ApolloQuery
-    :query="query"
+    :query="(gql) => gql(query.query)"
     :update="updateCourse"
-    :variables="{ code: $route.params.code }"
+    :variables="query.variables"
   >
     <template #default="{ result: { error, data: course }, isLoading }">
       <div v-if="isLoading" v-t="'global.loading'"></div>
@@ -99,6 +99,7 @@
 
 <script>
 import { DateTime } from 'luxon'
+import { query } from 'gql-query-builder'
 import breadcrumb from '@/mixins/breadcrumb.js'
 import datetime from '@/mixins/datetime.js'
 import infopanel from '@/mixins/infopanel.js'
@@ -109,10 +110,56 @@ export default {
   data() {
     return {
       currentTab: 'competencies',
-      query: this.$auth.user
-        ? require('../../gql/getCourseAuth.gql')
-        : require('../../gql/getCourse.gql'),
     }
+  },
+  computed: {
+    query() {
+      const fields = [
+        'code',
+        'colophon',
+        {
+          competencies: [
+            {
+              competency: ['code', 'description', 'name'],
+            },
+            'category',
+            'subcategory',
+          ],
+        },
+        'description',
+        'field',
+        'language',
+        'name',
+        {
+          schedule: ['name', 'date'],
+        },
+        'tags',
+        'type',
+        'visibility',
+      ]
+
+      // Add fields to the query depending on the roles
+      const user = this.$auth.user;
+      if (user) {
+        fields.push('hasRequestedInvitation')
+
+        if (user.hasAnyRoles('student')) {
+          fields.push('isRegistered', { registration: ['date'] })
+        }
+
+        if (user.hasAnyRoles('teacher')) {
+          fields.push('isCoordinator', 'isTeacher')
+        }
+      }
+
+      return query({
+        operation: 'course',
+        variables: {
+          code: { value: this.$route.params.code, required: true },
+        },
+        fields,
+      })
+    },
   },
   methods: {
     canRegister(course) {
@@ -144,7 +191,8 @@ export default {
     },
     registrationItems(course) {
       const items = []
-      if (this.$auth.user) {
+      const user = this.$auth.user
+      if (user) {
         const visibility = course.visibility.toLowerCase()
         items.push({
           icon: 'mdi-eye',
