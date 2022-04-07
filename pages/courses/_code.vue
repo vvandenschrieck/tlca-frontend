@@ -1,7 +1,7 @@
 <template>
   <ApolloQuery
     :query="(gql) => gql(query.query)"
-    :update="updateCourse"
+    :update="(data) => data.course"
     :variables="query.variables"
   >
     <template #default="{ result: { error, data: course }, isLoading }">
@@ -32,21 +32,7 @@
                   </v-tab-item>
 
                   <v-tab-item v-if="course.schedule">
-                    <v-timeline>
-                      <v-timeline-item
-                        v-for="{ name, date } in course.schedule"
-                        :key="name"
-                        small
-                        right
-                        :color="isInPast(date) ? 'grey' : undefined"
-                      >
-                        <span
-                          slot="opposite"
-                          v-t="`course.schedule.${name}`"
-                        ></span>
-                        {{ formatDateTimeFull(date) }}
-                      </v-timeline-item>
-                    </v-timeline>
+                    <course-schedule :items="course.schedule" />
                   </v-tab-item>
 
                   <v-tab-item v-if="course.colophon">
@@ -61,33 +47,13 @@
             md="3"
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
-            <info-panel
+            <registration-info-panel
               v-if="$auth.user"
-              :title="$t('course.registration._')"
-              icon="mdi-book"
-              :items="registrationItems(course)"
+              :course="course"
               class="mb-5"
-            >
-              <div v-if="$auth.user" class="text-center">
-                <v-btn v-if="canRegister(course)" small color="success">
-                  <v-icon left>mdi-plus</v-icon>
-                  {{ $t('course.register') }}
-                </v-btn>
-                <v-btn
-                  v-else-if="canRequestInvite(course)"
-                  small
-                  color="success"
-                >
-                  <v-icon left>mdi-email-plus</v-icon>
-                  {{ $t('course.request_invite') }}
-                </v-btn>
-              </div>
-            </info-panel>
-            <info-panel
-              :title="$t('global.information')"
-              icon="mdi-information"
-              :items="infoItems(course)"
             />
+
+            <course-info-panel :course="course" />
           </v-col>
         </v-row>
       </div>
@@ -98,15 +64,12 @@
 </template>
 
 <script>
-import { DateTime } from 'luxon'
 import { query } from 'gql-query-builder'
 import breadcrumb from '@/mixins/breadcrumb.js'
-import datetime from '@/mixins/datetime.js'
-import infopanel from '@/mixins/infopanel.js'
 
 export default {
   name: 'CoursePage',
-  mixins: [breadcrumb, datetime, infopanel],
+  mixins: [breadcrumb],
   data() {
     return {
       currentTab: 'competencies',
@@ -139,7 +102,7 @@ export default {
       ]
 
       // Add fields to the query depending on the roles
-      const user = this.$auth.user;
+      const user = this.$auth.user
       if (user) {
         fields.push('hasRequestedInvitation')
 
@@ -159,60 +122,6 @@ export default {
         },
         fields,
       })
-    },
-  },
-  methods: {
-    canRegister(course) {
-      return (
-        course.visibility === 'PUBLIC' &&
-        this.$auth.user &&
-        !(course.isCoordinator || course.isTeacher || course.isRegistered)
-      )
-    },
-    canRequestInvite(course) {
-      return (
-        course.visibility === 'INVITE_ONLY' &&
-        this.$auth.user &&
-        !(
-          course.isCoordinator ||
-          course.isTeacher ||
-          course.isRegistered ||
-          course.hasRequestedInvitation
-        )
-      )
-    },
-    infoItems(course) {
-      const infoItemFields = {
-        field: 'mdi-school',
-        language: 'mdi-message',
-        tags: 'mdi-tag-multiple',
-      }
-      return this.generateInfoItems('course', course, infoItemFields)
-    },
-    registrationItems(course) {
-      const items = []
-      const user = this.$auth.user
-      if (user) {
-        const visibility = course.visibility.toLowerCase()
-        items.push({
-          icon: 'mdi-eye',
-          text: this.$t(`course.registration.${visibility}`),
-          tooltip: this.$t('course.visibility'),
-        })
-      }
-      return items
-    },
-    schedule(course) {
-      return course.schedule
-        .map(({ name, date }) => ({ name, date: DateTime.fromISO(date) }))
-        .sort((a, b) => a.date - b.date)
-    },
-    updateCourse(data) {
-      const course = data.course
-      if (course.schedule) {
-        course.schedule = this.schedule(course)
-      }
-      return course
     },
   },
 }

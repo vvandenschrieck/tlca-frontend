@@ -27,6 +27,7 @@ export default {
       '~/components/cards',
       '~/components/courses',
       '~/components/homespace',
+      '~/components/infopanels',
     ],
   },
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/vuetify'],
