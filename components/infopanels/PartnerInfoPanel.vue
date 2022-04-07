@@ -1,0 +1,32 @@
+<template>
+  <generic-info-panel
+    :title="$t('global.information')"
+    icon="mdi-information"
+    :items="items"
+  />
+</template>
+
+<script>
+import infopanel from '@/mixins/infopanel.js'
+
+export default {
+  name: 'PartnerInfoPanel',
+  mixins: [infopanel],
+  props: {
+    partner: {
+      type: Object,
+      required: true,
+    },
+  },
+  computed: {
+    items() {
+      const infoItemFields = {
+        website: 'mdi-web',
+        abbreviation: 'mdi-domain',
+        tags: 'mdi-tag-multiple',
+      }
+      return this.generateInfoItems('partner', this.partner, infoItemFields)
+    },
+  },
+}
+</script>

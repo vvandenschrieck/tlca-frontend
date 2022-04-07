@@ -1,14 +1,18 @@
 <template>
   <ApolloQuery
     :query="require('../../gql/getPartner.gql')"
-    :update="updatePartner"
+    :update="(data) => data.partner"
     :variables="{ code: $route.params.code }"
   >
     <template #default="{ result: { error, data: partner }, isLoading }">
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="partner">
-        <bread-crumb :items="homespaceNavItems('partner', partner.abbreviation || partner.name)" />
+        <bread-crumb
+          :items="
+            homespaceNavItems('partner', partner.abbreviation || partner.name)
+          "
+        />
 
         <h2>{{ partner.name }}</h2>
 
@@ -33,17 +37,10 @@
             md="3"
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
-            <info-panel
-              :title="$t('global.information')"
-              icon="mdi-information"
-              :items="partner.infoItems"
-            />
-            <v-card flat class="mt-6 px-2">
-              <v-img
-                v-if="partner.logo"
-                :src="partner.logo"
-                contain
-              />
+            <partner-info-panel :partner="partner" />
+
+            <v-card flat class="mt-5 px-4">
+              <v-img v-if="partner.logo" :src="partner.logo" contain />
             </v-card>
           </v-col>
         </v-row>
@@ -57,28 +54,15 @@
 <script>
 import CourseCard from '~/components/cards/CourseCard.vue'
 import breadcrumb from '@/mixins/breadcrumb.js'
-import infopanel from '@/mixins/infopanel.js'
 
 export default {
   name: 'PartnerPage',
-  mixins: [breadcrumb, infopanel],
+  mixins: [breadcrumb],
   data() {
     return {
       component: CourseCard,
-      infoItemFields: {
-        website: 'mdi-web',
-        abbreviation: 'mdi-domain',
-        tags: 'mdi-tag-multiple',
-      },
-      propName: 'course'
+      propName: 'course',
     }
-  },
-  methods: {
-    updatePartner(data) {
-      const partner = data.partner
-      partner.infoItems = this.infoItems('partner', partner, this.infoItemFields)
-      return partner
-    },
   },
 }
 </script>
