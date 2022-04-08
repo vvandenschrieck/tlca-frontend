@@ -26,11 +26,6 @@
         "language": "Langue",
         "no": "Il n'y a pas de cours disponibles pour le moment.",
         "register": "S'inscrire",
-        "registration": {
-            "_": "Inscription",
-            "invite_only": "Sur invitation uniquement",
-            "public": "Public"
-        },
         "request_invite": "Demander une invitation",
         "schedule": {
             "_": "Calendrier",
@@ -46,7 +41,12 @@
             "training": "Formation",
             "ucourse": "µCours"
         },
-        "visibility": "Visibilité"
+        "visibility": {
+            "_": "Visibilité",
+            "invite_only": "Sur invitation uniquement",
+            "private": "Privé",
+            "public": "Public"
+        }
     },
     "error": {
         "_": "Erreur",
@@ -90,6 +90,10 @@
     "program": {
         "_": "Programme | Programmes",
         "no": "Il n'y a pas de programmes disponibles pour le moment."
+    },
+    "registration": {
+        "_": "Inscription",
+        "date": "Date d'inscription"
     },
     "user": {
         "email": "E-mail",

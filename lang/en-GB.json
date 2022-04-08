@@ -26,11 +26,6 @@
         "language": "Language",
         "no": "There are no courses available for now.",
         "register": "Register",
-        "registration": {
-            "_": "Registration",
-            "invite_only": "By invite only",
-            "public": "Public"
-        },
         "request_invite": "Request an invite",
         "schedule": {
             "_": "Schedule",
@@ -46,7 +41,12 @@
             "training": "Training",
             "ucourse": "µCourse"
         },
-        "visibility": "Visibility"
+        "visibility": {
+            "_": "Visibility",
+            "invite_only": "By invite only",
+            "private": "Private",
+            "public": "Public"
+        }
     },
     "error": {
         "_": "Error",
@@ -90,6 +90,10 @@
     "program": {
         "_": "Program | Programs",
         "no": "There are no programs available for now."
+    },
+    "registration": {
+        "_": "Registration",
+        "date": "Registration date"
     },
     "user": {
         "email": "Email",

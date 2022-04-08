@@ -1,6 +1,6 @@
 <template>
   <generic-info-panel
-    :title="$t('course.registration._')"
+    :title="$t('registration._')"
     icon="mdi-book"
     :items="items"
   >
@@ -21,8 +21,11 @@
 </template>
 
 <script>
+import datetime from '@/mixins/datetime.js'
+
 export default {
   name: 'RegistrationInfoPanel',
+  mixins: [datetime],
   props: {
     course: {
       type: Object,
@@ -58,8 +61,15 @@ export default {
       const visibility = this.course.visibility.toLowerCase()
       items.push({
         icon: 'mdi-eye',
-        text: this.$t(`course.registration.${visibility}`),
-        tooltip: this.$t('course.visibility'),
+        text: this.$t(`course.visibility.${visibility}`),
+        tooltip: this.$t('course.visibility._'),
+      })
+
+      const registrationDate = this.course.registration?.date
+      items.push({
+        icon: 'mdi-calendar',
+        text: registrationDate ? this.formatDateTimeFull(registrationDate) : 'non',
+        tooltip: this.$t('registration.date'),
       })
       return items
     },
