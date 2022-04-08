@@ -12,6 +12,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
+        <error-displayer />
         <Nuxt />
       </v-container>
     </v-main>
@@ -30,16 +31,16 @@ export default {
   name: 'DefaultLayout',
   data() {
     return {
-      title: 'TLCA'
-    };
-  }
+      title: 'TLCA',
+    }
+  },
 }
 </script>
 
 <style>
 h2 {
   margin-top: 0.8rem;
-  margin-bottom: 1.0rem;
+  margin-bottom: 1rem;
 }
 h3 {
   margin-top: 0.6rem;
