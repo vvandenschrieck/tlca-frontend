@@ -20,7 +20,7 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   css: ['@mdi/font/css/materialdesignicons.css'],
-  plugins: [],
+  plugins: ['~/plugins/vue-rx.js', '~/plugins/error-manager.js'],
   components: {
     dirs: [
       '~/components',
@@ -34,12 +34,7 @@ export default {
   modules: ['@nuxtjs/apollo', '@nuxtjs/auth-next', '@nuxtjs/i18n'],
   apollo: {
     clientConfigs: {
-      default: {
-        httpEndpoint:
-          process.env.NODE_ENV !== 'production'
-            ? 'http://localhost:4001'
-            : 'https://api.tlca.eu',
-      },
+      default: '~/apollo.config.js',
     },
   },
   auth: {
@@ -78,7 +73,7 @@ export default {
   },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
-    defaultAssets: false
+    defaultAssets: false,
   },
   build: {},
 }
