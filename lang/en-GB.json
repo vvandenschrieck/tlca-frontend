@@ -53,6 +53,7 @@
         "EXISTING_EMAIL_ADDRESS": "An account with the specified email address already exists",
         "INVALID_CREDENTIALS": "Invalid credentials",
         "INVALID_EMAIL_ADDRESS": "Invalid email address",
+        "INVITE_REQUEST_FAILED": "Invite request failed",
         "MISSING_FIELDS": "Some mandatory fields are missing"
     },
     "general": {
@@ -93,7 +94,14 @@
     },
     "registration": {
         "_": "Registration",
-        "date": "Registration date"
+        "date": "Registration date",
+        "invite_request_sent": "Invite request sent",
+        "invite_received": "Invite received",
+        "registered_on": "Registered on {date}",
+        "status": "Registration status"
+    },
+    "student": {
+        "not_registered_yet": "Not registered yet"
     },
     "user": {
         "email": "Email",

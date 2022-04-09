@@ -104,10 +104,10 @@ export default {
       // Add fields to the query depending on the roles
       const user = this.$auth.user
       if (user) {
-        fields.push('hasRequestedInvitation')
+        fields.push('hasRequestedInvite')
 
         if (user.hasAnyRoles('student')) {
-          fields.push('isRegistered', { registration: ['date'] })
+          fields.push('isRegistered', { registration: ['date', 'invite'] })
         }
 
         if (user.hasAnyRoles('teacher')) {
@@ -118,9 +118,11 @@ export default {
       return query({
         operation: 'course',
         variables: {
-          code: { value: this.$route.params.code, required: true },
+          code: { value: this.$route.params.code, type: 'ID', required: true },
         },
         fields,
+      }, null, {
+        operationName: 'GetCourse'
       })
     },
   },
