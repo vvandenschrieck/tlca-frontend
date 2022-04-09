@@ -53,6 +53,7 @@
         "EXISTING_EMAIL_ADDRESS": "Un compte avec l'adresse e-mail spécifiée existe déjà",
         "INVALID_CREDENTIALS": "Mauvais identifiants",
         "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
+        "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
         "MISSING_FIELDS": "Certains champs obligatoires sont manquants"
     },
     "general": {
@@ -93,7 +94,14 @@
     },
     "registration": {
         "_": "Inscription",
-        "date": "Date d'inscription"
+        "date": "Date d'inscription",
+        "invite_request_sent": "Demande d'invitation envoyée",
+        "invite_received": "Invitation reçue",
+        "registered_on": "Inscrit(e) le {date}",
+        "status": "État de l'inscription"
+    },
+    "student": {
+        "not_registered_yet": "Pas encore inscrit"
     },
     "user": {
         "email": "E-mail",

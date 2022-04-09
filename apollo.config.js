@@ -4,8 +4,13 @@ import { onError } from 'apollo-link-error'
 const cache = new InMemoryCache({
   dataIdFromObject: (object) => {
     switch (object.__typename) {
+      case 'Competency':
       case 'Course':
-        return `Course:${object.code}`
+      case 'Partner':
+      case 'Program':
+        return `${object.__typename}:${object.code}`
+      case 'User':
+        return `User:${object.username}`
       default:
         return defaultDataIdFromObject(object)
     }
