@@ -1,12 +1,13 @@
 <template>
   <v-snackbar
+    v-if="message"
     v-stream:input="input$"
     :value="snackbar"
     :timeout="timeout"
-    color="error"
+    :color="message.type"
     top
   >
-    {{ message }}
+    {{ message.text }}
     <template #action="{ attrs }">
       <v-btn v-stream:click="close$" icon v-bind="attrs">
         <v-icon>mdi-close</v-icon>
@@ -27,7 +28,7 @@ import {
 } from 'rxjs/operators'
 
 export default {
-  name: 'ErrorDisplayer',
+  name: 'NotificationDisplayer',
   data() {
     return {
       timeout: 2000,
@@ -35,7 +36,7 @@ export default {
   },
   domStreams: ['close$', 'input$'],
   mounted() {
-    this.$errorManager.setHandler(this.globalErrors)
+    this.$notificationManager.setHandler(this.globalErrors)
   },
   subscriptions() {
     const snackbarClose$ = merge(

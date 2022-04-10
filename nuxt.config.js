@@ -20,7 +20,7 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   css: ['@mdi/font/css/materialdesignicons.css'],
-  plugins: ['~/plugins/vue-rx.js', '~/plugins/error-manager.js'],
+  plugins: ['~/plugins/vue-rx.js', '~/plugins/notification-manager.js'],
   components: {
     dirs: [
       '~/components',
