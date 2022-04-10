@@ -89,6 +89,11 @@ export default {
             'subcategory',
           ],
         },
+        {
+          coordinator: [
+            'id'
+          ]
+        },
         'description',
         'field',
         'language',
@@ -102,16 +107,15 @@ export default {
       ]
 
       // Add fields to the query depending on the roles
-      const user = this.$auth.user
-      if (user) {
-        fields.push('hasRequestedInvite')
+      if (this.$auth.user) {
+        fields.push('hasRequestedInvite @client', { registration: ['date', 'invite'] })
 
-        if (user.hasAnyRoles('student')) {
-          fields.push('isRegistered', { registration: ['date', 'invite'] })
+        if (this.$auth.user.hasAnyRoles('student')) {
+          fields.push('isRegistered @client')
         }
 
-        if (user.hasAnyRoles('teacher')) {
-          fields.push('isCoordinator', 'isTeacher')
+        if (this.$auth.user.hasAnyRoles('teacher')) {
+          fields.push('isCoordinator @client', 'isTeacher @client')
         }
       }
 
