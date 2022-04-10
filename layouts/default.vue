@@ -12,7 +12,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
-        <error-displayer />
+        <notification-displayer />
         <Nuxt />
       </v-container>
     </v-main>
