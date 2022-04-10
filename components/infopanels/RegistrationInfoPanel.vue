@@ -45,7 +45,7 @@ export default {
     canRegister() {
       return (
         this.course.visibility === 'PUBLIC' &&
-        this.$auth.user &&
+        this.$auth.user?.hasAnyRoles('student') &&
         !(
           this.course.isCoordinator ||
           this.course.isTeacher ||
@@ -100,7 +100,7 @@ export default {
     requestInvite() {
       const fields = [
         'code',
-        'hasRequestedInvite',
+        'hasRequestedInvite @client',
         {
           registration: ['date', 'invite'],
         },
