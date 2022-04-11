@@ -24,6 +24,13 @@
         "description": "@:global.description._",
         "field": "Domaine",
         "language": "Langue",
+        "load": {
+            "_": "Charge",
+            "ects": "Crédits ECTS",
+            "in_credits": "{credits} ECTS",
+            "in_hours_per_week": "{hoursPerWeek} h/semaine",
+            "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
+        },
         "no": "Il n'y a pas de cours disponibles pour le moment.",
         "register": "S'inscrire",
         "request_invite": "Demander une invitation",
@@ -35,7 +42,12 @@
             "registrationsEnd": "Fin des inscriptions",
             "evaluationsEnd": "Fin des évaluations"
         },
+        "span": {
+            "_": "Durée",
+            "in_weeks": "une semaine | {weeks} semaines"
+        },
         "tags": "Tags",
+        "team": "Équipe",
         "type": {
             "project": "Projet",
             "training": "Formation",
