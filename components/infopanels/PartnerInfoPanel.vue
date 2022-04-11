@@ -7,11 +7,8 @@
 </template>
 
 <script>
-import infopanel from '@/mixins/infopanel.js'
-
 export default {
   name: 'PartnerInfoPanel',
-  mixins: [infopanel],
   props: {
     partner: {
       type: Object,

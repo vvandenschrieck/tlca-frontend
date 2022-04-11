@@ -1,6 +1,6 @@
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
-import { gql } from 'graphql-tag'
+// import { gql } from 'graphql-tag'
 
 const cache = new InMemoryCache({
   dataIdFromObject: (object) => {
@@ -19,67 +19,20 @@ const cache = new InMemoryCache({
 })
 
 export default (context) => {
-  const isAuthenticated = function () {
-    return !!context.$auth?.user?.id
-  }
-
   const promptErrorMessageLink = onError((err) => {
     context.$notificationManager.displayErrorMessage(err)
   })
 
-  const typeDefs = gql`
-    extend type Course {
-      hasRequestedInvite: Boolean
-      isCoordinator: Boolean
-      isRegistered: Boolean
-      isTeacher: Boolean
-    }
-  `
+  // const typeDefs = gql`
+  // `
 
-  const resolvers = {
-    Course: {
-      hasRequestedInvite(course) {
-        if (!isAuthenticated()) {
-          return null
-        }
-
-        return (
-          !!course.registration && course.registration.invite === 'REQUESTED'
-        )
-      },
-      isCoordinator(course) {
-        if (!isAuthenticated()) {
-          return null
-        }
-
-        return (
-          course.coordinator && course.coordinator.id === context.$auth.user.id
-        )
-      },
-      isRegistered(course) {
-        if (!isAuthenticated()) {
-          return null
-        }
-
-        return !!course.registration && !course.registration.invite
-      },
-      isTeacher(course) {
-        if (!isAuthenticated()) {
-          return null
-        }
-
-        return (
-          course.teachers &&
-          course.teachers.some((t) => t.id === context.$auth.user.id)
-        )
-      },
-    },
-  }
+  // const resolvers = {
+  // }
 
   return {
     cache,
-    typeDefs,
-    resolvers,
+    // typeDefs,
+    // resolvers,
     httpEndpoint:
       process.env.NODE_ENV !== 'production'
         ? 'http://localhost:4001'
