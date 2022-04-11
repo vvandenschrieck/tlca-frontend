@@ -18,7 +18,9 @@
             </v-tooltip>
           </v-list-item-icon>
           <v-list-item-content class="py-0">
-            <v-list-item-title>{{ item.text }}</v-list-item-title>
+            <v-list-item-title class="content">
+              {{ item.text }}
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -50,5 +52,8 @@ export default {
 <style scoped>
 .item {
   min-height: 10px;
+}
+.content {
+  white-space: inherit;
 }
 </style>

@@ -90,25 +90,35 @@ export default {
           ],
         },
         {
-          coordinator: [
-            'id'
-          ]
+          coordinator: ['id'],
         },
         'description',
         'field',
         'language',
+        {
+          load: ['ects', 'practice', 'theory', 'type', 'weekload'],
+        },
         'name',
+        {
+          partners: ['abbreviation', 'name'],
+        },
         {
           schedule: ['name', 'date'],
         },
+        'span',
         'tags',
+        {
+          team: ['displayName', 'id'],
+        },
         'type',
         'visibility',
       ]
 
       // Add fields to the query depending on the roles
       if (this.$auth.user) {
-        fields.push('hasRequestedInvite @client', { registration: ['date', 'invite'] })
+        fields.push('hasRequestedInvite @client', {
+          registration: ['date', 'invite'],
+        })
 
         if (this.$auth.user.hasAnyRoles('student')) {
           fields.push('isRegistered @client')
@@ -119,15 +129,23 @@ export default {
         }
       }
 
-      return query({
-        operation: 'course',
-        variables: {
-          code: { value: this.$route.params.code, type: 'ID', required: true },
+      return query(
+        {
+          operation: 'course',
+          variables: {
+            code: {
+              value: this.$route.params.code,
+              type: 'ID',
+              required: true,
+            },
+          },
+          fields,
         },
-        fields,
-      }, null, {
-        operationName: 'GetCourse'
-      })
+        null,
+        {
+          operationName: 'GetCourse',
+        }
+      )
     },
   },
 }

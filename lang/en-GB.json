@@ -24,6 +24,13 @@
         "description": "@:global.description._",
         "field": "Field",
         "language": "Language",
+        "load": {
+            "_": "Load",
+            "ects": "ECTS credits",
+            "in_credits": "{credits} ECTS",
+            "in_hours_per_week": "{hoursPerWeek} h/week",
+            "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
+        },
         "no": "There are no courses available for now.",
         "register": "Register",
         "request_invite": "Request an invite",
@@ -35,7 +42,12 @@
             "registrationsEnd": "End of registrations",
             "evaluationsEnd": "End of evaluations"
         },
+        "span": {
+            "_": "Span",
+            "in_weeks": "one week | {weeks} weeks"
+        },
         "tags": "Tags",
+        "team": "Team",
         "type": {
             "project": "Project",
             "training": "Training",

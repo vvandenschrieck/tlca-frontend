@@ -11,7 +11,7 @@ const cache = new InMemoryCache({
       case 'Program':
         return `${object.__typename}:${object.code}`
       case 'User':
-        return `User:${object.username}`
+        return `User:${object.id}`
       default:
         return defaultDataIdFromObject(object)
     }
