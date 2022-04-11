@@ -117,6 +117,7 @@
     },
     "success": {
         "_": "Succès",
+        "REGISTERED": "Inscrit(e) avec succès !",
         "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
     },
     "user": {

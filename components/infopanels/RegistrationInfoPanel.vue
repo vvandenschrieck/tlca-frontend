@@ -6,10 +6,18 @@
   >
     <div v-if="$auth.user" class="text-center">
       <!-- Registration button -->
-      <v-btn v-if="canRegister" small color="success">
-        <v-icon left>mdi-plus</v-icon>
-        <span v-t="'course.register'"></span>
-      </v-btn>
+      <ApolloMutation
+        :mutation="(gql) => gql(register.query)"
+        :variables="register.variables"
+        @done="registered"
+      >
+        <template #default="{ mutate, loading }">
+          <v-btn v-if="canRegister" small color="success" :loading="loading" @click="mutate()">
+            <v-icon left>mdi-plus</v-icon>
+            <span v-t="'course.register'"></span>
+          </v-btn>
+        </template>
+      </ApolloMutation>
 
       <!-- Invite request button -->
       <ApolloMutation
@@ -97,6 +105,32 @@ export default {
 
       return items
     },
+    register() {
+      const fields = [
+        'code',
+        'isRegistered',
+        {
+          // TODO: remove the 'invite' field when moving to Apollo client 3
+          // it has been queried now to be sure that the query on the course
+          // page gets refreshed correctly when the mutation is done
+          registration: ['date', 'invite'],
+        },
+      ]
+
+      return mutation(
+        {
+          operation: 'register',
+          variables: {
+            code: { value: this.course.code, type: 'ID', required: true },
+          },
+          fields,
+        },
+        null,
+        {
+          operationName: 'Register',
+        }
+      )
+    },
     requestInvite() {
       const fields = [
         'code',
@@ -124,6 +158,9 @@ export default {
   methods: {
     inviteRequestSent() {
       this.$notificationManager.displaySuccessMessage(this.$t('success.REQUEST_INVITE_SENT'))
+    },
+    registered() {
+      this.$notificationManager.displaySuccessMessage(this.$t('success.REGISTERED'))
     },
   },
 }
