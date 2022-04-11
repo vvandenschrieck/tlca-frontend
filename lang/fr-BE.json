@@ -115,6 +115,10 @@
     "student": {
         "not_registered_yet": "Pas encore inscrit"
     },
+    "success": {
+        "_": "Succès",
+        "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
+    },
     "user": {
         "email": "E-mail",
         "first_name": "Prénom",

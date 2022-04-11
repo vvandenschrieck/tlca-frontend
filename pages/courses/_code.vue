@@ -116,16 +116,16 @@ export default {
 
       // Add fields to the query depending on the roles
       if (this.$auth.user) {
-        fields.push('hasRequestedInvite @client', {
+        fields.push('hasRequestedInvite', {
           registration: ['date', 'invite'],
         })
 
         if (this.$auth.user.hasAnyRoles('student')) {
-          fields.push('isRegistered @client')
+          fields.push('isRegistered')
         }
 
         if (this.$auth.user.hasAnyRoles('teacher')) {
-          fields.push('isCoordinator @client', 'isTeacher @client')
+          fields.push('isCoordinator', 'isTeacher')
         }
       }
 

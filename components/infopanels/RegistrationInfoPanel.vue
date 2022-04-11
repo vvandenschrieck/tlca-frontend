@@ -13,12 +13,12 @@
 
       <!-- Invite request button -->
       <ApolloMutation
-        v-else-if="canRequestInvite"
         :mutation="(gql) => gql(requestInvite.query)"
         :variables="requestInvite.variables"
+        @done="inviteRequestSent"
       >
         <template #default="{ mutate, loading }">
-          <v-btn small color="success" :loading="loading" @click="mutate()">
+          <v-btn v-if="canRequestInvite" small color="success" :loading="loading" @click="mutate()">
             <v-icon left>mdi-email-plus</v-icon>
             <span v-t="'course.request_invite'"></span>
           </v-btn>
@@ -100,7 +100,7 @@ export default {
     requestInvite() {
       const fields = [
         'code',
-        'hasRequestedInvite @client',
+        'hasRequestedInvite',
         {
           registration: ['date', 'invite'],
         },
@@ -119,6 +119,11 @@ export default {
           operationName: 'RequestInvite',
         }
       )
+    },
+  },
+  methods: {
+    inviteRequestSent() {
+      this.$notificationManager.displaySuccessMessage(this.$t('success.REQUEST_INVITE_SENT'))
     },
   },
 }
