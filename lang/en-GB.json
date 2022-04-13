@@ -118,7 +118,7 @@
     "success": {
         "_": "Success",
         "REGISTERED": "Successfully registered!",
-        "REQUEST_INVITE_SENT": "Request invite successfully sent!"
+        "REQUEST_INVITE_SENT": "Invite request successfully sent!"
     },
     "user": {
         "email": "Email",

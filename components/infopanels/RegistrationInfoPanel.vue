@@ -6,9 +6,12 @@
   >
     <div v-if="$auth.user" class="text-center">
       <!-- Registration button -->
+      <!-- TODO: remove the 'invite' field when moving to Apollo client 3
+           it has been queried now to be sure that the query on the course
+          page gets refreshed correctly when the mutation is done -->
       <ApolloMutation
-        :mutation="(gql) => gql(register.query)"
-        :variables="register.variables"
+        :mutation="require('../../gql/register.gql')"
+        :variables="{ code: course.code }"
         @done="registered"
       >
         <template #default="{ mutate, loading }">
@@ -21,8 +24,8 @@
 
       <!-- Invite request button -->
       <ApolloMutation
-        :mutation="(gql) => gql(requestInvite.query)"
-        :variables="requestInvite.variables"
+        :mutation="require('../../gql/requestInvite.gql')"
+        :variables="{ code: course.code }"
         @done="inviteRequestSent"
       >
         <template #default="{ mutate, loading }">
@@ -37,7 +40,6 @@
 </template>
 
 <script>
-import { mutation } from 'gql-query-builder'
 import datetime from '@/mixins/datetime.js'
 
 export default {
@@ -104,55 +106,6 @@ export default {
       })
 
       return items
-    },
-    register() {
-      const fields = [
-        'code',
-        'isRegistered',
-        {
-          // TODO: remove the 'invite' field when moving to Apollo client 3
-          // it has been queried now to be sure that the query on the course
-          // page gets refreshed correctly when the mutation is done
-          registration: ['date', 'invite'],
-        },
-      ]
-
-      return mutation(
-        {
-          operation: 'register',
-          variables: {
-            code: { value: this.course.code, type: 'ID', required: true },
-          },
-          fields,
-        },
-        null,
-        {
-          operationName: 'Register',
-        }
-      )
-    },
-    requestInvite() {
-      const fields = [
-        'code',
-        'hasRequestedInvite',
-        {
-          registration: ['date', 'invite'],
-        },
-      ]
-
-      return mutation(
-        {
-          operation: 'requestInvite',
-          variables: {
-            code: { value: this.course.code, type: 'ID', required: true },
-          },
-          fields,
-        },
-        null,
-        {
-          operationName: 'RequestInvite',
-        }
-      )
     },
   },
   methods: {
