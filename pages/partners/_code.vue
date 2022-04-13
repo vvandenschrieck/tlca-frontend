@@ -30,6 +30,7 @@
               :items="partner.courses || []"
               :items-per-page="8"
               :prop-name="propName"
+              class="mt-3"
             />
           </v-col>
           <v-col

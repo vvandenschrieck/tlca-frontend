@@ -17,12 +17,29 @@ export default {
   },
   computed: {
     items() {
-      const infoItemFields = {
-        website: 'mdi-web',
-        abbreviation: 'mdi-domain',
-        tags: 'mdi-tag-multiple',
+      const items = []
+
+      // Partner website
+      const website = this.partner.website
+      if (website) {
+        items.push({
+          icon: 'mdi-web',
+          text: website,
+          tooltip: this.$t('partner.website'),
+        })
       }
-      return this.generateInfoItems('partner', this.partner, infoItemFields)
+
+      // Partner abbreviation
+      const abbreviation = this.partner.abbreviation
+      if (abbreviation) {
+        items.push({
+          icon: 'mdi-domain',
+          text: abbreviation,
+          tooltip: this.$t('partner.abbreviation'),
+        })
+      }
+
+      return items
     },
   },
 }

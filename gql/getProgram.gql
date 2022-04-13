@@ -1,6 +1,13 @@
-query GetProgram($code: String!) {
+query GetProgram($code: ID!) {
     program(code: $code) {
         code
+        courses {
+            banner
+            code
+            name
+            type
+        }
+        description
         name
     }
 }
