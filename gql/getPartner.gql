@@ -1,4 +1,4 @@
-query GetPartner($code: String!) {
+query GetPartner($code: ID!) {
     partner(code: $code) {
         abbreviation
         code
