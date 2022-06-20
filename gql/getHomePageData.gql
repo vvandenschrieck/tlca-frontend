@@ -7,8 +7,10 @@ query getHomePageData {
     }
 
     programs(limit: 4) {
+        banner
         code
         name
+        type
     }
 
     partners(limit: 4) {

@@ -84,7 +84,7 @@ export default {
         items.push({
           icon: 'mdi-domain',
           text: partners.map((p) => p.abbreviation || p.name).join(', '),
-          tooltip: this.$tc('partner._', 2),
+          tooltip: this.$tc('partner._', partners.length),
         })
       }
 
@@ -104,7 +104,7 @@ export default {
         items.push({
           icon: 'mdi-tag-multiple',
           text: tags.join(', '),
-          tooltip: this.$t('course.tags'),
+          tooltip: this.$tc('course.tags', tags.length),
         })
       }
 
