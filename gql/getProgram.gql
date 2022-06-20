@@ -1,6 +1,9 @@
 query GetProgram($code: ID!) {
     program(code: $code) {
         code
+        coordinator {
+            displayName
+        }
         courses {
             banner
             code
@@ -8,6 +11,13 @@ query GetProgram($code: ID!) {
             type
         }
         description
+        field
+        language
         name
+        partners {
+            abbreviation
+            name
+        }
+        tags
     }
 }

@@ -21,9 +21,10 @@
         "_": "Cours",
         "colophon": "Colophon",
         "competencies": "Compétences",
+        "coordinator": "@:global.coordinator",
         "description": "@:global.description._",
-        "field": "Domaine",
-        "language": "Langue",
+        "field": "@:global.field",
+        "language": "@:global.language",
         "load": {
             "_": "Charge",
             "ects": "Crédits ECTS",
@@ -46,12 +47,14 @@
             "_": "Durée",
             "in_weeks": "une semaine | {weeks} semaines"
         },
-        "tags": "Tags",
+        "tags": "@:global.tag",
         "team": "Équipe",
         "type": {
+            "_": "@:global.type._",
             "project": "Projet",
-            "training": "Formation",
-            "ucourse": "µCours"
+            "training": "@:global.type.training",
+            "ucourse": "µCours",
+            "unit": "Unité"
         },
         "visibility": {
             "_": "Visibilité",
@@ -72,11 +75,14 @@
         "cancel": "Annuler"
     },
     "global": {
+        "coordinator": "Coordinateur(trice)",
         "description": {
             "_": "Description",
             "no": "Pas de @.lower:global.description._"
         },
+        "field": "Domaine",
         "information": "Information",
+        "language": "Langue",
         "loading": "Chargement...",
         "powered_by": "Propulsé par",
         "spaces": {
@@ -85,6 +91,11 @@
             "learn": "Apprendre",
             "manage": "Gérer",
             "teach": "Enseigner"
+        },
+        "tag": "Tag | Tags",
+        "type": {
+            "_": "Type",
+            "training": "Formation"
         }
     },
     "homepage": {
@@ -102,7 +113,16 @@
     },
     "program": {
         "_": "Programme | Programmes",
-        "no": "Il n'y a pas de programmes disponibles pour le moment."
+        "coordinator": "@:global.coordinator",
+        "field": "@:global.field",
+        "language": "@:global.language",
+        "no": "Il n'y a pas de programmes disponibles pour le moment.",
+        "tags": "@:global.tag",
+        "type": {
+            "_": "@:global.type._",
+            "training": "@:global.type.training",
+            "uprogram": "µProgramme"
+        }
     },
     "registration": {
         "_": "Inscription",

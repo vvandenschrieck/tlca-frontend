@@ -100,7 +100,7 @@ export default {
         },
         'name',
         {
-          partners: ['abbreviation', 'name'],
+          partners: ['abbreviation', 'code', 'name'],
         },
         {
           schedule: ['name', 'date'],

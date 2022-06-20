@@ -2,6 +2,7 @@
   <generic-card
     :banner="program.banner"
     :to="{ name: 'programs-code', params: { code: program.code } }"
+    :label="$t(`program.type.${program.type.toLowerCase()}`)"
   >
     <v-card-title>{{ program.code }}</v-card-title>
     <v-card-subtitle>
