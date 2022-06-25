@@ -31,8 +31,8 @@
             class="mt-5"
           ></v-alert>
           <v-text-field
-            v-model="email"
-            :label="$t('user.email')"
+            v-model="usernameOrEmail"
+            :label="$t('user.username_or_email')"
             required
           ></v-text-field>
           <v-text-field
@@ -70,7 +70,7 @@ export default {
   data() {
     return {
       dialog: false,
-      email: '',
+      usernameOrEmail: '',
       error: null,
       formBusy: false,
       password: '',
@@ -85,7 +85,7 @@ export default {
   },
   methods: {
     cancel() {
-      this.email = ''
+      this.usernameOrEmail = ''
       this.password = ''
       this.error = null
       this.dialog = false
@@ -94,7 +94,10 @@ export default {
       this.formBusy = true
 
       try {
-        const credentials = { email: this.email, password: this.password }
+        const credentials = {
+          usernameOrEmail: this.usernameOrEmail,
+          password: this.password,
+        }
         await this.$auth.loginWith('graphql', credentials)
         this.dialog = false
       } catch (err) {

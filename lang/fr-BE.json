@@ -144,6 +144,8 @@
         "email": "E-mail",
         "first_name": "Prénom",
         "last_name": "Nom",
-        "password": "Mot de passe"
+        "password": "Mot de passe",
+        "username": "Nom d'utilisateur",
+        "username_or_email": "Nom d'utilisateur ou e-mail"
     }
 }
