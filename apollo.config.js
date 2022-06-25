@@ -10,8 +10,10 @@ const cache = new InMemoryCache({
       case 'Partner':
       case 'Program':
         return `${object.__typename}:${object.code}`
+
       case 'User':
-        return `User:${object.id}`
+        return `User:${object.username}`
+
       default:
         return defaultDataIdFromObject(object)
     }
