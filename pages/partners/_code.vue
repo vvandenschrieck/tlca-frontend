@@ -10,7 +10,7 @@
       <div v-else-if="partner">
         <bread-crumb
           :items="
-            homespaceNavItems('partner', partner.abbreviation || partner.name)
+            navItems('home', 'partner', partner.abbreviation || partner.name)
           "
         />
 
