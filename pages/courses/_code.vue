@@ -8,7 +8,7 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="course">
-        <bread-crumb :items="homespaceNavItems('course', course.code)" />
+        <bread-crumb :items="navItems('home', 'course', course.code)" />
 
         <h2>{{ course.name }}</h2>
 

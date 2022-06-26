@@ -7,7 +7,7 @@
           :prop-name="propName"
           :component="component"
           :items="data && data.partners"
-          :nav-items="homespaceNavItems('partner')"
+          :nav-items="navItems('home', 'partner')"
         />
       </div>
 

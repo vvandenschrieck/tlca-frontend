@@ -1,16 +1,19 @@
 export default {
   methods: {
-    homespaceNavItems(section, detailPage) {
+    navItems(space, section, detailPage) {
+      const sectionLink =
+        space === 'home' ? `${section}s` : `${space}-${section}s`
+
       const items = [
         {
-          text: this.$tc('global.spaces.home'),
+          text: this.$tc(`global.spaces.${space}`),
           exact: true,
           to: { name: 'index' },
         },
         {
           text: this.$tc(`${section}._`, 2),
           exact: true,
-          to: { name: `${section}s` },
+          to: { name: sectionLink },
         },
       ]
 

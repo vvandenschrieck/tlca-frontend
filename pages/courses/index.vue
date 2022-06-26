@@ -7,7 +7,7 @@
           :prop-name="propName"
           :component="component"
           :items="data && data.courses"
-          :nav-items="homespaceNavItems('course')"
+          :nav-items="navItems('home', 'course')"
         />
       </div>
 
@@ -39,5 +39,6 @@ export default {
       return this.$tc('course._', 2)
     },
   },
+  auth: false,
 }
 </script>
