@@ -112,6 +112,9 @@ export default {
         }, {
           title: 'partner._',
           to: { name: 'admin-partners' }
+        }, {
+          title: 'user._',
+          to: { name: 'admin-users' }
         }]
       }];
       return spaces.filter(s => s.show);
