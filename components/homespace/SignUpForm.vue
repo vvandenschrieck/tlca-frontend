@@ -15,20 +15,20 @@
       ></v-btn>
     </template>
     <v-card>
-      <v-card-title
-        v-t="'authentication.sign_up'"
-        class="text-h5 grey lighten-2"
-      ></v-card-title>
-      <v-card-text>
-        <v-alert
-          v-if="error"
-          v-t="error"
-          type="error"
-          outlined
-          dense
-          class="mt-5"
-        ></v-alert>
-        <v-form ref="form" class="mt-5">
+      <v-form ref="form" class="mt-5" @submit.prevent="signUp()">
+        <v-card-title
+          v-t="'authentication.sign_up'"
+          class="text-h5 grey lighten-2"
+        ></v-card-title>
+        <v-card-text>
+          <v-alert
+            v-if="error"
+            v-t="error"
+            type="error"
+            outlined
+            dense
+            class="mt-5"
+          ></v-alert>
           <v-text-field
             v-model="email"
             :label="$t('user.email')"
@@ -40,25 +40,25 @@
             :label="$t('user.password')"
             required
           ></v-text-field>
-        </v-form>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn
-          v-t="'general.cancel'"
-          :disabled="formBusy"
-          color="error"
-          text
-          @click="cancel()"
-        ></v-btn>
-        <v-btn
-          v-t="'authentication.sign_up'"
-          :loading="formBusy"
-          color="primary"
-          text
-          @click="signUp()"
-        ></v-btn>
-      </v-card-actions>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            v-t="'general.cancel'"
+            :disabled="formBusy"
+            color="error"
+            text
+            @click="cancel()"
+          ></v-btn>
+          <v-btn
+            v-t="'authentication.sign_up'"
+            type="submit"
+            :loading="formBusy"
+            color="primary"
+            text
+          ></v-btn>
+        </v-card-actions>
+      </v-form>
     </v-card>
   </v-dialog>
 </template>
