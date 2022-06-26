@@ -65,9 +65,10 @@
     },
     "error": {
         "_": "Erreur",
-        "EXISTING_EMAIL_ADDRESS": "Un compte avec l'adresse e-mail spécifiée existe déjà",
+        "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
         "INVALID_CREDENTIALS": "Mauvais identifiants",
         "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
+        "INVALID_PASSWORD": "Mot de passe pas assez fort",
         "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
         "MISSING_FIELDS": "Certains champs obligatoires sont manquants"
     },
