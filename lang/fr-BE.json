@@ -142,6 +142,7 @@
         "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
     },
     "user": {
+        "_": "Utilisateur | Utilisateurs",
         "email": "E-mail",
         "first_name": "Prénom",
         "last_name": "Nom",
