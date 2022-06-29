@@ -39,5 +39,8 @@ export default {
       return this.$tc('partner._', 2)
     },
   },
+  meta: {
+    roles: ['guest'],
+  },
 }
 </script>

@@ -65,5 +65,8 @@ export default {
       propName: 'course',
     }
   },
+  meta: {
+    roles: ['guest'],
+  },
 }
 </script>

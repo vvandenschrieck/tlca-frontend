@@ -148,5 +148,8 @@ export default {
       )
     },
   },
+  meta: {
+    roles: ['guest'],
+  },
 }
 </script>

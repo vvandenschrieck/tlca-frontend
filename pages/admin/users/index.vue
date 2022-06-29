@@ -24,5 +24,8 @@ import breadcrumb from '@/mixins/breadcrumb.js'
 export default {
   name: 'AdminUsersPage',
   mixins: [breadcrumb],
+  meta: {
+    roles: ['admin'],
+  },
 }
 </script>

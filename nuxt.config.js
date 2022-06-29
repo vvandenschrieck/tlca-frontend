@@ -71,6 +71,9 @@ export default {
     langDir: 'lang/',
     defaultLocale: 'en-GB',
   },
+  router: {
+    middleware: 'roles-auth',
+  },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     defaultAssets: false,
