@@ -39,5 +39,8 @@ export default {
       return this.$tc('program._', 2)
     },
   },
+  meta: {
+    roles: ['guest'],
+  },
 }
 </script>

@@ -66,5 +66,8 @@ export default {
       title: this.$t('global.spaces.home'),
     }
   },
+  meta: {
+    roles: ['guest'],
+  },
 }
 </script>
