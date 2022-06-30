@@ -73,7 +73,9 @@
         "MISSING_FIELDS": "Certains champs obligatoires sont manquants"
     },
     "general": {
-        "cancel": "Annuler"
+        "action": "Action | Actions",
+        "cancel": "Annuler",
+        "validated": "Validé"
     },
     "global": {
         "coordinator": "Coordinateur(trice)",
@@ -147,6 +149,14 @@
         "first_name": "Prénom",
         "last_name": "Nom",
         "password": "Mot de passe",
+        "role": {
+            "_": "Rôle | Rôles",
+            "admin": "Admin",
+            "manager": "Gestionnaire",
+            "student": "Étudiant",
+            "teacher": "Enseignant",
+            "user": "Utilisateur"
+        },
         "username": "Nom d'utilisateur",
         "username_or_email": "Nom d'utilisateur ou e-mail"
     }
