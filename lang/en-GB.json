@@ -73,7 +73,9 @@
         "MISSING_FIELDS": "Some mandatory fields are missing"
     },
     "general": {
-        "cancel": "Cancel"
+        "action": "Action | Actions",
+        "cancel": "Cancel",
+        "validated": "Validated"
     },
     "global": {
         "coordinator": "Coordinator",
@@ -147,6 +149,14 @@
         "first_name": "First Name",
         "last_name": "Last Name",
         "password": "Password",
+        "role": {
+            "_": "Role | Roles",
+            "admin": "Admin",
+            "manager": "Manager",
+            "student": "Student",
+            "teacher": "Teacher",
+            "user": "User"
+        },
         "username": "Username",
         "username_or_email": "Username or email"
     }

@@ -1,7 +1,10 @@
 query GetUsers {
   users {
     id
-    email
+    firstName
+    isValidated
+    lastName
+    roles
     username
   }
 }
