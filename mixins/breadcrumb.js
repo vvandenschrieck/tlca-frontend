@@ -8,7 +8,7 @@ export default {
         {
           text: this.$tc(`global.spaces.${space}`),
           exact: true,
-          to: { name: 'index' },
+          to: { name: space === 'home' ? 'index' : space },
         },
         {
           text: this.$tc(`${section}._`, 2),
