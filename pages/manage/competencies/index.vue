@@ -3,27 +3,41 @@
     :query="require('~/gql/manage/getCompetencies.gql')"
     :update="(data) => data.competencies"
   >
-    <template #default="{ result: { error, data }, isLoading }">
-      <div v-if="isLoading || data">
+    <template #default="{ result: { error, data: competencies }, isLoading }">
+      <div v-if="isLoading || competencies">
         <bread-crumb :items="navItems('manage', 'competency')" />
 
         <h2>{{ $tc('competency._', 2) }}</h2>
 
-        <v-data-table
-          v-if="data && data.length"
-          :headers="headers"
-          :items="data"
-          :items-per-page="5"
-          class="elevation-1"
-        >
-          <template #item.isPublic="{ value: isPublic }">
-            <v-icon v-if="isPublic" small>mdi-check-bold</v-icon>
-          </template>
-        </v-data-table>
+        <v-row>
+          <v-col cols="12" md="9">
+            <v-data-table
+              v-if="competencies && competencies.length"
+              :headers="headers"
+              :items="competencies"
+              :items-per-page="5"
+              class="elevation-1"
+            >
+            </v-data-table>
 
-        <div v-else-if="data && !data.length" v-t="'competency.no'"></div>
+            <div
+              v-else-if="competencies && !competencies.length"
+              v-t="'competency.no'"
+            ></div>
 
-        <v-skeleton-loader v-else type="table"></v-skeleton-loader>
+            <v-skeleton-loader v-else type="table"></v-skeleton-loader>
+          </v-col>
+          <v-col
+            cols="12"
+            md="3"
+            :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+          >
+            <competencies-list-info-panel
+              v-if="competencies"
+              :competencies="competencies"
+            />
+          </v-col>
+        </v-row>
       </div>
 
       <div v-else-if="error">An error occurred</div>
@@ -42,11 +56,6 @@ export default {
       return [
         { text: this.$t('competency.code'), value: 'code' },
         { text: this.$t('competency.name'), value: 'name' },
-        {
-          text: this.$t('competency.public'),
-          value: 'isPublic',
-          align: 'center',
-        },
       ]
     },
   },

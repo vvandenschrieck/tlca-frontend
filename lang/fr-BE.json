@@ -12,8 +12,11 @@
             "advanced": "Avancée"
         },
         "code":  "@:global.code",
+        "create": "@:global.create",
         "description": "@:global.description._",
         "name":  "@:global.name",
+        "nb": "{nb} compétence | {nb} compétences",
+        "nb_of": "Nombre de compétences",
         "no": "Il n'y a pas de compétences disponibles pour le moment.",
         "public": "@:global.public",
         "show_by": {
@@ -79,11 +82,13 @@
     "general": {
         "action": "Action | Actions",
         "cancel": "Annuler",
+        "owner": "Propriétaire",
         "validated": "Validé"
     },
     "global": {
         "coordinator": "Coordinateur(trice)",
         "code":  "Code",
+        "create": "Créer",
         "description": {
             "_": "Description",
             "no": "Pas de @.lower:global.description._"
