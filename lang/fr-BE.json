@@ -11,7 +11,11 @@
             "basic": "Basique",
             "advanced": "Avancée"
         },
+        "code":  "@:global.code",
         "description": "@:global.description._",
+        "name":  "@:global.name",
+        "no": "Il n'y a pas de compétences disponibles pour le moment.",
+        "public": "@:global.public",
         "show_by": {
             "level": "Montrer par niveau",
             "category": "Montrer par catégorie"
@@ -60,7 +64,7 @@
             "_": "Visibilité",
             "invite_only": "Sur invitation uniquement",
             "private": "Privé",
-            "public": "Public"
+            "public": "@:global.public"
         }
     },
     "error": {
@@ -79,6 +83,7 @@
     },
     "global": {
         "coordinator": "Coordinateur(trice)",
+        "code":  "Code",
         "description": {
             "_": "Description",
             "no": "Pas de @.lower:global.description._"
@@ -87,7 +92,9 @@
         "information": "Information",
         "language": "Langue",
         "loading": "Chargement...",
+        "name":  "Nom",
         "powered_by": "Propulsé par",
+        "public": "Public",
         "spaces": {
             "admin": "Admin",
             "home": "Accueil",
