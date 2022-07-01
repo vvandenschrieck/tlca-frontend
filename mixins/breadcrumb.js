@@ -1,8 +1,15 @@
+function pluralize(section) {
+  if (section === 'competency') {
+    return 'competencies'
+  }
+  return section + 's'
+}
+
 export default {
   methods: {
     navItems(space, section, detailPage) {
       const sectionLink =
-        space === 'home' ? `${section}s` : `${space}-${section}s`
+        space === 'home' ? pluralize(section) : `${space}-${pluralize(section)}`
 
       const items = [
         {
