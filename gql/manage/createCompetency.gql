@@ -1,0 +1,3 @@
+mutation createCompetency($code: String!, $name: String!, $description: String, $type: CompetencyType, $isPublic: Boolean, $partners: [ID!]) {
+  createCompetency(code: $code, name: $name, description: $description, type: $type, isPublic: $isPublic, partners: $partners)
+}
