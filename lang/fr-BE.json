@@ -88,6 +88,7 @@
     "error": {
         "_": "Erreur",
         "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
+        "EXISTING_CODE": "Le code spécifié existe déjà",
         "INVALID_CREDENTIALS": "Mauvais identifiants",
         "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
         "INVALID_PASSWORD": "Mot de passe pas assez fort",
