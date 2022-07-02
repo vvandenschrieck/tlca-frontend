@@ -7,7 +7,7 @@
     <div class="text-center">
       <v-btn small color="success" :to="{ name: 'manage-competencies-create' }">
         <v-icon left>mdi-plus</v-icon>
-        <span v-t="'competency.create'"></span>
+        <span v-t="'general.create'"></span>
       </v-btn>
     </div>
   </generic-info-panel>

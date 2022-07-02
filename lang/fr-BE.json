@@ -13,8 +13,11 @@
         },
         "code":  "@:global.code",
         "coordinator": "@:global.coordinator",
-        "create": "@:global.create",
+        "create": "@:general.create une compétence",
         "description": "@:global.description._",
+        "learning_outcomes": {
+            "_": "Acquis d'apprentissage"
+        },
         "name":  "@:global.name",
         "nb": "{nb} compétence | {nb} compétences",
         "nb_of": "Nombre de compétences",
@@ -94,13 +97,19 @@
     "general": {
         "action": "Action | Actions",
         "cancel": "Annuler",
+        "create": "Créer",
+        "information": {
+            "_": "Information",
+            "additional": "@.lower:general.information._ additionnelle",
+            "general": "@:general.information._ générale",
+            "optional": "@:general.information._ optionnelle"
+        },
         "owner": "Propriétaire",
         "validated": "Validé"
     },
     "global": {
         "coordinator": "Coordinateur(trice)",
         "code":  "Code",
-        "create": "Créer",
         "description": {
             "_": "Description",
             "no": "Pas de @.lower:global.description._"

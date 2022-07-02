@@ -13,8 +13,11 @@
         },
         "code":  "@:global.code",
         "coordinator": "@:global.coordinator",
-        "create": "@:global.create",
+        "create": "@:general.create a competency",
         "description": "@:global.description._",
+        "learning_outcomes": {
+            "_": "Learning outcomes"
+        },
         "name":  "@:global.name",
         "nb": "{nb} competency | {nb} competencies",
         "nb_of": "Number of competencies",
@@ -94,13 +97,19 @@
     "general": {
         "action": "Action | Actions",
         "cancel": "Cancel",
+        "create": "Create",
+        "information": {
+            "_": "Information",
+            "additional": "Additional @.lower:general.information._",
+            "general": "General @.lower:general.information._",
+            "optional": "Optional @.lower:general.information._"
+        },
         "owner": "Owner",
         "validated": "Validated"
     },
     "global": {
         "coordinator": "Coordinator",
         "code": "Code",
-        "create": "Create",
         "description": {
             "_": "Description",
             "no": "No @.lower:global.description._"
