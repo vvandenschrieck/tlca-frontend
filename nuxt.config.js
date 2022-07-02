@@ -20,7 +20,12 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   css: ['@mdi/font/css/materialdesignicons.css'],
-  plugins: ['~/plugins/vue-rx.js', '~/plugins/notification-manager.js'],
+  plugins: [
+    '~/plugins/vue-rx.js',
+    '~/plugins/notification-manager.js',
+    '~/plugins/validation.js',
+    '~/plugins/vee-validate4vuetify.js',
+  ],
   components: {
     dirs: [
       '~/components',

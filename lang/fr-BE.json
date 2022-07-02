@@ -100,7 +100,7 @@
         "create": "Créer",
         "information": {
             "_": "Information",
-            "additional": "@.lower:general.information._ additionnelle",
+            "additional": "@:general.information._ additionnelle",
             "general": "@:general.information._ générale",
             "optional": "@:general.information._ optionnelle"
         },
