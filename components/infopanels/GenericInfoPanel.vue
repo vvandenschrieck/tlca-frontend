@@ -6,8 +6,8 @@
     </v-card-title>
     <v-card-text>
       <v-list v-if="items && items.length" dense>
-        <v-list-item v-for="(item, i) in items" :key="i" class="item pa-0 my-1">
-          <v-list-item-icon class="ma-0">
+        <v-list-item v-for="(item, i) in items" :key="i" class="item pl-0 my-1">
+          <v-list-item-icon class="ma-auto">
             <v-tooltip left open-delay="500">
               <template #activator="{ on, attrs }">
                 <v-icon v-bind="attrs" size="16" v-on="on">
@@ -51,7 +51,7 @@ export default {
 
 <style scoped>
 .item {
-  min-height: 10px;
+  min-height: 10px!important;
 }
 .content {
   white-space: inherit;
