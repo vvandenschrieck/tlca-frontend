@@ -15,32 +15,35 @@
         <v-stepper-content step="1">
           <v-row>
             <v-col cols="12" md="3">
-              <v-text-field
+              <v-text-field-with-validation
                 v-model="code"
-                :label="$t('competency.code')"
                 required
-              ></v-text-field>
+                :label="$t('competency.code')"
+              >
+              </v-text-field-with-validation>
             </v-col>
 
             <v-col cols="12" md="9">
-              <v-text-field
+              <v-text-field-with-validation
                 v-model="name"
-                :label="$t('competency.name')"
                 required
-              ></v-text-field>
+                rules="required"
+                :label="$t('competency.name')"
+              >
+              </v-text-field-with-validation>
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12" md="12">
-              <v-textarea
+              <v-textarea-with-validation
                 v-model="description"
                 :label="$t('competency.description')"
                 filled
                 auto-grow
                 clearable
                 clear-icon="mdi-close-circle"
-              ></v-textarea>
+              ></v-textarea-with-validation>
             </v-col>
           </v-row>
         </v-stepper-content>
@@ -51,7 +54,7 @@
 
         <v-stepper-content step="2">
           <v-row>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="12">
               <v-select
                 v-model="type"
                 :items="types"
@@ -61,7 +64,7 @@
           </v-row>
 
           <v-row>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="12">
               <v-switch
                 v-model="isPublic"
                 :label="$t('competency.visibility.public')"
@@ -70,7 +73,7 @@
           </v-row>
 
           <v-row>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="12">
               <v-select
                 v-model="partners"
                 :items="partnersList"
