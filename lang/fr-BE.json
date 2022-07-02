@@ -12,16 +12,28 @@
             "advanced": "Avancée"
         },
         "code":  "@:global.code",
+        "coordinator": "@:global.coordinator",
         "create": "@:global.create",
         "description": "@:global.description._",
         "name":  "@:global.name",
         "nb": "{nb} compétence | {nb} compétences",
         "nb_of": "Nombre de compétences",
         "no": "Il n'y a pas de compétences disponibles pour le moment.",
+        "partners": "@:global.partners",
         "public": "@:global.public",
         "show_by": {
             "level": "Montrer par niveau",
             "category": "Montrer par catégorie"
+        },
+        "type": {
+            "_": "@:global.type._",
+            "practical": "Pratique",
+            "theoretical": "Théorique"
+        },
+        "visibility": {
+            "_": "@:global.visibility._",
+            "private": "@:global.visibility.private",
+            "public": "@:global.visibility.public"
         }
     },
     "course": {
@@ -64,9 +76,9 @@
             "unit": "Unité"
         },
         "visibility": {
-            "_": "Visibilité",
+            "_": "@:global.visibility",
             "invite_only": "Sur invitation uniquement",
-            "private": "Privé",
+            "private": "@:global.private",
             "public": "@:global.public"
         }
     },
@@ -98,8 +110,8 @@
         "language": "Langue",
         "loading": "Chargement...",
         "name":  "Nom",
+        "partners": "Partenaires",
         "powered_by": "Propulsé par",
-        "public": "Public",
         "spaces": {
             "admin": "Admin",
             "home": "Accueil",
@@ -111,6 +123,11 @@
         "type": {
             "_": "Type",
             "training": "Formation"
+        },
+        "visibility": {
+            "_": "Visibilité",
+            "private": "Privé",
+            "public": "Public"
         }
     },
     "homepage": {
