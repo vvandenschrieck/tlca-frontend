@@ -11,14 +11,26 @@
 
         <v-row>
           <v-col cols="12" md="9">
-            <v-data-table
-              v-if="competencies && competencies.length"
-              :headers="headers"
-              :items="competencies"
-              :items-per-page="5"
-              class="elevation-1"
-            >
-            </v-data-table>
+            <v-card v-if="competencies && competencies.length">
+              <v-list class="pa-0">
+                <template v-for="(competency, i) in competencies">
+                  <v-list-item
+                    :key="competency.code"
+                    :to="{
+                      name: 'manage-competencies-code',
+                      params: { code: competency.code },
+                    }"
+                  >
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        <b>{{ competency.code }}</b> – {{ competency.name }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-divider v-if="i < competencies.length - 1" :key="i"></v-divider>
+                </template>
+              </v-list>
+            </v-card>
 
             <div
               v-else-if="competencies && !competencies.length"
@@ -51,14 +63,6 @@ import breadcrumb from '@/mixins/breadcrumb.js'
 export default {
   name: 'ManageCompetenciesPage',
   mixins: [breadcrumb],
-  computed: {
-    headers() {
-      return [
-        { text: this.$t('competency.code'), value: 'code' },
-        { text: this.$t('competency.name'), value: 'name' },
-      ]
-    },
-  },
   meta: {
     roles: ['teacher'],
   },
