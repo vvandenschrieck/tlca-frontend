@@ -106,6 +106,7 @@
             "optional": "Optional @.lower:general.information._"
         },
         "owner": "Owner",
+        "reset": "Reset",
         "validated": "Validated"
     },
     "global": {

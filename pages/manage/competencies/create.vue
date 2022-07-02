@@ -24,7 +24,7 @@
 
           <v-stepper-content step="1">
             <v-row>
-              <v-col cols="12" md="3">
+              <v-col cols="12" md="2">
                 <v-text-field-with-validation
                   v-model="code"
                   vid="code"
@@ -35,7 +35,7 @@
                 </v-text-field-with-validation>
               </v-col>
 
-              <v-col cols="12" md="9">
+              <v-col cols="12" md="7">
                 <v-text-field-with-validation
                   v-model="name"
                   required
@@ -43,6 +43,15 @@
                   :label="$t('competency.name')"
                 >
                 </v-text-field-with-validation>
+              </v-col>
+
+              <v-col cols="12" md="3">
+                <v-select
+                  v-model="type"
+                  :items="types"
+                  :label="$t('competency.type._')"
+                  clearable
+                ></v-select>
               </v-col>
             </v-row>
 
@@ -68,10 +77,9 @@
             <v-row>
               <v-col cols="12" md="12">
                 <v-select
-                  v-model="type"
-                  :items="types"
-                  :label="$t('competency.type._')"
-                  clearable
+                  v-model="partners"
+                  :items="partnersList"
+                  :label="$t('competency.partners')"
                 ></v-select>
               </v-col>
             </v-row>
@@ -82,16 +90,6 @@
                   v-model="isPublic"
                   :label="$t('competency.visibility.public')"
                 ></v-switch>
-              </v-col>
-            </v-row>
-
-            <v-row>
-              <v-col cols="12" md="12">
-                <v-select
-                  v-model="partners"
-                  :items="partnersList"
-                  :label="$t('competency.partners')"
-                ></v-select>
               </v-col>
             </v-row>
           </v-stepper-content>
@@ -106,11 +104,11 @@
         </v-stepper>
         <div class="text-right mt-5">
           <v-btn
-            v-t="'general.cancel'"
+            v-t="'general.reset'"
             :disabled="formBusy"
             color="error"
             text
-            @click="cancel()"
+            @click="reset()"
           ></v-btn>
           <v-btn
             v-t="'general.create'"
@@ -157,7 +155,7 @@ export default {
     },
   },
   methods: {
-    cancel() {
+    reset() {
       this.code = ''
       this.description = ''
       this.error = null
@@ -188,9 +186,14 @@ export default {
 
         if (response) {
           const code = this.code
-          this.cancel()
-          this.$notificationManager.displaySuccessMessage(this.$t('success.COMPETENCY_CREATED'))
-          this.$router.push({ name: 'manage-competencies-code', params: { code } })
+          this.reset()
+          this.$notificationManager.displaySuccessMessage(
+            this.$t('success.COMPETENCY_CREATED')
+          )
+          this.$router.push({
+            name: 'manage-competencies-code',
+            params: { code },
+          })
           return
         } else {
           this.error = 'error._'
