@@ -11,7 +11,7 @@
         >
           <component
             :is="component"
-            v-bind="{ [propName]: item }"
+            v-bind="{ [propName]: item, linkPrefix }"
             class="card"
           />
         </v-col>
@@ -44,6 +44,10 @@ export default {
     propName: {
       type: String,
       required: true,
+    },
+    linkPrefix: {
+      type: String,
+      default: ''
     },
     items: {
       type: Array,

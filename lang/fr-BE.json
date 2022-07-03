@@ -54,6 +54,13 @@
             "in_hours_per_week": "{hoursPerWeek} h/semaine",
             "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
         },
+        "nb": "{nb} cours | {nb} cours",
+        "nb_of": {
+            "_": "Nombre de cours",
+            "archived": "{nb} archivé | {nb} archivés",
+            "published": "{nb} publié | {nb} publiés",
+            "unpublished": "{nb} non publié | {nb} non publiés"
+        },
         "no": "Il n'y a pas de cours disponibles pour le moment.",
         "register": "S'inscrire",
         "request_invite": "Demander une invitation",

@@ -1,0 +1,13 @@
+query GetCourses {
+    courses {
+        banner
+        code
+        isArchived
+        isCoordinator
+        isPublished
+        isTeacher
+        name
+        type
+        visibility
+    }
+}
