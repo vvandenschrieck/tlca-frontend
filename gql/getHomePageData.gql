@@ -1,5 +1,5 @@
 query getHomePageData {
-    courses(limit: 4) {
+    courses(limit: 4, view: USER) {
         banner
         code
         name

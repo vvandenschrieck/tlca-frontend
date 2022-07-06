@@ -1,7 +1,11 @@
 query GetCourses {
-    courses {
+    courses(view: COORDINATOR) {
         banner
         code
+        coordinator {
+            id
+            username
+        }
         isArchived
         isCoordinator
         isPublished
