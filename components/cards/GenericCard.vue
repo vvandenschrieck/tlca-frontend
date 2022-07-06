@@ -3,7 +3,7 @@
     <v-card :to="to" :elevation="hover ? 12 : 2">
       <v-img :src="innerBanner">
         <div v-if="label" id="type">
-          <span class="label-default">{{ label }}</span>
+          <span class="label-default" v-text="label"></span>
         </div>
       </v-img>
       <slot></slot>
