@@ -15,7 +15,7 @@
               :component="component"
               link-prefix="manage-"
               :items="courses"
-              :items-per-page="8"
+              :items-per-page="6"
               :cards-per-page="3"
               :prop-name="propName"
             />
@@ -25,7 +25,9 @@
             md="3"
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
-            <courses-list-info-panel v-if="courses" :courses="courses" />
+            <courses-list-info-panel v-if="courses" :courses="courses" class="mb-5" />
+
+            <courses-filter-panel v-if="courses" v-model="filterConfig"></courses-filter-panel>
           </v-col>
         </v-row>
       </div>
@@ -46,6 +48,7 @@ export default {
     return {
       propName: 'course',
       component: CourseCard,
+      filterConfig: {}
     }
   },
   meta: {
