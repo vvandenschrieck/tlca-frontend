@@ -14,7 +14,7 @@
             <card-list
               :component="component"
               link-prefix="manage-"
-              :items="courses"
+              :items="filteredCourses(courses)"
               :items-per-page="6"
               :cards-per-page="3"
               :prop-name="propName"
@@ -25,9 +25,17 @@
             md="3"
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
-            <courses-list-info-panel v-if="courses" :courses="courses" class="mb-5" />
+            <courses-list-info-panel
+              v-if="courses"
+              :courses="courses"
+              class="mb-5"
+            />
 
-            <courses-filter-panel v-if="courses" v-model="filterConfig"></courses-filter-panel>
+            <courses-filter-panel
+              v-if="courses"
+              v-model="filter"
+              hide-role
+            ></courses-filter-panel>
           </v-col>
         </v-row>
       </div>
@@ -48,8 +56,30 @@ export default {
     return {
       propName: 'course',
       component: CourseCard,
-      filterConfig: {}
+      filter: {},
     }
+  },
+  methods: {
+    filteredCourses(courses) {
+      const { status } = this.filter
+
+      if (!status || !status.length) {
+        return courses
+      }
+
+      return courses.filter((c) => {
+        if (!c.isPublished) {
+          return status.includes('UNPUBLISHED')
+        }
+        if (c.isPublished && !c.isArchived) {
+          return status.includes('PUBLISHED')
+        }
+        if (c.isArchived) {
+          return status.includes('ARCHIVED')
+        }
+        return false
+      })
+    },
   },
   meta: {
     roles: ['teacher'],

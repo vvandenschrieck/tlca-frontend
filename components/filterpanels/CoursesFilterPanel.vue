@@ -7,6 +7,7 @@
     <v-card-text>
       <v-form class="mt-5">
         <v-select
+          v-if="!hideStatus"
           dense
           multiple
           clearable
@@ -17,6 +18,7 @@
         >
         </v-select>
         <v-select
+          v-if="!hideRole"
           dense
           multiple
           clearable
@@ -35,6 +37,14 @@
 export default {
   name: 'CoursesFilterPanel',
   props: {
+    hideRole: {
+      type: Boolean,
+      default: false,
+    },
+    hideStatus: {
+      type: Boolean,
+      default: false,
+    },
     value: {
       type: Object,
       default: () => {
