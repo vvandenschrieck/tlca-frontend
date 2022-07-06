@@ -46,6 +46,10 @@
         "coordinator": "@:global.coordinator",
         "description": "@:global.description._",
         "field": "@:global.field",
+        "filter": {
+            "role": "Rôle",
+            "status": "Statut"
+        },
         "language": "@:global.language",
         "load": {
             "_": "Charge",
@@ -76,7 +80,13 @@
             "_": "Durée",
             "in_weeks": "une semaine | {weeks} semaines"
         },
+        "status": {
+            "archived": "Archivé",
+            "published": "Publié",
+            "unpublished": "Non publié"
+        },
         "tags": "@:global.tag",
+        "teacher": "@:user.role.teacher",
         "team": "Équipe",
         "type": {
             "_": "@:global.type._",
@@ -106,6 +116,9 @@
         "action": "Action | Actions",
         "cancel": "Annuler",
         "create": "Créer",
+        "filter": {
+            "_": "Filtre"
+        },
         "information": {
             "_": "Information",
             "additional": "@:general.information._ additionnelle",
@@ -117,7 +130,7 @@
         "validated": "Validé"
     },
     "global": {
-        "coordinator": "Coordinateur(trice)",
+        "coordinator": "Coordinateur",
         "code":  "Code",
         "description": {
             "_": "Description",

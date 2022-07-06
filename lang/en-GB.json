@@ -46,6 +46,10 @@
         "coordinator": "@:global.coordinator",
         "description": "@:global.description._",
         "field": "@:global.field",
+        "filter": {
+            "role": "Role",
+            "status": "Status"
+        },
         "language": "@:global.language",
         "load": {
             "_": "Load",
@@ -76,7 +80,13 @@
             "_": "Span",
             "in_weeks": "one week | {weeks} weeks"
         },
+        "status": {
+            "archived": "Archived",
+            "published": "Published",
+            "unpublished": "Unpublished"
+        },
         "tags": "@:global.tag",
+        "teacher": "@:user.role.teacher",
         "team": "Team",
         "type": {
             "_": "@:global.type._",
@@ -106,6 +116,9 @@
         "action": "Action | Actions",
         "cancel": "Cancel",
         "create": "Create",
+        "filter": {
+            "_": "Filter"
+        },
         "information": {
             "_": "Information",
             "additional": "Additional @.lower:general.information._",
