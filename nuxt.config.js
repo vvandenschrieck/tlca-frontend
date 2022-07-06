@@ -31,6 +31,7 @@ export default {
       '~/components',
       '~/components/cards',
       '~/components/courses',
+      '~/components/filterpanels',
       '~/components/homespace',
       '~/components/infopanels',
     ],
