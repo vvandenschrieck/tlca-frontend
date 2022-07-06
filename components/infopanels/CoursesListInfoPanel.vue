@@ -27,8 +27,9 @@ export default {
       const items = []
 
       // Number of courses with detailed distribution
-      const published = this.courses.filter((c) => c.isPublished).length
       const archived = this.courses.filter((c) => c.isArchived).length
+      const published =
+        this.courses.filter((c) => c.isPublished).length - archived
       const unpublished = this.courses.length - published - archived
 
       items.push({

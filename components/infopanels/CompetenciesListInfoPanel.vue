@@ -28,7 +28,7 @@ export default {
 
       // Number of competencies
       items.push({
-        icon: 'mdi-calendar',
+        icon: 'mdi-clipboard-text',
         text: this.$tc('competency.nb', this.competencies.length, {
           nb: this.competencies.length,
         }),
