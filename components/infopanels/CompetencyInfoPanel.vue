@@ -1,6 +1,6 @@
 <template>
   <generic-info-panel
-    :title="$t('global.information')"
+    :title="$t('general.information._')"
     icon="mdi-information"
     :items="items"
   />
