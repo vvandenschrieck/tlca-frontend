@@ -1,4 +1,8 @@
 {
+    "assessment": {
+        "_": "Assessment | Assessments",
+        "nb_of": "Number of assessments"
+    },
     "authentication": {
         "sign_in": "Sign in",
         "sign_out": "Sign out",
@@ -48,7 +52,7 @@
         "field": "@:global.field",
         "filter": {
             "role": "Role",
-            "status": "Status"
+            "status": "@:general.status"
         },
         "language": "@:global.language",
         "load": {
@@ -81,12 +85,15 @@
             "in_weeks": "one week | {weeks} weeks"
         },
         "status": {
+            "_": "@:general.status",
             "archived": "Archived",
+            "archived_on": "Archived on {date}",
             "published": "Published",
+            "published_on": "Published on {date}",
             "unpublished": "Unpublished"
         },
         "tags": "@:global.tag",
-        "teacher": "@:user.role.teacher",
+        "teacher": "@:user.role.teacher | Teachers",
         "team": "Team",
         "type": {
             "_": "@:global.type._",
@@ -96,10 +103,10 @@
             "unit": "Unit"
         },
         "visibility": {
-            "_": "@:global.visibility",
+            "_": "@:global.visibility._",
             "invite_only": "By invite only",
-            "private": "@:global.private",
-            "public": "@:global.public"
+            "private": "@:global.visibility.private",
+            "public": "@:global.visibility.public"
         }
     },
     "error": {
@@ -127,6 +134,7 @@
         },
         "owner": "Owner",
         "reset": "Reset",
+        "status": "Status",
         "validated": "Validated"
     },
     "global": {
@@ -137,7 +145,6 @@
             "no": "No @.lower:global.description._"
         },
         "field": "Field",
-        "information": "Information",
         "language": "Language",
         "loading": "Loading...",
         "name": "Name",
@@ -188,12 +195,13 @@
         }
     },
     "registration": {
-        "_": "Registration",
+        "_": "Registration | Registrations",
         "date": "Registration date",
         "invite_request_sent": "Invite request sent",
         "invite_received": "Invite received",
+        "nb_of": "Number of registrations",
         "registered_on": "Registered on {date}",
-        "status": "Registration status"
+        "status": "Registration @.lower:general.status"
     },
     "student": {
         "not_registered_yet": "Not registered yet"
