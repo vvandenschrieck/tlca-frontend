@@ -1,4 +1,8 @@
 {
+    "assessment": {
+        "_": "Évaluation | Évaluations",
+        "nb_of": "Nombre d'évaluations"
+    },
     "authentication": {
         "sign_in": "Se connecter",
         "sign_out": "Se déconnecter",
@@ -48,7 +52,7 @@
         "field": "@:global.field",
         "filter": {
             "role": "Rôle",
-            "status": "Statut"
+            "status": "@:general.status"
         },
         "language": "@:global.language",
         "load": {
@@ -81,12 +85,15 @@
             "in_weeks": "une semaine | {weeks} semaines"
         },
         "status": {
+            "_": "@:general.status",
             "archived": "Archivé",
+            "archived_on": "Archivé le {date}",
             "published": "Publié",
+            "published_on": "Publié le {date}",
             "unpublished": "Non publié"
         },
         "tags": "@:global.tag",
-        "teacher": "@:user.role.teacher",
+        "teacher": "@:user.role.teacher | Enseignants",
         "team": "Équipe",
         "type": {
             "_": "@:global.type._",
@@ -96,10 +103,10 @@
             "unit": "Unité"
         },
         "visibility": {
-            "_": "@:global.visibility",
+            "_": "@:global.visibility._",
             "invite_only": "Sur invitation uniquement",
-            "private": "@:global.private",
-            "public": "@:global.public"
+            "private": "@:global.visibility.private",
+            "public": "@:global.visibility.public"
         }
     },
     "error": {
@@ -127,6 +134,7 @@
         },
         "owner": "Propriétaire",
         "reset": "Reset",
+        "status": "Statut",
         "validated": "Validé"
     },
     "global": {
@@ -137,7 +145,6 @@
             "no": "Pas de @.lower:global.description._"
         },
         "field": "Domaine",
-        "information": "Information",
         "language": "Langue",
         "loading": "Chargement...",
         "name":  "Nom",
@@ -188,12 +195,13 @@
         }
     },
     "registration": {
-        "_": "Inscription",
+        "_": "Inscription | Inscription",
         "date": "Date d'inscription",
         "invite_request_sent": "Demande d'invitation envoyée",
         "invite_received": "Invitation reçue",
+        "nb_of": "Nombre d'inscriptions",
         "registered_on": "Inscrit(e) le {date}",
-        "status": "État de l'inscription"
+        "status": "@:general.status de l'inscription"
     },
     "student": {
         "not_registered_yet": "Pas encore inscrit"

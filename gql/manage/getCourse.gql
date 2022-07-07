@@ -1,0 +1,27 @@
+query GetCourse($code: ID!) {
+  course(code: $code) {
+    archived
+    code
+    coordinator {
+      displayName
+    }
+    description
+    isArchived
+    isPublished
+    name
+    partners {
+      abbreviation
+      code
+      name
+    }
+    published
+    schedule {
+      name
+      date
+    }
+    teachers {
+      displayName
+    }
+    visibility
+  }
+}

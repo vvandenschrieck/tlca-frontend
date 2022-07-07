@@ -7,7 +7,7 @@
     <v-card-text class="px-0">
       <v-list v-if="items && items.length" dense>
         <template v-for="(item, i) in items">
-          <v-list-item v-if="!item.details" :key="i" class="item">
+          <v-list-item v-if="!item.details" :key="i" class="item mb-1">
             <v-list-item-icon class="ma-auto">
               <v-tooltip left open-delay="500">
                 <template #activator="{ on, attrs }">
