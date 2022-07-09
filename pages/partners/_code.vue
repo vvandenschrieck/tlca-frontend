@@ -3,16 +3,13 @@
     :query="require('../../gql/getPartner.gql')"
     :update="(data) => data.partner"
     :variables="{ code: $route.params.code }"
+    @result="setTitle"
   >
     <template #default="{ result: { error, data: partner }, isLoading }">
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="partner">
-        <bread-crumb
-          :items="
-            navItems('home', 'partner', partner.abbreviation || partner.name)
-          "
-        />
+        <bread-crumb :primary-title="partner.abbreviation || partner.name" />
 
         <h2>{{ partner.name }}</h2>
 
@@ -54,16 +51,25 @@
 
 <script>
 import CourseCard from '~/components/cards/CourseCard.vue'
-import breadcrumb from '@/mixins/breadcrumb.js'
 
 export default {
   name: 'PartnerPage',
-  mixins: [breadcrumb],
   data() {
     return {
       component: CourseCard,
       propName: 'course',
+      title: '',
     }
+  },
+  head() {
+    return {
+      title: this.title,
+    }
+  },
+  methods: {
+    setTitle({ data: partner }) {
+      this.title = partner.abbreviation || partner.name
+    },
   },
   meta: {
     roles: ['guest'],

@@ -7,7 +7,6 @@
           :prop-name="propName"
           :component="component"
           :items="data && data.partners"
-          :nav-items="navItems('home', 'partner')"
         />
       </div>
 
@@ -18,11 +17,9 @@
 
 <script>
 import PartnerCard from '~/components/cards/PartnerCard.vue'
-import breadcrumb from '@/mixins/breadcrumb.js'
 
 export default {
   name: 'PartnersPage',
-  mixins: [breadcrumb],
   data() {
     return {
       propName: 'partner',

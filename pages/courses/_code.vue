@@ -8,7 +8,7 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="course">
-        <bread-crumb :items="navItems('home', 'course', course.code)" />
+        <bread-crumb :primary-title="course.code" />
 
         <h2>{{ course.name }}</h2>
 
@@ -65,11 +65,9 @@
 
 <script>
 import { query } from 'gql-query-builder'
-import breadcrumb from '@/mixins/breadcrumb.js'
 
 export default {
   name: 'CoursePage',
-  mixins: [breadcrumb],
   data() {
     return {
       currentTab: 'competencies',

@@ -8,7 +8,7 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="program">
-        <bread-crumb :items="navItems('home', 'program', program.code)" />
+        <bread-crumb :primary-title="program.code" />
 
         <h2>{{ program.name }}</h2>
 
@@ -46,11 +46,9 @@
 
 <script>
 import CourseCard from '~/components/cards/CourseCard.vue'
-import breadcrumb from '@/mixins/breadcrumb.js'
 
 export default {
   name: 'ProgramPage',
-  mixins: [breadcrumb],
   data() {
     return {
       component: CourseCard,

@@ -7,7 +7,6 @@
           :prop-name="propName"
           :component="component"
           :items="data && data.programs"
-          :nav-items="navItems('home', 'program')"
         />
       </div>
 
@@ -18,11 +17,9 @@
 
 <script>
 import ProgramCard from '~/components/cards/ProgramCard.vue'
-import breadcrumb from '@/mixins/breadcrumb.js'
 
 export default {
   name: 'ProgramsPage',
-  mixins: [breadcrumb],
   data() {
     return {
       propName: 'program',

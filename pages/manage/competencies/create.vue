@@ -1,8 +1,6 @@
 <template>
   <div>
-    <bread-crumb
-      :items="navItems('manage', 'competency', $t('general.create'))"
-    />
+    <bread-crumb :primary-title="$t('general.create')" />
 
     <h2 v-t="'competency.create'"></h2>
 
@@ -126,13 +124,11 @@
 <script>
 import { ValidationObserver } from 'vee-validate'
 
-import breadcrumb from '@/mixins/breadcrumb.js'
 import createCompetency from '~/gql/manage/createCompetency.gql'
 
 export default {
   name: 'ManageCreateCompetencyPage',
   components: { ValidationObserver },
-  mixins: [breadcrumb],
   data() {
     return {
       code: '',

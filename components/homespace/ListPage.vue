@@ -1,8 +1,8 @@
 <template>
   <div>
-    <bread-crumb :items="navItems" />
+    <bread-crumb />
 
-    <h2>{{ title }}</h2>
+    <h2 v-text="title"></h2>
 
     <card-list
       :component="component"
@@ -24,10 +24,6 @@ export default {
     items: {
       type: Array,
       default: undefined,
-    },
-    navItems: {
-      type: Array,
-      required: true,
     },
     propName: {
       type: String,

@@ -7,7 +7,6 @@
           :prop-name="propName"
           :component="component"
           :items="data && data.courses"
-          :nav-items="navItems('home', 'course')"
         />
       </div>
 
@@ -18,11 +17,9 @@
 
 <script>
 import CourseCard from '~/components/cards/CourseCard.vue'
-import breadcrumb from '@/mixins/breadcrumb.js'
 
 export default {
   name: 'CoursesPage',
-  mixins: [breadcrumb],
   data() {
     return {
       propName: 'course',

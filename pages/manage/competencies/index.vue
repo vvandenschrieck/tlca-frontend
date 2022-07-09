@@ -5,7 +5,7 @@
   >
     <template #default="{ result: { error, data: competencies }, isLoading }">
       <div v-if="isLoading || competencies">
-        <bread-crumb :items="navItems('manage', 'competency')" />
+        <bread-crumb />
 
         <h2>{{ $tc('competency._', 2) }}</h2>
 
@@ -58,11 +58,8 @@
 </template>
 
 <script>
-import breadcrumb from '@/mixins/breadcrumb.js'
-
 export default {
   name: 'ManageCompetenciesPage',
-  mixins: [breadcrumb],
   meta: {
     roles: ['teacher'],
   },

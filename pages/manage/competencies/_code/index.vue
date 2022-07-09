@@ -8,9 +8,7 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="competency">
-        <bread-crumb
-          :items="navItems('manage', 'competency', competency.code)"
-        />
+        <bread-crumb :primary-title="competency.code" />
 
         <h2 v-text="competency.name"></h2>
 
@@ -47,11 +45,8 @@
 </template>
 
 <script>
-import breadcrumb from '@/mixins/breadcrumb.js'
-
 export default {
   name: 'ManageCompetencyPage',
-  mixins: [breadcrumb],
   data() {
     return {
       currentTab: 'description',

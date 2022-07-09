@@ -7,7 +7,7 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="data.course && data.assessment">
-        <bread-crumb :items="navItems('manage', 'course', data.course.code)" />
+        <bread-crumb :primary-title="data.course.code" :secondary-title="data.assessment.id" />
 
         <h2 v-text="data.assessment.name"></h2>
 
@@ -32,11 +32,8 @@
 </template>
 
 <script>
-import breadcrumb from '@/mixins/breadcrumb.js'
-
 export default {
   name: 'ManageCourseAssessmentPage',
-  mixins: [breadcrumb],
   meta: {
     roles: ['teacher'],
   },
