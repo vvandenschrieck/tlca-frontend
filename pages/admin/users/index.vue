@@ -5,7 +5,7 @@
   >
     <template #default="{ result: { error, data }, isLoading }">
       <div v-if="isLoading || data">
-        <bread-crumb :items="navItems('admin', 'user')" />
+        <bread-crumb />
 
         <h2>{{ $tc('user._', 2) }}</h2>
 
@@ -52,11 +52,8 @@
 </template>
 
 <script>
-import breadcrumb from '@/mixins/breadcrumb.js'
-
 export default {
   name: 'AdminUsersPage',
-  mixins: [breadcrumb],
   computed: {
     headers() {
       return [

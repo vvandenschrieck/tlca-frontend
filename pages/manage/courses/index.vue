@@ -5,7 +5,7 @@
   >
     <template #default="{ result: { error, data: courses }, isLoading }">
       <div v-if="isLoading || courses">
-        <bread-crumb :items="navItems('manage', 'course')" />
+        <bread-crumb />
 
         <h2>{{ $tc('course._', 2) }}</h2>
 
@@ -46,12 +46,10 @@
 </template>
 
 <script>
-import breadcrumb from '@/mixins/breadcrumb.js'
 import CourseCard from '~/components/cards/CourseCard.vue'
 
 export default {
   name: 'ManageCoursesPage',
-  mixins: [breadcrumb],
   data() {
     return {
       propName: 'course',
