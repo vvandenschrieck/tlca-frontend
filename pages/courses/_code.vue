@@ -88,7 +88,7 @@ export default {
           ],
         },
         {
-          coordinator: ['id'],
+          coordinator: ['username'],
         },
         'description',
         'field',
@@ -106,7 +106,7 @@ export default {
         'span',
         'tags',
         {
-          team: ['displayName', 'id'],
+          team: ['displayName', 'username'],
         },
         'type',
         'visibility',

@@ -4,9 +4,11 @@ query GetCourse($code: ID!) {
     code
     coordinator {
       displayName
+      username
     }
     description
     isArchived
+    isCoordinator
     isPublished
     name
     partners {
@@ -21,6 +23,7 @@ query GetCourse($code: ID!) {
     }
     teachers {
       displayName
+      username
     }
     visibility
   }

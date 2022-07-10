@@ -7,7 +7,7 @@
     <template #default="{ result: { error, data: course }, isLoading }">
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
-      <div v-else-if="course">
+      <div v-else-if="course && course.isCoordinator">
         <bread-crumb :primary-title="course.code" />
 
         <h2 v-text="course.name"></h2>
