@@ -12,61 +12,56 @@
             <v-icon>mdi-login</v-icon>
           </v-btn>
         </template>
-        <span v-t="'authentication.sign_in'"></span>
+        <span>{{ $t('authentication.sign_in') }}</span>
       </v-tooltip>
     </template>
     <v-card>
-      <v-form ref="form" @submit.prevent="signIn()">
-        <v-card-title
-          v-t="'authentication.sign_in'"
-          class="text-h5 grey lighten-2"
-        ></v-card-title>
-        <v-card-text>
-          <v-alert
-            v-if="error"
-            v-t="error"
-            type="error"
-            outlined
-            dense
-            class="mt-5"
-          ></v-alert>
-          <v-text-field
-            v-model="usernameOrEmail"
-            :label="$t('user.username_or_email')"
-            required
-          ></v-text-field>
-          <v-text-field
-            v-model="password"
-            type="password"
-            :label="$t('user.password')"
-            required
-          ></v-text-field>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            v-t="'general.cancel'"
-            :disabled="formBusy"
-            color="error"
-            text
-            @click="cancel()"
-          ></v-btn>
-          <v-btn
-            v-t="'authentication.sign_in'"
-            type="submit"
-            :loading="formBusy"
-            color="primary"
-            text
-          ></v-btn>
-        </v-card-actions>
-      </v-form>
+      <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+        <v-form :disabled="formBusy" @submit.prevent="handleSubmit(signIn)">
+          <v-card-title class="text-h5 grey lighten-2">
+            {{ $t('authentication.sign_in') }}
+          </v-card-title>
+          <v-card-text>
+            <v-alert v-if="error" type="error" outlined dense class="mt-5">
+              {{ $t(error) }}
+            </v-alert>
+
+            <v-text-field-with-validation
+              v-model="usernameOrEmail"
+              :label="$t('user.username_or_email')"
+              rules="required"
+              required
+              autofocus
+            ></v-text-field-with-validation>
+            <v-text-field-with-validation
+              v-model="password"
+              type="password"
+              :label="$t('user.password')"
+              rules="required"
+              required
+            ></v-text-field-with-validation>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn :disabled="formBusy" color="error" text @click="reset()">
+              {{ $t('general.cancel') }}
+            </v-btn>
+            <v-btn type="submit" :loading="formBusy" color="primary" text>
+              {{ $t('authentication.sign_in') }}
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </ValidationObserver>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+import { ValidationObserver } from 'vee-validate'
+
 export default {
   name: 'SignInForm',
+  components: { ValidationObserver },
   data() {
     return {
       dialog: false,
@@ -79,33 +74,41 @@ export default {
   watch: {
     dialog(value) {
       if (!value) {
-        this.cancel()
+        this.reset()
       }
     },
   },
   methods: {
-    cancel() {
-      this.usernameOrEmail = ''
-      this.password = ''
-      this.error = null
+    reset() {
       this.dialog = false
+      this.error = null
+      this.password = ''
+      this.usernameOrEmail = ''
     },
     async signIn() {
       this.formBusy = true
 
       try {
-        const credentials = {
+        const response = await this.$auth.loginWith('graphql', {
           usernameOrEmail: this.usernameOrEmail,
           password: this.password,
+        })
+
+        if (response) {
+          this.reset()
+          this.$notificationManager.displaySuccessMessage(
+            this.$t('success.LOGIN_SUCCESSFUL')
+          )
+          return
         }
-        await this.$auth.loginWith('graphql', credentials)
-        this.dialog = false
       } catch (err) {
         if (err.graphQLErrors?.length) {
           this.error = `error.${err.graphQLErrors[0].message}`
-        } else {
-          this.error = 'error._'
         }
+      }
+
+      if (!this.error) {
+        this.error = 'error._'
       }
       this.formBusy = false
     },

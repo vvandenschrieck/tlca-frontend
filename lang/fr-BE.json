@@ -208,6 +208,7 @@
     },
     "success": {
         "_": "Succès",
+        "LOGIN_SUCCESSFUL": "Connecté(e) avec succès !",
         "REGISTERED": "Inscrit(e) avec succès !",
         "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
     },
