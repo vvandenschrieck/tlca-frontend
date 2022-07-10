@@ -2,8 +2,8 @@ query me {
     me {
         displayName
         firstName
-        id
         lastName
         roles
+        username
     }
 }

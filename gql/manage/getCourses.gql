@@ -3,7 +3,6 @@ query GetCourses {
         banner
         code
         coordinator {
-            id
             username
         }
         isArchived
