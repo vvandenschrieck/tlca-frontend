@@ -208,6 +208,7 @@
     },
     "success": {
         "_": "Success",
+        "LOGIN_SUCCESSFUL": "Successfully logged in!",
         "REGISTERED": "Successfully registered!",
         "REQUEST_INVITE_SENT": "Invite request successfully sent!"
     },
