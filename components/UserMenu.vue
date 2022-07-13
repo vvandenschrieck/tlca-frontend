@@ -14,8 +14,8 @@
         <v-list-item-title>{{ item.title }}</v-list-item-title>
       </v-list-item>
       <v-divider />
-      <v-list-item>
-        <v-list-item-title @click="signOut()">{{ $t('authentication.sign_out') }}</v-list-item-title>
+      <v-list-item @click="signOut()">
+        <v-list-item-title>{{ $t('authentication.sign_out') }}</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>
@@ -26,13 +26,7 @@ export default {
   name: 'UserMenu',
   data() {
     return {
-      items: [{
-        title: 'Coucou 1'
-      }, {
-        title: 'Coucou 2'
-      }, {
-        title: 'Coucou 3'
-      }]
+      items: []
     };
   },
   methods: {
