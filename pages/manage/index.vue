@@ -4,6 +4,9 @@
 
 <script>
 export default {
-  name: 'ManagePage'
+  name: 'ManagePage',
+  meta: {
+    roles: ['teacher'],
+  },
 }
 </script>
