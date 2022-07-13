@@ -9,10 +9,10 @@ export default {
 
       return courses.filter((c) => {
         return (
-          (!role ||
+          (!role || !role.length ||
             (c.isCoordinator && role.includes('COORDINATOR')) ||
             (c.isTeacher && role.includes('TEACHER'))) &&
-          (!status ||
+          (!status || !status.length ||
             (!c.isPublished && status.includes('UNPUBLISHED')) ||
             (c.isPublished && !c.isArchived && status.includes('PUBLISHED')) ||
             (c.isArchived && status.includes('ARCHIVED')))
