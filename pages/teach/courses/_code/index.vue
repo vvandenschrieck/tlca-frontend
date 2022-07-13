@@ -1,10 +1,10 @@
 <template>
-  <p>Teach space</p>
+  <p>Course : teach detail</p>
 </template>
 
 <script>
 export default {
-  name: 'TeachPage',
+  name: 'TeachCoursePage',
   meta: {
     roles: ['teacher'],
   },

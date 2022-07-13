@@ -45,6 +45,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideUnpublished: {
+      type: Boolean,
+      default: false,
+    },
     value: {
       type: Object,
       default: () => {
@@ -57,16 +61,25 @@ export default {
   },
   computed: {
     statusList() {
-      return [
-        { text: this.$t('course.status.unpublished'), value: 'UNPUBLISHED' },
+      const status = []
+
+      if (!this.hideUnpublished) {
+        status.push({
+          text: this.$t('course.status.unpublished'),
+          value: 'UNPUBLISHED',
+        })
+      }
+
+      status.push(
         { text: this.$t('course.status.published'), value: 'PUBLISHED' },
-        { text: this.$t('course.status.archived'), value: 'ARCHIVED' },
-      ]
+        { text: this.$t('course.status.archived'), value: 'ARCHIVED' }
+      )
+      return status
     },
     rolesList() {
       return [
         { text: this.$t('course.coordinator'), value: 'COORDINATOR' },
-        { text: this.$t('course.teacher'), value: 'TEACHER' },
+        { text: this.$tc('course.teacher', 1), value: 'TEACHER' },
       ]
     },
   },
