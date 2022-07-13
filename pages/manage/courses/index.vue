@@ -14,7 +14,7 @@
             <card-list
               :component="component"
               link-prefix="manage-"
-              :items="filteredCourses(courses)"
+              :items="filteredCourses(courses, filter)"
               :items-per-page="6"
               :cards-per-page="3"
               :prop-name="propName"
@@ -47,37 +47,17 @@
 
 <script>
 import CourseCard from '~/components/cards/CourseCard.vue'
+import courses from '@/mixins/courses.js'
 
 export default {
   name: 'ManageCoursesPage',
+  mixins: [courses],
   data() {
     return {
       propName: 'course',
       component: CourseCard,
       filter: {},
     }
-  },
-  methods: {
-    filteredCourses(courses) {
-      const { status } = this.filter
-
-      if (!status || !status.length) {
-        return courses
-      }
-
-      return courses.filter((c) => {
-        if (!c.isPublished) {
-          return status.includes('UNPUBLISHED')
-        }
-        if (c.isPublished && !c.isArchived) {
-          return status.includes('PUBLISHED')
-        }
-        if (c.isArchived) {
-          return status.includes('ARCHIVED')
-        }
-        return false
-      })
-    },
   },
   meta: {
     roles: ['teacher'],
