@@ -10,5 +10,8 @@ export default {
       title: this.$t('global.spaces.admin'),
     }
   },
+  meta: {
+    roles: ['admin'],
+  },
 }
 </script>
