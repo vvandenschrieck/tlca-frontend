@@ -1,8 +1,8 @@
 query GetCourses {
-    courses(view: USER) {
-        banner
-        code
-        name
-        type
-    }
+  courses(view: USER) {
+    banner
+    code
+    name
+    type
+  }
 }

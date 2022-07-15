@@ -1,6 +1,6 @@
 <template>
   <generic-info-panel
-    :title="$t('registration._')"
+    :title="$tc('registration._', 1)"
     icon="mdi-book"
     :items="items"
   >
@@ -15,9 +15,15 @@
         @done="registered"
       >
         <template #default="{ mutate, loading }">
-          <v-btn v-if="canRegister" small color="success" :loading="loading" @click="mutate()">
+          <v-btn
+            v-if="canRegister"
+            small
+            color="success"
+            :loading="loading"
+            @click="mutate()"
+          >
             <v-icon left>mdi-plus</v-icon>
-            <span v-t="'course.register'"></span>
+            <span>{{ $t('course.register') }}</span>
           </v-btn>
         </template>
       </ApolloMutation>
@@ -29,9 +35,15 @@
         @done="inviteRequestSent"
       >
         <template #default="{ mutate, loading }">
-          <v-btn v-if="canRequestInvite" small color="success" :loading="loading" @click="mutate()">
+          <v-btn
+            v-if="canRequestInvite"
+            small
+            color="success"
+            :loading="loading"
+            @click="mutate()"
+          >
             <v-icon left>mdi-email-plus</v-icon>
-            <span v-t="'course.request_invite'"></span>
+            <span>{{ $t('course.request_invite') }}</span>
           </v-btn>
         </template>
       </ApolloMutation>
@@ -110,10 +122,14 @@ export default {
   },
   methods: {
     inviteRequestSent() {
-      this.$notificationManager.displaySuccessMessage(this.$t('success.REQUEST_INVITE_SENT'))
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.REQUEST_INVITE_SENT')
+      )
     },
     registered() {
-      this.$notificationManager.displaySuccessMessage(this.$t('success.REGISTERED'))
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.REGISTERED')
+      )
     },
   },
 }
