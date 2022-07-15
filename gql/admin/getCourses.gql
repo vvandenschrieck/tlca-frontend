@@ -1,0 +1,9 @@
+query GetCourses {
+  courses {
+    code
+    name
+    status
+    type
+    visibility
+  }
+}
