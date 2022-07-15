@@ -3,6 +3,7 @@ query GetProgram($code: ID!) {
         code
         coordinator {
             displayName
+            username
         }
         courses {
             banner
@@ -16,6 +17,7 @@ query GetProgram($code: ID!) {
         name
         partners {
             abbreviation
+            code
             name
         }
         tags
