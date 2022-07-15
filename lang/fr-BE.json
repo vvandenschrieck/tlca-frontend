@@ -27,7 +27,7 @@
         "nb_of": "Nombre de compétences",
         "no": "Il n'y a pas de compétences pour le moment.",
         "partners": "@:global.partners",
-        "public": "@:global.public",
+        "public": "@:global.visibility.public",
         "show_by": {
             "level": "Montrer par niveau",
             "category": "Montrer par catégorie"

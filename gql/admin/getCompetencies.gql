@@ -1,0 +1,12 @@
+query GetUsers {
+  competencies {
+    code
+    isPublic
+    name
+    partners {
+      abbreviation
+      code
+      name
+    }
+  }
+}

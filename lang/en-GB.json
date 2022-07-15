@@ -27,7 +27,7 @@
         "nb_of": "Number of competencies",
         "no": "There are no competencies for now.",
         "partners": "@:global.partners",
-        "public": "@:global.public",
+        "public": "@:global.visibility.public",
         "show_by": {
             "level": "Show by level",
             "category": "Show by category"
