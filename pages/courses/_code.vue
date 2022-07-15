@@ -5,7 +5,7 @@
     :variables="query.variables"
   >
     <template #default="{ result: { error, data: course }, isLoading }">
-      <div v-if="isLoading" v-t="'global.loading'"></div>
+      <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
       <div v-else-if="course">
         <bread-crumb :primary-title="course.code" />
@@ -16,10 +16,14 @@
           <v-col cols="12" md="9">
             <v-card>
               <v-tabs v-model="currentTab" show-arrows>
-                <v-tab v-t="'course.description'"></v-tab>
-                <v-tab v-t="'course.competencies'"></v-tab>
-                <v-tab v-if="course.schedule" v-t="'course.schedule._'"></v-tab>
-                <v-tab v-if="course.colophon" v-t="'course.colophon'"></v-tab>
+                <v-tab>{{ $t('course.description') }}</v-tab>
+                <v-tab>{{ $t('course.competencies._') }}</v-tab>
+                <v-tab v-if="course.schedule">
+                  {{ $t('course.schedule._') }}
+                </v-tab>
+                <v-tab v-if="course.colophon">
+                  {{ $t('course.colophon') }}
+                </v-tab>
               </v-tabs>
               <v-card-text class="text--primary">
                 <v-tabs-items v-model="currentTab">
