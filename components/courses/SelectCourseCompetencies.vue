@@ -20,7 +20,7 @@
           <v-row v-for="(competency, index) in value" :key="index">
             <v-col cols="12" md="7">
               <v-autocomplete-with-validation
-                v-model="competency.competency"
+                :value="competency.competency"
                 :vid="`competency-${index}`"
                 :items="competencies"
                 item-value="code"
@@ -28,6 +28,7 @@
                 required
                 rules="required"
                 dense
+                @input="update(index, 'competency', $event)"
               >
                 <template #item="{ item: { code, name } }">
                   <b>{{ code }}</b>
@@ -37,19 +38,21 @@
             </v-col>
             <v-col cols="12" md="2">
               <v-select-with-validation
-                v-model="competency.category"
+                :value="competency.category"
                 :vid="`competency-category-${index}`"
                 :items="categories"
                 required
                 rules="required"
                 dense
+                @input="update(index, 'category', $event)"
               ></v-select-with-validation>
             </v-col>
             <v-col cols="12" md="2">
               <v-text-field
-                v-model="competency.subcategory"
+                :value="competency.subcategory"
                 :vid="`competency-subcategory-${index}`"
                 dense
+                @input="update(index, 'subcategory', $event)"
               >
               </v-text-field>
             </v-col>
@@ -125,6 +128,16 @@ export default {
           ...this.value.slice(index + 1),
         ])
       }
+    },
+    update(index, field, value) {
+      this.$emit('input', [
+        ...this.value.slice(0, index),
+        {
+          ...this.value[index],
+          [field]: value,
+        },
+        ...this.value.slice(index + 1),
+      ])
     },
   },
 }
