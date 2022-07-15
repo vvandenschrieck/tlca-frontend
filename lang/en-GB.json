@@ -15,17 +15,17 @@
             "basic": "Basic",
             "advanced": "Advanced"
         },
-        "code":  "@:global.code",
+        "code": "@:global.code",
         "coordinator": "@:global.coordinator",
         "create": "@:general.create a competency",
         "description": "@:global.description._",
         "learning_outcomes": {
             "_": "Learning outcomes"
         },
-        "name":  "@:global.name",
+        "name": "@:global.name",
         "nb": "{nb} competency | {nb} competencies",
         "nb_of": "Number of competencies",
-        "no": "There are no competencies available for now.",
+        "no": "There are no competencies for now.",
         "partners": "@:global.partners",
         "public": "@:global.public",
         "show_by": {
@@ -45,9 +45,16 @@
     },
     "course": {
         "_": "Course | Courses",
+        "code": "@:global.code",
         "colophon": "Colophon",
-        "competencies": "Competencies",
+        "competencies": {
+            "_": "Competencies",
+            "add": "Add a competency",
+            "category": "Category",
+            "subcategory": "Subcategory"
+        },
         "coordinator": "@:global.coordinator",
+        "create": "@:general.create a course",
         "description": "@:global.description._",
         "field": "@:global.field",
         "filter": {
@@ -62,6 +69,7 @@
             "in_hours_per_week": "{hoursPerWeek} h/week",
             "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
         },
+        "name": "@:global.name",
         "nb": "{nb} course | {nb} courses",
         "nb_of": {
             "_": "Number of courses",
@@ -111,12 +119,14 @@
     },
     "error": {
         "_": "Error",
+        "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
         "EXISTING_EMAIL_ADDRESS": "Impossible to create an account with this email address",
         "EXISTING_CODE": "The specified code already exists",
         "INVALID_CREDENTIALS": "Invalid credentials",
         "INVALID_EMAIL_ADDRESS": "Invalid email address",
         "INVALID_PASSWORD": "Password not strong enough",
         "INVITE_REQUEST_FAILED": "Invite request failed",
+        "MISSING_BASIC_COMPETENCY": "There must be at least one basic competency",
         "MISSING_FIELDS": "Some mandatory fields are missing"
     },
     "general": {
@@ -208,6 +218,7 @@
     },
     "success": {
         "_": "Success",
+        "COURSE_CREATED": "Course successfully created!",
         "LOGIN_SUCCESSFUL": "Successfully logged in!",
         "REGISTERED": "Successfully registered!",
         "REQUEST_INVITE_SENT": "Invite request successfully sent!"

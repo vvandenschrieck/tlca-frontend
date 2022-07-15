@@ -15,17 +15,17 @@
             "basic": "Basique",
             "advanced": "Avancée"
         },
-        "code":  "@:global.code",
+        "code": "@:global.code",
         "coordinator": "@:global.coordinator",
         "create": "@:general.create une compétence",
         "description": "@:global.description._",
         "learning_outcomes": {
             "_": "Acquis d'apprentissage"
         },
-        "name":  "@:global.name",
+        "name": "@:global.name",
         "nb": "{nb} compétence | {nb} compétences",
         "nb_of": "Nombre de compétences",
-        "no": "Il n'y a pas de compétences disponibles pour le moment.",
+        "no": "Il n'y a pas de compétences pour le moment.",
         "partners": "@:global.partners",
         "public": "@:global.public",
         "show_by": {
@@ -46,8 +46,15 @@
     "course": {
         "_": "Cours",
         "colophon": "Colophon",
-        "competencies": "Compétences",
+        "code": "@:global.code",
+        "competencies": {
+            "_": "Compétences",
+            "add": "Ajouter une compétence",
+            "category": "Catégorie",
+            "subcategory": "Sous-catégorie"
+        },
         "coordinator": "@:global.coordinator",
+        "create": "@:general.create un cours",
         "description": "@:global.description._",
         "field": "@:global.field",
         "filter": {
@@ -62,6 +69,7 @@
             "in_hours_per_week": "{hoursPerWeek} h/semaine",
             "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
         },
+        "name": "@:global.name",
         "nb": "{nb} cours | {nb} cours",
         "nb_of": {
             "_": "Nombre de cours",
@@ -111,12 +119,14 @@
     },
     "error": {
         "_": "Erreur",
+        "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
         "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
         "EXISTING_CODE": "Le code spécifié existe déjà",
         "INVALID_CREDENTIALS": "Mauvais identifiants",
         "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
         "INVALID_PASSWORD": "Mot de passe pas assez fort",
         "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
+        "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
         "MISSING_FIELDS": "Certains champs obligatoires sont manquants"
     },
     "general": {
@@ -133,7 +143,7 @@
             "optional": "@:general.information._ optionnelle"
         },
         "owner": "Propriétaire",
-        "reset": "Reset",
+        "reset": "Réinitialiser",
         "status": "Statut",
         "validated": "Validé"
     },
@@ -208,6 +218,7 @@
     },
     "success": {
         "_": "Succès",
+        "COURSE_CREATED": "Cours créé avec succès !",
         "LOGIN_SUCCESSFUL": "Connecté(e) avec succès !",
         "REGISTERED": "Inscrit(e) avec succès !",
         "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
