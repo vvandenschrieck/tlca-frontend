@@ -1,0 +1,17 @@
+mutation createCourse(
+  $code: String!
+  $competencies: [CourseCompetencyInput!]!
+  $description: String
+  $name: String!
+  $type: CourseType
+  $visibility: Visibility
+) {
+  createCourse(
+    code: $code
+    competencies: $competencies
+    description: $description
+    name: $name
+    type: $type
+    visibility: $visibility
+  )
+}
