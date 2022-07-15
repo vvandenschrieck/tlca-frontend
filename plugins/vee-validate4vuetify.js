@@ -3,9 +3,11 @@
 import Vue from 'vue'
 
 import { ValidationProvider } from 'vee-validate'
-import { VTextarea, VTextField } from 'vuetify/lib'
+import { VAutocomplete, VSelect, VTextarea, VTextField } from 'vuetify/lib'
 
 // Globally register most common form inputs.
+Vue.component('v-autocomplete-with-validation', withValidation(VAutocomplete))
+Vue.component('v-select-with-validation', withValidation(VSelect))
 Vue.component('v-text-field-with-validation', withValidation(VTextField))
 Vue.component('v-textarea-with-validation', withValidation(VTextarea))
 
