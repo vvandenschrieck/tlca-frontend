@@ -1,7 +1,5 @@
 <template>
   <div>
-    <bread-crumb />
-
     <h2 v-text="title"></h2>
 
     <card-list

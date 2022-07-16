@@ -8,7 +8,6 @@
       <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
       <div v-else-if="course">
-        <bread-crumb :primary-title="course.code" />
 
         <h2>{{ course.name }}</h2>
 

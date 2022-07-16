@@ -9,7 +9,6 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="partner">
-        <bread-crumb :primary-title="partner.abbreviation || partner.name" />
 
         <h2>{{ partner.name }}</h2>
 

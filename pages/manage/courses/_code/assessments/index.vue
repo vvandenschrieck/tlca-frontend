@@ -8,7 +8,6 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="course">
-        <bread-crumb :primary-title="course.code" />
 
         <h2 v-text="course.name"></h2>
 
