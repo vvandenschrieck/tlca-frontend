@@ -8,7 +8,6 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="competency">
-        <bread-crumb :primary-title="competency.code" />
 
         <h2 v-text="competency.name"></h2>
 

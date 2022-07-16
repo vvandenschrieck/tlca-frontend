@@ -13,6 +13,7 @@
     <v-main>
       <v-container>
         <notification-displayer />
+        <bread-crumb v-if="showBreadCrumb" />
         <Nuxt />
       </v-container>
     </v-main>
@@ -34,6 +35,11 @@ export default {
       title: 'TLCA',
     }
   },
+  computed: {
+    showBreadCrumb() {
+      return this.$route.fullPath !== '/'
+    }
+  }
 }
 </script>
 

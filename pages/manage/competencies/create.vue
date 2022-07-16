@@ -1,6 +1,5 @@
 <template>
   <div>
-    <bread-crumb :primary-title="$t('general.create')" />
 
     <h2 v-t="'competency.create'"></h2>
 

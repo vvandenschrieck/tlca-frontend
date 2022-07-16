@@ -5,7 +5,6 @@
   >
     <template #default="{ result: { error, data: competencies }, isLoading }">
       <div v-if="isLoading || competencies">
-        <bread-crumb />
 
         <h2>{{ $tc('competency._', 2) }}</h2>
 

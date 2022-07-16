@@ -8,34 +8,26 @@
 import getPartners from '../gql/getPartner.gql'
 export default {
   name: 'BreadCrumb',
-  props: {
-    primaryTitle: {
-      type: String,
-      default: null,
-    },
-    secondaryTitle: {
-      type: String,
-      default: null,
-    },
-  },
   data() {
     return {
       items: [],
+      partTitles: {
+        courses: () => this.$tc('course._', 2),
+        partners: () => this.$tc('partner._', 2),
+        programs: () => this.$tc('program._', 2),
+        manage: () => this.$t('global.spaces.manage'),
+        learn: () => this.$t('learn._'),
+        competencies: () => this.$tc('competency._', 2),
+        create: () => this.$t('general.create'),
+        edit: () => this.$t('general.edit'),
+        assessments: () => this.$tc('assessments._', 2)
+      },
       breadCrumbTitles: {
         async 'partners-code'() {
           const partner = await this.$apollo
             .query({ query: getPartners, variables: { code: this.$route.params.code } })
             .then(({ data }) => data.partner)
           return () => partner.abbreviation || partner.name
-        },
-        partners() {
-          return () => this.$tc('partner._', 2)
-        },
-        courses() {
-          return () => this.$tc('course._', 2)
-        },
-        programs() {
-          return () => this.$tc('program._', 2)
         },
       }
     }
@@ -45,39 +37,56 @@ export default {
       return this.items.map(i => ({ ...i, text: i.text.apply?.(this) }))
     }
   },
-  async mounted() {
-    const parts = this.$route.fullPath.slice(1).split('/')
-    const isHomeSpace = !['admin', 'learn', 'manage', 'teach'].includes(
-      parts[0]
-    )
-
-    let items = parts.reduce(
-      (acc, part, i) => [
-        ...acc,
-        {
-          text: () => part,
-          exact: true,
-          to: `${acc.at(-1)?.to ?? ''}/${part}`,
-        },
-      ],
-      []
-    ).map(async (i) => ({
-      ...i,
-      comp: this.$router.resolve(i.to),
-      text: (await this.breadCrumbTitles[this.$router
-        .resolve(i.to).route.name]?.apply(this)) || i.text
-    }))
-    items = await Promise.all(items)
-
-    // Add a first item if the page is in the home space.
-    if (isHomeSpace) {
-      items.unshift({
-        text: () => this.$tc('global.spaces.home'),
-        exact: true,
-        to: '/',
-      })
+  watch: {
+    $route: {
+      handler: 'generateBreadCrumb',
+      immediate: true
     }
-    this.items = items
+  },
+  methods: {
+    async getText(item) {
+      const routeName = this.$router.resolve(item.to).route.name
+
+      if( routeName in this.breadCrumbTitles) {
+        return await this.breadCrumbTitles[routeName].apply(this)
+      }
+      if(item.part in this.partTitles) {
+        return this.partTitles[item.part]
+      }
+      return () => item.part
+    },
+    async generateBreadCrumb() {
+      const parts = this.$route.fullPath.slice(1).split('/')
+      const isHomeSpace = !['admin', 'learn', 'manage', 'teach'].includes(
+        parts[0]
+      )
+
+      let items = parts.reduce(
+        (acc, part, i) => [
+          ...acc,
+          {
+            part,
+            exact: true,
+            to: `${acc.at(-1)?.to ?? ''}/${part}`,
+          },
+        ],
+        []
+      ).map(async (i) => ({
+        ...i,
+        text: await this.getText(i)
+        }))
+      items = await Promise.all(items)
+
+      // Add a first item if the page is in the home space.
+      if (isHomeSpace) {
+        items.unshift({
+          text: () => this.$tc('global.spaces.home'),
+          exact: true,
+          to: '/',
+        })
+      }
+      this.items = items
+    }
   },
 }
 </script>
