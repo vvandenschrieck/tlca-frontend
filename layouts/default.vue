@@ -38,8 +38,8 @@ export default {
   computed: {
     showBreadCrumb() {
       return this.$route.fullPath !== '/'
-    }
-  }
+    },
+  },
 }
 </script>
 

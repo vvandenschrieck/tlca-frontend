@@ -9,7 +9,6 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="partner">
-
         <h2>{{ partner.name }}</h2>
 
         <v-row>

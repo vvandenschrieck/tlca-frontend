@@ -8,7 +8,6 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="program">
-
         <h2>{{ program.name }}</h2>
 
         <v-row>

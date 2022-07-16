@@ -8,7 +8,6 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="competency">
-
         <h2 v-text="competency.name"></h2>
 
         <v-row>

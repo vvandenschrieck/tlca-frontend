@@ -8,7 +8,6 @@
       <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
       <div v-else-if="course">
-
         <h2>{{ course.name }}</h2>
 
         <v-row>
