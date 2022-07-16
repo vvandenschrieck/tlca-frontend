@@ -4,6 +4,14 @@
 
 <script>
 export default {
-  name: 'LearnCoursesPage'
+  name: 'LearnCoursesPage',
+  head() {
+    return {
+      title: this.$tc('course._', 2) + ' | ' + this.$t('global.spaces.learn'),
+    }
+  },
+  meta: {
+    roles: ['student'],
+  },
 }
 </script>
