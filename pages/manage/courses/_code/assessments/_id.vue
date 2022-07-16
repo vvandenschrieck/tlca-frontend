@@ -7,7 +7,6 @@
       <div v-if="isLoading" v-t="'global.loading'"></div>
 
       <div v-else-if="data.course && data.assessment">
-
         <h2 v-text="data.assessment.name"></h2>
 
         <v-row>

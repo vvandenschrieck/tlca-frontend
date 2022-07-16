@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <h2 v-t="'competency.create'"></h2>
 
     <ValidationObserver ref="form" v-slot="{ handleSubmit }">
