@@ -133,6 +133,7 @@
         "action": "Action | Actions",
         "cancel": "Cancel",
         "create": "Create",
+        "edit": "Edit",
         "filter": {
             "_": "Filter"
         },
