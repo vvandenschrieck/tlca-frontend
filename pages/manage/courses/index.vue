@@ -5,7 +5,6 @@
   >
     <template #default="{ result: { error, data: courses }, isLoading }">
       <div v-if="isLoading || courses">
-        <bread-crumb />
 
         <h2>{{ $tc('course._', 2) }}</h2>
 
