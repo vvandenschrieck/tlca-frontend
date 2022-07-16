@@ -1,0 +1,9 @@
+query GetCourses {
+  courses(view: STUDENT) {
+    banner
+    code
+    name
+    type
+    visibility
+  }
+}
