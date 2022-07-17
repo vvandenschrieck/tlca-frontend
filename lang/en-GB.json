@@ -79,6 +79,14 @@
         },
         "no": "There are no courses available for now.",
         "register": "Register",
+        "registrations": {
+            "_": "@:registration._",
+            "date": "@:global.date",
+            "invitations": "Invitations",
+            "name_or_email": "Name or email",
+            "registered": "Registered",
+            "status": "@:general.status"
+        },
         "request_invite": "Request an invite",
         "schedule": {
             "_": "Schedule",
@@ -151,6 +159,7 @@
     "global": {
         "coordinator": "Coordinator",
         "code": "Code",
+        "date": "Date",
         "description": {
             "_": "Description",
             "no": "No @.lower:global.description._"
