@@ -17,6 +17,17 @@ query GetCourse($code: ID!) {
       name
     }
     published
+    registrations {
+      date
+      email
+      id
+      invite
+      user {
+        displayName
+        email
+        username
+      }
+    }
     schedule {
       name
       date

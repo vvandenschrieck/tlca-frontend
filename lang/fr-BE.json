@@ -79,6 +79,14 @@
         },
         "no": "Il n'y a pas de cours disponibles pour le moment.",
         "register": "S'inscrire",
+        "registrations": {
+            "_": "@:registration._",
+            "date": "@:global.date",
+            "invitations": "Invitations",
+            "name_or_email": "Nom ou e-mail",
+            "registered": "Inscrit(e)s",
+            "status": "@:general.status"
+        },
         "request_invite": "Demander une invitation",
         "schedule": {
             "_": "Calendrier",
@@ -151,6 +159,7 @@
     "global": {
         "coordinator": "Coordinateur",
         "code":  "Code",
+        "date": "Date",
         "description": {
             "_": "Description",
             "no": "Pas de @.lower:global.description._"
@@ -206,7 +215,7 @@
         }
     },
     "registration": {
-        "_": "Inscription | Inscription",
+        "_": "Inscription | Inscriptions",
         "date": "Date d'inscription",
         "invite_request_sent": "Demande d'invitation envoyée",
         "invite_received": "Invitation reçue",

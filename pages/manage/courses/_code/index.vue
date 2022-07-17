@@ -5,7 +5,7 @@
     :variables="{ code: $route.params.code }"
   >
     <template #default="{ result: { error, data: course }, isLoading }">
-      <div v-if="isLoading" v-t="'global.loading'"></div>
+      <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
       <div v-else-if="course && course.isCoordinator">
         <h2 v-text="course.name"></h2>
@@ -14,21 +14,34 @@
           <v-col cols="12" md="9">
             <v-card>
               <v-tabs v-model="currentTab" show-arrows>
-                <v-tab v-t="'course.description'"></v-tab>
-                <v-tab v-if="course.schedule" v-t="'course.schedule._'"></v-tab>
+                <v-tab>
+                  {{ $t('course.description') }}
+                </v-tab>
+                <v-tab v-if="course.schedule">
+                  {{ $t('course.schedule._') }}
+                </v-tab>
+                <v-tab v-if="course.registrations?.length">
+                  {{ $tc('course.registrations._', 2) }}
+                </v-tab>
               </v-tabs>
+
               <v-card-text class="text--primary">
                 <v-tabs-items v-model="currentTab">
                   <v-tab-item>
-                    <div
-                      v-if="course.description"
-                      v-t="'course.description'"
-                    ></div>
+                    <div v-if="course.description">
+                      {{ course.description }}
+                    </div>
                     <div v-else v-t="'global.description.no'"></div>
                   </v-tab-item>
 
                   <v-tab-item v-if="course.schedule">
                     <course-schedule :items="course.schedule" />
+                  </v-tab-item>
+
+                  <v-tab-item v-if="course.registrations?.length">
+                    <registrations-list
+                      :items="course.registrations"
+                    ></registrations-list>
                   </v-tab-item>
                 </v-tabs-items>
               </v-card-text>
