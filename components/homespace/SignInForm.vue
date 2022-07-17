@@ -18,13 +18,9 @@
     <v-card>
       <ValidationObserver ref="form" v-slot="{ handleSubmit }">
         <v-form :disabled="formBusy" @submit.prevent="handleSubmit(signIn)">
-          <v-card-title class="text-h5 grey lighten-2">
-            {{ $t('authentication.sign_in') }}
-          </v-card-title>
+          <v-card-title class="text-h5 grey lighten-2">{{ $t('authentication.sign_in') }}</v-card-title>
           <v-card-text>
-            <v-alert v-if="error" type="error" outlined dense class="mt-5">
-              {{ $t(error) }}
-            </v-alert>
+            <v-alert v-if="error" type="error" outlined dense class="mt-5">{{ $t(error) }}</v-alert>
 
             <v-text-field-with-validation
               v-model="usernameOrEmail"
@@ -33,22 +29,27 @@
               required
               autofocus
             ></v-text-field-with-validation>
-            <v-text-field-with-validation
+            <base-password-field-with-validation
               v-model="password"
-              type="password"
               :label="$t('user.password')"
               rules="required"
               required
-            ></v-text-field-with-validation>
+            />
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn :disabled="formBusy" color="error" text @click="reset()">
-              {{ $t('general.cancel') }}
-            </v-btn>
-            <v-btn type="submit" :loading="formBusy" color="primary" text>
-              {{ $t('authentication.sign_in') }}
-            </v-btn>
+            <v-btn
+              :disabled="formBusy"
+              color="error"
+              text
+              @click="reset()"
+            >{{ $t('general.cancel') }}</v-btn>
+            <v-btn
+              type="submit"
+              :loading="formBusy"
+              color="primary"
+              text
+            >{{ $t('authentication.sign_in') }}</v-btn>
           </v-card-actions>
         </v-form>
       </ValidationObserver>
@@ -69,6 +70,7 @@ export default {
       error: null,
       formBusy: false,
       password: '',
+      showPassword: false,
     }
   },
   watch: {
@@ -78,6 +80,7 @@ export default {
       }
     },
   },
+
   methods: {
     reset() {
       this.dialog = false
