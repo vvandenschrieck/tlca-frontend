@@ -229,7 +229,8 @@
     "success": {
         "_": "Success",
         "COURSE_CREATED": "Course successfully created!",
-        "LOGIN_SUCCESSFUL": "Successfully logged in!",
+        "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
+        "SIGN_UP_SUCCESSFUL": "Successfully signed up!",
         "REGISTERED": "Successfully registered!",
         "REQUEST_INVITE_SENT": "Invite request successfully sent!"
     },

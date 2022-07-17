@@ -6,20 +6,15 @@
     :fullscreen="$vuetify.breakpoint.xsOnly"
   >
     <template #activator="{ on, attrs }">
-      <v-btn
-        v-t="'authentication.sign_up'"
-        v-bind="attrs"
-        text
-        small
-        v-on="{ ...on }"
-      ></v-btn>
+      <v-btn v-bind="attrs" text small v-on="{ ...on }">
+        {{ $t('authentication.sign_up') }}
+      </v-btn>
     </template>
     <v-card>
       <v-form ref="form" class="mt-5" @submit.prevent="signUp()">
-        <v-card-title
-          v-t="'authentication.sign_up'"
-          class="text-h5 grey lighten-2"
-        ></v-card-title>
+        <v-card-title class="text-h5 grey lighten-2">
+          {{ $t('authentication.sign_up') }}
+        </v-card-title>
         <v-card-text>
           <v-alert
             v-if="error"
@@ -35,28 +30,20 @@
             required
           ></v-text-field>
           <base-password-field-with-validation
-              v-model="password"
-              :label="$t('user.password')"
-              rules="required"
-              required
-            />
+            v-model="password"
+            :label="$t('user.password')"
+            rules="required"
+            required
+          ></base-password-field-with-validation>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            v-t="'general.cancel'"
-            :disabled="formBusy"
-            color="error"
-            text
-            @click="cancel()"
-          ></v-btn>
-          <v-btn
-            v-t="'authentication.sign_up'"
-            type="submit"
-            :loading="formBusy"
-            color="primary"
-            text
-          ></v-btn>
+          <v-btn :disabled="formBusy" color="error" text @click="reset()">
+            {{ $t('general.cancel') }}
+          </v-btn>
+          <v-btn type="submit" :loading="formBusy" color="primary" text>
+            {{ $t('authentication.sign_up') }}
+          </v-btn>
         </v-card-actions>
       </v-form>
     </v-card>
@@ -80,12 +67,12 @@ export default {
   watch: {
     dialog(value) {
       if (!value) {
-        this.cancel()
+        this.reset()
       }
     },
   },
   methods: {
-    cancel() {
+    reset() {
       this.dialog = false
       this.email = ''
       this.error = null
@@ -95,29 +82,31 @@ export default {
       this.formBusy = true
 
       try {
-        const data = {
-          email: this.email,
-          password: this.password,
-        }
-
         const response = await this.$apollo
           .mutate({
             mutation: signUpGql,
-            variables: data,
+            variables: {
+              email: this.email,
+              password: this.password,
+            },
           })
           .then(({ data }) => data && data.signUp)
 
         if (response) {
-          this.dialog = false
-        } else {
-          this.error = 'error._'
+          this.reset()
+          this.$notificationManager.displaySuccessMessage(
+            this.$t('success.SIGN_UP_SUCCESSFUL')
+          )
+          return
         }
       } catch (err) {
         if (err.graphQLErrors?.length) {
           this.error = `error.${err.graphQLErrors[0].message}`
-        } else {
-          this.error = 'error._'
         }
+      }
+
+      if (!this.error) {
+        this.error = 'error._'
       }
       this.formBusy = false
     },
