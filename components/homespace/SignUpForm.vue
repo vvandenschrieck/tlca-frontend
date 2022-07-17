@@ -34,12 +34,12 @@
             :label="$t('user.email')"
             required
           ></v-text-field>
-          <v-text-field
-            v-model="password"
-            type="password"
-            :label="$t('user.password')"
-            required
-          ></v-text-field>
+          <base-password-field-with-validation
+              v-model="password"
+              :label="$t('user.password')"
+              rules="required"
+              required
+            />
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
