@@ -77,7 +77,7 @@ export default {
       return this.items.map((item) => ({
         ...item,
         nameOrEmail: this.nameOrEmail(item),
-        status: item.invite ? 'invitations' : 'registered',
+        status: item.invite ? 'invites' : 'registered',
       }))
     },
   },

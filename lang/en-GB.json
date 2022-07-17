@@ -82,7 +82,7 @@
         "registrations": {
             "_": "@:registration._",
             "date": "@:global.date",
-            "invitations": "Invitations",
+            "invites": "Invites",
             "name_or_email": "Name or email",
             "registered": "Registered",
             "status": "@:general.status"
@@ -135,7 +135,8 @@
         "INVALID_PASSWORD": "Password not strong enough",
         "INVITE_REQUEST_FAILED": "Invite request failed",
         "MISSING_BASIC_COMPETENCY": "There must be at least one basic competency",
-        "MISSING_FIELDS": "Some mandatory fields are missing"
+        "MISSING_FIELDS": "Some mandatory fields are missing",
+        "REGISTRATION_FAILED": "Registration failed"
     },
     "general": {
         "action": "Action | Actions",
