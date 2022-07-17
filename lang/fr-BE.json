@@ -229,7 +229,8 @@
     "success": {
         "_": "Succès",
         "COURSE_CREATED": "Cours créé avec succès !",
-        "LOGIN_SUCCESSFUL": "Connecté(e) avec succès !",
+        "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
+        "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
         "REGISTERED": "Inscrit(e) avec succès !",
         "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
     },

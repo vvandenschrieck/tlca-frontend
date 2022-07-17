@@ -2,16 +2,22 @@
   <v-text-field
     :value="value"
     v-bind="$attrs"
-    :type="passwordInputType"
+    :type="type"
     v-on="$listeners"
     @input="$emit('input', $event)"
   >
     <template v-if="value" #append>
-      <v-btn icon>
-        <v-icon
-          @mousedown="showPassword = true"
-          @mouseup="showPassword = false"
-        >{{passwordShowIcon}}</v-icon>
+      <v-btn
+        icon
+        small
+        tabindex="-1"
+        @mousedown="visible = true"
+        @mouseup="visible = false"
+        @mouseleave="visible = false"
+      >
+        <v-icon small>
+          {{ icon }}
+        </v-icon>
       </v-btn>
     </template>
   </v-text-field>
@@ -28,19 +34,16 @@ export default {
   },
   data() {
     return {
-      showPassword: false,
+      visible: false,
     }
   },
   computed: {
-    passwordInputType() {
-      return this.showPassword ? 'input' : 'password'
+    type() {
+      return this.visible ? 'input' : 'password'
     },
-    passwordShowIcon() {
-      return this.showPassword ? 'mdi-eye-off' : 'mdi-eye'
+    icon() {
+      return this.visible ? 'mdi-eye-off' : 'mdi-eye'
     },
   },
 }
 </script>
-
-<style>
-</style>
