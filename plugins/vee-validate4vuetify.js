@@ -4,12 +4,14 @@ import Vue from 'vue'
 
 import { ValidationProvider } from 'vee-validate'
 import { VAutocomplete, VSelect, VTextarea, VTextField } from 'vuetify/lib'
+import BasePasswordFiled from '@/components/Base/PasswordField.vue'
 
 // Globally register most common form inputs.
 Vue.component('v-autocomplete-with-validation', withValidation(VAutocomplete))
 Vue.component('v-select-with-validation', withValidation(VSelect))
 Vue.component('v-text-field-with-validation', withValidation(VTextField))
 Vue.component('v-textarea-with-validation', withValidation(VTextarea))
+Vue.component('base-password-field-with-validation', withValidation(BasePasswordFiled))
 
 // Function to embed a component within a vee-validate ValidationProvider.
 export function withValidation(component) {
@@ -26,6 +28,9 @@ export function withValidation(component) {
       const scopedSlots = this.$scopedSlots
 
       return createElement(ValidationProvider, {
+        attrs: {
+          ...this.$attrs
+        },
         props: {
           name: this.$attrs.label,
           rules: this.rules,
@@ -37,9 +42,9 @@ export function withValidation(component) {
             createElement(
               component,
               {
-                props: {
+                attrs: {
                   errorMessages: errors,
-                  ...this.$attrs,
+                  ...this.$attrs
                 },
                 on: { ...this.$listeners },
                 scopedSlots,
