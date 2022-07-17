@@ -82,7 +82,7 @@
         "registrations": {
             "_": "@:registration._",
             "date": "@:global.date",
-            "invitations": "Invitations",
+            "invites": "Invitations",
             "name_or_email": "Nom ou e-mail",
             "registered": "Inscrit(e)s",
             "status": "@:general.status"
@@ -135,7 +135,8 @@
         "INVALID_PASSWORD": "Mot de passe pas assez fort",
         "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
         "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
-        "MISSING_FIELDS": "Certains champs obligatoires sont manquants"
+        "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
+        "REGISTRATION_FAILED": "Inscription échouée"
     },
     "general": {
         "action": "Action | Actions",
