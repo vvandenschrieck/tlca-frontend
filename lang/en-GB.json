@@ -101,12 +101,12 @@
             "in_weeks": "one week | {weeks} weeks"
         },
         "status": {
-            "_": "@:general.status",
-            "archived": "Archived",
-            "archived_on": "Archived on {date}",
-            "published": "Published",
-            "published_on": "Published on {date}",
-            "unpublished": "Unpublished"
+            "_": "@:global.status._",
+            "archived": "@:global.status.archived",
+            "archived_on": "@:global.status.archived_on",
+            "published": "@:global.status.published",
+            "published_on": "@:global.status.published_on",
+            "unpublished": "@:global.status.unpublished"
         },
         "tags": "@:global.tag",
         "teacher": "@:user.role.teacher | Teachers",
@@ -178,6 +178,14 @@
             "manage": "Manage",
             "teach": "Teach"
         },
+        "status": {
+            "_": "@:general.status",
+            "archived": "Archived",
+            "archived_on": "Archived on {date}",
+            "published": "Published",
+            "published_on": "Published on {date}",
+            "unpublished": "Unpublished"
+        },
         "tag": "Tag | Tags",
         "type": {
             "_": "Type",
@@ -208,6 +216,14 @@
         "field": "@:global.field",
         "language": "@:global.language",
         "no": "There are no programs available for now.",
+        "status": {
+            "_": "@:global.status._",
+            "archived": "@:global.status.archived",
+            "archived_on": "@:global.status.archived_on",
+            "published": "@:global.status.published",
+            "published_on": "@:global.status.published_on",
+            "unpublished": "@:global.status.unpublished"
+        },
         "tags": "@:global.tag",
         "type": {
             "_": "@:global.type._",
