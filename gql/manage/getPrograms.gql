@@ -1,0 +1,16 @@
+query GetPrograms {
+  programs(view: COORDINATOR) {
+    banner
+    code
+    coordinator {
+      username
+    }
+    isArchived
+    isCoordinator
+    isPublished
+    name
+    status
+    type
+    visibility
+  }
+}

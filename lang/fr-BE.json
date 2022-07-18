@@ -101,12 +101,12 @@
             "in_weeks": "une semaine | {weeks} semaines"
         },
         "status": {
-            "_": "@:general.status",
-            "archived": "Archivé",
-            "archived_on": "Archivé le {date}",
-            "published": "Publié",
-            "published_on": "Publié le {date}",
-            "unpublished": "Non publié"
+            "_": "@:global.status._",
+            "archived": "@:global.status.archived",
+            "archived_on": "@:global.status.archived_on",
+            "published": "@:global.status.published",
+            "published_on": "@:global.status.published_on",
+            "unpublished": "@:global.status.unpublished"
         },
         "tags": "@:global.tag",
         "teacher": "@:user.role.teacher | Enseignants",
@@ -178,6 +178,14 @@
             "manage": "Gérer",
             "teach": "Enseigner"
         },
+        "status": {
+            "_": "@:general.status",
+            "archived": "Archivé",
+            "archived_on": "Archivé le {date}",
+            "published": "Publié",
+            "published_on": "Publié le {date}",
+            "unpublished": "Non publié"
+        },
         "tag": "Tag | Tags",
         "type": {
             "_": "Type",
@@ -208,6 +216,14 @@
         "field": "@:global.field",
         "language": "@:global.language",
         "no": "Il n'y a pas de programmes disponibles pour le moment.",
+        "status": {
+            "_": "@:global.status._",
+            "archived": "@:global.status.archived",
+            "archived_on": "@:global.status.archived_on",
+            "published": "@:global.status.published",
+            "published_on": "@:global.status.published_on",
+            "unpublished": "@:global.status.unpublished"
+        },
         "tags": "@:global.tag",
         "type": {
             "_": "@:global.type._",
