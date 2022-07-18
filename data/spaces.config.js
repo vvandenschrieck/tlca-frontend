@@ -16,13 +16,18 @@ export const spaces = [
     roles: ['manager', 'teacher'],
     sections: [
       {
+        title: 'competency._',
+        to: { name: 'manage-competencies' },
+        roles: ['teacher'],
+      },
+      {
         title: 'course._',
         to: { name: 'manage-courses' },
         roles: ['teacher'],
       },
       {
-        title: 'competency._',
-        to: { name: 'manage-competencies' },
+        title: 'program._',
+        to: { name: 'manage-programs' },
         roles: ['teacher'],
       },
       {
