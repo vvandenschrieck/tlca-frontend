@@ -196,7 +196,7 @@ export default {
     },
     reset() {
       this.code = ''
-      this.competencies = []
+      this.competencies = [{}]
       this.description = ''
       this.formError = null
       this.name = ''
