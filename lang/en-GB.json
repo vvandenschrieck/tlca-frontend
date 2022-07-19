@@ -140,6 +140,7 @@
     },
     "general": {
         "action": "Action | Actions",
+        "apply": "Apply",
         "cancel": "Cancel",
         "create": "Create",
         "edit": "Edit",
@@ -214,6 +215,9 @@
         "_": "Program | Programs",
         "coordinator": "@:global.coordinator",
         "field": "@:global.field",
+        "filter": {
+            "status": "@:general.status"
+        },
         "language": "@:global.language",
         "no": "There are no programs available for now.",
         "status": {

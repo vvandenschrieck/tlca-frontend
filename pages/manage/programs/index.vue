@@ -7,25 +7,15 @@
       <div v-if="isLoading || programs">
         <h2>{{ $tc('program._', 2) }}</h2>
 
-        <v-row>
-          <v-col cols="12" md="9">
-            <card-list
-              :component="component"
-              link-prefix="manage-"
-              :items="programs"
-              :items-per-page="6"
-              :cards-per-page="3"
-              :prop-name="propName"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="3"
-            :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-          >
-            <p>Programs info panel</p>
-          </v-col>
-        </v-row>
+        <programs-filter-bar v-model="filter" />
+
+        <card-list
+          class="mt-5"
+          :component="component"
+          link-prefix="manage-"
+          :items="filteredPrograms(programs, filter)"
+          :prop-name="propName"
+        />
       </div>
 
       <div v-else-if="error">An error occurred</div>
@@ -35,13 +25,21 @@
 
 <script>
 import ProgramCard from '~/components/cards/ProgramCard.vue'
+import programs from '@/mixins/programs.js'
 
 export default {
   name: 'ManageProgramsPage',
+  mixins: [programs],
   data() {
     return {
+      filter: {},
       propName: 'program',
       component: ProgramCard,
+    }
+  },
+  head() {
+    return {
+      title: this.$tc('program._', 2),
     }
   },
   meta: {

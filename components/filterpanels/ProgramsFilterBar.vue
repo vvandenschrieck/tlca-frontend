@@ -1,0 +1,116 @@
+<template>
+  <div>
+    <v-text-field
+      clearable
+      dense
+      hide-details
+      outlined
+      prepend-inner-icon="mdi-magnify"
+      :value="value.text"
+      @input="updateText"
+    >
+      <v-menu
+        slot="append"
+        v-model="showMenu"
+        :close-on-content-click="false"
+        left
+        :max-width="400"
+        :nudge-width="400"
+        offset-y
+        @input="initialise"
+      >
+        <template #activator="{ on, attrs }">
+          <v-btn icon small v-bind="attrs" v-on="on">
+            <v-icon>{{ filterIcon }}</v-icon>
+          </v-btn>
+        </template>
+
+        <v-card>
+          <v-card-text>
+            <programs-filter v-model="filter" />
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer />
+
+            <v-btn color="error" text @click="reset()">
+              {{ $t('general.reset') }}
+            </v-btn>
+            <v-btn color="primary" text @click="apply()">
+              {{ $t('general.apply') }}
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-menu>
+      <v-btn
+        slot="append-outer"
+        color="success"
+        style="top: -7px"
+        :to="{ name: 'manage-programs-create' }"
+      >
+        <v-icon left>mdi-plus</v-icon>
+        <span>{{ $t('general.create') }}</span>
+      </v-btn>
+    </v-text-field>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ProgramsFilterBar',
+  props: {
+    value: {
+      type: Object,
+      default: () => {
+        return {
+          text: null,
+          options: {
+            status: null,
+          },
+        }
+      },
+    },
+  },
+  data() {
+    return {
+      filter: {},
+      showMenu: false,
+      text: '',
+    }
+  },
+  computed: {
+    filterIcon() {
+      const { options } = this.value
+      return !options?.status ? 'mdi-filter-outline' : 'mdi-filter'
+    },
+  },
+  watch: {
+    value: {
+      handler(value) {
+        this.filter = { ...value.options }
+        this.text = value.text
+      },
+      immediate: true,
+    },
+  },
+  methods: {
+    apply() {
+      this.$emit('input', { text: this.text, options: { ...this.filter } })
+    },
+    initialise(open) {
+      if (open) {
+        this.text = this.value.text
+        this.filter = this.value.options
+      }
+    },
+    reset() {
+      this.filter = {}
+      this.apply()
+      this.showMenu = false
+    },
+    updateText(value) {
+      this.$emit('input', { ...this.value, text: value })
+    },
+  },
+}
+</script>
