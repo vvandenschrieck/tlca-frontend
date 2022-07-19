@@ -8,5 +8,8 @@ query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
     code
     id
     name
+    description
+    start
+    end
   }
 }

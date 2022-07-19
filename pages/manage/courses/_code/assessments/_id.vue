@@ -14,15 +14,39 @@
 
         <v-row>
           <v-col cols="12" md="9">
-            <p>TODO: Assessment detail</p>
-            <p>{{ data.assessment }}</p>
+            <v-card>
+              <v-tabs v-model="currentTab" show-arrows>
+                <v-tab>
+                  {{ $t('assessment.description') }}
+                </v-tab>
+                <v-tab>
+                  {{ $t('assessment.competencies')}}
+                </v-tab>
+              </v-tabs>
+
+              <v-card-text class="text--primary">
+                <v-tabs-items v-model="currentTab">
+                  <v-tab-item>
+                    <div v-if="data.assessment.description" >
+                      <div v-html="data.assessment.description"></div>
+                    </div>
+                    <div v-else v-t="'global.description.no'"></div>
+                  </v-tab-item>
+                  <v-tab-item>
+                    <div>
+                      <div></div>
+                    </div>
+                  </v-tab-item>
+                </v-tabs-items>
+              </v-card-text>
+            </v-card>
           </v-col>
           <v-col
             cols="12"
             md="3"
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
-            <p>TODO</p>
+            <assessment-info-panel :assessment="data.assessment" class="mb-5" />
           </v-col>
         </v-row>
       </div>
@@ -38,5 +62,10 @@ export default {
   meta: {
     roles: ['teacher'],
   },
+  data() {
+    return {
+      currentTab: '0',
+    }
+  }
 }
 </script>
