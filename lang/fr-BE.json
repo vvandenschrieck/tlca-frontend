@@ -77,7 +77,7 @@
             "published": "{nb} publié | {nb} publiés",
             "unpublished": "{nb} non publié | {nb} non publiés"
         },
-        "no": "Il n'y a pas de cours disponibles pour le moment.",
+        "no": "Il n'y a pas de cours pour le moment.",
         "register": "S'inscrire",
         "registrations": {
             "_": "@:registration._",
@@ -120,13 +120,14 @@
         },
         "visibility": {
             "_": "@:global.visibility._",
-            "invite_only": "Sur invitation uniquement",
+            "invite_only": "@:global.visibility.invite_only",
             "private": "@:global.visibility.private",
             "public": "@:global.visibility.public"
         }
     },
     "error": {
         "_": "Erreur",
+        "unexpected": "Une erreur inattendue s'est produite, réessayez plus tard.",
         "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
         "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
         "EXISTING_CODE": "Le code spécifié existe déjà",
@@ -194,6 +195,7 @@
         },
         "visibility": {
             "_": "Visibilité",
+            "invite_only": "Sur invitation uniquement",
             "private": "Privé",
             "public": "Public"
         }
@@ -213,13 +215,22 @@
     },
     "program": {
         "_": "Programme | Programmes",
+        "code": "@:global.code",
         "coordinator": "@:global.coordinator",
+        "courses": {
+            "_": "Cours",
+            "add": "Ajouter un cours",
+            "optional": "Optionnel"
+        },
+        "create": "@:general.create un programme",
+        "description": "@:global.description._",
         "field": "@:global.field",
         "filter": {
             "status": "@:general.status"
         },
         "language": "@:global.language",
-        "no": "Il n'y a pas de programmes disponibles pour le moment.",
+        "name": "@:global.name",
+        "no": "Il n'y a pas de programmes pour le moment.",
         "status": {
             "_": "@:global.status._",
             "archived": "@:global.status.archived",
@@ -233,6 +244,12 @@
             "_": "@:global.type._",
             "training": "@:global.type.training",
             "uprogram": "µProgramme"
+        },
+        "visibility": {
+            "_": "@:global.visibility._",
+            "invite_only": "@:global.visibility.invite_only",
+            "private": "@:global.visibility.private",
+            "public": "@:global.visibility.public"
         }
     },
     "registration": {
