@@ -7,7 +7,12 @@
       <div v-if="isLoading || programs">
         <h2>{{ $tc('program._', 2) }}</h2>
 
-        <programs-filter-bar v-model="filter" />
+        <generic-filter-bar
+          v-slot="{ filter: innerFilter, on }"
+          v-model="filter"
+        >
+          <programs-filter :value="innerFilter" v-on="on" />
+        </generic-filter-bar>
 
         <card-list
           class="mt-5"
@@ -18,7 +23,7 @@
         />
       </div>
 
-      <div v-else-if="error">An error occurred</div>
+      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
     </template>
   </ApolloQuery>
 </template>

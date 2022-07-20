@@ -27,7 +27,10 @@
 
         <v-card>
           <v-card-text>
-            <programs-filter v-model="filter" />
+            <slot
+              :filter="filter"
+              :on="{ input: (value) => (filter = value) }"
+            />
           </v-card-text>
 
           <v-card-actions>
@@ -57,16 +60,14 @@
 
 <script>
 export default {
-  name: 'ProgramsFilterBar',
+  name: 'GenericFilterBar',
   props: {
     value: {
       type: Object,
       default: () => {
         return {
           text: null,
-          options: {
-            status: null,
-          },
+          options: {},
         }
       },
     },
@@ -81,7 +82,9 @@ export default {
   computed: {
     filterIcon() {
       const { options } = this.value
-      return !options?.status ? 'mdi-filter-outline' : 'mdi-filter'
+      return options && Object.values(options).some((v) => v)
+        ? 'mdi-filter'
+        : 'mdi-filter-outline'
     },
   },
   watch: {
