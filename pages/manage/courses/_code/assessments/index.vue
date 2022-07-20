@@ -48,6 +48,7 @@
             <assessments-list-info-panel
               v-if="course.assessments"
               :assessments="course.assessments"
+              :code="course.code"
             />
           </v-col>
         </v-row>
