@@ -33,7 +33,7 @@
               required
               autofocus
             ></v-text-field-with-validation>
-            <base-password-field-with-validation
+            <password-field-with-validation
               v-model="password"
               :label="$t('user.password')"
               rules="required"

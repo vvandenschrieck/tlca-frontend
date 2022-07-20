@@ -29,6 +29,7 @@ export default {
   components: {
     dirs: [
       '~/components',
+      '~/components/base',
       '~/components/cards',
       '~/components/courses',
       '~/components/filterpanels',
