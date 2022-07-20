@@ -129,6 +129,7 @@
         "_": "Erreur",
         "unexpected": "Une erreur inattendue s'est produite, réessayez plus tard.",
         "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
+        "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
         "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
         "EXISTING_CODE": "Le code spécifié existe déjà",
         "INVALID_CREDENTIALS": "Mauvais identifiants",
@@ -136,6 +137,7 @@
         "INVALID_PASSWORD": "Mot de passe pas assez fort",
         "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
         "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
+        "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
         "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
         "REGISTRATION_FAILED": "Inscription échouée"
     },
@@ -267,6 +269,7 @@
     "success": {
         "_": "Succès",
         "COURSE_CREATED": "Cours créé avec succès !",
+        "PROGRAM_CREATED": "Programme créé avec succès !",
         "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
         "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
         "REGISTERED": "Inscrit(e) avec succès !",
