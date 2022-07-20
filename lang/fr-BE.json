@@ -1,7 +1,10 @@
 {
     "assessment": {
         "_": "Évaluation | Évaluations",
-        "nb_of": "Nombre d'évaluations"
+        "nb_of": "Nombre d'évaluations",
+        "nb": "{nb} évaluation | {nb} évaluations",
+        "no": "Il n'y a aucune évaluation disponible pour le moment.",
+        "category" : "catégorie"
     },
     "authentication": {
         "sign_in": "Se connecter",
@@ -45,6 +48,7 @@
     },
     "course": {
         "_": "Cours",
+        "assessments-list":"Liste des évaluations du cours",
         "colophon": "Colophon",
         "code": "@:global.code",
         "competencies": {
