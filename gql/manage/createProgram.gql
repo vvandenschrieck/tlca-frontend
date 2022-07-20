@@ -1,14 +1,14 @@
 mutation createProgram(
   $code: String!
-  $courses: [ID!]!
+  $courses: [ProgramCourseInput!]!
   $description: String
   $name: String!
   $type: ProgramType
-  $visibility: Visibility
+  $visibility: ProgramVisibility
 ) {
   createProgram(
     code: $code
-    courses: $competencies
+    courses: $courses
     description: $description
     name: $name
     type: $type
