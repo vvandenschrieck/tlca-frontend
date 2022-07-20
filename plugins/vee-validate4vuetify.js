@@ -4,14 +4,14 @@ import Vue from 'vue'
 
 import { ValidationProvider } from 'vee-validate'
 import { VAutocomplete, VSelect, VTextarea, VTextField } from 'vuetify/lib'
-import BasePasswordFiled from '@/components/Base/PasswordField.vue'
+import PasswordField from '@/components/base/PasswordField.vue'
 
 // Globally register most common form inputs.
 Vue.component('v-autocomplete-with-validation', withValidation(VAutocomplete))
 Vue.component('v-select-with-validation', withValidation(VSelect))
 Vue.component('v-text-field-with-validation', withValidation(VTextField))
 Vue.component('v-textarea-with-validation', withValidation(VTextarea))
-Vue.component('base-password-field-with-validation', withValidation(BasePasswordFiled))
+Vue.component('password-field-with-validation', withValidation(PasswordField))
 
 // Function to embed a component within a vee-validate ValidationProvider.
 export function withValidation(component) {
