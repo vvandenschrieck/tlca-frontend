@@ -34,6 +34,7 @@ export default {
       '~/components/filterpanels',
       '~/components/homespace',
       '~/components/infopanels',
+      '~/components/programs',
     ],
   },
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/vuetify'],

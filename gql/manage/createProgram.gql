@@ -1,0 +1,17 @@
+mutation createProgram(
+  $code: String!
+  $courses: [ID!]!
+  $description: String
+  $name: String!
+  $type: ProgramType
+  $visibility: Visibility
+) {
+  createProgram(
+    code: $code
+    courses: $competencies
+    description: $description
+    name: $name
+    type: $type
+    visibility: $visibility
+  )
+}
