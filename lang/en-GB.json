@@ -32,6 +32,7 @@
             "level": "Show by level",
             "category": "Show by category"
         },
+        "tags": "@:global.tag",
         "type": {
             "_": "@:global.type._",
             "practical": "Practical",
@@ -268,6 +269,7 @@
     },
     "success": {
         "_": "Success",
+        "COMPETENCY_CREATED": "Competency successfully created!",
         "COURSE_CREATED": "Course successfully created!",
         "PROGRAM_CREATED": "Program successfully created!",
         "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
