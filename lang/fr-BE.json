@@ -1,6 +1,7 @@
 {
     "assessment": {
         "_": "Évaluation | Évaluations",
+        "create": "@:general.create une évaluation",
         "nb_of": "Nombre d'évaluations",
         "nb": "{nb} évaluation | {nb} évaluations",
         "no": "Il n'y a aucune évaluation disponible pour le moment.",
