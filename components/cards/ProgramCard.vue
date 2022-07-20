@@ -1,10 +1,6 @@
 <template>
-  <generic-card :banner="program.banner" :to="link" :label="type">
-    <v-chip
-      v-if="status"
-      id="status"
-      small
-    >
+  <generic-card :banner="program.banner" :label="type" :to="link">
+    <v-chip v-if="status" id="status" small>
       {{ status }}
     </v-chip>
 
@@ -38,8 +34,11 @@ export default {
   },
   computed: {
     status() {
-      const status = this.program.status.toLowerCase()
-      return this.$t(`program.status.${status}`)
+      const status = this.program.status?.toLowerCase()
+      if (status) {
+        return this.$t(`program.status.${status}`)
+      }
+      return null
     },
     type() {
       const type = this.program.type.toLowerCase()

@@ -1,8 +1,8 @@
 query GetPrograms {
-    programs {
-        banner
-        code
-        name
-        type
-    }
+  programs(view: USER) {
+    banner
+    code
+    name
+    type
+  }
 }
