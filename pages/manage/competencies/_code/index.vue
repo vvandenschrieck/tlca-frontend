@@ -12,21 +12,23 @@
 
         <v-row>
           <v-col cols="12" md="9">
-            <v-tabs v-model="currentTab" show-arrows>
-              <v-tab>{{ $t('competency.description') }}</v-tab>
-            </v-tabs>
+            <v-card>
+              <v-tabs v-model="currentTab" show-arrows>
+                <v-tab>{{ $t('competency.description') }}</v-tab>
+              </v-tabs>
 
-            <v-card-text class="text--primary">
-              <v-tabs-items v-model="currentTab">
-                <v-tab-item>
-                  <div
-                    v-if="competency.description"
-                    v-html="competency.description"
-                  />
-                  <div v-else>{{ $t('global.description.no') }}</div>
-                </v-tab-item>
-              </v-tabs-items>
-            </v-card-text>
+              <v-card-text class="text--primary">
+                <v-tabs-items v-model="currentTab">
+                  <v-tab-item>
+                    <div
+                      v-if="competency.description"
+                      v-html="competency.description"
+                    />
+                    <div v-else>{{ $t('global.description.no') }}</div>
+                  </v-tab-item>
+                </v-tabs-items>
+              </v-card-text>
+            </v-card>
           </v-col>
 
           <v-col
