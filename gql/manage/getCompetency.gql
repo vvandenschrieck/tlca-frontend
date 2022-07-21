@@ -9,6 +9,7 @@ query GetCompetency($code: ID!) {
       code
       name
     }
+    tags
     type
     user {
       displayName
