@@ -22,7 +22,17 @@
         "code": "@:global.code",
         "coordinator": "@:global.coordinator",
         "create": "@:general.create a competency",
+        "creator": {
+            "own": "Myself",
+            "partners": "Affiliations",
+            "external": "External"
+        },
         "description": "@:global.description._",
+        "filter": {
+            "visibility": "@:global.visibility._",
+            "creator": "@:general.creator",
+            "tags": "Tags"
+        },
         "learning_outcomes": {
             "_": "Learning outcomes"
         },
@@ -152,6 +162,7 @@
         "apply": "Apply",
         "cancel": "Cancel",
         "create": "Create",
+        "creator": "Creator",
         "edit": "Edit",
         "filter": {
             "_": "Filter"

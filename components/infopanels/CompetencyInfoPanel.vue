@@ -30,7 +30,7 @@ export default {
       }
 
       // Competency visibility
-      const isPublic = this.competency.public
+      const isPublic = this.competency.isPublic
       items.push({
         icon: 'mdi-eye',
         text: this.$t(

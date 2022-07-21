@@ -10,6 +10,7 @@
         <generic-filter-bar
           v-slot="{ filter: innerFilter, on }"
           v-model="filter"
+          :create-link="{ name: 'manage-programs-create' }"
         >
           <programs-filter :value="innerFilter" v-on="on" />
         </generic-filter-bar>

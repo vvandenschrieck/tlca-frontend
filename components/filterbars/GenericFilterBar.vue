@@ -49,7 +49,7 @@
         slot="append-outer"
         color="success"
         style="top: -7px"
-        :to="{ name: 'manage-programs-create' }"
+        :to="createLink"
       >
         <v-icon left>mdi-plus</v-icon>
         <span>{{ $t('general.create') }}</span>
@@ -62,6 +62,10 @@
 export default {
   name: 'GenericFilterBar',
   props: {
+    createLink: {
+      type: Object,
+      required: true,
+    },
     value: {
       type: Object,
       default: () => {
