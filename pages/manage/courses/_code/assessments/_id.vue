@@ -1,7 +1,10 @@
 <template>
   <ApolloQuery
     :query="require('~/gql/manage/getCourseAssessment.gql')"
-    :variables="{ courseCode: $route.params.code, assessmentId: $route.params.id }"
+    :variables="{
+      courseCode: $route.params.code,
+      assessmentId: $route.params.id,
+    }"
   >
     <template #default="{ result: { error, data }, isLoading }">
       <div v-if="isLoading" v-t="'global.loading'"></div>

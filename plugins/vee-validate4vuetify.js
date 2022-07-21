@@ -29,7 +29,7 @@ export function withValidation(component) {
 
       return createElement(ValidationProvider, {
         attrs: {
-          ...this.$attrs
+          ...this.$attrs,
         },
         props: {
           name: this.$attrs.label,
@@ -44,7 +44,7 @@ export function withValidation(component) {
               {
                 attrs: {
                   errorMessages: errors,
-                  ...this.$attrs
+                  ...this.$attrs,
                 },
                 on: { ...this.$listeners },
                 scopedSlots,

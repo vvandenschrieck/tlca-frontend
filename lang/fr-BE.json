@@ -1,313 +1,313 @@
 {
-    "assessment": {
-        "_": "Évaluation | Évaluations",
-        "create": "@:general.create une évaluation",
-        "nb_of": "Nombre d'évaluations",
-        "nb": "{nb} évaluation | {nb} évaluations",
-        "no": "Il n'y a aucune évaluation pour le moment",
-        "category" : "catégorie"
+  "assessment": {
+    "_": "Évaluation | Évaluations",
+    "create": "@:general.create une évaluation",
+    "nb_of": "Nombre d'évaluations",
+    "nb": "{nb} évaluation | {nb} évaluations",
+    "no": "Il n'y a aucune évaluation pour le moment",
+    "category": "catégorie"
+  },
+  "authentication": {
+    "sign_in": "Se connecter",
+    "sign_out": "Se déconnecter",
+    "sign_up": "S'inscrire"
+  },
+  "competency": {
+    "_": "Compétence | Compétences",
+    "category": {
+      "no": "Pas de catégorie",
+      "basic": "Basique",
+      "advanced": "Avancée"
     },
-    "authentication": {
-        "sign_in": "Se connecter",
-        "sign_out": "Se déconnecter",
-        "sign_up": "S'inscrire"
+    "code": "@:global.code",
+    "coordinator": "@:global.coordinator",
+    "create": "@:general.create une compétence",
+    "creator": {
+      "own": "Moi-même",
+      "partners": "Affiliations",
+      "external": "Externe"
     },
-    "competency": {
-        "_": "Compétence | Compétences",
-        "category": {
-            "no": "Pas de catégorie",
-            "basic": "Basique",
-            "advanced": "Avancée"
-        },
-        "code": "@:global.code",
-        "coordinator": "@:global.coordinator",
-        "create": "@:general.create une compétence",
-        "creator": {
-            "own": "Moi-même",
-            "partners": "Affiliations",
-            "external": "Externe"
-        },
-        "description": "@:global.description._",
-        "filter": {
-            "visibility": "@:global.visibility._",
-            "creator": "@:general.creator",
-            "tags": "Tags"
-        },
-        "learning_outcomes": {
-            "_": "Acquis d'apprentissage"
-        },
-        "name": "@:global.name",
-        "nb": "{nb} compétence | {nb} compétences",
-        "nb_of": "Nombre de compétences",
-        "no": "Il n'y a pas de compétences pour le moment.",
-        "partners": "@:global.partners",
-        "public": "@:global.visibility.public",
-        "show_by": {
-            "level": "Montrer par niveau",
-            "category": "Montrer par catégorie"
-        },
-        "tags": "@:global.tag",
-        "type": {
-            "_": "@:global.type._",
-            "practical": "Pratique",
-            "theoretical": "Théorique"
-        },
-        "visibility": {
-            "_": "@:global.visibility._",
-            "private": "@:global.visibility.private",
-            "public": "@:global.visibility.public"
-        }
+    "description": "@:global.description._",
+    "filter": {
+      "visibility": "@:global.visibility._",
+      "creator": "@:general.creator",
+      "tags": "Tags"
     },
-    "course": {
-        "_": "Cours",
-        "assessments_list":"Liste des évaluations du cours",
-        "colophon": "Colophon",
-        "code": "@:global.code",
-        "competencies": {
-            "_": "Compétences",
-            "add": "Ajouter une compétence",
-            "category": "Catégorie",
-            "subcategory": "Sous-catégorie"
-        },
-        "coordinator": "@:global.coordinator",
-        "create": "@:general.create un cours",
-        "description": "@:global.description._",
-        "field": "@:global.field",
-        "filter": {
-            "role": "Rôle",
-            "status": "@:general.status"
-        },
-        "language": "@:global.language",
-        "load": {
-            "_": "Charge",
-            "ects": "Crédits ECTS",
-            "in_credits": "{credits} ECTS",
-            "in_hours_per_week": "{hoursPerWeek} h/semaine",
-            "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
-        },
-        "name": "@:global.name",
-        "nb": "{nb} cours | {nb} cours",
-        "nb_of": {
-            "_": "Nombre de cours",
-            "archived": "{nb} archivé | {nb} archivés",
-            "published": "{nb} publié | {nb} publiés",
-            "unpublished": "{nb} non publié | {nb} non publiés"
-        },
-        "no": "Il n'y a pas de cours pour le moment.",
-        "register": "S'inscrire",
-        "registrations": {
-            "_": "@:registration._",
-            "date": "@:global.date",
-            "invites": "Invitations",
-            "name_or_email": "Nom ou e-mail",
-            "registered": "Inscrit(e)s",
-            "status": "@:general.status"
-        },
-        "request_invite": "Demander une invitation",
-        "schedule": {
-            "_": "Calendrier",
-            "start": "Date de début",
-            "end": "Date de fin",
-            "registrationsStart": "Début des inscriptions",
-            "registrationsEnd": "Fin des inscriptions",
-            "evaluationsEnd": "Fin des évaluations"
-        },
-        "span": {
-            "_": "Durée",
-            "in_weeks": "une semaine | {weeks} semaines"
-        },
-        "status": {
-            "_": "@:global.status._",
-            "archived": "@:global.status.archived",
-            "archived_on": "@:global.status.archived_on",
-            "published": "@:global.status.published",
-            "published_on": "@:global.status.published_on",
-            "unpublished": "@:global.status.unpublished"
-        },
-        "tags": "@:global.tag",
-        "teacher": "@:user.role.teacher | Enseignants",
-        "team": "Équipe",
-        "type": {
-            "_": "@:global.type._",
-            "project": "Projet",
-            "training": "@:global.type.training",
-            "ucourse": "µCours",
-            "unit": "Unité"
-        },
-        "visibility": {
-            "_": "@:global.visibility._",
-            "invite_only": "@:global.visibility.invite_only",
-            "private": "@:global.visibility.private",
-            "public": "@:global.visibility.public"
-        }
+    "learning_outcomes": {
+      "_": "Acquis d'apprentissage"
     },
-    "error": {
-        "_": "Erreur",
-        "unexpected": "Une erreur inattendue s'est produite, réessayez plus tard.",
-        "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
-        "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
-        "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
-        "EXISTING_CODE": "Le code spécifié existe déjà",
-        "INVALID_CREDENTIALS": "Mauvais identifiants",
-        "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
-        "INVALID_PASSWORD": "Mot de passe pas assez fort",
-        "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
-        "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
-        "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
-        "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
-        "REGISTRATION_FAILED": "Inscription échouée"
+    "name": "@:global.name",
+    "nb": "{nb} compétence | {nb} compétences",
+    "nb_of": "Nombre de compétences",
+    "no": "Il n'y a pas de compétences pour le moment.",
+    "partners": "@:global.partners",
+    "public": "@:global.visibility.public",
+    "show_by": {
+      "level": "Montrer par niveau",
+      "category": "Montrer par catégorie"
     },
-    "general": {
-        "action": "Action | Actions",
-        "apply": "Appliquer",
-        "cancel": "Annuler",
-        "create": "Créer",
-        "creator": "Créateur",
-        "edit": "Éditer",
-        "filter": {
-            "_": "Filtre"
-        },
-        "information": {
-            "_": "Information",
-            "additional": "@:general.information._ additionnelle",
-            "general": "@:general.information._ générale",
-            "optional": "@:general.information._ optionnelle"
-        },
-        "owner": "Propriétaire",
-        "reset": "Réinitialiser",
-        "status": "Statut",
-        "validated": "Validé"
+    "tags": "@:global.tag",
+    "type": {
+      "_": "@:global.type._",
+      "practical": "Pratique",
+      "theoretical": "Théorique"
     },
-    "global": {
-        "coordinator": "Coordinateur",
-        "code":  "Code",
-        "date": "Date",
-        "description": {
-            "_": "Description",
-            "no": "Pas de @.lower:global.description._"
-        },
-        "field": "Domaine",
-        "language": "Langue",
-        "loading": "Chargement...",
-        "name":  "Nom",
-        "partners": "Partenaires",
-        "powered_by": "Propulsé par",
-        "spaces": {
-            "admin": "Admin",
-            "home": "Accueil",
-            "learn": "Apprendre",
-            "manage": "Gérer",
-            "teach": "Enseigner"
-        },
-        "status": {
-            "_": "@:general.status",
-            "archived": "Archivé",
-            "archived_on": "Archivé le {date}",
-            "published": "Publié",
-            "published_on": "Publié le {date}",
-            "unpublished": "Non publié"
-        },
-        "tag": "Tag | Tags",
-        "type": {
-            "_": "Type",
-            "training": "Formation"
-        },
-        "visibility": {
-            "_": "Visibilité",
-            "invite_only": "Sur invitation uniquement",
-            "private": "Privé",
-            "public": "Public"
-        }
-    },
-    "homepage": {
-        "welcome": "Bienvenue !",
-        "presentation": "<p>La <em>TLC Academy</em> est le meilleur endroit où vous pouvez <b>tout apprendre</b> et acquérir des compétences !</p><p>Que ce soit pour des formations à moyen ou long terme, ou pour un simple micro-cours, apprenez à votre <b>propre rythme</b> et accumulez des <b>étoiles de compétence</b> pour renforcer votre profil personnel.</p>",
-        "see_all_courses": "Voir tous les cours",
-        "see_all_programs": "Voir tous les programmes",
-        "see_all_partners": "Voir tous les partenaires"
-    },
-    "partner": {
-        "_": "Partenaire | Partenaires",
-        "no": "Il n'y a pas de partenaires disponibles pour le moment.",
-        "abbreviation": "Abréviation",
-        "website": "Site web"
-    },
-    "program": {
-        "_": "Programme | Programmes",
-        "code": "@:global.code",
-        "coordinator": "@:global.coordinator",
-        "courses": {
-            "_": "Cours",
-            "add": "Ajouter un cours",
-            "optional": "Optionnel"
-        },
-        "create": "@:general.create un programme",
-        "description": "@:global.description._",
-        "field": "@:global.field",
-        "filter": {
-            "status": "@:general.status"
-        },
-        "language": "@:global.language",
-        "name": "@:global.name",
-        "no": "Il n'y a pas de programmes pour le moment.",
-        "status": {
-            "_": "@:global.status._",
-            "archived": "@:global.status.archived",
-            "archived_on": "@:global.status.archived_on",
-            "published": "@:global.status.published",
-            "published_on": "@:global.status.published_on",
-            "unpublished": "@:global.status.unpublished"
-        },
-        "tags": "@:global.tag",
-        "type": {
-            "_": "@:global.type._",
-            "training": "@:global.type.training",
-            "uprogram": "µProgramme"
-        },
-        "visibility": {
-            "_": "@:global.visibility._",
-            "invite_only": "@:global.visibility.invite_only",
-            "private": "@:global.visibility.private",
-            "public": "@:global.visibility.public"
-        }
-    },
-    "registration": {
-        "_": "Inscription | Inscriptions",
-        "date": "Date d'inscription",
-        "invite_request_sent": "Demande d'invitation envoyée",
-        "invite_received": "Invitation reçue",
-        "nb_of": "Nombre d'inscriptions",
-        "registered_on": "Inscrit(e) le {date}",
-        "status": "@:general.status de l'inscription"
-    },
-    "student": {
-        "not_registered_yet": "Pas encore inscrit"
-    },
-    "success": {
-        "_": "Succès",
-        "COMPETENCY_CREATED": "Compétence créée avec succès !",
-        "COURSE_CREATED": "Cours créé avec succès !",
-        "PROGRAM_CREATED": "Programme créé avec succès !",
-        "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
-        "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
-        "REGISTERED": "Inscrit(e) avec succès !",
-        "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
-    },
-    "user": {
-        "_": "Utilisateur | Utilisateurs",
-        "email": "E-mail",
-        "first_name": "Prénom",
-        "last_name": "Nom",
-        "password": "Mot de passe",
-        "role": {
-            "_": "Rôle | Rôles",
-            "admin": "Admin",
-            "manager": "Gestionnaire",
-            "student": "Étudiant",
-            "teacher": "Enseignant",
-            "user": "Utilisateur"
-        },
-        "username": "Nom d'utilisateur",
-        "username_or_email": "Nom d'utilisateur ou e-mail"
+    "visibility": {
+      "_": "@:global.visibility._",
+      "private": "@:global.visibility.private",
+      "public": "@:global.visibility.public"
     }
+  },
+  "course": {
+    "_": "Cours",
+    "assessments_list": "Liste des évaluations du cours",
+    "colophon": "Colophon",
+    "code": "@:global.code",
+    "competencies": {
+      "_": "Compétences",
+      "add": "Ajouter une compétence",
+      "category": "Catégorie",
+      "subcategory": "Sous-catégorie"
+    },
+    "coordinator": "@:global.coordinator",
+    "create": "@:general.create un cours",
+    "description": "@:global.description._",
+    "field": "@:global.field",
+    "filter": {
+      "role": "Rôle",
+      "status": "@:general.status"
+    },
+    "language": "@:global.language",
+    "load": {
+      "_": "Charge",
+      "ects": "Crédits ECTS",
+      "in_credits": "{credits} ECTS",
+      "in_hours_per_week": "{hoursPerWeek} h/semaine",
+      "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
+    },
+    "name": "@:global.name",
+    "nb": "{nb} cours | {nb} cours",
+    "nb_of": {
+      "_": "Nombre de cours",
+      "archived": "{nb} archivé | {nb} archivés",
+      "published": "{nb} publié | {nb} publiés",
+      "unpublished": "{nb} non publié | {nb} non publiés"
+    },
+    "no": "Il n'y a pas de cours pour le moment.",
+    "register": "S'inscrire",
+    "registrations": {
+      "_": "@:registration._",
+      "date": "@:global.date",
+      "invites": "Invitations",
+      "name_or_email": "Nom ou e-mail",
+      "registered": "Inscrit(e)s",
+      "status": "@:general.status"
+    },
+    "request_invite": "Demander une invitation",
+    "schedule": {
+      "_": "Calendrier",
+      "start": "Date de début",
+      "end": "Date de fin",
+      "registrationsStart": "Début des inscriptions",
+      "registrationsEnd": "Fin des inscriptions",
+      "evaluationsEnd": "Fin des évaluations"
+    },
+    "span": {
+      "_": "Durée",
+      "in_weeks": "une semaine | {weeks} semaines"
+    },
+    "status": {
+      "_": "@:global.status._",
+      "archived": "@:global.status.archived",
+      "archived_on": "@:global.status.archived_on",
+      "published": "@:global.status.published",
+      "published_on": "@:global.status.published_on",
+      "unpublished": "@:global.status.unpublished"
+    },
+    "tags": "@:global.tag",
+    "teacher": "@:user.role.teacher | Enseignants",
+    "team": "Équipe",
+    "type": {
+      "_": "@:global.type._",
+      "project": "Projet",
+      "training": "@:global.type.training",
+      "ucourse": "µCours",
+      "unit": "Unité"
+    },
+    "visibility": {
+      "_": "@:global.visibility._",
+      "invite_only": "@:global.visibility.invite_only",
+      "private": "@:global.visibility.private",
+      "public": "@:global.visibility.public"
+    }
+  },
+  "error": {
+    "_": "Erreur",
+    "unexpected": "Une erreur inattendue s'est produite, réessayez plus tard.",
+    "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
+    "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
+    "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
+    "EXISTING_CODE": "Le code spécifié existe déjà",
+    "INVALID_CREDENTIALS": "Mauvais identifiants",
+    "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
+    "INVALID_PASSWORD": "Mot de passe pas assez fort",
+    "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
+    "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
+    "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
+    "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
+    "REGISTRATION_FAILED": "Inscription échouée"
+  },
+  "general": {
+    "action": "Action | Actions",
+    "apply": "Appliquer",
+    "cancel": "Annuler",
+    "create": "Créer",
+    "creator": "Créateur",
+    "edit": "Éditer",
+    "filter": {
+      "_": "Filtre"
+    },
+    "information": {
+      "_": "Information",
+      "additional": "@:general.information._ additionnelle",
+      "general": "@:general.information._ générale",
+      "optional": "@:general.information._ optionnelle"
+    },
+    "owner": "Propriétaire",
+    "reset": "Réinitialiser",
+    "status": "Statut",
+    "validated": "Validé"
+  },
+  "global": {
+    "coordinator": "Coordinateur",
+    "code": "Code",
+    "date": "Date",
+    "description": {
+      "_": "Description",
+      "no": "Pas de @.lower:global.description._"
+    },
+    "field": "Domaine",
+    "language": "Langue",
+    "loading": "Chargement...",
+    "name": "Nom",
+    "partners": "Partenaires",
+    "powered_by": "Propulsé par",
+    "spaces": {
+      "admin": "Admin",
+      "home": "Accueil",
+      "learn": "Apprendre",
+      "manage": "Gérer",
+      "teach": "Enseigner"
+    },
+    "status": {
+      "_": "@:general.status",
+      "archived": "Archivé",
+      "archived_on": "Archivé le {date}",
+      "published": "Publié",
+      "published_on": "Publié le {date}",
+      "unpublished": "Non publié"
+    },
+    "tag": "Tag | Tags",
+    "type": {
+      "_": "Type",
+      "training": "Formation"
+    },
+    "visibility": {
+      "_": "Visibilité",
+      "invite_only": "Sur invitation uniquement",
+      "private": "Privé",
+      "public": "Public"
+    }
+  },
+  "homepage": {
+    "welcome": "Bienvenue !",
+    "presentation": "<p>La <em>TLC Academy</em> est le meilleur endroit où vous pouvez <b>tout apprendre</b> et acquérir des compétences !</p><p>Que ce soit pour des formations à moyen ou long terme, ou pour un simple micro-cours, apprenez à votre <b>propre rythme</b> et accumulez des <b>étoiles de compétence</b> pour renforcer votre profil personnel.</p>",
+    "see_all_courses": "Voir tous les cours",
+    "see_all_programs": "Voir tous les programmes",
+    "see_all_partners": "Voir tous les partenaires"
+  },
+  "partner": {
+    "_": "Partenaire | Partenaires",
+    "no": "Il n'y a pas de partenaires disponibles pour le moment.",
+    "abbreviation": "Abréviation",
+    "website": "Site web"
+  },
+  "program": {
+    "_": "Programme | Programmes",
+    "code": "@:global.code",
+    "coordinator": "@:global.coordinator",
+    "courses": {
+      "_": "Cours",
+      "add": "Ajouter un cours",
+      "optional": "Optionnel"
+    },
+    "create": "@:general.create un programme",
+    "description": "@:global.description._",
+    "field": "@:global.field",
+    "filter": {
+      "status": "@:general.status"
+    },
+    "language": "@:global.language",
+    "name": "@:global.name",
+    "no": "Il n'y a pas de programmes pour le moment.",
+    "status": {
+      "_": "@:global.status._",
+      "archived": "@:global.status.archived",
+      "archived_on": "@:global.status.archived_on",
+      "published": "@:global.status.published",
+      "published_on": "@:global.status.published_on",
+      "unpublished": "@:global.status.unpublished"
+    },
+    "tags": "@:global.tag",
+    "type": {
+      "_": "@:global.type._",
+      "training": "@:global.type.training",
+      "uprogram": "µProgramme"
+    },
+    "visibility": {
+      "_": "@:global.visibility._",
+      "invite_only": "@:global.visibility.invite_only",
+      "private": "@:global.visibility.private",
+      "public": "@:global.visibility.public"
+    }
+  },
+  "registration": {
+    "_": "Inscription | Inscriptions",
+    "date": "Date d'inscription",
+    "invite_request_sent": "Demande d'invitation envoyée",
+    "invite_received": "Invitation reçue",
+    "nb_of": "Nombre d'inscriptions",
+    "registered_on": "Inscrit(e) le {date}",
+    "status": "@:general.status de l'inscription"
+  },
+  "student": {
+    "not_registered_yet": "Pas encore inscrit"
+  },
+  "success": {
+    "_": "Succès",
+    "COMPETENCY_CREATED": "Compétence créée avec succès !",
+    "COURSE_CREATED": "Cours créé avec succès !",
+    "PROGRAM_CREATED": "Programme créé avec succès !",
+    "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
+    "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
+    "REGISTERED": "Inscrit(e) avec succès !",
+    "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
+  },
+  "user": {
+    "_": "Utilisateur | Utilisateurs",
+    "email": "E-mail",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "password": "Mot de passe",
+    "role": {
+      "_": "Rôle | Rôles",
+      "admin": "Admin",
+      "manager": "Gestionnaire",
+      "student": "Étudiant",
+      "teacher": "Enseignant",
+      "user": "Utilisateur"
+    },
+    "username": "Nom d'utilisateur",
+    "username_or_email": "Nom d'utilisateur ou e-mail"
+  }
 }

@@ -1,9 +1,9 @@
 query me {
-    me {
-        displayName
-        firstName
-        lastName
-        roles
-        username
-    }
+  me {
+    displayName
+    firstName
+    lastName
+    roles
+    username
+  }
 }

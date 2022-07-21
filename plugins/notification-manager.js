@@ -17,7 +17,10 @@ export default function (context, inject) {
       // except those from the signIn and signUp mutations
       if (err.graphQLErrors?.length) {
         err.graphQLErrors.forEach((err) => {
-          if (err.path && !(err.path.includes('signIn') || err.path.includes('signUp'))) {
+          if (
+            err.path &&
+            !(err.path.includes('signIn') || err.path.includes('signUp'))
+          ) {
             this.handler({
               type: 'error',
               text: context.app.i18n.t(`error.${err.message}`),

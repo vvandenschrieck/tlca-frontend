@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery :query="require('../gql/getHomePageData.gql')">
     <template #default="{ result: { error, data }, isLoading }">

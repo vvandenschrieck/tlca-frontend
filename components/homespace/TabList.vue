@@ -34,8 +34,8 @@ export default {
   },
   computed: {
     name() {
-      return this.propName + 's';
-    }
-  }
+      return this.propName + 's'
+    },
+  },
 }
 </script>

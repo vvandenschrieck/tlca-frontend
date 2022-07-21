@@ -1,25 +1,25 @@
 query GetProgram($code: ID!) {
-    program(code: $code) {
-        code
-        coordinator {
-            displayName
-            username
-        }
-        courses {
-            banner
-            code
-            name
-            type
-        }
-        description
-        field
-        language
-        name
-        partners {
-            abbreviation
-            code
-            name
-        }
-        tags
+  program(code: $code) {
+    code
+    coordinator {
+      displayName
+      username
     }
+    courses {
+      banner
+      code
+      name
+      type
+    }
+    description
+    field
+    language
+    name
+    partners {
+      abbreviation
+      code
+      name
+    }
+    tags
+  }
 }

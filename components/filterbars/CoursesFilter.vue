@@ -38,7 +38,7 @@ export default {
   props: {
     hideRoles: {
       type: Boolean,
-      default: false
+      default: false,
     },
     value: {
       type: Object,

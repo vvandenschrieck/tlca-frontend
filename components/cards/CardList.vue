@@ -47,7 +47,7 @@ export default {
     },
     linkPrefix: {
       type: String,
-      default: ''
+      default: '',
     },
     items: {
       type: Array,

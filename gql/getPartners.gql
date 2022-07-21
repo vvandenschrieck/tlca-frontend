@@ -1,8 +1,8 @@
 query GetPartners {
-    partners {
-        abbreviation
-        banner
-        code
-        name
-    }
+  partners {
+    abbreviation
+    banner
+    code
+    name
+  }
 }

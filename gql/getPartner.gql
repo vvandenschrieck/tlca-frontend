@@ -1,16 +1,16 @@
 query GetPartner($code: ID!) {
-    partner(code: $code) {
-        abbreviation
-        code
-        courses {
-            banner
-            code
-            name
-            type
-        }
-        description
-        logo
-        name
-        website
+  partner(code: $code) {
+    abbreviation
+    code
+    courses {
+      banner
+      code
+      name
+      type
     }
+    description
+    logo
+    name
+    website
+  }
 }
