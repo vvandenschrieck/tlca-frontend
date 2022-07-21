@@ -41,7 +41,7 @@
             </v-card>
 
             <div v-else-if="course.assessments && !course.assessments.length">
-              {{ $('assessment.no') }}
+              {{ $t('assessment.no') }}
             </div>
 
             <v-skeleton-loader v-else type="table" />
