@@ -5,41 +5,27 @@
   >
     <template #default="{ result: { error, data: courses }, isLoading }">
       <div v-if="isLoading || courses">
+        <h2>{{ title }}</h2>
 
-        <h2>{{ $tc('course._', 2) }}</h2>
+        <generic-filter-bar
+          v-slot="{ filter: innerFilter, on }"
+          v-model="filter"
+          :create-link="{ name: 'manage-courses-create' }"
+        >
+          <courses-filter hide-roles :value="innerFilter" v-on="on" />
+        </generic-filter-bar>
 
-        <v-row>
-          <v-col cols="12" md="9">
-            <card-list
-              :component="component"
-              link-prefix="manage-"
-              :items="filteredCourses(courses, filter)"
-              :items-per-page="6"
-              :cards-per-page="3"
-              :prop-name="propName"
-            />
-          </v-col>
-          <v-col
-            cols="12"
-            md="3"
-            :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-          >
-            <courses-list-info-panel
-              v-if="courses"
-              :courses="courses"
-              class="mb-5"
-            />
-
-            <courses-filter-panel
-              v-if="courses"
-              v-model="filter"
-              hide-role
-            ></courses-filter-panel>
-          </v-col>
-        </v-row>
+        <card-list
+          class="mt-5"
+          :component="component"
+          :items="filteredCourses(courses, filter)"
+          :items-per-page="8"
+          link-prefix="manage-"
+          :prop-name="propName"
+        />
       </div>
 
-      <div v-else-if="error">An error occurred</div>
+      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
     </template>
   </ApolloQuery>
 </template>
@@ -53,10 +39,20 @@ export default {
   mixins: [courses],
   data() {
     return {
-      propName: 'course',
-      component: CourseCard,
       filter: {},
+      component: CourseCard,
+      propName: 'course',
     }
+  },
+  head() {
+    return {
+      title: this.title,
+    }
+  },
+  computed: {
+    title() {
+      return this.$tc('course._', 2)
+    },
   },
   meta: {
     roles: ['teacher'],
