@@ -80,6 +80,7 @@
               <v-col cols="12" md="6">
                 <v-combobox
                   v-model="tags"
+                  append-icon=""
                   chips
                   clearable
                   deletable-chips

@@ -34,6 +34,7 @@
       <v-col cols="3">{{ $t('competency.filter.tags') }}</v-col>
       <v-col cols="9">
         <v-combobox
+          append-icon=""
           chips
           clearable
           deletable-chips
