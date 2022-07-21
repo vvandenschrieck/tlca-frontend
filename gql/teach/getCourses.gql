@@ -1,16 +1,16 @@
 query GetCourses {
-    courses(view: TEACHER) {
-        banner
-        code
-        coordinator {
-            username
-        }
-        isArchived
-        isCoordinator
-        isPublished
-        isTeacher
-        name
-        type
-        visibility
+  courses(view: TEACHER) {
+    banner
+    code
+    coordinator {
+      username
     }
+    isArchived
+    isCoordinator
+    isPublished
+    isTeacher
+    name
+    type
+    visibility
+  }
 }

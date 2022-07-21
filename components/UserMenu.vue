@@ -15,7 +15,9 @@
       </v-list-item>
       <v-divider />
       <v-list-item @click="signOut()">
-        <v-list-item-title>{{ $t('authentication.sign_out') }}</v-list-item-title>
+        <v-list-item-title>
+          {{ $t('authentication.sign_out') }}
+        </v-list-item-title>
       </v-list-item>
     </v-list>
   </v-menu>
@@ -26,14 +28,14 @@ export default {
   name: 'UserMenu',
   data() {
     return {
-      items: []
-    };
+      items: [],
+    }
   },
   methods: {
     async signOut() {
-      this.$nuxt.$loading.start();
-      await this.$auth.logout();
-    }
-  }
+      this.$nuxt.$loading.start()
+      await this.$auth.logout()
+    },
+  },
 }
 </script>

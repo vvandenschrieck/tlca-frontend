@@ -1,17 +1,15 @@
 <template>
   <div>
     <h2>{{ $t('assessment.create') }}</h2>
-  </div>  
+  </div>
 </template>
 
 <script>
-
 export default {
   name: 'ManageCreateAssessmentPage',
-  components: {  },
+  components: {},
   data() {
-    return {
-    }
+    return {}
   },
   meta: {
     roles: ['teacher'],

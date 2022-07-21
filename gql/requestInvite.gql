@@ -1,10 +1,10 @@
 mutation RequestInvite($code: ID!) {
-    requestInvite(code: $code) {
-        code
-        hasRequestedInvite
-        registration {
-            date
-            invite
-        }
+  requestInvite(code: $code) {
+    code
+    hasRequestedInvite
+    registration {
+      date
+      invite
     }
+  }
 }

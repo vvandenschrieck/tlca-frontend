@@ -14,8 +14,12 @@
           :items-per-page="5"
           class="elevation-1"
         >
-          <template #item.firstName="{ value: firstName }">{{ firstName || '—' }}</template>
-          <template #item.lastName="{ value: lastName }">{{ lastName || '—' }}</template>
+          <template #item.firstName="{ value: firstName }">{{
+            firstName || '—'
+          }}</template>
+          <template #item.lastName="{ value: lastName }">{{
+            lastName || '—'
+          }}</template>
           <template #item.roles="{ value: roles }">
             <v-chip-group active-class="primary--text" column max="0" multiple>
               <v-chip

@@ -5,7 +5,12 @@
     :items="items"
   >
     <div class="text-center">
-      <v-btn v-if="!hideCreateAction" small color="success" :to="{ name: 'manage-courses-create' }">
+      <v-btn
+        v-if="!hideCreateAction"
+        small
+        color="success"
+        :to="{ name: 'manage-courses-create' }"
+      >
         <v-icon left>mdi-plus</v-icon>
         <span>{{ $t('general.create') }}</span>
       </v-btn>

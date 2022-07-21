@@ -12,8 +12,8 @@ export default {
         return (
           (!text ||
             !text.length ||
-            (p.code.toLowerCase().includes(text)) ||
-            (p.name.toLowerCase().includes(text))) &&
+            p.code.toLowerCase().includes(text) ||
+            p.name.toLowerCase().includes(text)) &&
           (!status ||
             !status.length ||
             (!p.isPublished && status.includes('UNPUBLISHED')) ||

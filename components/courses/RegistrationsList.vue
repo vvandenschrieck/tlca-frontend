@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     accept(id) {
-      console.log('Accepting invitation request', id)
+      // TODO: accept this ID
     },
     nameOrEmail(registration) {
       return (
@@ -93,7 +93,7 @@ export default {
       )
     },
     remove(id) {
-      console.log('Deleting registration', id)
+      // TODO: remove this ID
     },
   },
 }
