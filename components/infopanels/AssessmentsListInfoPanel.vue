@@ -1,12 +1,18 @@
 <template>
   <generic-info-panel
-    :title="$t('general.information._')"
     icon="mdi-information"
     :items="items"
+    :title="$t('general.information._')"
   >
     <div class="text-center">
-      <v-btn small color="success" 
-            :to="{ name: 'manage-courses-code-assessments-create',params: {code: code} }">
+      <v-btn
+        color="success"
+        small
+        :to="{
+          name: 'manage-courses-code-assessments-create',
+          params: { code: code },
+        }"
+      >
         <v-icon left>mdi-plus</v-icon>
         <span v-t="'general.create'"></span>
       </v-btn>
@@ -22,10 +28,10 @@ export default {
       type: Array,
       required: true,
     },
-    code:{
+    code: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     items() {

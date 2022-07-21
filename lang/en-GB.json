@@ -4,7 +4,7 @@
         "create": "@:general.create an assessment",
         "nb_of": "Number of assessments",
         "nb": "{nb} evaluation | {nb} evaluations",
-        "no": "There are no asessment avaiable for now.",
+        "no": "There are no assessment for now",
         "category": "category"
     },
     "authentication": {
@@ -50,7 +50,7 @@
     },
     "course": {
         "_": "Course | Courses",
-        "assessments-list":"Available assessments",
+        "assessments_list":"Available assessments",
         "code": "@:global.code",
         "colophon": "Colophon",
         "competencies": {
