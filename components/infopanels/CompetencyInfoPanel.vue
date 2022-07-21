@@ -49,6 +49,16 @@ export default {
         })
       }
 
+      // Competency tags
+      const tags = this.competency.tags
+      if (tags?.length) {
+        items.push({
+          icon: 'mdi-tag-multiple',
+          text: tags.join(', '),
+          tooltip: this.$tc('competency.tags', tags.length),
+        })
+      }
+
       // Competency creator
       const coordinator = this.competency.user
       if (coordinator) {

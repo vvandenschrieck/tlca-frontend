@@ -5,7 +5,7 @@
   >
     <template #default="{ result: { error, data: competencies }, isLoading }">
       <div v-if="isLoading || competencies">
-        <h2>{{ $tc('competency._', 2) }}</h2>
+        <h2>{{ title }}</h2>
 
         <v-row>
           <v-col cols="12" md="9">
@@ -58,6 +58,16 @@
 <script>
 export default {
   name: 'ManageCompetenciesPage',
+  head() {
+    return {
+      title: this.title,
+    }
+  },
+  computed: {
+    title() {
+      return this.$tc('competency._', 2)
+    },
+  },
   meta: {
     roles: ['teacher'],
   },
