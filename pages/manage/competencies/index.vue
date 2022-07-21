@@ -7,57 +7,66 @@
       <div v-if="isLoading || competencies">
         <h2>{{ title }}</h2>
 
-        <v-row>
-          <v-col cols="12" md="9">
-            <v-card v-if="competencies && competencies.length">
-              <v-list class="pa-0">
-                <template v-for="(competency, i) in competencies">
-                  <v-list-item
-                    :key="competency.code"
-                    :to="{
-                      name: 'manage-competencies-code',
-                      params: { code: competency.code },
-                    }"
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        <b>{{ competency.code }}</b> – {{ competency.name }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-divider v-if="i < competencies.length - 1" :key="i"></v-divider>
-                </template>
-              </v-list>
-            </v-card>
+        <generic-filter-bar
+          v-slot="{ filter: innerFilter, on }"
+          v-model="filter"
+          :create-link="{ name: 'manage-competencies-create' }"
+        >
+          <competencies-filter :value="innerFilter" v-on="on" />
+        </generic-filter-bar>
 
-            <div
-              v-else-if="competencies && !competencies.length"
-              v-t="'competency.no'"
-            ></div>
+        <div v-if="competencies" class="mt-5">
+          <v-card v-if="filteredCompetencies(competencies, filter).length">
+            <v-list class="pa-0">
+              <template
+                v-for="(competency, i) in filteredCompetencies(
+                  competencies,
+                  filter
+                )"
+              >
+                <v-list-item
+                  :key="competency.code"
+                  :to="{
+                    name: 'manage-competencies-code',
+                    params: { code: competency.code },
+                  }"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>
+                      <b>{{ competency.code }}</b> – {{ competency.name }}
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-divider
+                  v-if="i < competencies.length - 1"
+                  :key="i"
+                ></v-divider>
+              </template>
+            </v-list>
+          </v-card>
 
-            <v-skeleton-loader v-else type="table"></v-skeleton-loader>
-          </v-col>
-          <v-col
-            cols="12"
-            md="3"
-            :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-          >
-            <competencies-list-info-panel
-              v-if="competencies"
-              :competencies="competencies"
-            />
-          </v-col>
-        </v-row>
+          <div v-else>{{ $t('competency.no') }}</div>
+        </div>
+
+        <v-skeleton-loader v-else class="mt-5" type="table"></v-skeleton-loader>
       </div>
 
-      <div v-else-if="error">An error occurred</div>
+      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
     </template>
   </ApolloQuery>
 </template>
 
 <script>
+import competencies from '@/mixins/competencies.js'
+
 export default {
   name: 'ManageCompetenciesPage',
+  mixins: [competencies],
+  data() {
+    return {
+      filter: {},
+    }
+  },
   head() {
     return {
       title: this.title,

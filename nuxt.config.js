@@ -32,7 +32,7 @@ export default {
       '~/components/base',
       '~/components/cards',
       '~/components/courses',
-      '~/components/filterpanels',
+      '~/components/filterbars',
       '~/components/homespace',
       '~/components/infopanels',
       '~/components/programs',

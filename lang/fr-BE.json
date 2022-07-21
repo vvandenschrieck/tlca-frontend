@@ -22,7 +22,17 @@
         "code": "@:global.code",
         "coordinator": "@:global.coordinator",
         "create": "@:general.create une compétence",
+        "creator": {
+            "own": "Moi-même",
+            "partners": "Affiliations",
+            "external": "Externe"
+        },
         "description": "@:global.description._",
+        "filter": {
+            "visibility": "@:global.visibility._",
+            "creator": "@:general.creator",
+            "tags": "Tags"
+        },
         "learning_outcomes": {
             "_": "Acquis d'apprentissage"
         },
@@ -152,6 +162,7 @@
         "apply": "Appliquer",
         "cancel": "Annuler",
         "create": "Créer",
+        "creator": "Créateur",
         "edit": "Éditer",
         "filter": {
             "_": "Filtre"
