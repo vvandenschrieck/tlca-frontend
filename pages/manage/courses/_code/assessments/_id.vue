@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
     :query="require('~/gql/manage/getCourseAssessment.gql')"
@@ -20,14 +21,14 @@
                   {{ $t('assessment.description') }}
                 </v-tab>
                 <v-tab>
-                  {{ $t('assessment.competencies')}}
+                  {{ $t('assessment.competencies') }}
                 </v-tab>
               </v-tabs>
 
               <v-card-text class="text--primary">
                 <v-tabs-items v-model="currentTab">
                   <v-tab-item>
-                    <div v-if="data.assessment.description" >
+                    <div v-if="data.assessment.description">
                       <div v-html="data.assessment.description"></div>
                     </div>
                     <div v-else v-t="'global.description.no'"></div>
@@ -66,6 +67,6 @@ export default {
     return {
       currentTab: '0',
     }
-  }
+  },
 }
 </script>
