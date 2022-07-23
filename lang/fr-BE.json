@@ -1,11 +1,19 @@
 {
   "assessment": {
     "_": "Évaluation | Évaluations",
-    "create": "@:general.create une évaluation",
+    "competencies": "Compétences",
+    "description": "@:global.description._",
+    "deadline": {
+      "_": "Échéance",
+      "date": "Echéance : {deadline}"
+    },
     "nb_of": "Nombre d'évaluations",
     "nb": "{nb} évaluation | {nb} évaluations",
-    "no": "Il n'y a aucune évaluation pour le moment",
-    "category": "catégorie"
+    "no": "Il n'y a aucune évaluation disponible pour le moment.",
+    "start": {
+      "_": "Date d'ouverture",
+      "date": "Ouverture : {start}"
+    }
   },
   "authentication": {
     "sign_in": "Se connecter",
