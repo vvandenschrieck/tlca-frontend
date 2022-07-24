@@ -19,6 +19,10 @@
       "stars": "Stars"
     },
     "create": "@:general.create an assessment",
+    "deadline": {
+      "_": "Deadline",
+      "date": "Deadline : {deadline}"
+    },
     "description": "@:global.description._",
     "name": "@:global.name",
     "nb_of": "Number of assessments",
@@ -28,6 +32,10 @@
       "_": "Schedule",
       "start": "Start date",
       "end": "End date"
+    },
+    "start": {
+      "_": "Opening",
+      "date": "Opens on : {start}"
     }
   },
   "authentication": {
