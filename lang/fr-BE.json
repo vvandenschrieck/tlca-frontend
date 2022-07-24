@@ -1,11 +1,34 @@
 {
   "assessment": {
     "_": "Évaluation | Évaluations",
+    "category": {
+      "_": "Catégorie",
+      "casestudy": "Étude de cas",
+      "coding": "Coding",
+      "exercise": "Exercice",
+      "interview": "Interview",
+      "mission": "Mission",
+      "project": "Projet",
+      "quiz": "Quiz"
+    },
+    "code": "@:global.code",
+    "competencies": {
+      "_": "Compétences",
+      "add": "Ajouter une compétence",
+      "optional": "Optionnelle",
+      "stars": "Étoiles"
+    },
     "create": "@:general.create une évaluation",
+    "description": "@:global.description._",
+    "name": "@:global.name",
     "nb_of": "Nombre d'évaluations",
     "nb": "{nb} évaluation | {nb} évaluations",
     "no": "Il n'y a aucune évaluation pour le moment",
-    "category": "catégorie"
+    "schedule": {
+      "_": "Calendrier",
+      "start": "Date de début",
+      "end": "Date de fin"
+    }
   },
   "authentication": {
     "sign_in": "Se connecter",
