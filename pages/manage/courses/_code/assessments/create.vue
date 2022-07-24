@@ -70,6 +70,7 @@
             <select-assessment-competencies
               v-model="competencies"
               :disabled="formBusy"
+              vid="competencies"
             />
           </v-stepper-content>
 
