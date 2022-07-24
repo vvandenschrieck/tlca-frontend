@@ -1,11 +1,34 @@
 {
   "assessment": {
     "_": "Assessment | Assessments",
+    "category": {
+      "_": "Category",
+      "casestudy": "Case study",
+      "coding": "Coding",
+      "exercise": "Exercise",
+      "interview": "Interview",
+      "mission": "Mission",
+      "project": "Project",
+      "quiz": "Quiz"
+    },
+    "code": "@:global.code",
+    "competencies": {
+      "_": "Competencies",
+      "add": "Add a competency",
+      "optional": "Optional",
+      "stars": "Stars"
+    },
     "create": "@:general.create an assessment",
+    "description": "@:global.description._",
+    "name": "@:global.name",
     "nb_of": "Number of assessments",
     "nb": "{nb} evaluation | {nb} evaluations",
     "no": "There are no assessment for now",
-    "category": "category"
+    "schedule": {
+      "_": "Schedule",
+      "start": "Start date",
+      "end": "End date"
+    }
   },
   "authentication": {
     "sign_in": "Sign in",
