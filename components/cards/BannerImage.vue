@@ -84,19 +84,21 @@ export default {
       const { updateBanner } = result.data
 
       if (updateBanner) {
+        const type = this.options.type.toLowerCase()
+
         this.path = updateBanner.path
         this.$apolloProvider.defaultClient.writeQuery({
           query: gql`
             query UpdateBanner($code: ID!) {
-              ${this.options.type}(code: $code) {
+              ${type}(code: $code) {
                 banner
                 code
               }
             }
           `,
           data: {
-            [this.options.type]: {
-              __typename: 'Course',
+            [type]: {
+              __typename: type.charAt(0).toUpperCase() + type.slice(1),
               banner: updateBanner.path,
               code: this.options.code,
             },
