@@ -27,6 +27,8 @@ export default function (context, inject) {
             })
           }
         })
+      } else {
+        this.handler({ type: 'error', text: err })
       }
     }
   }

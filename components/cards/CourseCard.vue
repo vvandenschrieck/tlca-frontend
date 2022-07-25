@@ -1,5 +1,10 @@
 <template>
-  <generic-card :banner="course.banner" :to="link" :label="type">
+  <generic-card
+    :banner="course.banner"
+    :banner-edit-options="bannerEditOptions"
+    :to="link"
+    :label="type"
+  >
     <v-chip
       v-if="status"
       id="status"
@@ -36,6 +41,16 @@ export default {
     }
   },
   computed: {
+    bannerEditOptions() {
+      if (
+        this.$auth?.user?.roles?.includes('teacher') &&
+        this.$route.path.startsWith('/manage')
+      ) {
+        return { code: this.course.code, type: 'COURSE' }
+      }
+
+      return null
+    },
     status() {
       if (this.course.isPublished === false) {
         return 'unpublished'

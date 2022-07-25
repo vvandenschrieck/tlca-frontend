@@ -175,6 +175,7 @@
   "error": {
     "_": "Error",
     "unexpected": "An unexpected error occurred, try again later.",
+    "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
     "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
     "DUPLICATE_COURSES": "The same course cannot be used more than once",
     "EXISTING_EMAIL_ADDRESS": "Impossible to create an account with this email address",
@@ -207,9 +208,16 @@
     "owner": "Owner",
     "reset": "Reset",
     "status": "Status",
+    "update": "Update",
+    "upload": "Upload",
+    "upload_click_drag": "Click or drag the file here to upload",
     "validated": "Validated"
   },
   "global": {
+    "banner": {
+      "_": "Banner",
+      "edit": "Edit the banner"
+    },
     "coordinator": "Coordinator",
     "code": "Code",
     "date": "Date",
@@ -316,6 +324,7 @@
   },
   "success": {
     "_": "Success",
+    "BANNER_UPDATED": "Banner successfully updated!",
     "COMPETENCY_CREATED": "Competency successfully created!",
     "COURSE_CREATED": "Course successfully created!",
     "PROGRAM_CREATED": "Program successfully created!",

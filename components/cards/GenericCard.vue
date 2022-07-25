@@ -1,12 +1,13 @@
 <template>
-  <v-hover v-slot="{ hover }">
-    <v-card :to="to" :elevation="hover ? 12 : 2">
-      <v-img :src="innerBanner">
-        <div v-if="label" id="type">
-          <span class="label-default" v-text="label"></span>
+  <v-hover v-slot="{ hover: isHoverCard }">
+    <v-card :elevation="isHoverCard ? 12 : 2" :to="to">
+      <banner-image :src="banner" :options="bannerEditOptions">
+        <div v-if="label" id="label">
+          <span class="label-default">{{ label }}</span>
         </div>
-      </v-img>
-      <slot></slot>
+      </banner-image>
+
+      <slot />
     </v-card>
   </v-hover>
 </template>
@@ -19,6 +20,10 @@ export default {
       type: String,
       default: undefined,
     },
+    bannerEditOptions: {
+      type: Object,
+      default: undefined,
+    },
     label: {
       type: String,
       default: undefined,
@@ -28,16 +33,11 @@ export default {
       required: true,
     },
   },
-  computed: {
-    innerBanner() {
-      return this.banner ?? '/default-banner.png'
-    },
-  },
 }
 </script>
 
 <style scoped>
-#type {
+#label {
   bottom: 0px;
   margin: 0px 10px 10px 0;
   position: absolute;

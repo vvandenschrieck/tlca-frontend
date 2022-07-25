@@ -175,6 +175,7 @@
   "error": {
     "_": "Erreur",
     "unexpected": "Une erreur inattendue s'est produite, réessayez plus tard.",
+    "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
     "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
     "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
     "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
@@ -207,9 +208,16 @@
     "owner": "Propriétaire",
     "reset": "Réinitialiser",
     "status": "Statut",
+    "update": "Mettre à jour",
+    "upload": "Téléverser",
+    "upload_click_drag": "Cliquez ou faites glisser le fichier ici pour le téléverser",
     "validated": "Validé"
   },
   "global": {
+    "banner": {
+      "_": "Bannière",
+      "edit": "Éditer la bannière"
+    },
     "coordinator": "Coordinateur",
     "code": "Code",
     "date": "Date",
@@ -316,6 +324,7 @@
   },
   "success": {
     "_": "Succès",
+    "BANNER_UPDATED": "Bannière mise à jour avec succès !",
     "COMPETENCY_CREATED": "Compétence créée avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
