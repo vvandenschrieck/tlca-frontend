@@ -1,15 +1,23 @@
 <template>
   <v-app>
     <space-navigator v-if="$auth.user" />
+
     <v-app-bar clipped-left dense fixed app>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
+
       <v-spacer />
+
       <template v-if="!$auth.user">
         <sign-up-form />
         <sign-in-form />
       </template>
-      <user-menu v-else />
+
+      <template v-else>
+        <span class="text-body-2 mr-2">{{ $auth.user.displayName }}</span>
+        <user-menu />
+      </template>
     </v-app-bar>
+
     <v-main>
       <v-container>
         <notification-displayer />
@@ -17,9 +25,14 @@
         <Nuxt />
       </v-container>
     </v-main>
+
     <v-footer absolute app>
-      <small>{{ $t('global.powered_by') }} AEI Consulting – v1.2.0.</small>
+      <span class="text-caption">
+        {{ $t('global.powered_by') }} AEI Consulting – v1.2.0.
+      </span>
+
       <v-spacer />
+
       <div>
         <language-switcher />
       </div>
