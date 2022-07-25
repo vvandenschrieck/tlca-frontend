@@ -1,5 +1,10 @@
 <template>
-  <generic-card :banner="program.banner" :label="type" :to="link">
+  <generic-card
+    :banner="program.banner"
+    :banner-edit-options="bannerEditOptions"
+    :label="type"
+    :to="link"
+  >
     <v-chip v-if="status" id="status" small>
       {{ status }}
     </v-chip>
@@ -33,6 +38,16 @@ export default {
     }
   },
   computed: {
+    bannerEditOptions() {
+      if (
+        this.$auth?.user?.roles?.includes('teacher') &&
+        this.$route.path.startsWith('/manage')
+      ) {
+        return { code: this.program.code, type: 'PROGRAM' }
+      }
+
+      return null
+    },
     status() {
       const status = this.program.status?.toLowerCase()
       if (status) {
