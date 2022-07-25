@@ -21,7 +21,7 @@
                   {{ $t('assessment.description') }}
                 </v-tab>
                 <v-tab>
-                  {{ $t('assessment.competencies') }}
+                  {{ $t('assessment.competencies._') }}
                 </v-tab>
               </v-tabs>
 
