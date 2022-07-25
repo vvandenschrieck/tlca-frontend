@@ -124,8 +124,8 @@ export default {
   top: 10px;
 }
 #upload-area {
-  border: 1px dashed #aaa;
-  background-color: #eee;
+  border: 2px dashed #aaa;
+  border-radius: 4px;
   text-align: center;
   padding: 40px;
   width: 100%;
