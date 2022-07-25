@@ -1,0 +1,10 @@
+mutation UpdateBanner(
+  $code: String!
+  $type: BannerType!
+  $name: String!
+  $image: String!
+) {
+  updateBanner(code: $code, image: $image, name: $name, type: $type) {
+    path
+  }
+}
