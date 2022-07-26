@@ -14,7 +14,8 @@
     "lint": "yarn lint:js && yarn lint:prettier",
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
     "test:e2e": "yarn run cypress open",
-    "test:unit": "jest"
+    "test:unit": "jest",
+    "test": "yarn test:unit"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.1-rc.5",

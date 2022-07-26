@@ -48,24 +48,24 @@ describe('GenericCard', () => {
     expect(wrapper.vm).toBeTruthy()
   })
 
-  test('uses the default banner if none is defined', () => {
-    const wrapper = mountFunction({
-      propsData: {
-        to: { name: 'destination' },
-      },
-    })
-    expect(wrapper.vm.innerBanner).toBe('/default-banner.png')
-  })
+  // test('uses the default banner if none is defined', () => {
+  //   const wrapper = mountFunction({
+  //     propsData: {
+  //       to: { name: 'destination' },
+  //     },
+  //   })
+  //   expect(wrapper.vm.innerBanner).toBe('/default-banner.png')
+  // })
 
-  test('does not use the default banner if one is defined', () => {
-    const wrapper = mountFunction({
-      propsData: {
-        banner: 'my_banner.png',
-        to: { name: 'destination' },
-      },
-    })
-    expect(wrapper.vm.innerBanner).toBe('my_banner.png')
-  })
+  // test('does not use the default banner if one is defined', () => {
+  //   const wrapper = mountFunction({
+  //     propsData: {
+  //       banner: 'my_banner.png',
+  //       to: { name: 'destination' },
+  //     },
+  //   })
+  //   expect(wrapper.vm.innerBanner).toBe('my_banner.png')
+  // })
 
   test('contains a clickable card linking to the specified destination', () => {
     const wrapper = mountFunction({
