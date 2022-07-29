@@ -1,0 +1,6 @@
+query GetTeachers {
+  colleagues {
+    displayName
+    username
+  }
+}

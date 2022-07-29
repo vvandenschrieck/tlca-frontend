@@ -110,6 +110,13 @@
       "role": "Role",
       "status": "@:general.status"
     },
+    "groups": {
+      "_": "Groups",
+      "add": "Add a group",
+      "name": "Name",
+      "no": "There are no groups for now.",
+      "supervisor": "Supervisor"
+    },
     "language": "@:global.language",
     "load": {
       "_": "Load",

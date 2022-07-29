@@ -4,7 +4,7 @@
 
     <ValidationObserver ref="form" v-slot="{ handleSubmit }">
       <v-form :disabled="formBusy" @submit.prevent="handleSubmit(create)">
-        <v-alert v-if="formError" type="error" outlined dense class="mt-5">
+        <v-alert v-if="formError" class="mt-5" dense outlined type="error">
           {{ $t(formError) }}
         </v-alert>
 
@@ -18,45 +18,43 @@
               <v-col cols="12" md="2">
                 <v-text-field-with-validation
                   v-model="code"
-                  vid="code"
+                  :label="$t('course.code')"
                   required
                   rules="required|alpha_dash"
-                  :label="$t('course.code')"
-                >
-                </v-text-field-with-validation>
+                  vid="code"
+                />
               </v-col>
 
               <v-col cols="12" md="6">
                 <v-text-field-with-validation
                   v-model="name"
-                  vid="name"
+                  :label="$t('course.name')"
                   required
                   rules="required"
-                  :label="$t('course.name')"
-                >
-                </v-text-field-with-validation>
+                  vid="name"
+                />
               </v-col>
 
               <v-col cols="12" md="2">
                 <v-select-with-validation
                   v-model="type"
                   :items="types"
-                  vid="type"
+                  :label="$t('course.type._')"
                   required
                   rules="required"
-                  :label="$t('course.type._')"
-                ></v-select-with-validation>
+                  vid="type"
+                />
               </v-col>
 
               <v-col cols="12" md="2">
                 <v-select-with-validation
                   v-model="visibility"
                   :items="visibilities"
-                  vid="visibility"
+                  :label="$t('course.visibility._')"
                   required
                   rules="required"
-                  :label="$t('course.visibility._')"
-                ></v-select-with-validation>
+                  vid="visibility"
+                />
               </v-col>
             </v-row>
 
@@ -64,15 +62,15 @@
               <v-col cols="12" md="12">
                 <v-textarea-with-validation
                   v-model="description"
-                  vid="description"
-                  required
-                  rules="required"
-                  :label="$t('course.description')"
-                  filled
                   auto-grow
                   clearable
                   clear-icon="mdi-close-circle"
-                ></v-textarea-with-validation>
+                  filled
+                  :label="$t('course.description')"
+                  required
+                  rules="required"
+                  vid="description"
+                />
               </v-col>
             </v-row>
           </v-stepper-content>
@@ -85,18 +83,49 @@
             <select-course-competencies
               v-model="competencies"
               :disabled="formBusy"
-            ></select-course-competencies>
+            />
+          </v-stepper-content>
+
+          <v-stepper-step editable step="3">
+            {{ $t('course.team') }}
+          </v-stepper-step>
+
+          <v-stepper-content step="3">
+            <v-row>
+              <v-col cols="12" md="9">
+                <teachers-select-field v-model="teachers" class="mt-3" />
+              </v-col>
+
+              <v-col cols="12" md="3">
+                <v-switch
+                  v-model="hasGroup"
+                  :disabled="teachers?.length === 0"
+                  :label="$t('course.groups._')"
+                  @change="switchGroup"
+                ></v-switch>
+              </v-col>
+            </v-row>
+
+            <v-row v-if="hasGroup">
+              <v-col cols="12" md="12">
+                <h3>{{ $t('course.groups._') }}</h3>
+
+                <select-course-groups
+                  v-model="groups"
+                  class="mt-5"
+                  :disabled="formBusy"
+                  :teachers="teachers"
+                />
+              </v-col>
+            </v-row>
           </v-stepper-content>
         </v-stepper>
+
         <div class="text-right mt-5">
-          <v-btn
-            v-t="'general.reset'"
-            :disabled="formBusy"
-            color="error"
-            text
-            @click="reset()"
-          ></v-btn>
-          <v-btn type="submit" :loading="formBusy" color="primary" text>
+          <v-btn color="error" :disabled="formBusy" text @click="reset()">
+            {{ $t('general.reset') }}
+          </v-btn>
+          <v-btn color="primary" :loading="formBusy" text type="submit">
             {{ $t('general.create') }}
           </v-btn>
         </div>
@@ -120,7 +149,10 @@ export default {
       description: '',
       formBusy: false,
       formError: null,
+      groups: [],
+      hasGroup: false,
       name: '',
+      teachers: [],
       type: '',
       visibility: '',
     }
@@ -148,13 +180,16 @@ export default {
   methods: {
     async create() {
       this.formBusy = true
+      this.formError = null
 
       try {
         const data = {
           code: this.code,
           competencies: this.competencies,
           description: this.description,
+          groups: this.groups,
           name: this.name,
+          teachers: this.teachers,
           type: this.type,
           visibility: this.visibility,
         }
@@ -199,9 +234,17 @@ export default {
       this.competencies = [{}]
       this.description = ''
       this.formError = null
+      this.groups = []
+      this.hasGroup = false
       this.name = ''
+      this.teachers = []
       this.type = ''
       this.visibility = ''
+    },
+    switchGroup(value) {
+      if (!value) {
+        this.groups = []
+      }
     },
   },
   meta: {
