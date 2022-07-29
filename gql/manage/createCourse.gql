@@ -2,7 +2,9 @@ mutation createCourse(
   $code: String!
   $competencies: [CourseCompetencyInput!]!
   $description: String
+  $groups: [CourseGroupInput!]
   $name: String!
+  $teachers: [ID!]
   $type: CourseType
   $visibility: Visibility
 ) {
@@ -10,7 +12,9 @@ mutation createCourse(
     code: $code
     competencies: $competencies
     description: $description
+    groups: $groups
     name: $name
+    teachers: $teachers
     type: $type
     visibility: $visibility
   )

@@ -84,6 +84,7 @@
                   chips
                   clearable
                   deletable-chips
+                  dense
                   :label="$tc('competency.tags', 2)"
                   multiple
                   small-chips
