@@ -1,0 +1,7 @@
+mutation ArchiveCourse($code: ID!) {
+  archiveCourse(code: $code) {
+    archived
+    code
+    status
+  }
+}

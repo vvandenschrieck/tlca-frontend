@@ -91,7 +91,9 @@
   },
   "course": {
     "_": "Cours",
+    "archive": "Archiver",
     "assessments_list": "Liste des évaluations du cours",
+    "clone": "Cloner",
     "colophon": "Colophon",
     "code": "@:global.code",
     "competencies": {
@@ -125,6 +127,7 @@
       "unpublished": "{nb} non publié | {nb} non publiés"
     },
     "no": "Il n'y a pas de cours pour le moment.",
+    "publish": "Publier",
     "register": "S'inscrire",
     "registrations": {
       "_": "@:registration._",
@@ -326,7 +329,9 @@
     "_": "Succès",
     "BANNER_UPDATED": "Bannière mise à jour avec succès !",
     "COMPETENCY_CREATED": "Compétence créée avec succès !",
+    "COURSE_ARCHIVED": "Cours archivé avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
+    "COURSE_PUBLISHED": "Cours publié avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
     "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",

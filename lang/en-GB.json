@@ -91,7 +91,9 @@
   },
   "course": {
     "_": "Course | Courses",
+    "archive": "Archive",
     "assessments_list": "Available assessments",
+    "clone": "Clone",
     "code": "@:global.code",
     "colophon": "Colophon",
     "competencies": {
@@ -125,6 +127,7 @@
       "unpublished": "{nb} unpublished | {nb} unpublished"
     },
     "no": "There are no courses for now.",
+    "publish": "Publish",
     "register": "Register",
     "registrations": {
       "_": "@:registration._",
@@ -326,7 +329,9 @@
     "_": "Success",
     "BANNER_UPDATED": "Banner successfully updated!",
     "COMPETENCY_CREATED": "Competency successfully created!",
+    "COURSE_ARCHIVED": "Course successfully archived!",
     "COURSE_CREATED": "Course successfully created!",
+    "COURSE_PUBLISHED": "Course successfully published!",
     "PROGRAM_CREATED": "Program successfully created!",
     "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
     "SIGN_UP_SUCCESSFUL": "Successfully signed up!",
