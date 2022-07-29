@@ -7,6 +7,13 @@ query GetCourse($code: ID!) {
       username
     }
     description
+    groups {
+      name
+      supervisor {
+        displayName
+        username
+      }
+    }
     isArchived
     isCoordinator
     isPublished
