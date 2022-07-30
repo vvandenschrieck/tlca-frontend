@@ -7,7 +7,7 @@
       right
       :color="isInPast(date) ? 'grey' : undefined"
     >
-      <span slot="opposite" v-t="`course.schedule.${name}`"></span>
+      <span slot="opposite">{{ $t(`course.schedule.${name}`) }}</span>
       {{ formatDateTimeFull(date) }}
     </v-timeline-item>
   </v-timeline>
