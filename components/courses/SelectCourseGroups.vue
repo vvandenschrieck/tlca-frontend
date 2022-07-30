@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <ValidationProvider v-slot="{ errors }" :vid="$attrs.vid">
     <div v-if="value.length > 0">
       <v-row>
         <v-col
@@ -46,17 +46,28 @@
     </div>
 
     <div class="text-right mt-5">
-      <v-btn :disabled="disabled" small @click="addGroup()">
-        <v-icon left>mdi-plus</v-icon>
-        {{ $t('course.groups.add') }}
-      </v-btn>
+      <v-row>
+        <v-col class="v-messages error--text" cols="12" md="6">
+          {{ errors[0] }}
+        </v-col>
+
+        <v-col cols="12" md="6">
+          <v-btn :disabled="disabled" small @click="addGroup()">
+            <v-icon left>mdi-plus</v-icon>
+            {{ $t('course.groups.add') }}
+          </v-btn>
+        </v-col>
+      </v-row>
     </div>
-  </div>
+  </ValidationProvider>
 </template>
 
 <script>
+import { ValidationProvider } from 'vee-validate'
+
 export default {
   name: 'SelectCourseGroups',
+  components: { ValidationProvider },
   props: {
     disabled: {
       type: Boolean,

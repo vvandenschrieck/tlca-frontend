@@ -4,7 +4,11 @@
     :update="(data) => data.competencies"
   >
     <template #default="{ result: { error, data: competencies }, isLoading }">
-      <div v-if="!isLoading && competencies">
+      <ValidationProvider
+        v-if="!isLoading && competencies"
+        v-slot="{ errors }"
+        :vid="$attrs.vid"
+      >
         <div v-if="value.length > 0">
           <v-row>
             <v-col
@@ -68,12 +72,20 @@
         </div>
 
         <div class="text-right mt-5">
-          <v-btn small :disabled="disabled" @click="addCompetency()">
-            <v-icon left>mdi-plus</v-icon>
-            {{ $t('course.competencies.add') }}
-          </v-btn>
+          <v-row>
+            <v-col class="v-messages error--text" cols="12" md="6">
+              {{ errors[0] }}
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-btn small :disabled="disabled" @click="addCompetency()">
+                <v-icon left>mdi-plus</v-icon>
+                {{ $t('course.competencies.add') }}
+              </v-btn>
+            </v-col>
+          </v-row>
         </div>
-      </div>
+      </ValidationProvider>
 
       <div v-else-if="isLoading">
         <v-skeleton-loader
@@ -81,14 +93,17 @@
         ></v-skeleton-loader>
       </div>
 
-      <div v-else-if="error">An error occurred</div>
+      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
     </template>
   </ApolloQuery>
 </template>
 
 <script>
+import { ValidationProvider } from 'vee-validate'
+
 export default {
   name: 'SelectCourseCompetencies',
+  components: { ValidationProvider },
   props: {
     disabled: {
       type: Boolean,
