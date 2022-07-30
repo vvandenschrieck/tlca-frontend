@@ -10,6 +10,8 @@
       <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
       <div v-else-if="course && course.isCoordinator">
+        <space-switcher :items="spaces(course)" />
+
         <h2>{{ title }}</h2>
 
         <v-row>
@@ -128,6 +130,22 @@ export default {
   methods: {
     setTitle({ data: course }) {
       this.title = course.name
+    },
+    spaces(course) {
+      const items = {}
+
+      if (course.isPublished || course.isArchived) {
+        items.home = {
+          name: 'courses-code',
+          params: { code: this.$route.params.code },
+        }
+        items.teach = {
+          name: 'teach-courses-code',
+          params: { code: this.$route.params.code },
+        }
+      }
+
+      return items
     },
   },
   meta: {
