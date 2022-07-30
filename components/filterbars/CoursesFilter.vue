@@ -40,6 +40,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideUnpublished: {
+      type: Boolean,
+      default: false,
+    },
     value: {
       type: Object,
       default: () => {
@@ -54,11 +58,17 @@ export default {
     statusList() {
       const status = []
 
+      if (!this.hideUnpublished) {
+        status.push({
+          text: this.$t('course.status.unpublished'),
+          value: 'UNPUBLISHED',
+        })
+      }
       status.push(
-        { text: this.$t('course.status.unpublished'), value: 'UNPUBLISHED' },
         { text: this.$t('course.status.published'), value: 'PUBLISHED' },
         { text: this.$t('course.status.archived'), value: 'ARCHIVED' }
       )
+
       return status
     },
     rolesList() {
