@@ -83,6 +83,7 @@
             <select-course-competencies
               v-model="competencies"
               :disabled="formBusy"
+              vid="competencies"
             />
           </v-stepper-content>
 
@@ -115,6 +116,7 @@
                   class="mt-5"
                   :disabled="formBusy"
                   :teachers="teachers"
+                  vid="groups"
                 />
               </v-col>
             </v-row>
