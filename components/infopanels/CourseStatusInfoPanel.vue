@@ -26,24 +26,7 @@
       </ApolloMutation>
 
       <!-- Archive button -->
-      <ApolloMutation
-        :mutation="require('../../gql/manage/archiveCourse.gql')"
-        :variables="{ code: course.code }"
-        @done="archived"
-      >
-        <template #default="{ mutate, loading }">
-          <v-btn
-            v-if="canArchive"
-            small
-            color="primary"
-            :loading="loading"
-            @click="mutate"
-          >
-            <v-icon left>mdi-archive</v-icon>
-            <span>{{ $t('course.archive') }}</span>
-          </v-btn>
-        </template>
-      </ApolloMutation>
+      <archive-form v-if="canArchive" :course="course" @success="archived" />
     </div>
   </generic-info-panel>
 </template>
@@ -106,7 +89,7 @@ export default {
     },
   },
   methods: {
-    archived({ data: { archiveCourse: course } }) {
+    archived(course) {
       this.$notificationManager.displaySuccessMessage(
         this.$t('success.COURSE_ARCHIVED')
       )

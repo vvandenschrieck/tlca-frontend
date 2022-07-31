@@ -1,5 +1,5 @@
-mutation ArchiveCourse($code: ID!) {
-  archiveCourse(code: $code) {
+mutation ArchiveCourse($archiveCode: String, $code: ID!) {
+  archiveCourse(archiveCode: $archiveCode, code: $code) {
     archived
     code
     status

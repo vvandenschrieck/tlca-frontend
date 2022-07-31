@@ -91,7 +91,10 @@
   },
   "course": {
     "_": "Cours",
-    "archive": "Archiver",
+    "archive": {
+      "_": "Archiver",
+      "dialog_instructions": "Entrer le code à utiliser pour le cours archivé (garder le même code ou choisissez-en un autre non existant). Laisser vide pour auto-générer."
+    },
     "assessments_list": "Liste des évaluations du cours",
     "clone": "Cloner",
     "colophon": "Colophon",
