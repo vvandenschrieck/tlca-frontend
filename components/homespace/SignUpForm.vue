@@ -1,66 +1,74 @@
 <template>
   <v-dialog
     v-model="dialog"
-    :persistent="formBusy"
-    max-width="500"
     :fullscreen="$vuetify.breakpoint.xsOnly"
+    max-width="500"
+    :persistent="formBusy"
   >
     <template #activator="{ on, attrs }">
-      <v-btn v-bind="attrs" text small v-on="{ ...on }">
+      <v-btn small text v-bind="attrs" v-on="{ ...on }">
         {{ $t('authentication.sign_up') }}
       </v-btn>
     </template>
+
     <v-card>
-      <v-form ref="form" class="mt-5" @submit.prevent="signUp()">
-        <v-card-title class="text-h5 grey lighten-2">
-          {{ $t('authentication.sign_up') }}
-        </v-card-title>
-        <v-card-text>
-          <v-alert
-            v-if="error"
-            v-t="error"
-            type="error"
-            outlined
-            dense
-            class="mt-5"
-          ></v-alert>
-          <v-text-field
-            v-model="email"
-            :label="$t('user.email')"
-            required
-          ></v-text-field>
-          <password-field-with-validation
-            v-model="password"
-            :label="$t('user.password')"
-            rules="required"
-            required
-          />
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn :disabled="formBusy" color="error" text @click="reset()">
-            {{ $t('general.cancel') }}
-          </v-btn>
-          <v-btn type="submit" :loading="formBusy" color="primary" text>
+      <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+        <v-form :disabled="formBusy" @submit.prevent="handleSubmit(signUp)">
+          <v-card-title class="text-h5">
             {{ $t('authentication.sign_up') }}
-          </v-btn>
-        </v-card-actions>
-      </v-form>
+          </v-card-title>
+
+          <v-card-text>
+            <v-alert v-if="formError" dense outlined type="error">
+              {{ $t(formError) }}
+            </v-alert>
+
+            <v-text-field-with-validation
+              v-model="email"
+              autofocus
+              :label="$t('user.email')"
+              required
+              rules="required"
+              vid="email"
+            />
+            <password-field-with-validation
+              v-model="password"
+              :label="$t('user.password')"
+              required
+              rules="required"
+              vid="password"
+            />
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn color="error" :disabled="formBusy" text @click="reset">
+              {{ $t('general.cancel') }}
+            </v-btn>
+            <v-btn color="primary" :loading="formBusy" text type="submit">
+              {{ $t('authentication.sign_up') }}
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </ValidationObserver>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+import { ValidationObserver } from 'vee-validate'
 import signUpGql from '~/gql/signUp.gql'
 
 export default {
   name: 'SignUpForm',
+  components: { ValidationObserver },
   data() {
     return {
       dialog: false,
       email: '',
-      error: null,
       formBusy: false,
+      formError: null,
       password: '',
     }
   },
@@ -75,8 +83,9 @@ export default {
     reset() {
       this.dialog = false
       this.email = ''
-      this.error = null
+      this.formError = null
       this.password = ''
+      this.$refs.form.reset()
     },
     async signUp() {
       this.formBusy = true
@@ -101,12 +110,12 @@ export default {
         }
       } catch (err) {
         if (err.graphQLErrors?.length) {
-          this.error = `error.${err.graphQLErrors[0].message}`
+          this.formError = `error.${err.graphQLErrors[0].message}`
         }
       }
 
-      if (!this.error) {
-        this.error = 'error._'
+      if (!this.formError) {
+        this.formError = 'error._'
       }
       this.formBusy = false
     },
