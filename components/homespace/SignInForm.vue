@@ -1,51 +1,57 @@
 <template>
   <v-dialog
     v-model="dialog"
-    :persistent="formBusy"
-    max-width="500"
     :fullscreen="$vuetify.breakpoint.xsOnly"
+    max-width="500"
+    :persistent="formBusy"
   >
     <template #activator="{ on, attrs }">
       <v-tooltip bottom open-delay="500">
         <template #activator="{ on: tooltip }">
-          <v-btn v-bind="attrs" icon small v-on="{ ...on, ...tooltip }">
+          <v-btn icon small v-bind="attrs" v-on="{ ...on, ...tooltip }">
             <v-icon>mdi-login</v-icon>
           </v-btn>
         </template>
         <span>{{ $t('authentication.sign_in') }}</span>
       </v-tooltip>
     </template>
+
     <v-card>
       <ValidationObserver ref="form" v-slot="{ handleSubmit }">
         <v-form :disabled="formBusy" @submit.prevent="handleSubmit(signIn)">
-          <v-card-title class="text-h5 grey lighten-2">
+          <v-card-title class="text-h5">
             {{ $t('authentication.sign_in') }}
           </v-card-title>
+
           <v-card-text>
-            <v-alert v-if="error" type="error" outlined dense class="mt-5">
-              {{ $t(error) }}
+            <v-alert v-if="formError" dense outlined type="error">
+              {{ $t(formError) }}
             </v-alert>
 
             <v-text-field-with-validation
               v-model="usernameOrEmail"
-              :label="$t('user.username_or_email')"
-              rules="required"
-              required
               autofocus
-            ></v-text-field-with-validation>
+              :label="$t('user.username_or_email')"
+              required
+              rules="required"
+              vid="usernameOrEmail"
+            />
             <password-field-with-validation
               v-model="password"
               :label="$t('user.password')"
-              rules="required"
               required
+              rules="required"
+              vid="password"
             />
           </v-card-text>
+
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn :disabled="formBusy" color="error" text @click="reset()">
+
+            <v-btn color="error" :disabled="formBusy" text @click="reset">
               {{ $t('general.cancel') }}
             </v-btn>
-            <v-btn type="submit" :loading="formBusy" color="primary" text>
+            <v-btn color="primary" :loading="formBusy" text type="submit">
               {{ $t('authentication.sign_in') }}
             </v-btn>
           </v-card-actions>
@@ -65,10 +71,9 @@ export default {
     return {
       dialog: false,
       usernameOrEmail: '',
-      error: null,
       formBusy: false,
+      formError: null,
       password: '',
-      showPassword: false,
     }
   },
   watch: {
@@ -82,9 +87,10 @@ export default {
   methods: {
     reset() {
       this.dialog = false
-      this.error = null
+      this.formError = null
       this.password = ''
       this.usernameOrEmail = ''
+      this.$refs.form.reset()
     },
     async signIn() {
       this.formBusy = true
@@ -104,12 +110,12 @@ export default {
         }
       } catch (err) {
         if (err.graphQLErrors?.length) {
-          this.error = `error.${err.graphQLErrors[0].message}`
+          this.formError = `error.${err.graphQLErrors[0].message}`
         }
       }
 
-      if (!this.error) {
-        this.error = 'error._'
+      if (!this.formError) {
+        this.formError = 'error._'
       }
       this.formBusy = false
     },
