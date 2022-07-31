@@ -91,7 +91,10 @@
   },
   "course": {
     "_": "Course | Courses",
-    "archive": "Archive",
+    "archive": {
+      "_": "Archive",
+      "dialog_instructions": "Enter the code to use for the archived course (keep the same code or choose another not existing one). Leave empty to auto-generate."
+    },
     "assessments_list": "Available assessments",
     "clone": "Clone",
     "code": "@:global.code",
