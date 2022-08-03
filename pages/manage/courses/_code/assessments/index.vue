@@ -18,7 +18,13 @@
                 <v-tab>
                   {{ $tc('assessment._', data.course.assessments.length) }}
                 </v-tab>
-                <v-tab v-if="data.course.competencies?.length">
+                <v-tab
+                  v-if="
+                    data.course.competencies?.length &&
+                    data.course.assessments &&
+                    data.course.assessments.length
+                  "
+                >
                   {{ $t('course.competency_coverage') }}
                 </v-tab>
               </v-tabs>
@@ -69,10 +75,17 @@
                     </div>
                   </v-tab-item>
                   <v-tab-item>
-                    <competency-coverage
-                      :competencies="data.course.competencies"
-                      :assessments="data.course.assessments"
-                    />
+                    <div
+                      v-if="
+                        data.course.assessments &&
+                        data.course.assessments.length
+                      "
+                    >
+                      <competency-coverage
+                        :competencies="data.course.competencies"
+                        :assessments="data.course.assessments"
+                      />
+                    </div>
                   </v-tab-item>
                 </v-tabs-items>
               </v-card-text>
