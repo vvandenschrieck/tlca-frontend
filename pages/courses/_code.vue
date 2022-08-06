@@ -104,7 +104,7 @@ export default {
           partners: ['abbreviation', 'code', 'name'],
         },
         {
-          schedule: ['name', 'date'],
+          schedule: ['name', 'datetime'],
         },
         'span',
         'tags',

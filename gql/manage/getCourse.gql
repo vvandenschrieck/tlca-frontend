@@ -38,7 +38,7 @@ query GetCourse($code: ID!) {
     }
     schedule {
       name
-      date
+      datetime
     }
     status
     teachers {

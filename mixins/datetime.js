@@ -22,6 +22,9 @@ export default {
 
       return ''
     },
+    formatDateCompact(datetime) {
+      return this.formatDateTime(datetime, DateTime.DATE_SHORT)
+    },
     formatDateFull(datetime) {
       return this.formatDateTime(datetime, DateTime.DATE_MED_WITH_WEEKDAY)
     },
