@@ -24,9 +24,6 @@
               <v-tab v-if="course.teachers?.length">
                 {{ $t('course.team') }}
               </v-tab>
-              <v-tab v-if="course.registrations?.length">
-                {{ $tc('course.registrations._', 2) }}
-              </v-tab>
             </v-tabs>
 
             <v-card-text class="text--primary">
@@ -78,10 +75,6 @@
                       </v-list>
                     </v-card>
                   </template>
-                </v-tab-item>
-
-                <v-tab-item v-if="course.registrations?.length">
-                  <registrations-list :course="course"></registrations-list>
                 </v-tab-item>
               </v-tabs-items>
             </v-card-text>

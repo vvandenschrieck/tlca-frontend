@@ -1,7 +1,6 @@
 <template>
   <v-data-table
     v-if="course.registrations"
-    class="elevation-1"
     group-by="status"
     :group-desc="true"
     :headers="dataHeaders"

@@ -1,11 +1,11 @@
 <template>
-  <v-card flat color="grey lighten-3" class="my-2">
-    <v-breadcrumbs divider="/" :items="newItems" class="py-2"></v-breadcrumbs>
+  <v-card flat class="my-2" color="grey lighten-3">
+    <v-breadcrumbs class="py-2" divider="/" :items="newItems" />
   </v-card>
 </template>
 
 <script>
-import getPartners from '~/gql/getPartner.gql'
+import getPartners from '@/gql/getPartner.gql'
 
 export default {
   name: 'BreadCrumb',
@@ -23,6 +23,7 @@ export default {
         manage: () => this.$t('global.spaces.manage'),
         partners: () => this.$tc('partner._', 2),
         programs: () => this.$tc('program._', 2),
+        registrations: () => this.$tc('registration._', 2),
         teach: () => this.$tc('global.spaces.teach', 2),
         users: () => this.$tc('user._', 2),
       },
