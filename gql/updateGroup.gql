@@ -1,0 +1,6 @@
+mutation UpdateGroup($id: ID!, $group: Int!) {
+  updateGroup(id: $id, group: $group) {
+    group
+    id
+  }
+}
