@@ -27,6 +27,7 @@ query GetCourse($code: ID!) {
     registrations {
       date
       email
+      group
       id
       invite
       user {

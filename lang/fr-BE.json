@@ -142,8 +142,11 @@
     "registrations": {
       "_": "@:registration._",
       "date": "@:global.date",
+      "group": "Groupe",
+      "group_name": "Groupe {nb}",
       "invites": "Invitations",
       "name_or_email": "Nom ou e-mail",
+      "no_group": "Pas de groupe",
       "registered": "Inscrit(e)s",
       "status": "@:general.status"
     },
