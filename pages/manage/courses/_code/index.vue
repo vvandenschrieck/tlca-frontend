@@ -21,9 +21,6 @@
               <v-tab>
                 {{ $t('course.description') }}
               </v-tab>
-              <v-tab v-if="course.schedule">
-                {{ $t('course.schedule._') }}
-              </v-tab>
               <v-tab v-if="course.teachers?.length">
                 {{ $t('course.team') }}
               </v-tab>
@@ -39,12 +36,10 @@
                   <div v-else>{{ $t('global.description.no') }}</div>
                 </v-tab-item>
 
-                <v-tab-item v-if="course.schedule">
-                  <course-schedule :items="course.schedule" />
-                </v-tab-item>
-
                 <v-tab-item v-if="course.teachers?.length">
-                  <h3>{{ $tc('course.teacher', course.teachers.length) }}</h3>
+                  <h3>
+                    {{ $tc('course.teacher', course.teachers.length) }}
+                  </h3>
 
                   <v-chip
                     v-for="teacher in course.teachers"
@@ -98,6 +93,11 @@
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
           <course-status-info-panel :course="course" class="mb-5" />
+
+          <course-schedule-panel
+            v-if="course.schedule"
+            :schedule="course.schedule"
+          />
         </v-col>
       </v-row>
     </div>
