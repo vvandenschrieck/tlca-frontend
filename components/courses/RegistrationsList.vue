@@ -37,7 +37,9 @@
         @done="groupUpdated"
       >
         <v-edit-dialog large @save="mutate">
-          {{ item.group + 1 || $t('course.registrations.no_group') }}
+          {{
+            item.group ? item.group + 1 : $t('course.registrations.no_group')
+          }}
 
           <v-select
             slot="input"
@@ -54,9 +56,18 @@
     </template>
 
     <template #item.actions="{ item: { id, invite } }">
-      <v-btn v-if="invite === 'REQUESTED'" icon small @click="accept(id)">
-        <v-icon small>mdi-account-plus</v-icon>
-      </v-btn>
+      <ApolloMutation
+        v-if="invite === 'REQUESTED'"
+        v-slot="{ mutate, loading }"
+        :mutation="require('../../gql/acceptInvitationRequest.gql')"
+        tag="span"
+        :variables="{ id }"
+        @done="groupUpdated"
+      >
+        <v-btn icon :loading="loading" small @click="mutate">
+          <v-icon small>mdi-account-plus</v-icon>
+        </v-btn>
+      </ApolloMutation>
       <v-btn icon small @click="remove(id)">
         <v-icon small>mdi-delete</v-icon>
       </v-btn>
@@ -132,9 +143,6 @@ export default {
     },
   },
   methods: {
-    accept(id) {
-      // TODO: accept this ID
-    },
     groupUpdated({
       data: {
         updateGroup: { group, id },
