@@ -1,5 +1,6 @@
 <template>
   <ApolloMutation
+    v-if="canClone"
     v-slot="{ loading, mutate }"
     :mutation="require('../../gql/manage/cloneCourse.gql')"
     :variables="{ cloneCode: code, code: course.code }"
@@ -65,7 +66,7 @@
 import { ValidationObserver } from 'vee-validate'
 
 export default {
-  name: 'CloneForm',
+  name: 'CourseCloneBtn',
   components: { ValidationObserver },
   props: {
     course: {
@@ -79,6 +80,11 @@ export default {
       dialog: false,
       formError: null,
     }
+  },
+  computed: {
+    canClone() {
+      return this.course.status === 'ARCHIVED'
+    },
   },
   watch: {
     dialog(value) {
