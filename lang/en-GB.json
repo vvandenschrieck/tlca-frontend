@@ -128,7 +128,15 @@
       "add": "Add a group",
       "name": "Name",
       "no": "There are no groups for now.",
-      "supervisor": "Supervisor"
+      "supervisor": "Supervisor",
+      "teaching": {
+        "_": "Teaching",
+        "no": "There are no teaching groups for now."
+      },
+      "working": {
+        "_": "Working",
+        "no": "There are no working groups for now."
+      }
     },
     "language": "@:global.language",
     "load": {

@@ -1,6 +1,6 @@
 <template>
   <generic-info-card
-    icon="mdi-account-group"
+    icon="mdi-clipboard"
     :link="{
       icon: 'mdi-view-list',
       text: $t('general.list'),
@@ -28,19 +28,13 @@
 </template>
 
 <script>
-// import { DateTime } from 'luxon'
-import datetime from '@/mixins/datetime.js'
-
 export default {
   name: 'RegistrationsInfoCard',
-  mixins: [datetime],
   props: {
     course: {
       type: Object,
       required: true,
     },
   },
-  computed: {},
-  methods: {},
 }
 </script>

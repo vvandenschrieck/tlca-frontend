@@ -128,7 +128,15 @@
       "add": "Ajouter un groupe",
       "name": "Nom",
       "no": "Il n'y a pas de groupes pour le moment.",
-      "supervisor": "Superviseur"
+      "supervisor": "Superviseur",
+      "teaching": {
+        "_": "Enseignement",
+        "no": "Il n'y a pas de groupes d'enseignement pour le moment."
+      },
+      "working": {
+        "_": "Travail",
+        "no": "Il n'y a pas de groupes de travail pour le moment."
+      }
     },
     "language": "@:global.language",
     "load": {

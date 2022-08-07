@@ -15,17 +15,17 @@
         <v-col cols="12" md="9">
           <v-card>
             <v-tabs v-model="currentTab" show-arrows>
-              <v-tab>{{ $tc('course.registrations._', 2) }}</v-tab>
+              <v-tab>{{ $t('course.groups.teaching._') }}</v-tab>
+              <v-tab>{{ $t('course.groups.working._') }}</v-tab>
             </v-tabs>
 
             <v-card-text class="text--primary">
               <v-tabs-items v-model="currentTab">
                 <v-tab-item>
-                  <registrations-list
-                    v-if="course.registrations?.length"
-                    :course="course"
-                  />
+                  <teaching-groups-list :course="course" />
                 </v-tab-item>
+
+                <v-tab-item> B </v-tab-item>
               </v-tabs-items>
             </v-card-text>
           </v-card>
@@ -52,7 +52,7 @@
 
 <script>
 export default {
-  name: 'ManageCourseRegistrationsPage',
+  name: 'ManageCourseGroupsPage',
   data() {
     return {
       currentTab: 'registrations',
@@ -61,7 +61,7 @@ export default {
   },
   head() {
     return {
-      title: this.title + ' : ' + this.$tc('registration._', 2),
+      title: this.title + ' : ' + this.$tc('course.groups._', 2),
     }
   },
   methods: {
