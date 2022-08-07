@@ -5,29 +5,9 @@
     :items="items"
   >
     <div v-if="$auth.user" class="text-center">
-      <!-- Publication button -->
-      <ApolloMutation
-        :mutation="require('../../gql/manage/publishCourse.gql')"
-        :variables="{ code: course.code }"
-        @done="published"
-      >
-        <template #default="{ mutate, loading }">
-          <v-btn
-            v-if="canPublish"
-            small
-            color="primary"
-            :loading="loading"
-            @click="mutate"
-          >
-            <v-icon left>mdi-cloud-upload</v-icon>
-            <span>{{ $t('course.publish') }}</span>
-          </v-btn>
-        </template>
-      </ApolloMutation>
-
-      <archive-form v-if="canArchive" :course="course" @success="archived" />
-
-      <clone-form v-if="canClone" :course="course" @success="cloned" />
+      <course-publish-btn :course="course" @success="published" />
+      <course-archive-btn :course="course" @success="archived" />
+      <course-clone-btn :course="course" @success="cloned" />
     </div>
   </generic-info-panel>
 </template>
@@ -45,15 +25,6 @@ export default {
     },
   },
   computed: {
-    canArchive() {
-      return this.course.status === 'PUBLISHED'
-    },
-    canClone() {
-      return this.course.status === 'ARCHIVED'
-    },
-    canPublish() {
-      return this.course.status === 'UNPUBLISHED'
-    },
     items() {
       const items = []
 
