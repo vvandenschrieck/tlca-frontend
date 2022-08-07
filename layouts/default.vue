@@ -17,7 +17,7 @@
     </v-app-bar>
 
     <v-main>
-      <v-container>
+      <v-container style="padding-left: 56px">
         <notification-displayer />
         <space-navigator v-if="$auth.user" />
         <bread-crumb v-if="showBreadCrumb" />
