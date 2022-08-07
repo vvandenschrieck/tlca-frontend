@@ -1,6 +1,6 @@
 <template>
   <generic-info-card
-    icon="mdi-account-group"
+    icon="mdi-account-school"
     :link="{
       icon: 'mdi-view-list',
       text: $t('general.list'),
@@ -24,7 +24,7 @@
 
           <tr v-for="(stat, i) in stats" :key="i">
             <td class="pl-1 pr-0 text-center">
-              <v-tooltip v-if="stat.alert" bottom>
+              <v-tooltip v-if="stat.alert" bottom open-delay="500">
                 <template #activator="{ on, attrs }">
                   <v-icon color="red" small v-bind="attrs" v-on="on">
                     mdi-alert

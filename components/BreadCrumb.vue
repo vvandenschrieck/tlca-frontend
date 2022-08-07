@@ -19,6 +19,7 @@ export default {
         courses: () => this.$tc('course._', 2),
         create: () => this.$t('general.create'),
         edit: () => this.$t('general.edit'),
+        groups: () => this.$tc('course.groups._', 2),
         learn: () => this.$t('global.spaces.learn'),
         manage: () => this.$t('global.spaces.manage'),
         partners: () => this.$tc('partner._', 2),
