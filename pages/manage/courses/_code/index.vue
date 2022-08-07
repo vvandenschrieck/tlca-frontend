@@ -21,36 +21,18 @@
             </v-col>
 
             <v-col cols="12" md="6">
-              <generic-info-card
-                icon="mdi-clipboard"
-                :link="{
-                  icon: 'mdi-clipboard',
-                  text: $t('course.assessments.list'),
-                  to: {
-                    name: 'manage-courses-code-assessments',
-                    params: { code: course.code },
-                  },
-                }"
-                :title="$tc('course.assessments._', 2)"
-              >
-                <div v-if="course.assessments?.length">
-                  {{ course.assessments }}
-                </div>
-
-                <span v-else>
-                  {{ $t('assessment.no') }}
-                </span>
-              </generic-info-card>
+              <assessments-info-card :course="course" />
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12" md="12">
               <generic-info-card
+                v-if="course.teachers?.length"
                 icon="mdi-account-group"
                 :title="$t('course.team')"
               >
-                <h3>{{ $tc('course.teacher', course.teachers?.length) }}</h3>
+                <h3>{{ $tc('course.teacher', course.teachers.length) }}</h3>
 
                 <v-chip
                   v-for="teacher in course.teachers"

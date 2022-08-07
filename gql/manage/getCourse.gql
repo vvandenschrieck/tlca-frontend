@@ -1,6 +1,9 @@
 query GetCourse($code: ID!) {
   course(code: $code) {
     archived
+    assessments {
+      id
+    }
     code
     coordinator {
       displayName
