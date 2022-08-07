@@ -2,8 +2,11 @@ import { DateTime } from 'luxon'
 
 export default {
   methods: {
-    isInPast(datetime) {
-      return datetime <= DateTime.now()
+    formatDateCompact(datetime) {
+      return this.formatDateTime(datetime, DateTime.DATE_SHORT)
+    },
+    formatDateFull(datetime) {
+      return this.formatDateTime(datetime, DateTime.DATE_MED_WITH_WEEKDAY)
     },
     formatDateTime(datetime, format) {
       // Try to convert to DateTime from a string datetime.
@@ -22,14 +25,14 @@ export default {
 
       return ''
     },
-    formatDateCompact(datetime) {
-      return this.formatDateTime(datetime, DateTime.DATE_SHORT)
-    },
-    formatDateFull(datetime) {
-      return this.formatDateTime(datetime, DateTime.DATE_MED_WITH_WEEKDAY)
-    },
     formatDateTimeFull(datetime) {
       return this.formatDateTime(datetime, DateTime.DATETIME_MED_WITH_WEEKDAY)
+    },
+    isInFuture(datetime) {
+      return datetime && datetime > DateTime.now()
+    },
+    isInPast(datetime) {
+      return datetime && datetime < DateTime.now()
     },
   },
 }

@@ -95,6 +95,10 @@
       "_": "Archive",
       "dialog_instructions": "Enter the code to use for the archived course (keep the same code or choose another not existing one). Leave empty to auto-generate."
     },
+    "assessments": {
+      "_": "@:assessment._",
+      "list": "Assessments list"
+    },
     "assessments_list": "Available assessments",
     "clone": "Clone",
     "code": "@:global.code",
@@ -145,6 +149,7 @@
       "group": "Group",
       "group_name": "Group {nb}",
       "invites": "Invites",
+      "list": "Registrations list",
       "name_or_email": "Name or email",
       "no_group": "No group",
       "registered": "Registered",
@@ -221,6 +226,7 @@
       "general": "General @.lower:general.information._",
       "optional": "Optional @.lower:general.information._"
     },
+    "list": "List",
     "owner": "Owner",
     "reset": "Reset",
     "status": "Status",
@@ -329,12 +335,33 @@
   },
   "registration": {
     "_": "Registration | Registrations",
+    "closed": "Closed",
     "date": "Registration date",
-    "invite_request_sent": "Invite request sent",
-    "invite_received": "Invite received",
+    "invitation": {
+      "_": "Invitation",
+      "received": {
+        "_": "Invitation received"
+      },
+      "request": {
+        "_": "Invitation request",
+        "nb_of": "Number of invitation requests",
+        "received": "Invitation requests received",
+        "sent": "Invitation request sent",
+        "too_old": "The oldest invitation request is more than {days} days old"
+      },
+      "sent": {
+        "_": "Invitations sent",
+        "nb_of": "Number of invitations sent",
+        "sent": "Invitation sent",
+        "too_old": "The oldest invitation was sent more than {days} days ago"
+      }
+    },
     "nb_of": "Number of registrations",
+    "no": "There are no registration for now",
+    "open": "Open",
     "registered_on": "Registered on {date}",
-    "status": "Registration @.lower:general.status"
+    "status": "Registration @.lower:general.status",
+    "upcoming": "Upcoming"
   },
   "student": {
     "not_registered_yet": "Not registered yet"

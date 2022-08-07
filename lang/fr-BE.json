@@ -95,6 +95,10 @@
       "_": "Archiver",
       "dialog_instructions": "Entrer le code à utiliser pour le cours archivé (garder le même code ou choisissez-en un autre non existant). Laisser vide pour auto-générer."
     },
+    "assessments": {
+      "_": "@:assessment._",
+      "list": "Liste des évaluations"
+    },
     "assessments_list": "Liste des évaluations du cours",
     "clone": "Cloner",
     "colophon": "Colophon",
@@ -145,6 +149,7 @@
       "group": "Groupe",
       "group_name": "Groupe {nb}",
       "invites": "Invitations",
+      "list": "Liste des inscriptions",
       "name_or_email": "Nom ou e-mail",
       "no_group": "Pas de groupe",
       "registered": "Inscrit(e)s",
@@ -221,6 +226,7 @@
       "general": "@:general.information._ générale",
       "optional": "@:general.information._ optionnelle"
     },
+    "list": "Liste",
     "owner": "Propriétaire",
     "reset": "Réinitialiser",
     "status": "Statut",
@@ -329,12 +335,33 @@
   },
   "registration": {
     "_": "Inscription | Inscriptions",
+    "closed": "Fermées",
     "date": "Date d'inscription",
-    "invite_request_sent": "Demande d'invitation envoyée",
-    "invite_received": "Invitation reçue",
+    "invitation": {
+      "_": "Invitation",
+      "received": {
+        "_": "Invitation reçue"
+      },
+      "request": {
+        "_": "Demande d'invitation",
+        "nb_of": "Nombre de demandes d'invitation",
+        "received": "Demandes d'invitation reçues",
+        "sent": "Demande d'invitation envoyée",
+        "too_old": "La demande d'invitation la plus ancienne date d'il y a plus de {days} jours"
+      },
+      "sent": {
+        "_": "Invitations envoyées",
+        "nb_of": "Nombre d'invitation envoyée",
+        "sent": "Invitation envoyée",
+        "too_old": "L'invitation la plus ancienne a été envoyée il y a plus de {days} jours"
+      }
+    },
     "nb_of": "Nombre d'inscriptions",
+    "no": "Il n'y a aucune inscription pour le moment",
+    "open": "Ouvertes",
     "registered_on": "Inscrit(e) le {date}",
-    "status": "@:general.status de l'inscription"
+    "status": "@:general.status de l'inscription",
+    "upcoming": "À venir"
   },
   "student": {
     "not_registered_yet": "Pas encore inscrit"
