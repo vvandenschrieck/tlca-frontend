@@ -14,12 +14,9 @@
 
       <v-row v-for="(group, index) in value" :key="index">
         <v-col cols="12" md="6">
-          <v-text-field-with-validation
+          <v-text-field
             dense
-            required
-            rules="required"
             :value="group.name"
-            :vid="`group-name-${index}`"
             @input="update(index, 'name', $event)"
           />
         </v-col>

@@ -42,7 +42,7 @@
                   {{ teacher.displayName || teacher.username }}
                 </v-chip>
 
-                <template v-if="course.groups?.length">
+                <template v-if="course.teachingGroups?.length">
                   <h3>{{ $t('course.groups._') }}</h3>
 
                   <v-card class="mt-3" flat outlined>
@@ -64,7 +64,7 @@
                           </v-list-item-action>
                         </v-list-item>
                         <v-divider
-                          v-if="i < course.groups.length - 1"
+                          v-if="i < course.teachingGroups.length - 1"
                           :key="i * 2 + 1"
                         ></v-divider>
                       </template>
@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     groups(course) {
-      return course.groups.map((group, i) => {
+      return course.teachingGroups.map((group, i) => {
         let name = this.$t('course.registrations.group_name', { nb: i + 1 })
         if (group.name) {
           name += ' – ' + group.name

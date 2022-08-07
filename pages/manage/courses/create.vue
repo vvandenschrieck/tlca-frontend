@@ -99,24 +99,24 @@
 
               <v-col cols="12" md="3">
                 <v-switch
-                  v-model="hasGroup"
+                  v-model="hasTeachingGroup"
                   :disabled="teachers?.length === 0"
                   :label="$t('course.groups._')"
-                  @change="switchGroup"
+                  @change="switchTeachingGroup"
                 ></v-switch>
               </v-col>
             </v-row>
 
-            <v-row v-if="hasGroup">
+            <v-row v-if="hasTeachingGroup">
               <v-col cols="12" md="12">
                 <h3>{{ $t('course.groups._') }}</h3>
 
                 <select-course-groups
-                  v-model="groups"
+                  v-model="teachingGroups"
                   class="mt-5"
                   :disabled="formBusy"
                   :teachers="teachers"
-                  vid="groups"
+                  vid="teachingGroups"
                 />
               </v-col>
             </v-row>
@@ -151,12 +151,13 @@ export default {
       description: '',
       formBusy: false,
       formError: null,
-      groups: [],
-      hasGroup: false,
+      hasTeachingGroup: false,
       name: '',
       teachers: [],
+      teachingGroups: [],
       type: '',
       visibility: '',
+      workingGroups: [],
     }
   },
   computed: {
@@ -189,7 +190,7 @@ export default {
           code: this.code,
           competencies: this.competencies,
           description: this.description,
-          groups: this.groups,
+          teachingGroups: this.teachingGroups,
           name: this.name,
           teachers: this.teachers,
           type: this.type,
@@ -236,16 +237,16 @@ export default {
       this.competencies = [{}]
       this.description = ''
       this.formError = null
-      this.groups = []
-      this.hasGroup = false
+      this.teachingGroups = []
+      this.hasTeachingGroup = false
       this.name = ''
       this.teachers = []
       this.type = ''
       this.visibility = ''
     },
-    switchGroup(value) {
+    switchTeachingGroup(value) {
       if (!value) {
-        this.groups = []
+        this.teachingGroups = []
       }
     },
   },
