@@ -25,8 +25,9 @@
         </template>
       </ApolloMutation>
 
-      <!-- Archive button -->
       <archive-form v-if="canArchive" :course="course" @success="archived" />
+
+      <clone-form v-if="canClone" :course="course" @success="cloned" />
     </div>
   </generic-info-panel>
 </template>
@@ -46,6 +47,9 @@ export default {
   computed: {
     canArchive() {
       return this.course.status === 'PUBLISHED'
+    },
+    canClone() {
+      return this.course.status === 'ARCHIVED'
     },
     canPublish() {
       return this.course.status === 'UNPUBLISHED'
@@ -92,6 +96,17 @@ export default {
     archived(course) {
       this.$notificationManager.displaySuccessMessage(
         this.$t('success.COURSE_ARCHIVED')
+      )
+      this.$router.push({
+        name: 'manage-courses-code',
+        params: { code: course.code },
+      })
+
+      // TODO: Fix the cache and redirect to the URL with the new course code
+    },
+    cloned(course) {
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.COURSE_CLONED')
       )
       this.$router.push({
         name: 'manage-courses-code',
