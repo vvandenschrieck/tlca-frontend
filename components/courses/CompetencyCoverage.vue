@@ -35,6 +35,10 @@
 </template>
 
 <script>
+/* FIXME: refactor the code to make the computed 'items' simpler:
+ * - split into smaller chunks
+ * - use functional programming notations
+ */
 export default {
   name: 'CompetencyCoverage',
   props: {

@@ -1,28 +1,29 @@
 <template>
   <ApolloQuery
     :query="require('~/gql/manage/getCourseAssessments.gql')"
+    :update="(data) => data.course"
     :variables="{ code: $route.params.code }"
   >
-    <template #default="{ result: { error, data }, isLoading }">
+    <template #default="{ result: { error, data: course }, isLoading }">
       <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
-      <div v-else-if="data.course">
+      <div v-else-if="course">
         <h2>
-          {{ data.course.name }} -
-          {{ $tc('assessment._', data.course.assessments.length) }}
+          {{ course.name }} -
+          {{ $tc('assessment._', course.assessments.length) }}
         </h2>
         <v-row>
           <v-col cols="12" md="9">
             <v-card>
               <v-tabs v-model="currentTab" show-arrows>
                 <v-tab>
-                  {{ $tc('assessment._', data.course.assessments.length) }}
+                  {{ $tc('assessment._', course.assessments.length) }}
                 </v-tab>
                 <v-tab
                   v-if="
-                    data.course.competencies?.length &&
-                    data.course.assessments &&
-                    data.course.assessments.length
+                    course.competencies?.length &&
+                    course.assessments &&
+                    course.assessments.length
                   "
                 >
                   {{ $t('course.competency_coverage') }}
@@ -31,22 +32,15 @@
               <v-card-text class="text--primary">
                 <v-tabs-items v-model="currentTab">
                   <v-tab-item>
-                    <div
-                      v-if="
-                        data.course.assessments &&
-                        data.course.assessments.length
-                      "
-                    >
+                    <div v-if="course.assessments && course.assessments.length">
                       <v-list class="pa-0">
-                        <template
-                          v-for="(assessment, i) in data.course.assessments"
-                        >
+                        <template v-for="(assessment, i) in course.assessments">
                           <v-list-item
                             :key="assessment.code"
                             :to="{
                               name: 'manage-courses-code-assessments-id',
                               params: {
-                                code: data.course.code,
+                                code: course.code,
                                 id: assessment.id,
                               },
                             }"
@@ -59,7 +53,7 @@
                             </v-list-item-content>
                           </v-list-item>
                           <v-divider
-                            v-if="i < data.course.assessments.length - 1"
+                            v-if="i < course.assessments.length - 1"
                             :key="i"
                           />
                         </template>
@@ -67,23 +61,17 @@
                     </div>
                     <div
                       v-else-if="
-                        data.course.assessments &&
-                        !data.course.assessments.length
+                        course.assessments && !course.assessments.length
                       "
                     >
                       {{ $t('assessment.no') }}
                     </div>
                   </v-tab-item>
                   <v-tab-item>
-                    <div
-                      v-if="
-                        data.course.assessments &&
-                        data.course.assessments.length
-                      "
-                    >
+                    <div v-if="course.assessments && course.assessments.length">
                       <competency-coverage
-                        :competencies="data.course.competencies"
-                        :assessments="data.course.assessments"
+                        :competencies="course.competencies"
+                        :assessments="course.assessments"
                       />
                     </div>
                   </v-tab-item>
@@ -99,9 +87,9 @@
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
             <assessments-list-info-panel
-              v-if="data.course.assessments"
-              :assessments="data.course.assessments"
-              :code="data.course.code"
+              v-if="course.assessments"
+              :assessments="course.assessments"
+              :code="course.code"
             />
           </v-col>
         </v-row>
