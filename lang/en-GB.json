@@ -100,7 +100,10 @@
       "list": "Assessments list"
     },
     "assessments_list": "Available assessments",
-    "clone": "Clone",
+    "clone": {
+      "_": "Clone",
+      "dialog_instructions": "Enter the code to use for the cloned course (choose a not existing one). Leave empty to auto-generate."
+    },
     "code": "@:global.code",
     "colophon": "Colophon",
     "competencies": {
