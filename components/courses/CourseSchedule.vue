@@ -70,7 +70,7 @@ export default {
   padding-top: 12px;
 }
 .theme--light.dense-timeline:before {
-  left: calc(55% - 1px) !important;
+  left: calc(60% - 3px) !important;
 }
 .dense-timeline-item {
   font-size: 0.775rem;
@@ -78,13 +78,13 @@ export default {
   padding-bottom: 15px;
 }
 .dense-timeline-item >>> .v-timeline-item__body {
-  max-width: calc(45% - 16px) !important;
+  max-width: calc(40% - 16px) !important;
 }
 .dense-timeline-item >>> .v-timeline-item__divider {
   min-width: 32px;
 }
 .dense-timeline-item >>> .v-timeline-item__opposite {
-  max-width: calc(55% - 16px) !important;
+  max-width: calc(60% - 16px) !important;
   padding-right: 5px;
 }
 </style>
