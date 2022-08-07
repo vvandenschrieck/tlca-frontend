@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <space-navigator v-if="$auth.user" />
-
-    <v-app-bar clipped-left dense fixed app>
+    <v-app-bar app clipped-left dense fixed>
       <v-toolbar-title>{{ title }}</v-toolbar-title>
 
       <v-spacer />
@@ -13,7 +11,7 @@
       </template>
 
       <template v-else>
-        <span class="text-body-2 mr-2">{{ $auth.user.displayName }}</span>
+        <span class="mr-2 text-body-2">{{ $auth.user.displayName }}</span>
         <user-menu />
       </template>
     </v-app-bar>
@@ -21,12 +19,13 @@
     <v-main>
       <v-container>
         <notification-displayer />
+        <space-navigator v-if="$auth.user" />
         <bread-crumb v-if="showBreadCrumb" />
         <Nuxt />
       </v-container>
     </v-main>
 
-    <v-footer absolute app>
+    <v-footer app>
       <span class="text-caption">
         {{ $t('global.powered_by') }} AEI Consulting – v1.2.0.
       </span>

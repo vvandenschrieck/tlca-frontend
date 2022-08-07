@@ -1,12 +1,11 @@
 <template>
   <v-navigation-drawer
-    permanent
-    app
-    fixed
+    absolute
     disable-resize-watcher
     expand-on-hover
-    clipped
+    fixed
     :mini-variant.sync="miniVariant"
+    permanent
     @mouseleave.native="hoveredItem = undefined"
   >
     <v-row class="fill-height" no-gutters>
@@ -16,12 +15,13 @@
             <v-list-item
               v-for="(item, i) in filteredSpaces"
               :key="i"
-              @mouseenter="hoveredItem = item"
               @change="selectItem(i)"
+              @mouseenter="hoveredItem = item"
             >
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-item-action>
+
               <v-list-item-content>
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item-content>
@@ -29,9 +29,12 @@
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
+
       <v-list v-show="!miniVariant" width="calc(100% - 56px)">
-        <v-subheader v-t="hoveredSpace.title" inset></v-subheader>
+        <v-subheader inset>{{ $t(hoveredSpace.title) }}</v-subheader>
+
         <v-divider />
+
         <v-list-item
           v-for="(item, i) in hoveredSpace.sections"
           :key="i"
@@ -56,11 +59,21 @@ export default {
   mixins: [authentication],
   data() {
     return {
-      miniVariant: true,
       hoveredItem: undefined,
+      miniVariant: true,
     }
   },
   computed: {
+    filteredSpaces() {
+      return spaces
+        .filter((space) => !space.roles || this.hasAnyRoles(space.roles))
+        .map((space) => ({
+          ...space,
+          sections: space.sections.filter(
+            (section) => !section.roles || this.hasAnyRoles(section.roles)
+          ),
+        }))
+    },
     hoveredSpace() {
       return this.hoveredItem ?? this.filteredSpaces[this.selectedSpace]
     },
@@ -74,16 +87,6 @@ export default {
         }
       }
       return 0
-    },
-    filteredSpaces() {
-      return spaces
-        .filter((space) => !space.roles || this.hasAnyRoles(space.roles))
-        .map((space) => ({
-          ...space,
-          sections: space.sections.filter(
-            (section) => !section.roles || this.hasAnyRoles(section.roles)
-          ),
-        }))
     },
   },
   methods: {
