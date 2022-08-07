@@ -24,15 +24,17 @@
       "date": "Echéance : {deadline}"
     },
     "description": "@:global.description._",
+    "filter_by_competency": "Filtrer par compétence",
     "name": "@:global.name",
-    "nb_of": "Nombre d'évaluations",
     "nb": "{nb} évaluation | {nb} évaluations",
+    "nb_of": "Nombre d'évaluations",
     "no": "Il n'y a aucune évaluation pour le moment",
     "schedule": {
       "_": "Calendrier",
-      "start": "Date de début",
-      "end": "Date de fin"
+      "end": "Date de fin",
+      "start": "Date de début"
     },
+    "show_selected": "Filtrer sur la sélection",
     "start": {
       "_": "Date d'ouverture",
       "date": "Ouverture : {start}"
@@ -46,23 +48,23 @@
   "competency": {
     "_": "Compétence | Compétences",
     "category": {
-      "no": "Pas de catégorie",
+      "advanced": "Avancée",
       "basic": "Basique",
-      "advanced": "Avancée"
+      "no": "Pas de catégorie"
     },
     "code": "@:global.code",
     "coordinator": "@:global.coordinator",
     "create": "@:general.create une compétence",
     "creator": {
+      "external": "Externe",
       "own": "Moi-même",
-      "partners": "Affiliations",
-      "external": "Externe"
+      "partners": "Affiliations"
     },
     "description": "@:global.description._",
     "filter": {
-      "visibility": "@:global.visibility._",
       "creator": "@:general.creator",
-      "tags": "Tags"
+      "tags": "Tags",
+      "visibility": "@:global.visibility._"
     },
     "learning_outcomes": {
       "_": "Acquis d'apprentissage"
@@ -74,8 +76,8 @@
     "partners": "@:global.partners",
     "public": "@:global.visibility.public",
     "show_by": {
-      "level": "Montrer par niveau",
-      "category": "Montrer par catégorie"
+      "category": "Montrer par catégorie",
+      "level": "Montrer par niveau"
     },
     "tags": "@:global.tag",
     "type": {
@@ -104,14 +106,15 @@
       "_": "Cloner",
       "dialog_instructions": "Entrer le code à utiliser pour le cours cloné (choisissez-en un non existant). Laisser vide pour auto-générer."
     },
-    "colophon": "Colophon",
     "code": "@:global.code",
+    "colophon": "Colophon",
     "competencies": {
       "_": "Compétences",
       "add": "Ajouter une compétence",
       "category": "Catégorie",
       "subcategory": "Sous-catégorie"
     },
+    "competency_coverage": "Couverture des compétences",
     "coordinator": "@:global.coordinator",
     "create": "@:general.create un cours",
     "description": "@:global.description._",
@@ -161,11 +164,11 @@
     "request_invite": "Demander une invitation",
     "schedule": {
       "_": "Calendrier",
-      "start": "Date de début",
       "end": "Date de fin",
-      "registrationsStart": "Début des inscriptions",
+      "evaluationsEnd": "Fin des évaluations",
       "registrationsEnd": "Fin des inscriptions",
-      "evaluationsEnd": "Fin des évaluations"
+      "registrationsStart": "Début des inscriptions",
+      "start": "Date de début"
     },
     "span": {
       "_": "Durée",
@@ -202,15 +205,15 @@
     "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
     "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
     "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
-    "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
     "EXISTING_CODE": "Le code spécifié existe déjà",
+    "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
     "INVALID_CREDENTIALS": "Mauvais identifiants",
     "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
     "INVALID_PASSWORD": "Mot de passe pas assez fort",
     "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
     "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
-    "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
     "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
+    "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
     "REGISTRATION_FAILED": "Inscription échouée"
   },
   "general": {
@@ -285,16 +288,16 @@
     }
   },
   "homepage": {
-    "welcome": "Bienvenue !",
     "presentation": "<p>La <em>TLC Academy</em> est le meilleur endroit où vous pouvez <b>tout apprendre</b> et acquérir des compétences !</p><p>Que ce soit pour des formations à moyen ou long terme, ou pour un simple micro-cours, apprenez à votre <b>propre rythme</b> et accumulez des <b>étoiles de compétence</b> pour renforcer votre profil personnel.</p>",
     "see_all_courses": "Voir tous les cours",
+    "see_all_partners": "Voir tous les partenaires",
     "see_all_programs": "Voir tous les programmes",
-    "see_all_partners": "Voir tous les partenaires"
+    "welcome": "Bienvenue !"
   },
   "partner": {
     "_": "Partenaire | Partenaires",
-    "no": "Il n'y a pas de partenaires disponibles pour le moment.",
     "abbreviation": "Abréviation",
+    "no": "Il n'y a pas de partenaires disponibles pour le moment.",
     "website": "Site web"
   },
   "program": {
@@ -377,10 +380,10 @@
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
-    "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
-    "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
     "REGISTERED": "Inscrit(e) avec succès !",
-    "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !"
+    "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !",
+    "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
+    "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !"
   },
   "user": {
     "_": "Utilisateur | Utilisateurs",

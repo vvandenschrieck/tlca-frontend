@@ -24,15 +24,17 @@
       "date": "Deadline : {deadline}"
     },
     "description": "@:global.description._",
+    "filter_by_competency": "Filter by competency",
     "name": "@:global.name",
-    "nb_of": "Number of assessments",
     "nb": "{nb} evaluation | {nb} evaluations",
+    "nb_of": "Number of assessments",
     "no": "There are no assessment for now",
     "schedule": {
       "_": "Schedule",
-      "start": "Start date",
-      "end": "End date"
+      "end": "End date",
+      "start": "Start date"
     },
+    "show_selected": "Show only selected rows",
     "start": {
       "_": "Opening",
       "date": "Opens on : {start}"
@@ -46,23 +48,23 @@
   "competency": {
     "_": "Competency | Competencies",
     "category": {
-      "no": "No category",
+      "advanced": "Advanced",
       "basic": "Basic",
-      "advanced": "Advanced"
+      "no": "No category"
     },
     "code": "@:global.code",
     "coordinator": "@:global.coordinator",
     "create": "@:general.create a competency",
     "creator": {
+      "external": "External",
       "own": "Myself",
-      "partners": "Affiliations",
-      "external": "External"
+      "partners": "Affiliations"
     },
     "description": "@:global.description._",
     "filter": {
-      "visibility": "@:global.visibility._",
       "creator": "@:general.creator",
-      "tags": "Tags"
+      "tags": "Tags",
+      "visibility": "@:global.visibility._"
     },
     "learning_outcomes": {
       "_": "Learning outcomes"
@@ -74,8 +76,8 @@
     "partners": "@:global.partners",
     "public": "@:global.visibility.public",
     "show_by": {
-      "level": "Show by level",
-      "category": "Show by category"
+      "category": "Show by category",
+      "level": "Show by level"
     },
     "tags": "@:global.tag",
     "type": {
@@ -112,6 +114,7 @@
       "category": "Category",
       "subcategory": "Subcategory"
     },
+    "competency_coverage": "Competency coverage",
     "coordinator": "@:global.coordinator",
     "create": "@:general.create a course",
     "description": "@:global.description._",
@@ -161,11 +164,11 @@
     "request_invite": "Request an invite",
     "schedule": {
       "_": "Schedule",
-      "start": "Start date",
       "end": "End date",
-      "registrationsStart": "Start of registrations",
+      "evaluationsEnd": "End of evaluations",
       "registrationsEnd": "End of registrations",
-      "evaluationsEnd": "End of evaluations"
+      "registrationsStart": "Start of registrations",
+      "start": "Start date"
     },
     "span": {
       "_": "Span",
@@ -202,15 +205,15 @@
     "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
     "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
     "DUPLICATE_COURSES": "The same course cannot be used more than once",
-    "EXISTING_EMAIL_ADDRESS": "Impossible to create an account with this email address",
     "EXISTING_CODE": "The specified code already exists",
+    "EXISTING_EMAIL_ADDRESS": "Impossible to create an account with this email address",
     "INVALID_CREDENTIALS": "Invalid credentials",
     "INVALID_EMAIL_ADDRESS": "Invalid email address",
     "INVALID_PASSWORD": "Password not strong enough",
     "INVITE_REQUEST_FAILED": "Invite request failed",
     "MISSING_BASIC_COMPETENCY": "There must be at least one basic competency",
-    "MISSING_MANDATORY_COURSE": "There must be at least one mandatory course",
     "MISSING_FIELDS": "Some mandatory fields are missing",
+    "MISSING_MANDATORY_COURSE": "There must be at least one mandatory course",
     "REGISTRATION_FAILED": "Registration failed"
   },
   "general": {
@@ -243,8 +246,8 @@
       "_": "Banner",
       "edit": "Edit the banner"
     },
-    "coordinator": "Coordinator",
     "code": "Code",
+    "coordinator": "Coordinator",
     "date": "Date",
     "description": {
       "_": "Description",
@@ -285,16 +288,16 @@
     }
   },
   "homepage": {
-    "welcome": "Welcome!",
     "presentation": "<p>The <em>TLC Academy</em> is the best place where you can <b>learn anything</b> and gain competencies!</p><p>Whether for medium or long term trainings, or for a simple micro-course, learn at your <b>own pace</b> and accumulate <b>competency stars</b> to strenghten your personal profile.</p>",
     "see_all_courses": "See all courses",
+    "see_all_partners": "See all partners",
     "see_all_programs": "See all programs",
-    "see_all_partners": "See all partners"
+    "welcome": "Welcome!"
   },
   "partner": {
     "_": "Partner | Partners",
-    "no": "There are no partners available for now.",
     "abbreviation": "Abbreviation",
+    "no": "There are no partners available for now.",
     "website": "Website"
   },
   "program": {
@@ -377,10 +380,10 @@
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
     "PROGRAM_CREATED": "Program successfully created!",
-    "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
-    "SIGN_UP_SUCCESSFUL": "Successfully signed up!",
     "REGISTERED": "Successfully registered!",
-    "REQUEST_INVITE_SENT": "Invite request successfully sent!"
+    "REQUEST_INVITE_SENT": "Invite request successfully sent!",
+    "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
+    "SIGN_UP_SUCCESSFUL": "Successfully signed up!"
   },
   "user": {
     "_": "User | Users",
