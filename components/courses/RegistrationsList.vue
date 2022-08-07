@@ -37,7 +37,9 @@
       >
         <v-edit-dialog large @save="mutate">
           {{
-            item.group ? item.group + 1 : $t('course.registrations.no_group')
+            item.group >= 0
+              ? item.group + 1
+              : $t('course.registrations.no_group')
           }}
 
           <v-select
@@ -104,7 +106,7 @@ export default {
         },
       ]
 
-      if (this.course.groups?.length) {
+      if (this.course.teachingGroups?.length) {
         headers.push({
           text: this.$t('course.registrations.group'),
           value: 'group',
@@ -122,7 +124,7 @@ export default {
       return headers
     },
     groups() {
-      const n = this.course.groups?.length
+      const n = this.course.teachingGroups?.length
       if (n) {
         return [...Array(n).keys()].map((i) => ({
           text: i + 1,
