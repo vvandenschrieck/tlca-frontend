@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card v-if="course.teachingGroups?.length" class="mt-3" flat>
+    <v-card v-if="course.groups?.teaching?.length" class="mt-3" flat>
       <v-list class="dense pa-0">
         <template v-for="(group, i) in groups">
           <v-list-item :key="i * 2" class="dense">
@@ -18,7 +18,7 @@
           </v-list-item>
 
           <v-divider
-            v-if="i < course.teachingGroups.length - 1"
+            v-if="i < course.groups.teaching.length - 1"
             :key="i * 2 + 1"
           />
         </template>
@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     groups() {
-      return this.course.teachingGroups.map((group, i) => {
+      return this.course.groups.teaching.map((group, i) => {
         let name = this.$t('course.registrations.group_name', { nb: i + 1 })
         if (group.name) {
           name += ' – ' + group.name
@@ -49,7 +49,9 @@ export default {
 
         return {
           name,
-          size: this.course.registrations.filter((r) => r.group === i).length,
+          size: this.course.registrations.filter(
+            (r) => r.groups?.teaching === i
+          ).length,
           supervisor: supervisor.displayName || supervisor.username,
         }
       })

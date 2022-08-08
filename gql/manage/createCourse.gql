@@ -1,23 +1,23 @@
-mutation createCourse(
+mutation CreateCourse(
   $code: String!
   $competencies: [CourseCompetencyInput!]!
   $description: String
+  $groups: CourseGroupInput
   $name: String!
   $teachers: [ID!]
-  $teachingGroups: [CourseTeachingGroupInput!]
   $type: CourseType
   $visibility: Visibility
-  $workingGroups: [CourseWorkingGroupInput!]
 ) {
   createCourse(
     code: $code
     competencies: $competencies
     description: $description
+    groups: $groups
     name: $name
     teachers: $teachers
-    teachingGroups: $teachingGroups
     type: $type
     visibility: $visibility
-    workingGroups: $workingGroups
-  )
+  ) {
+    code
+  }
 }

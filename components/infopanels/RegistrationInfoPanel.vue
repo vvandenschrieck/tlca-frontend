@@ -6,7 +6,7 @@
   >
     <div v-if="$auth.user" class="text-center">
       <!-- Registration button -->
-      <!-- TODO: remove the 'invite' field when moving to Apollo client 3
+      <!-- TODO: remove the 'invitation' field when moving to Apollo client 3
            it has been queried now to be sure that the query on the course
           page gets refreshed correctly when the mutation is done -->
       <ApolloMutation
@@ -28,15 +28,15 @@
         </template>
       </ApolloMutation>
 
-      <!-- Invite request button -->
+      <!-- Invitation request button -->
       <ApolloMutation
-        :mutation="require('../../gql/requestInvite.gql')"
+        :mutation="require('../../gql/requestInvitation.gql')"
         :variables="{ code: course.code }"
-        @done="inviteRequestSent"
+        @done="invitationRequestSent"
       >
         <template #default="{ mutate, loading }">
           <v-btn
-            v-if="canRequestInvite"
+            v-if="canRequestInvitation"
             small
             color="success"
             :loading="loading"
@@ -75,7 +75,7 @@ export default {
         )
       )
     },
-    canRequestInvite() {
+    canRequestInvitation() {
       return (
         this.course.visibility === 'INVITE_ONLY' &&
         this.$auth.user &&
@@ -83,7 +83,7 @@ export default {
           this.course.isCoordinator ||
           this.course.isTeacher ||
           this.course.isRegistered ||
-          this.course.hasRequestedInvite
+          this.course.hasRequestedInvitation
         )
       )
     },
@@ -101,11 +101,11 @@ export default {
       // Registration status or date
       const registration = this.course.registration
       let registrationStatus = this.$t('student.not_registered_yet')
-      if (registration?.invite) {
+      if (registration?.invitation) {
         registrationStatus = {
           REQUESTED: this.$t('registration.invite_request_sent'),
           SENT: this.$t('registration.invite_received'),
-        }[registration.invite]
+        }[registration.invitation]
       } else if (registration?.date) {
         registrationStatus = this.$t('registration.registered_on', {
           date: this.formatDateFull(registration.date),
@@ -121,9 +121,9 @@ export default {
     },
   },
   methods: {
-    inviteRequestSent() {
+    invitationRequestSent() {
       this.$notificationManager.displaySuccessMessage(
-        this.$t('success.REQUEST_INVITE_SENT')
+        this.$t('success.INVITATION_REQUEST_SENT')
       )
     },
     registered() {

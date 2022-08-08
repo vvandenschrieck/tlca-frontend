@@ -1,6 +1,6 @@
 mutation AcceptInvitationRequest($id: ID!) {
   acceptInvitationRequest(id: $id) {
     id
-    invite
+    invitation
   }
 }
