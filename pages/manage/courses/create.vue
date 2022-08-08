@@ -112,7 +112,7 @@
                 <h3>{{ $t('course.groups._') }}</h3>
 
                 <select-course-groups
-                  v-model="teachingGroups"
+                  v-model="groups.teaching"
                   class="mt-5"
                   :disabled="formBusy"
                   :teachers="teachers"
@@ -151,13 +151,15 @@ export default {
       description: '',
       formBusy: false,
       formError: null,
+      groups: {
+        teaching: [],
+        working: [],
+      },
       hasTeachingGroup: false,
       name: '',
       teachers: [],
-      teachingGroups: [],
       type: '',
       visibility: '',
-      workingGroups: [],
     }
   },
   computed: {
@@ -190,7 +192,7 @@ export default {
           code: this.code,
           competencies: this.competencies,
           description: this.description,
-          teachingGroups: this.teachingGroups,
+          groups: this.groups,
           name: this.name,
           teachers: this.teachers,
           type: this.type,
@@ -237,7 +239,10 @@ export default {
       this.competencies = [{}]
       this.description = ''
       this.formError = null
-      this.teachingGroups = []
+      this.groups = {
+        teaching: [],
+        working: [],
+      }
       this.hasTeachingGroup = false
       this.name = ''
       this.teachers = []
@@ -246,7 +251,7 @@ export default {
     },
     switchTeachingGroup(value) {
       if (!value) {
-        this.teachingGroups = []
+        this.groups.teaching = []
       }
     },
   },

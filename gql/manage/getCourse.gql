@@ -10,6 +10,18 @@ query GetCourse($code: ID!) {
       username
     }
     description
+    groups {
+      teaching {
+        name
+        supervisor {
+          displayName
+          username
+        }
+      }
+      working {
+        name
+      }
+    }
     isArchived
     isCoordinator
     isPublished
@@ -21,11 +33,14 @@ query GetCourse($code: ID!) {
     }
     published
     registrations {
-      date
+      datetime
       email
-      group
+      group {
+        teaching
+        working
+      }
       id
-      invite
+      invitation
       user {
         displayName
         email
@@ -40,13 +55,6 @@ query GetCourse($code: ID!) {
     teachers {
       displayName
       username
-    }
-    teachingGroups {
-      name
-      supervisor {
-        displayName
-        username
-      }
     }
     visibility
   }

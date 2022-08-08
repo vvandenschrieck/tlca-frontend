@@ -1,4 +1,4 @@
-mutation createCompetency(
+mutation CreateCompetency(
   $code: String!
   $description: String
   $name: String!
@@ -15,5 +15,7 @@ mutation createCompetency(
     public: $public
     tags: $tags
     type: $type
-  )
+  ) {
+    code
+  }
 }

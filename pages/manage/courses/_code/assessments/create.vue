@@ -182,7 +182,7 @@ export default {
           .then(({ data }) => data && data.createAssessment)
 
         if (response) {
-          const id = response
+          const { id } = response
           this.reset()
           this.$notificationManager.displaySuccessMessage(
             this.$t('success.ASSESSMENT_CREATED')

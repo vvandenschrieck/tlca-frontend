@@ -1,79 +1,81 @@
 <template>
-  <v-data-table
-    v-if="course.registrations"
-    group-by="status"
-    :group-desc="true"
-    :headers="dataHeaders"
-    :items="registrations"
-    :items-per-page="5"
-  >
-    <template #group.header="{ group, headers, isOpen, toggle }">
-      <td :colspan="headers.length">
-        <v-row align="center">
-          <v-col class="group-header">
-            {{ $t(`course.registrations.${group}`) }}
-          </v-col>
+  <div>
+    <v-data-table
+      v-if="course.registrations"
+      group-by="status"
+      :group-desc="true"
+      :headers="dataHeaders"
+      :items="registrations"
+      :items-per-page="5"
+    >
+      <template #group.header="{ group, headers, isOpen, toggle }">
+        <td :colspan="headers.length">
+          <v-row align="center">
+            <v-col class="group-header">
+              {{ $t(`course.registrations.${group}`) }}
+            </v-col>
 
-          <v-col align="right">
-            <v-btn icon @click="toggle">
-              <v-icon>{{ `mdi-chevron-${isOpen ? 'up' : 'down'}` }}</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </td>
-    </template>
+            <v-col align="right">
+              <v-btn icon @click="toggle">
+                <v-icon>{{ `mdi-chevron-${isOpen ? 'up' : 'down'}` }}</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </td>
+      </template>
 
-    <template #item.date="{ item: { date } }">
-      {{ formatDateTimeFull(date) }}
-    </template>
+      <template #item.datetime="{ item: { datetime } }">
+        {{ formatDateTimeFull(datetime) }}
+      </template>
 
-    <template #item.group="{ item }">
-      <ApolloMutation
-        v-if="item.status === 'registered'"
-        v-slot="{ mutate, loading }"
-        :mutation="require('../../gql/updateGroup.gql')"
-        :variables="{ id: item.id, group: item.innerGroup }"
-        @done="groupUpdated"
-      >
-        <v-edit-dialog large @save="mutate">
-          {{
-            item.group >= 0
-              ? item.group + 1
-              : $t('course.registrations.no_group')
-          }}
+      <template #item.teachingGroup="{ item }">
+        <ApolloMutation
+          v-if="item.status === 'registered'"
+          v-slot="{ mutate, loading }"
+          :mutation="require('../../gql/updateGroup.gql')"
+          :variables="{ group: item.innerGroup, id: item.id, type: 'TEACHING' }"
+          @done="groupUpdated"
+        >
+          <v-edit-dialog large @save="mutate">
+            {{
+              item.group.teaching >= 0
+                ? item.group.teaching + 1
+                : $t('course.registrations.no_group')
+            }}
 
-          <v-select
-            slot="input"
-            v-model="item.innerGroup"
-            clearable
-            :disabled="loading"
-            :items="groups"
-            :label="$t('course.registrations.group')"
-          />
-        </v-edit-dialog>
-      </ApolloMutation>
+            <v-select
+              slot="input"
+              v-model="item.innerGroup"
+              clearable
+              :disabled="loading"
+              :items="groups"
+              :label="$t('course.registrations.group')"
+            />
+          </v-edit-dialog>
+        </ApolloMutation>
 
-      <span v-else>—</span>
-    </template>
+        <span v-else>—</span>
+      </template>
 
-    <template #item.actions="{ item: { id, invite } }">
-      <ApolloMutation
-        v-if="invite === 'REQUESTED'"
-        v-slot="{ mutate, loading }"
-        :mutation="require('../../gql/acceptInvitationRequest.gql')"
-        tag="span"
-        :variables="{ id }"
-        @done="groupUpdated"
-      >
-        <v-btn icon :loading="loading" small @click="mutate">
-          <v-icon small>mdi-account-plus</v-icon>
+      <template #item.actions="{ item: { id, invitation } }">
+        <ApolloMutation
+          v-if="invitation === 'REQUESTED'"
+          v-slot="{ mutate, loading }"
+          :mutation="require('../../gql/acceptInvitationRequest.gql')"
+          tag="span"
+          :variables="{ id }"
+          @done="groupUpdated"
+        >
+          <v-btn icon :loading="loading" small @click="mutate">
+            <v-icon small>mdi-account-plus</v-icon>
+          </v-btn>
+        </ApolloMutation>
+        <v-btn icon small @click="remove(id)">
+          <v-icon small>mdi-delete</v-icon>
         </v-btn>
-      </ApolloMutation>
-      <v-btn icon small @click="remove(id)">
-        <v-icon small>mdi-delete</v-icon>
-      </v-btn>
-    </template>
-  </v-data-table>
+      </template>
+    </v-data-table>
+  </div>
 </template>
 
 <script>
@@ -97,7 +99,7 @@ export default {
         },
         {
           text: this.$t('course.registrations.date'),
-          value: 'date',
+          value: 'datetime',
         },
         {
           groupable: true,
@@ -106,10 +108,10 @@ export default {
         },
       ]
 
-      if (this.course.teachingGroups?.length) {
+      if (this.course.groups?.teaching?.length) {
         headers.push({
           text: this.$t('course.registrations.group'),
-          value: 'group',
+          value: 'teachingGroup',
         })
       }
 
@@ -124,7 +126,7 @@ export default {
       return headers
     },
     groups() {
-      const n = this.course.teachingGroups?.length
+      const n = this.course.groups?.teaching?.length
       if (n) {
         return [...Array(n).keys()].map((i) => ({
           text: i + 1,
@@ -139,7 +141,7 @@ export default {
         ...item,
         innerGroup: item.group,
         nameOrEmail: this.nameOrEmail(item),
-        status: item.invite ? 'invites' : 'registered',
+        status: item.invitation ? 'invites' : 'registered',
       }))
     },
   },

@@ -69,8 +69,8 @@ export default {
     showGroupsInfo(course) {
       return (
         course.teachers?.length ||
-        course.teachingGroups?.length ||
-        course.workingGroups?.length
+        course.groups?.teaching?.length ||
+        course.groups?.working?.length
       )
     },
     spaces(course) {

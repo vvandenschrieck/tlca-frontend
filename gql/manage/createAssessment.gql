@@ -1,9 +1,9 @@
-mutation createAssessment(
+mutation CreateAssessment(
   $category: AssessmentCategory!
   $code: String
   $competencies: [AssessmentCompetencyInput!]!
   $course: ID!
-  $description: String
+  $description: String!
   $end: Date
   $name: String!
   $start: Date
@@ -17,5 +17,7 @@ mutation createAssessment(
     end: $end
     name: $name
     start: $start
-  )
+  ) {
+    id
+  }
 }

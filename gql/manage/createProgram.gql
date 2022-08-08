@@ -1,4 +1,4 @@
-mutation createProgram(
+mutation CreateProgram(
   $code: String!
   $courses: [ProgramCourseInput!]!
   $description: String
@@ -13,5 +13,7 @@ mutation createProgram(
     name: $name
     type: $type
     visibility: $visibility
-  )
+  ) {
+    code
+  }
 }

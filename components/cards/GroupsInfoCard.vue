@@ -49,7 +49,7 @@ export default {
     stats() {
       return ['teaching', 'working'].map((c) => ({
         text: this.$t(`course.groups.${c}._`),
-        value: this.course[`${c}Groups`]?.length || 0,
+        value: this.course.groups[c]?.length || 0,
       }))
     },
   },

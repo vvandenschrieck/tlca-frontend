@@ -1,0 +1,10 @@
+mutation RequestInvitation($code: ID!) {
+  requestInvitation(code: $code) {
+    code
+    hasRequestedInvitation
+    registration {
+      date
+      invitation
+    }
+  }
+}

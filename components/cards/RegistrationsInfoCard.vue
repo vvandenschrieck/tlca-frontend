@@ -72,15 +72,15 @@ export default {
       const items = [
         {
           text: this.$tc('registration._', 2),
-          filter: (r) => !r.invite,
+          filter: (r) => !r.invitation,
         },
         {
           text: this.$t('registration.invitation.request.received'),
-          filter: (r) => r.invite === 'REQUESTED',
+          filter: (r) => r.invitation === 'REQUESTED',
         },
         {
           text: this.$t('registration.invitation.sent._'),
-          filter: (r) => r.invite === 'SENT',
+          filter: (r) => r.invitation === 'SENT',
         },
       ]
 
@@ -99,7 +99,7 @@ export default {
         if (stats[i].value) {
           const oldest = this.course.registrations
             .filter(stats[i].filter)
-            .map((r) => DateTime.fromISO(r.date))
+            .map((r) => DateTime.fromISO(r.datetime))
             .sort((a, b) => a - b)[0]
 
           const days = Math.trunc(

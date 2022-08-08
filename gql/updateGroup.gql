@@ -1,6 +1,9 @@
-mutation UpdateGroup($id: ID!, $group: Int!) {
-  updateGroup(id: $id, group: $group) {
-    group
+mutation UpdateGroup($id: ID!, $group: Int!, $type: GroupType!) {
+  updateGroup(id: $id, group: $group, type: $type) {
+    group {
+      teaching
+      working
+    }
     id
   }
 }
