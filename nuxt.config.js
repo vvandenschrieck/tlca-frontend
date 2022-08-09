@@ -44,6 +44,11 @@ export default {
     clientConfigs: {
       default: '~/apollo.config.js',
     },
+    defaultOptions: {
+      $query: {
+        fetchPolicy: 'cache-and-network',
+      },
+    },
   },
   auth: {
     strategies: {
