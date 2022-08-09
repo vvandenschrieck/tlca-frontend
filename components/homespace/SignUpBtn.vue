@@ -61,7 +61,7 @@ import { ValidationObserver } from 'vee-validate'
 import signUpGql from '~/gql/signUp.gql'
 
 export default {
-  name: 'SignUpForm',
+  name: 'SignUpBtn',
   components: { ValidationObserver },
   data() {
     return {
