@@ -305,6 +305,8 @@
   "partner": {
     "_": "Partenaire | Partenaires",
     "abbreviation": "Abréviation",
+    "code": "@:global.code",
+    "name": "@:global.name",
     "no": "Il n'y a pas de partenaires disponibles pour le moment.",
     "website": "Site web"
   },
