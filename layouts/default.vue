@@ -6,8 +6,8 @@
       <v-spacer />
 
       <template v-if="!$auth.user">
-        <sign-up-form />
-        <sign-in-form />
+        <sign-up-btn />
+        <sign-in-btn />
       </template>
 
       <template v-else>

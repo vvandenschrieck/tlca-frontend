@@ -65,7 +65,7 @@
 import { ValidationObserver } from 'vee-validate'
 
 export default {
-  name: 'SignInForm',
+  name: 'SignInBtn',
   components: { ValidationObserver },
   data() {
     return {
@@ -83,7 +83,6 @@ export default {
       }
     },
   },
-
   methods: {
     reset() {
       this.dialog = false
