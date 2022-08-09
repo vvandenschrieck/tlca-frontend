@@ -60,7 +60,7 @@ export default {
       },
     },
     redirect: {
-      login: '/',
+      login: '/login',
       logout: '/',
       callback: false,
       home: '/dashboard',
