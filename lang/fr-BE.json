@@ -130,21 +130,31 @@
       "no": "Il n'y a pas de groupes pour le moment.",
       "supervisor": "Superviseur",
       "teaching": {
-        "_": "Enseignement",
+        "_": "Groupe d'enseignement",
+        "add": "Ajouter un groupe d'enseignement",
         "no": "Il n'y a pas de groupes d'enseignement pour le moment."
       },
       "working": {
-        "_": "Travail",
+        "_": "Groupe de travail",
+        "add": "Ajouter un groupe de travail",
         "no": "Il n'y a pas de groupes de travail pour le moment."
       }
     },
     "language": "@:global.language",
     "load": {
-      "_": "Charge",
+      "_": "Charge de travail",
       "ects": "Crédits ECTS",
       "in_credits": "{credits} ECTS",
       "in_hours_per_week": "{hoursPerWeek} h/semaine",
-      "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
+      "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h",
+      "practice": "Pratique",
+      "theory": "Théorie",
+      "type": {
+        "_": "Type de charge",
+        "theo_prac": "Théorie + Pratique",
+        "weekly": "Hebdomadaire"
+      },
+      "weekload": "Charge hebdomadaire"
     },
     "name": "@:global.name",
     "nb": "{nb} cours | {nb} cours",
@@ -155,6 +165,9 @@
       "unpublished": "{nb} non publié | {nb} non publiés"
     },
     "no": "Il n'y a pas de cours pour le moment.",
+    "progress_guide": {
+      "_": "Guide de progression"
+    },
     "publish": "Publier",
     "register": "S'inscrire",
     "registrations": {
@@ -224,6 +237,9 @@
     "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
     "REGISTRATION_FAILED": "Inscription échouée"
   },
+  "evaluation": {
+    "_": "Évaluation | Évaluations"
+  },
   "general": {
     "action": "Action | Actions",
     "apply": "Appliquer",
@@ -233,6 +249,10 @@
     "edit": "Éditer",
     "filter": {
       "_": "Filtre"
+    },
+    "in": {
+      "hours": "en heures",
+      "weeks": "en semaines"
     },
     "information": {
       "_": "Information",
