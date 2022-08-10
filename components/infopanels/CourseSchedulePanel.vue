@@ -1,5 +1,9 @@
 <template>
-  <generic-info-panel :title="$t('course.schedule._')" icon="mdi-calendar">
+  <generic-info-panel
+    v-if="schedule"
+    :title="$t('course.schedule._')"
+    icon="mdi-calendar"
+  >
     <div class="mt-3 text-center">
       <course-schedule dense :items="schedule" />
     </div>

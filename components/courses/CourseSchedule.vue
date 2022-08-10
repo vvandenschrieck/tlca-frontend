@@ -85,6 +85,6 @@ export default {
 }
 .dense-timeline-item >>> .v-timeline-item__opposite {
   max-width: calc(60% - 16px) !important;
-  padding-right: 5px;
+  padding-right: 2px;
 }
 </style>

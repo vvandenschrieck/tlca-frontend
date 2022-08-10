@@ -6,7 +6,7 @@
     :variables="{ code: $route.params.code }"
     @result="setTitle"
   >
-    <div v-if="isLoading">{{ $t('global.loading') }}</div>
+    <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
 
     <div v-else-if="course && course.isCoordinator">
       <space-switcher :items="spaces(course)" />
@@ -37,10 +37,7 @@
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
           <course-status-info-panel :course="course" class="mb-5" />
-          <course-schedule-panel
-            v-if="course.schedule"
-            :schedule="course.schedule"
-          />
+          <course-schedule-panel :schedule="course.schedule" />
         </v-col>
       </v-row>
     </div>
@@ -64,7 +61,7 @@ export default {
   },
   methods: {
     setTitle({ data: course }) {
-      this.title = course.name
+      this.title = course?.name || ''
     },
     showGroupsInfo(course) {
       return (
