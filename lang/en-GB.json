@@ -130,21 +130,31 @@
       "no": "There are no groups for now.",
       "supervisor": "Supervisor",
       "teaching": {
-        "_": "Teaching",
+        "_": "Teaching group",
+        "add": "Add a teaching group",
         "no": "There are no teaching groups for now."
       },
       "working": {
-        "_": "Working",
+        "_": "Working group",
+        "add": "Add a working group",
         "no": "There are no working groups for now."
       }
     },
     "language": "@:global.language",
     "load": {
-      "_": "Load",
+      "_": "Workload",
       "ects": "ECTS credits",
       "in_credits": "{credits} ECTS",
       "in_hours_per_week": "{hoursPerWeek} h/week",
-      "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
+      "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h",
+      "practice": "Practice",
+      "theory": "Theory",
+      "type": {
+        "_": "Load type",
+        "theo_prac": "Theory + Practice",
+        "weekly": "Weekly"
+      },
+      "weekload": "Weekly load"
     },
     "name": "@:global.name",
     "nb": "{nb} course | {nb} courses",
@@ -155,6 +165,9 @@
       "unpublished": "{nb} unpublished | {nb} unpublished"
     },
     "no": "There are no courses for now.",
+    "progress_guide": {
+      "_": "Progress guide"
+    },
     "publish": "Publish",
     "register": "Register",
     "registrations": {
@@ -224,6 +237,9 @@
     "MISSING_MANDATORY_COURSE": "There must be at least one mandatory course",
     "REGISTRATION_FAILED": "Registration failed"
   },
+  "evaluation": {
+    "_": "Evaluation | Evaluations"
+  },
   "general": {
     "action": "Action | Actions",
     "apply": "Apply",
@@ -233,6 +249,10 @@
     "edit": "Edit",
     "filter": {
       "_": "Filter"
+    },
+    "in": {
+      "hours": "in hours",
+      "weeks": "in weeks"
     },
     "information": {
       "_": "Information",

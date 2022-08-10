@@ -39,7 +39,7 @@
       </v-row>
     </div>
     <div v-else>
-      {{ $t('course.groups.no') }}
+      {{ $t('course.groups.teaching.no') }}
     </div>
 
     <div class="text-right mt-5">
@@ -49,9 +49,13 @@
         </v-col>
 
         <v-col cols="12" md="6">
-          <v-btn :disabled="disabled" small @click="addGroup()">
+          <v-btn
+            :disabled="!teachers.length || disabled"
+            small
+            @click="addGroup()"
+          >
             <v-icon left>mdi-plus</v-icon>
-            {{ $t('course.groups.add') }}
+            {{ $t('course.groups.teaching.add') }}
           </v-btn>
         </v-col>
       </v-row>

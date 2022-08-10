@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import { DateTime } from 'luxon'
+
 import datetime from '@/mixins/datetime.js'
 
 export default {
@@ -83,7 +85,10 @@ export default {
     },
     selectedDatetime() {
       if (this.date && this.time) {
-        return `${this.date} ${this.time}`
+        return DateTime.fromFormat(
+          `${this.date} ${this.time}`,
+          'yyyy-LL-dd hh:mm'
+        ).toISO()
       }
 
       return ''
