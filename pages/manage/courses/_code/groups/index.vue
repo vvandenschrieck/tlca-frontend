@@ -37,11 +37,7 @@
         >
           <course-status-info-panel :course="course" />
 
-          <course-schedule-panel
-            v-if="course.schedule"
-            class="mt-5"
-            :schedule="course.schedule"
-          />
+          <course-schedule-panel class="mt-5" :schedule="course.schedule" />
         </v-col>
       </v-row>
     </div>
