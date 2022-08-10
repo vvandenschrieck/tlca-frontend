@@ -64,9 +64,9 @@ export default {
     }
   },
   watch: {
-    formBusy(value) {
-      if (value !== this.value) {
-        this.$emit('input', value)
+    formBusy(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$emit('input', newVal)
       }
     },
   },
