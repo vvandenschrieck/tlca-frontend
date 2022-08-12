@@ -48,11 +48,17 @@
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
             <assessment-info-panel :assessment="data.assessment" class="mb-5" />
+
+            <assessment-delete-btn
+              :assessment="data.assessment"
+              @success="deleteSuccess"
+              @error="deleteError"
+            />
           </v-col>
         </v-row>
       </div>
 
-      <div v-else-if="error">An error occurred</div>
+      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
     </template>
   </ApolloQuery>
 </template>
@@ -67,6 +73,22 @@ export default {
     return {
       currentTab: '0',
     }
+  },
+  methods: {
+    deleteError() {
+      this.$notificationManager.displayErrorMessage(
+        this.$t('error.ASSESSMENT_DELETE')
+      )
+    },
+    deleteSuccess() {
+      this.$router.push({
+        name: 'manage-courses-code-assessments',
+        params: { code: this.$route.params.code },
+      })
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.ASSESSMENT_DELETE')
+      )
+    },
   },
 }
 </script>

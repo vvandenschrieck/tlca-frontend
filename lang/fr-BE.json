@@ -23,6 +23,10 @@
       "_": "Échéance",
       "date": "Echéance : {deadline}"
     },
+    "delete": {
+      "_": "@:general.delete",
+      "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette évaluation ?"
+    },
     "description": "@:global.description._",
     "filter_by_competency": "Filtrer par compétence",
     "name": "@:global.name",
@@ -223,6 +227,7 @@
   "error": {
     "_": "Erreur",
     "unexpected": "Une erreur inattendue s'est produite, réessayez plus tard.",
+    "ASSESSMENT_DELETE": "Une erreur inattendue s'est produite lors de la suppression de l'évaluation.",
     "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
     "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
     "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
@@ -244,8 +249,10 @@
     "action": "Action | Actions",
     "apply": "Appliquer",
     "cancel": "Annuler",
+    "confirmation": "Confirmation",
     "create": "Créer",
     "creator": "Créateur",
+    "delete": "Supprimer",
     "edit": "Éditer",
     "filter": {
       "_": "Filtre"
@@ -404,6 +411,7 @@
   },
   "success": {
     "_": "Succès",
+    "ASSESSMENT_DELETE": "Évaluation supprimée avec succès !",
     "BANNER_UPDATED": "Bannière mise à jour avec succès !",
     "COMPETENCY_CREATED": "Compétence créée avec succès !",
     "COURSE_ARCHIVED": "Cours archivé avec succès !",

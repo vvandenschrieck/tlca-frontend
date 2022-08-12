@@ -1,0 +1,3 @@
+mutation DeleteAssessment($id: ID!) {
+  deleteAssessment(id: $id)
+}
