@@ -4,9 +4,9 @@ mutation CreateAssessment(
   $competencies: [AssessmentCompetencyInput!]!
   $course: ID!
   $description: String!
-  $end: Date
+  $end: DateTime
   $name: String!
-  $start: Date
+  $start: DateTime
 ) {
   createAssessment(
     category: $category
