@@ -16,7 +16,7 @@ export default {
   props: {
     schedule: {
       type: Array,
-      required: true,
+      default: null,
     },
   },
 }
