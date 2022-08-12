@@ -1,23 +1,32 @@
 <template>
   <ApolloQuery
+    v-slot="{ result: { error, data: course }, isLoading }"
     :query="require('~/gql/teach/getCourse.gql')"
     :update="(data) => data.course"
     :variables="{ code: $route.params.code }"
     @result="setTitle"
   >
-    <template #default="{ result: { error, data: course }, isLoading }">
-      <div v-if="isLoading">{{ $t('global.loading') }}</div>
+    <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
 
-      <div v-else-if="course && (course.isCoordinator || course.isTeacher)">
-        <space-switcher :items="spaces(course)" />
+    <div v-else-if="course && (course.isCoordinator || course.isTeacher)">
+      <space-switcher :items="spaces(course)" />
 
-        <h2>{{ title }}</h2>
+      <h2>{{ title }}</h2>
 
-        <course-schedule v-if="course.schedule" :items="course.schedule" />
-      </div>
+      <v-row>
+        <v-col cols="12" md="9"> </v-col>
 
-      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
-    </template>
+        <v-col
+          cols="12"
+          md="3"
+          :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+        >
+          <course-schedule-panel :schedule="course.schedule" />
+        </v-col>
+      </v-row>
+    </div>
+
+    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
@@ -36,7 +45,7 @@ export default {
   },
   methods: {
     setTitle({ data: course }) {
-      this.title = course.name
+      this.title = course?.name || ''
     },
     spaces(course) {
       const items = {
