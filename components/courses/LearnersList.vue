@@ -6,38 +6,12 @@
     hide-default-footer
     :items="learners"
   >
-    <!-- Progress (basic) -->
-    <template
-      #item.progress.basic="{
-        item: {
-          progress: { basic },
-        },
-      }"
-    >
-      <v-progress-circular
-        color="primary"
-        :rotate="-90"
-        :size="20"
-        :value="basic"
-      />
-      {{ basic }}%
+    <template #item.progress.basic="{ item: { progress } }">
+      <competencies-progress dense :value="progress.basic" />
     </template>
 
-    <!-- Progress (advanced) -->
-    <template
-      #item.progress.advanced="{
-        item: {
-          progress: { advanced },
-        },
-      }"
-    >
-      <v-progress-circular
-        color="primary"
-        :rotate="-90"
-        :size="20"
-        :value="advanced"
-      />
-      {{ advanced }}%
+    <template #item.progress.advanced="{ item: { progress } }">
+      <competencies-progress dense :value="progress.advanced" />
     </template>
   </v-data-table>
 
