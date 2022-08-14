@@ -1,17 +1,14 @@
 <template>
-  <div>
-    <generic-info-panel
-      v-if="schedule"
-      :title="$t('course.schedule._')"
-      icon="mdi-calendar"
-    >
-      <div class="mt-3 text-center">
-        <course-schedule dense :items="schedule" />
-      </div>
-    </generic-info-panel>
-
-    <v-skeleton-loader v-if="loading" type="image" />
-  </div>
+  <generic-info-panel
+    :title="$t('course.schedule._')"
+    icon="mdi-calendar"
+    :loading="loading"
+  >
+    <div v-if="schedule" class="mt-3 text-center">
+      <course-schedule dense :items="schedule" />
+    </div>
+    <span v-else>{{ $t('course.schedule.no ') }}</span>
+  </generic-info-panel>
 </template>
 
 <script>
