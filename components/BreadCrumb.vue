@@ -22,6 +22,7 @@ export default {
         evaluations: () => this.$tc('evaluation._', 2),
         groups: () => this.$tc('course.groups._', 2),
         learn: () => this.$t('global.spaces.learn'),
+        learners: () => this.$tc('learner._', 2),
         manage: () => this.$t('global.spaces.manage'),
         partners: () => this.$tc('partner._', 2),
         programs: () => this.$tc('program._', 2),

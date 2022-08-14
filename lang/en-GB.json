@@ -184,7 +184,8 @@
       "name_or_email": "Name or email",
       "no_group": "No group",
       "registered": "Registered",
-      "status": "@:general.status"
+      "status": "@:general.status",
+      "without_group": "Without group"
     },
     "request_invite": "Request an invite",
     "schedule": {
@@ -270,6 +271,9 @@
     "list": "List",
     "owner": "Owner",
     "reset": "Reset",
+    "statistics": {
+      "_": "Statistics"
+    },
     "status": "Status",
     "update": "Update",
     "upload": "Upload",
@@ -328,6 +332,11 @@
     "see_all_partners": "See all partners",
     "see_all_programs": "See all programs",
     "welcome": "Welcome!"
+  },
+  "learner": {
+    "_": "Learner | Learners",
+    "all": "All learners",
+    "no": "There are no learners for now."
   },
   "partner": {
     "_": "Partner | Partners",
@@ -402,6 +411,7 @@
     "nb_of": "Number of registrations",
     "no": "There are no registration for now",
     "open": "Open",
+    "progress": "Progress",
     "registered_on": "Registered on {date}",
     "status": "Registration @.lower:general.status",
     "upcoming": "Upcoming"

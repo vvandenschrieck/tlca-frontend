@@ -1,0 +1,42 @@
+query GetLearners($code: ID!) {
+  course(code: $code) {
+    code
+    groups {
+      teaching {
+        isSupervisor
+        supervisor {
+          id
+          username
+        }
+      }
+      working {
+        name
+      }
+    }
+    hasAdvancedCompetencies
+    hasTeachingGroups
+    hasWorkingGroups
+    isCoordinator
+    schedule {
+      datetime
+      name
+    }
+  }
+
+  registrations(confirmed: true, courseCode: $code) {
+    group {
+      teaching
+      working
+    }
+    id
+    progress {
+      advanced
+      basic
+    }
+    user {
+      firstName
+      lastName
+      username
+    }
+  }
+}
