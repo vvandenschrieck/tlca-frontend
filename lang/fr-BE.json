@@ -184,7 +184,8 @@
       "name_or_email": "Nom ou e-mail",
       "no_group": "Pas de groupe",
       "registered": "Inscrit(e)s",
-      "status": "@:general.status"
+      "status": "@:general.status",
+      "without_group": "Sans groupe"
     },
     "request_invite": "Demander une invitation",
     "schedule": {
@@ -270,6 +271,9 @@
     "list": "Liste",
     "owner": "Propriétaire",
     "reset": "Réinitialiser",
+    "statistics": {
+      "_": "Statistiques"
+    },
     "status": "Statut",
     "update": "Mettre à jour",
     "upload": "Téléverser",
@@ -328,6 +332,11 @@
     "see_all_partners": "Voir tous les partenaires",
     "see_all_programs": "Voir tous les programmes",
     "welcome": "Bienvenue !"
+  },
+  "learner": {
+    "_": "Apprenant | Apprenants",
+    "all": "Tous les apprenants",
+    "no": "Il n'y a pas d'apprenants pour le moment."
   },
   "partner": {
     "_": "Partenaire | Partenaires",
@@ -402,6 +411,7 @@
     "nb_of": "Nombre d'inscriptions",
     "no": "Il n'y a aucune inscription pour le moment",
     "open": "Ouvertes",
+    "progress": "Progression",
     "registered_on": "Inscrit(e) le {date}",
     "status": "@:general.status de l'inscription",
     "upcoming": "À venir"
