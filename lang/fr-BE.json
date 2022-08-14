@@ -42,7 +42,8 @@
     "start": {
       "_": "Date d'ouverture",
       "date": "Ouverture : {start}"
-    }
+    },
+    "workload": "@:global.workload"
   },
   "authentication": {
     "sign_in": "Se connecter",
@@ -146,7 +147,7 @@
     },
     "language": "@:global.language",
     "load": {
-      "_": "Charge de travail",
+      "_": "@:global.workload",
       "ects": "Crédits ECTS",
       "in_credits": "{credits} ECTS",
       "in_hours_per_week": "{hoursPerWeek} h/semaine",
@@ -324,7 +325,8 @@
       "invite_only": "Sur invitation uniquement",
       "private": "Privé",
       "public": "Public"
-    }
+    },
+    "workload": "Charge de travail"
   },
   "homepage": {
     "presentation": "<p>La <em>TLC Academy</em> est le meilleur endroit où vous pouvez <b>tout apprendre</b> et acquérir des compétences !</p><p>Que ce soit pour des formations à moyen ou long terme, ou pour un simple micro-cours, apprenez à votre <b>propre rythme</b> et accumulez des <b>étoiles de compétence</b> pour renforcer votre profil personnel.</p>",

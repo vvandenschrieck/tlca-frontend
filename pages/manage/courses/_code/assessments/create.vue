@@ -97,10 +97,30 @@
               </v-col>
             </v-row>
           </v-stepper-content>
+
+          <v-stepper-step editable step="4">
+            {{ $t('general.information.additional') }}
+          </v-stepper-step>
+
+          <v-stepper-content step="4">
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-text-field-with-validation
+                  v-model="workload"
+                  clearable
+                  :label="$t('assessment.workload')"
+                  :hint="$t('general.in.hours')"
+                  rules="positive"
+                  type="number"
+                  vid="workload"
+                />
+              </v-col>
+            </v-row>
+          </v-stepper-content>
         </v-stepper>
 
         <div class="text-right mt-5">
-          <v-btn color="error" :disabled="formBusy" text @click="reset()">
+          <v-btn color="error" :disabled="formBusy" text @click="reset">
             {{ $t('general.reset') }}
           </v-btn>
           <v-btn color="primary" :loading="formBusy" text type="submit">
@@ -131,6 +151,7 @@ export default {
       formError: null,
       name: '',
       start: '',
+      workload: '',
     }
   },
   head() {
@@ -172,6 +193,7 @@ export default {
           end: this.end,
           name: this.name,
           start: this.start,
+          workload: parseInt(this.workload, 10),
         }
 
         const response = await this.$apollo
@@ -218,6 +240,7 @@ export default {
       this.formError = null
       this.name = ''
       this.start = ''
+      this.workload = ''
     },
   },
   meta: {
