@@ -1,0 +1,17 @@
+query GetCourse($code: ID!) {
+  course(code: $code) {
+    code
+    isRegistered
+    name
+    registration {
+      progress {
+        advanced
+        basic
+      }
+    }
+    schedule {
+      name
+      datetime
+    }
+  }
+}
