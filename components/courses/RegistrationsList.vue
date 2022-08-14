@@ -28,7 +28,7 @@
         {{ formatDateTimeFull(datetime) }}
       </template>
 
-      <template #item.teachingGroup="{ item }">
+      <template #item.group.teaching="{ item }">
         <ApolloMutation
           v-if="item.status === 'registered'"
           v-slot="{ mutate, loading }"
@@ -38,7 +38,7 @@
         >
           <v-edit-dialog large @save="mutate">
             {{
-              item.group.teaching >= 0
+              item.group?.teaching >= 0
                 ? item.group.teaching + 1
                 : $t('course.registrations.no_group')
             }}
@@ -111,7 +111,7 @@ export default {
       if (this.course.groups?.teaching?.length) {
         headers.push({
           text: this.$t('course.registrations.group'),
-          value: 'teachingGroup',
+          value: 'group.teaching',
         })
       }
 
