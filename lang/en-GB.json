@@ -42,7 +42,8 @@
     "start": {
       "_": "Opening",
       "date": "Opens on : {start}"
-    }
+    },
+    "workload": "@:global.workload"
   },
   "authentication": {
     "sign_in": "Sign in",
@@ -146,7 +147,7 @@
     },
     "language": "@:global.language",
     "load": {
-      "_": "Workload",
+      "_": "@:global.workload",
       "ects": "ECTS credits",
       "in_credits": "{credits} ECTS",
       "in_hours_per_week": "{hoursPerWeek} h/week",
@@ -324,7 +325,8 @@
       "invite_only": "By invite only",
       "private": "Private",
       "public": "Public"
-    }
+    },
+    "workload": "Workload"
   },
   "homepage": {
     "presentation": "<p>The <em>TLC Academy</em> is the best place where you can <b>learn anything</b> and gain competencies!</p><p>Whether for medium or long term trainings, or for a simple micro-course, learn at your <b>own pace</b> and accumulate <b>competency stars</b> to strenghten your personal profile.</p>",
