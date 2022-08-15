@@ -9,12 +9,13 @@
       v-if="!error"
       clearable
       dense
-      :disabled="!!isLoading"
+      :disabled="!!isLoading || disabled"
       :items="assessments(data)"
       item-value="id"
       :label="$t('evaluation.assessment')"
       :loading="!!isLoading"
       :value="value"
+      @change="$emit('change')"
       @input="$emit('input', $event)"
     >
       <template #selection="{ item }">
@@ -37,6 +38,10 @@ export default {
     courseCode: {
       type: String,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     value: {
       type: String,
