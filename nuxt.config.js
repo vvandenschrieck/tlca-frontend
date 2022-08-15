@@ -39,7 +39,23 @@ export default {
     ],
   },
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/vuetify'],
-  modules: ['@nuxtjs/apollo', '@nuxtjs/auth-next', '@nuxtjs/i18n'],
+  modules: [
+    '@nuxtjs/apollo',
+    '@nuxtjs/auth-next',
+    '@nuxtjs/i18n',
+    [
+      'nuxt-bugsnag',
+      {
+        apiKey: process.env.BUGSNAG_BROWSER_API_KEY,
+        config: {
+          appVersion: '1.0.1',
+          enabledReleaseStages: ['production'],
+          environment: process.env.NODE_ENV,
+        },
+        publishRelease: true,
+      },
+    ],
+  ],
   apollo: {
     clientConfigs: {
       default: '~/apollo.config.js',
