@@ -40,10 +40,7 @@ export default (context) => {
 
   return {
     cache,
-    httpEndpoint:
-      process.env.NODE_ENV !== 'production'
-        ? 'http://localhost:4001'
-        : 'https://api.tlca.eu',
+    httpEndpoint: context.$config.graphqlEndpoint,
     link: concat(refreshTokenLink, promptErrorMessageLink),
   }
 }
