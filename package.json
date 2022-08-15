@@ -1,6 +1,6 @@
 {
   "name": "tlca-frontend",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Frontend of the TLCA platform",
   "repository": "https://github.com/TLCA-project/tlca-frontend.git",
   "author": "AEI Consulting <info@aei-consulting.be>",
@@ -30,6 +30,7 @@
     "graphql-tag": "^2.12.6",
     "luxon": "^2.3.1",
     "nuxt": "^2.15.8",
+    "nuxt-bugsnag": "4.2.2",
     "rxjs": "^7.5.5",
     "vee-validate": "3",
     "vue": "^2.6.14",
