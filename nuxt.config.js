@@ -87,4 +87,8 @@ export default {
     defaultAssets: false,
   },
   build: {},
+  publicRuntimeConfig: {
+    graphqlEndpoint: process.env.GRAPHQL_ENDPOINT || 'http://localhost:4001',
+  },
+  privateRuntimeConfig: {},
 }
