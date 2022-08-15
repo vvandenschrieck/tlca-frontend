@@ -193,6 +193,7 @@
       "_": "Calendrier",
       "end": "Date de fin",
       "evaluationsEnd": "Fin des évaluations",
+      "no": "Pas de calendrier",
       "registrationsEnd": "Fin des inscriptions",
       "registrationsStart": "Début des inscriptions",
       "start": "Date de début"
@@ -245,7 +246,8 @@
     "REGISTRATION_FAILED": "Inscription échouée"
   },
   "evaluation": {
-    "_": "Évaluation | Évaluations"
+    "_": "Évaluation | Évaluations",
+    "learner": "Apprenant"
   },
   "general": {
     "action": "Action | Actions",
