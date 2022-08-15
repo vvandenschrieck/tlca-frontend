@@ -193,6 +193,7 @@
       "_": "Schedule",
       "end": "End date",
       "evaluationsEnd": "End of evaluations",
+      "no": "No schedule",
       "registrationsEnd": "End of registrations",
       "registrationsStart": "Start of registrations",
       "start": "Start date"
@@ -245,7 +246,8 @@
     "REGISTRATION_FAILED": "Registration failed"
   },
   "evaluation": {
-    "_": "Evaluation | Evaluations"
+    "_": "Evaluation | Evaluations",
+    "learner": "Learner"
   },
   "general": {
     "action": "Action | Actions",
