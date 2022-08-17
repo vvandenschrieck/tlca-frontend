@@ -10,6 +10,8 @@ query GetCourseAssessments($code: ID!) {
         }
         stars
       }
+      end
+      start
     }
     code
     name
@@ -19,6 +21,10 @@ query GetCourseAssessments($code: ID!) {
         name
       }
       category
+    }
+    schedule {
+      name
+      datetime
     }
   }
 }

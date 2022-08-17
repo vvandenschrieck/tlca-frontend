@@ -28,6 +28,16 @@
                 >
                   {{ $t('course.competency_coverage') }}
                 </v-tab>
+                <v-tab
+                  v-if="
+                    course.competencies?.length &&
+                    course.assessments &&
+                    course.assessments.length &&
+                    course.schedule
+                  "
+                >
+                  {{ $t('course.assessments_timeline') }}
+                </v-tab>
               </v-tabs>
               <v-card-text class="text--primary">
                 <v-tabs-items v-model="currentTab">
@@ -75,6 +85,20 @@
                       />
                     </div>
                   </v-tab-item>
+                  <v-tab-item>
+                    <div
+                      v-if="
+                        course.assessments &&
+                        course.assessments.length &&
+                        course.schedule
+                      "
+                    >
+                      <assessments-timeline
+                        :competencies="course.competencies"
+                        :assessments="course.assessments"
+                      />
+                    </div>
+                  </v-tab-item>
                 </v-tabs-items>
               </v-card-text>
             </v-card>
@@ -102,9 +126,10 @@
 
 <script>
 import CompetencyCoverage from '~/components/courses/CompetencyCoverage.vue'
+import AssessmentsTimeline from '~/components/courses/AssessmentsTimeline.vue'
 export default {
   name: 'ManageCourseAssessmentsPage',
-  components: { CompetencyCoverage },
+  components: { CompetencyCoverage, AssessmentsTimeline },
   data() {
     return {
       currentTab: '0',
