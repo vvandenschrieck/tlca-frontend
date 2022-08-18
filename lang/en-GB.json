@@ -248,6 +248,8 @@
   "evaluation": {
     "_": "Evaluation | Evaluations",
     "assessment": "Assessment",
+    "comment": "Comment",
+    "date": "Evaluation date",
     "learner": "Learner"
   },
   "general": {

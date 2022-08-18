@@ -1,0 +1,23 @@
+query GetEvaluations($code: ID!) {
+  course(code: $code) {
+    code
+    schedule {
+      datetime
+      name
+    }
+  }
+
+  evaluations(courseCode: $code) {
+    assessment {
+      id
+      code
+      name
+    }
+    date
+    id
+    learner {
+      displayName
+      username
+    }
+  }
+}

@@ -1,0 +1,15 @@
+mutation CreateEvaluation(
+  $assessment: ID!
+  $comment: String
+  $evalDate: DateTime
+  $learner: ID!
+) {
+  createEvaluation(
+    assessment: $assessment
+    comment: $comment
+    evalDate: $evalDate
+    learner: $learner
+  ) {
+    id
+  }
+}

@@ -14,7 +14,27 @@
       <h2>{{ title }}</h2>
 
       <v-row>
-        <v-col cols="12" md="9"> </v-col>
+        <v-col cols="12" md="9">
+          <v-btn
+            small
+            :to="{
+              name: 'teach-courses-code-learners',
+              params: { code: $route.params.code },
+            }"
+          >
+            Learners
+          </v-btn>
+
+          <v-btn
+            small
+            :to="{
+              name: 'teach-courses-code-evaluations',
+              params: { code: $route.params.code },
+            }"
+          >
+            Evaluations
+          </v-btn>
+        </v-col>
 
         <v-col
           cols="12"
