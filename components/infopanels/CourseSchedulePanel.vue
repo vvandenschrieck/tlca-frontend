@@ -7,7 +7,8 @@
     <div v-if="schedule" class="mt-3 text-center">
       <course-schedule dense :items="schedule" />
     </div>
-    <span v-else>{{ $t('course.schedule.no ') }}</span>
+
+    <v-card-text v-else>{{ $t('course.schedule.no') }}</v-card-text>
   </generic-info-panel>
 </template>
 
