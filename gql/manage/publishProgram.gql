@@ -1,0 +1,7 @@
+mutation PublishProgram($code: ID!) {
+  publishProgram(code: $code) {
+    code
+    published
+    status
+  }
+}

@@ -173,7 +173,7 @@
     "progress_guide": {
       "_": "Progress guide"
     },
-    "publish": "Publish",
+    "publish": "@:global.publish",
     "register": "Register",
     "registrations": {
       "_": "@:registration._",
@@ -230,7 +230,7 @@
   "error": {
     "_": "Error",
     "unexpected": "An unexpected error occurred, try again later.",
-    "ASSESSMENT_DELETE": "An unexpected error occured while deleting the assessment.",
+    "ASSESSMENT_DELETE": "An unexpected error occurred while deleting the assessment.",
     "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
     "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
     "DUPLICATE_COURSES": "The same course cannot be used more than once",
@@ -243,7 +243,9 @@
     "MISSING_BASIC_COMPETENCY": "There must be at least one basic competency",
     "MISSING_FIELDS": "Some mandatory fields are missing",
     "MISSING_MANDATORY_COURSE": "There must be at least one mandatory course",
-    "REGISTRATION_FAILED": "Registration failed"
+    "PROGRAM_PUBLICATION_FAILED": "An unexpected error occurred while publishing the program",
+    "REGISTRATION_FAILED": "Registration failed",
+    "UNPUBLISHED_PROGRAM_COURSES": "Some courses in the program are not published"
   },
   "evaluation": {
     "_": "Evaluation | Evaluations",
@@ -304,6 +306,7 @@
     "name": "Name",
     "partners": "Partners",
     "powered_by": "Powered by",
+    "publish": "Publish",
     "spaces": {
       "_": "Space | Spaces",
       "admin": "Admin",
@@ -371,6 +374,7 @@
     "language": "@:global.language",
     "name": "@:global.name",
     "no": "There are no programs for now.",
+    "publish": "@:global.publish",
     "status": {
       "_": "@:global.status._",
       "archived": "@:global.status.archived",
@@ -435,6 +439,7 @@
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
     "PROGRAM_CREATED": "Program successfully created!",
+    "PROGRAM_PUBLISHED": "Program successfully published!",
     "REGISTERED": "Successfully registered!",
     "REQUEST_INVITE_SENT": "Invite request successfully sent!",
     "SIGN_IN_SUCCESSFUL": "Successfully signed in!",

@@ -173,7 +173,7 @@
     "progress_guide": {
       "_": "Guide de progression"
     },
-    "publish": "Publier",
+    "publish": "@:global.publish",
     "register": "S'inscrire",
     "registrations": {
       "_": "@:registration._",
@@ -243,7 +243,9 @@
     "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
     "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
     "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
-    "REGISTRATION_FAILED": "Inscription échouée"
+    "PROGRAM_PUBLICATION_FAILED": "Une erreur inattendue s'est produite lors de la publication du programme",
+    "REGISTRATION_FAILED": "Inscription échouée",
+    "UNPUBLISHED_PROGRAM_COURSES": "Certains cours du programme ne sont pas publiés"
   },
   "evaluation": {
     "_": "Évaluation | Évaluations",
@@ -304,6 +306,7 @@
     "name": "Nom",
     "partners": "Partenaires",
     "powered_by": "Propulsé par",
+    "publish": "Publier",
     "spaces": {
       "_": "Espace | Espaces",
       "admin": "Admin",
@@ -371,6 +374,7 @@
     "language": "@:global.language",
     "name": "@:global.name",
     "no": "Il n'y a pas de programmes pour le moment.",
+    "publish": "@:global.publish",
     "status": {
       "_": "@:global.status._",
       "archived": "@:global.status.archived",
@@ -435,6 +439,7 @@
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
+    "PROGRAM_PUBLISHED": "Programme publié avec succès !",
     "REGISTERED": "Inscrit(e) avec succès !",
     "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
