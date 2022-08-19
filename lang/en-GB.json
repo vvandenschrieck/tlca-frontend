@@ -107,6 +107,7 @@
       "list": "Assessments list"
     },
     "assessments_list": "Available assessments",
+    "assessments_timeline": "Assessments timeline",
     "clone": {
       "_": "Clone",
       "dialog_instructions": "Enter the code to use for the cloned course (choose a not existing one). Leave empty to auto-generate."

@@ -107,6 +107,7 @@
       "list": "Liste des évaluations"
     },
     "assessments_list": "Liste des évaluations du cours",
+    "assessments_timeline": "Ligne du temps des évaluations",
     "clone": {
       "_": "Cloner",
       "dialog_instructions": "Entrer le code à utiliser pour le cours cloné (choisissez-en un non existant). Laisser vide pour auto-générer."

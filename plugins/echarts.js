@@ -1,6 +1,11 @@
 import Vue from 'vue'
-import Echarts from 'vue-echarts'
+import ECharts from 'vue-echarts'
+import { use } from 'echarts/core'
 
-import 'echarts/lib/chart/bar';
+import { CanvasRenderer } from 'echarts/renderers'
+import { BarChart } from 'echarts/charts'
+import { GridComponent } from 'echarts/components'
 
-Vue.component('BarChart', Echarts);
+use([CanvasRenderer, BarChart, GridComponent])
+
+Vue.component('VChart', ECharts)
