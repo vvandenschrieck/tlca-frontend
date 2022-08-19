@@ -29,10 +29,17 @@
     },
     "description": "@:global.description._",
     "filter_by_competency": "Filter by competency",
+    "load": {
+      "_": "@:global.workload",
+      "defense": "Oral defense",
+      "grading": "Grading",
+      "work": "Realisation"
+    },
     "name": "@:global.name",
     "nb": "{nb} evaluation | {nb} evaluations",
     "nb_of": "Number of assessments",
     "no": "There are no assessment for now",
+    "oral_defense": "Oral defense",
     "schedule": {
       "_": "Schedule",
       "end": "End date",
@@ -42,8 +49,7 @@
     "start": {
       "_": "Opening",
       "date": "Opens on : {start}"
-    },
-    "workload": "@:global.workload"
+    }
   },
   "authentication": {
     "sign_in": "Sign in",
@@ -146,6 +152,7 @@
       }
     },
     "language": "@:global.language",
+    "learner": "@:learner._",
     "load": {
       "_": "@:global.workload",
       "ects": "ECTS credits",
@@ -268,6 +275,7 @@
     },
     "in": {
       "hours": "in hours",
+      "minutes": "in minutes",
       "weeks": "in weeks"
     },
     "information": {

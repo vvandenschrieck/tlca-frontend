@@ -5,9 +5,10 @@ mutation CreateAssessment(
   $course: ID!
   $description: String!
   $end: DateTime
+  $hasOralDefense: Boolean
+  $load: AssessmentLoadInput
   $name: String!
   $start: DateTime
-  $workload: Int
 ) {
   createAssessment(
     category: $category
@@ -16,9 +17,10 @@ mutation CreateAssessment(
     course: $course
     description: $description
     end: $end
+    hasOralDefense: $hasOralDefense
+    load: $load
     name: $name
     start: $start
-    workload: $workload
   ) {
     id
   }

@@ -103,16 +103,62 @@
           </v-stepper-step>
 
           <v-stepper-content step="4">
+            <v-switch
+              v-model="hasOralDefense"
+              :label="$t('assessment.oral_defense')"
+            />
+          </v-stepper-content>
+
+          <v-stepper-step editable step="5">
+            {{ $t('global.workload') }}
+          </v-stepper-step>
+
+          <v-stepper-content step="5">
             <v-row>
               <v-col cols="12" md="4">
+                <b>{{ $tc('course.learner', 1) }}</b>
+              </v-col>
+
+              <v-col cols="12" md="4">
+                <h4>{{ $tc('course.teacher', 1) }}</h4>
+              </v-col>
+            </v-row>
+
+            <v-row class="mt-0">
+              <v-col cols="12" md="4">
                 <v-text-field-with-validation
-                  v-model="workload"
+                  v-model="load.work"
                   clearable
-                  :label="$t('assessment.workload')"
-                  :hint="$t('general.in.hours')"
+                  :label="$t('assessment.load.work')"
+                  :hint="$t('general.in.minutes')"
                   rules="positive"
                   type="number"
-                  vid="workload"
+                  vid="load-work"
+                />
+              </v-col>
+
+              <v-col cols="12" md="4">
+                <v-text-field-with-validation
+                  v-model="load.grading"
+                  clearable
+                  :label="$t('assessment.load.grading')"
+                  :hint="$t('general.in.minutes')"
+                  rules="positive"
+                  type="number"
+                  vid="load-grading"
+                />
+              </v-col>
+
+              <v-col cols="12" md="4">
+                <v-text-field-with-validation
+                  v-if="hasOralDefense"
+                  v-model="load.defense"
+                  clearable
+                  :label="$t('assessment.load.defense')"
+                  :hint="$t('general.in.minutes')"
+                  rules="positive"
+                  type="number"
+                  vid="load-defense"
                 />
               </v-col>
             </v-row>
@@ -149,9 +195,14 @@ export default {
       end: '',
       formBusy: false,
       formError: null,
+      hasOralDefense: false,
       name: '',
+      load: {
+        defense: '',
+        grading: '',
+        work: '',
+      },
       start: '',
-      workload: '',
     }
   },
   head() {
@@ -183,19 +234,27 @@ export default {
     async create() {
       this.formBusy = true
 
-      try {
-        const data = {
-          category: this.category,
-          code: this.code,
-          course: this.$route.params.code,
-          competencies: this.competencies,
-          description: this.description,
-          end: this.end,
-          name: this.name,
-          start: this.start,
-          workload: parseInt(this.workload, 10),
+      const load = {}
+      for (const field of ['defense', 'grading', 'work']) {
+        if (this.load[field]) {
+          load[field] = parseInt(this.load[field], 10)
         }
+      }
 
+      const data = {
+        category: this.category,
+        code: this.code,
+        course: this.$route.params.code,
+        competencies: this.competencies,
+        description: this.description,
+        end: this.end,
+        hasOralDefense: this.hasOralDefense,
+        load,
+        name: this.name,
+        start: this.start,
+      }
+
+      try {
         const response = await this.$apollo
           .mutate({
             mutation: createAssessment,
@@ -238,9 +297,14 @@ export default {
       this.description = ''
       this.end = ''
       this.formError = null
+      this.hasOralDefense = false
       this.name = ''
+      this.load = {
+        defense: '',
+        grading: '',
+        work: '',
+      }
       this.start = ''
-      this.workload = ''
     },
   },
   meta: {

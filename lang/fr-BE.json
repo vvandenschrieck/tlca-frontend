@@ -29,10 +29,17 @@
     },
     "description": "@:global.description._",
     "filter_by_competency": "Filtrer par compétence",
+    "load": {
+      "_": "@:global.workload",
+      "defense": "Défense orale",
+      "grading": "Correction",
+      "work": "Réalisation"
+    },
     "name": "@:global.name",
     "nb": "{nb} évaluation | {nb} évaluations",
     "nb_of": "Nombre d'évaluations",
     "no": "Il n'y a aucune évaluation pour le moment",
+    "oral_defense": "Défense orale",
     "schedule": {
       "_": "Calendrier",
       "end": "Date de fin",
@@ -42,8 +49,7 @@
     "start": {
       "_": "Date d'ouverture",
       "date": "Ouverture : {start}"
-    },
-    "workload": "@:global.workload"
+    }
   },
   "authentication": {
     "sign_in": "Se connecter",
@@ -146,6 +152,7 @@
       }
     },
     "language": "@:global.language",
+    "learner": "@:learner._",
     "load": {
       "_": "@:global.workload",
       "ects": "Crédits ECTS",
@@ -268,6 +275,7 @@
     },
     "in": {
       "hours": "en heures",
+      "minutes": "en minutes",
       "weeks": "en semaines"
     },
     "information": {
