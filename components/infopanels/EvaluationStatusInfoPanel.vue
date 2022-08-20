@@ -4,7 +4,9 @@
     :items="items"
     :title="$t('general.information._')"
   >
-    <div v-if="$auth.user" class="text-center"></div>
+    <div v-if="$auth.user" class="text-center">
+      <evaluation-publish-btn :evaluation="evaluation" @success="published" />
+    </div>
   </generic-info-panel>
 </template>
 
@@ -21,9 +23,6 @@ export default {
     },
   },
   computed: {
-    canPublish() {
-      return !this.evaluation.published
-    },
     items() {
       const items = []
 

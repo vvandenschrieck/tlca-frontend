@@ -260,6 +260,7 @@
     "comment": "Comment",
     "date": "Evaluation date",
     "learner": "Learner",
+    "publish": "@:global.publish",
     "published": "@:global.status.published",
     "status": {
       "_": "@:global.status._",
