@@ -68,28 +68,24 @@
                       {{ $t('assessment.no') }}
                     </div>
                   </v-tab-item>
-                  <v-tab-item>
-                    <div
-                      v-if="
-                        course.competencies?.length &&
-                        course.assessments?.length
-                      "
-                    >
-                      <competency-coverage
-                        :competencies="course.competencies"
-                        :assessments="course.assessments"
-                      />
-                    </div>
+                  <v-tab-item
+                    v-if="
+                      course.competencies?.length && course.assessments?.length
+                    "
+                  >
+                    <competency-coverage
+                      :competencies="course.competencies"
+                      :assessments="course.assessments"
+                    />
                   </v-tab-item>
-                  <v-tab-item>
-                    <div
-                      v-if="course.assessments?.length && hasTimeline(course)"
-                    >
-                      <assessments-timeline
-                        :assessments="course.assessments"
-                        :schedule="course.schedule"
-                      />
-                    </div>
+                  <v-tab-item
+                    v-if="course.assessments?.length && hasTimeline(course)"
+                  >
+                    <assessments-timeline
+                      :assessments="course.assessments"
+                      :schedule="course.schedule"
+                      :code="course.code"
+                    />
                   </v-tab-item>
                 </v-tabs-items>
               </v-card-text>
