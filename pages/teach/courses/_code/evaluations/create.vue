@@ -1,8 +1,8 @@
 <template>
   <ApolloQuery
     v-slot="{ result: { data, error }, isLoading }"
-    :query="require('~/gql/teach/getEvaluation.gql')"
-    :variables="{ code: $route.params.code }"
+    :query="require('~/gql/teach/getEvaluations.gql')"
+    :variables="{ courseCode: $route.params.code }"
     @result="setTitle"
   >
     <h2>{{ title }}</h2>
@@ -16,6 +16,8 @@
             <v-alert v-if="formError" class="mt-5" dense outlined type="error">
               {{ $t(formError) }}
             </v-alert>
+
+            {{ data.course.code }}
 
             <v-row>
               <v-col cols="12" md="6">
@@ -131,14 +133,14 @@ export default {
     async create() {
       this.formBusy = true
 
-      try {
-        const data = {
-          assessment: this.assessment,
-          comment: this.comment,
-          evalDate: this.evalDate,
-          learner: this.learner,
-        }
+      const data = {
+        assessment: this.assessment,
+        comment: this.comment,
+        evalDate: this.evalDate,
+        learner: this.learner,
+      }
 
+      try {
         const response = await this.$apollo
           .mutate({
             mutation: createEvaluation,

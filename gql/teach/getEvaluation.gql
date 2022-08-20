@@ -13,6 +13,9 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       code
       name
     }
+    course {
+      code
+    }
     date
     id
     isPublished

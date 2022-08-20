@@ -2,7 +2,7 @@
   <ApolloQuery
     v-slot="{ result: { data, error }, isLoading }"
     :query="require('~/gql/teach/getEvaluations.gql')"
-    :variables="{ code: $route.params.code }"
+    :variables="{ courseCode: $route.params.code }"
   >
     <h2>{{ title }}</h2>
 

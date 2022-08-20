@@ -1,5 +1,5 @@
-query GetEvaluations($code: ID!) {
-  course(code: $code) {
+query GetEvaluations($courseCode: ID!) {
+  course(code: $courseCode) {
     code
     schedule {
       datetime
@@ -7,7 +7,7 @@ query GetEvaluations($code: ID!) {
     }
   }
 
-  evaluations(courseCode: $code) {
+  evaluations(courseCode: $courseCode) {
     assessment {
       id
       code

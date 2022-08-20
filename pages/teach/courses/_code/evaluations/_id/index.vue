@@ -10,7 +10,7 @@
     <template #default="{ result: { error, data }, isLoading }">
       <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
-      <div v-else-if="data">
+      <div v-else-if="data && data.course.code === data.evaluation.course.code">
         <h2>{{ data.evaluation.assessment.name }}</h2>
 
         <v-row>
