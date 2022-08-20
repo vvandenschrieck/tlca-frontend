@@ -259,7 +259,14 @@
     "assessment": "Évaluation",
     "comment": "Commentaire",
     "date": "Date de l'évaluation",
-    "learner": "Apprenant"
+    "learner": "Apprenant",
+    "published": "@:global.status.published",
+    "status": {
+      "_": "@:global.status._",
+      "published": "@:global.status.published",
+      "published_on": "@:global.status.published_on",
+      "unpublished": "@:global.status.unpublished"
+    }
   },
   "general": {
     "action": "Action | Actions",

@@ -1,10 +1,26 @@
-query GetEvaluations($code: ID!) {
-  course(code: $code) {
+query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
+  course(code: $courseCode) {
     code
-    name
     schedule {
       datetime
       name
     }
+  }
+
+  evaluation(id: $evaluationId) {
+    assessment {
+      id
+      code
+      name
+    }
+    date
+    id
+    isPublished
+    learner {
+      displayName
+      username
+    }
+    published
+    status
   }
 }
