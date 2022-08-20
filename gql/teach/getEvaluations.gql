@@ -15,6 +15,7 @@ query GetEvaluations($code: ID!) {
     }
     date
     id
+    isPublished
     learner {
       displayName
       username

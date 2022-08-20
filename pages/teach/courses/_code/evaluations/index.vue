@@ -22,36 +22,10 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <generic-filter-bar
-                  v-slot="{ filter: innerFilter, on }"
-                  v-model="filter"
-                  class="mt-1"
-                  :create-link="{
-                    name: 'teach-courses-code-evaluations-create',
-                    params: { code: $route.params.code },
-                  }"
-                >
-                  <evaluations-filter
-                    :course-code="$route.params.code"
-                    :value="innerFilter"
-                    v-on="on"
-                  />
-                </generic-filter-bar>
-
-                <v-data-table
-                  v-if="data.evaluations"
-                  :headers="dataHeaders"
-                  :items="filteredEvaluations(data.evaluations, filter)"
-                  :items-per-page="5"
-                >
-                  <template #item.assessment="{ item: { assessment } }">
-                    {{ assessment_name(assessment) }}
-                  </template>
-
-                  <template #item.date="{ item: { date } }">
-                    {{ formatDateTimeFull(date) }}
-                  </template>
-                </v-data-table>
+                <evaluations-list
+                  :course-code="data.course.code"
+                  :items="data.evaluations"
+                />
               </v-tab-item>
 
               <v-tab-item>
@@ -81,15 +55,13 @@
 
 <script>
 import datetime from '@/mixins/datetime.js'
-import evaluations from '@/mixins/evaluations.js'
 
 export default {
   name: 'TeachEvaluationsPage',
-  mixins: [datetime, evaluations],
+  mixins: [datetime],
   data() {
     return {
       currentTab: 0,
-      filter: {},
     }
   },
   head() {
@@ -99,30 +71,8 @@ export default {
     }
   },
   computed: {
-    dataHeaders() {
-      return [
-        {
-          text: this.$t('evaluation.assessment'),
-          value: 'assessment',
-        },
-        {
-          text: this.$t('evaluation.learner'),
-          value: 'learner.displayName',
-        },
-        {
-          groupable: true,
-          text: this.$t('evaluation.date'),
-          value: 'date',
-        },
-      ]
-    },
     title() {
       return this.$tc('evaluation._', 2)
-    },
-  },
-  methods: {
-    assessment_name(assessment) {
-      return (assessment.code ? `${assessment.code} – ` : '') + assessment.name
     },
   },
   meta: {

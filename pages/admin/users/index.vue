@@ -32,16 +32,7 @@
             </v-chip-group>
           </template>
           <template #item.isValidated="{ value: validated }">
-            <div class="d-inline-block">
-              <span
-                class="rounded-circle pa-1 d-flex"
-                :class="{ error: !validated, success: validated }"
-              >
-                <v-icon small color="white">{{
-                  validated ? 'mdi-check-bold' : 'mdi-close-thick'
-                }}</v-icon>
-              </span>
-            </div>
+            <boolean-value-icon :value="validated" />
           </template>
         </v-data-table>
 
