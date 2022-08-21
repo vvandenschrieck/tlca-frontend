@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     setTitle({ data: partner }) {
-      this.title = partner.abbreviation || partner.name
+      this.title = partner?.abbreviation ?? partner?.name
     },
   },
   meta: {

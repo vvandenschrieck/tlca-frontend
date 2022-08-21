@@ -1,3 +1,9 @@
+## 1.0.3 (2022-08-21)
+
+### Bug Fixes
+
+- **partners:** fix title generation issue for partners
+
 ## 1.0.2 (2022-08-15)
 
 ### Code Refactoring
