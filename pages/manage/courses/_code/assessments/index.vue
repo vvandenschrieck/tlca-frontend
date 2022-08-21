@@ -113,12 +113,8 @@
 </template>
 
 <script>
-import CompetencyCoverage from '~/components/courses/CompetencyCoverage.vue'
-import AssessmentsTimeline from '~/components/courses/AssessmentsTimeline.vue'
 export default {
   name: 'ManageCourseAssessmentsPage',
-  components: { CompetencyCoverage, AssessmentsTimeline },
-
   data() {
     return {
       currentTab: '0',
@@ -126,27 +122,19 @@ export default {
   },
   methods: {
     hasTimeline(course) {
-      let hasMinDate = false
-      let hasMaxDate = false
-      if (course.schedule) {
-        for (const event of course.schedule) {
-          if (event.name && event.name === 'start') {
-            hasMinDate = true
-          }
-          if (
-            event.name &&
-            (event.name === 'end' || event.name === 'evaluationsEnd')
-          ) {
-            hasMaxDate = true
-          }
-        }
+      if (!course.assessments?.length) {
+        return false
       }
-      if (!(hasMinDate && hasMaxDate)) {
-        for (const assessment of course.assessments) {
-          if (assessment.start) hasMinDate = true
-          if (assessment.end) hasMaxDate = true
-        }
-      }
+
+      const hasMinDate =
+        course.schedule?.some(({ name }) => name === 'start') ||
+        course.assessments.some((a) => a.start)
+
+      const hasMaxDate =
+        course.schedule?.some(
+          ({ name }) => name === 'end' || name === 'evaluationsEnd'
+        ) || course.assessments.some((a) => a.end)
+
       return hasMinDate && hasMaxDate
     },
   },

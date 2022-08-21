@@ -9,7 +9,7 @@
 </template>
 <script>
 import datetime from '@/mixins/datetime.js'
-import '@/plugins/echarts'
+
 export default {
   name: 'AssessmentsTimeline',
   mixins: [datetime],
@@ -29,9 +29,8 @@ export default {
   },
   computed: {
     chartStyle() {
-      let style = 'width: 100%; height: '
-      style = style + (this.assessments.length * 40 + 120) + 'px'
-      return style
+      const height = this.assessments.length * 40 + 120
+      return `width: 100%; height: ${height}px`
     },
     minDate() {
       let minDate = null
@@ -69,19 +68,13 @@ export default {
       return [...this.assessments].sort((a, b) => (a.start < b.start ? 1 : -1))
     },
     startdates() {
-      return this.sortedAssessments.map((assessment) =>
-        assessment.start ? assessment.start : this.minDate
-      )
+      return this.sortedAssessments.map((a) => a.start ?? this.minDate)
     },
     enddates() {
-      return this.sortedAssessments.map((assessment) =>
-        assessment.end ? assessment.end : this.maxDate
-      )
+      return this.sortedAssessments.map((a) => a.end ?? this.maxDate)
     },
     assessementNames() {
-      return this.sortedAssessments.map((assessment) =>
-        this.shortName(assessment)
-      )
+      return this.sortedAssessments.map((a) => this.shortName(a))
     },
     option() {
       return {
@@ -165,8 +158,9 @@ export default {
       }
     },
     shortName(assessment) {
-      if (assessment.code) return assessment.code
-      if (assessment.name.length < 10) return assessment.name
+      if (assessment.code) {
+        return assessment.code
+      }
       return assessment.name.slice(0, 9)
     },
   },
