@@ -53,7 +53,7 @@ export default {
       {
         apiKey: process.env.BUGSNAG_BROWSER_API_KEY,
         config: {
-          appVersion: '1.0.2',
+          appVersion: '1.0.3',
           enabledReleaseStages: ['production'],
           environment: process.env.NODE_ENV,
         },
