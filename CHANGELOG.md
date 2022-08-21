@@ -1,3 +1,13 @@
+## 1.0.2 (2022-08-15)
+
+### Code Refactoring
+
+- use the environement variables management provided by Nuxt
+
+### Tools
+
+- set up BugSnag to monitor bug in production
+
 ## 1.0.1 (2022-08-12)
 
 ### Bug Fixes
