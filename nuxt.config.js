@@ -21,10 +21,11 @@ export default {
   },
   css: ['@mdi/font/css/materialdesignicons.css'],
   plugins: [
-    '~/plugins/vue-rx.js',
+    '~/plugins/echarts.js',
     '~/plugins/notification-manager.js',
     '~/plugins/validation.js',
     '~/plugins/vee-validate4vuetify.js',
+    '~/plugins/vue-rx.js',
   ],
   components: {
     dirs: [
@@ -38,7 +39,11 @@ export default {
       '~/components/programs',
     ],
   },
-  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/vuetify'],
+  buildModules: [
+    '@nuxtjs/composition-api/module',
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/vuetify',
+  ],
   modules: [
     '@nuxtjs/apollo',
     '@nuxtjs/auth-next',

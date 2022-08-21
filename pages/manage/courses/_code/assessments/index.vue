@@ -21,18 +21,19 @@
                 </v-tab>
                 <v-tab
                   v-if="
-                    course.competencies?.length &&
-                    course.assessments &&
-                    course.assessments.length
+                    course.competencies?.length && course.assessments?.length
                   "
                 >
                   {{ $t('course.competency_coverage') }}
+                </v-tab>
+                <v-tab v-if="course.assessments?.length && hasTimeline(course)">
+                  {{ $t('course.assessments_timeline') }}
                 </v-tab>
               </v-tabs>
               <v-card-text class="text--primary">
                 <v-tabs-items v-model="currentTab">
                   <v-tab-item>
-                    <div v-if="course.assessments && course.assessments.length">
+                    <div v-if="course.assessments?.length">
                       <v-list class="pa-0">
                         <template v-for="(assessment, i) in course.assessments">
                           <v-list-item
@@ -67,13 +68,24 @@
                       {{ $t('assessment.no') }}
                     </div>
                   </v-tab-item>
-                  <v-tab-item>
-                    <div v-if="course.assessments && course.assessments.length">
-                      <competency-coverage
-                        :competencies="course.competencies"
-                        :assessments="course.assessments"
-                      />
-                    </div>
+                  <v-tab-item
+                    v-if="
+                      course.competencies?.length && course.assessments?.length
+                    "
+                  >
+                    <competency-coverage
+                      :competencies="course.competencies"
+                      :assessments="course.assessments"
+                    />
+                  </v-tab-item>
+                  <v-tab-item
+                    v-if="course.assessments?.length && hasTimeline(course)"
+                  >
+                    <assessments-timeline
+                      :assessments="course.assessments"
+                      :schedule="course.schedule"
+                      :code="course.code"
+                    />
                   </v-tab-item>
                 </v-tabs-items>
               </v-card-text>
@@ -102,13 +114,41 @@
 
 <script>
 import CompetencyCoverage from '~/components/courses/CompetencyCoverage.vue'
+import AssessmentsTimeline from '~/components/courses/AssessmentsTimeline.vue'
 export default {
   name: 'ManageCourseAssessmentsPage',
-  components: { CompetencyCoverage },
+  components: { CompetencyCoverage, AssessmentsTimeline },
+
   data() {
     return {
       currentTab: '0',
     }
+  },
+  methods: {
+    hasTimeline(course) {
+      let hasMinDate = false
+      let hasMaxDate = false
+      if (course.schedule) {
+        for (const event of course.schedule) {
+          if (event.name && event.name === 'start') {
+            hasMinDate = true
+          }
+          if (
+            event.name &&
+            (event.name === 'end' || event.name === 'evaluationsEnd')
+          ) {
+            hasMaxDate = true
+          }
+        }
+      }
+      if (!(hasMinDate && hasMaxDate)) {
+        for (const assessment of course.assessments) {
+          if (assessment.start) hasMinDate = true
+          if (assessment.end) hasMaxDate = true
+        }
+      }
+      return hasMinDate && hasMaxDate
+    },
   },
   meta: {
     roles: ['teacher'],
