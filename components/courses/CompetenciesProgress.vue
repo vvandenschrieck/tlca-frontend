@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style scoped>
-.progress >>> .v-progress-circular__info {
+.progress:deep(.v-progress-circular__info) {
   flex-direction: column;
 }
 .progress .label {

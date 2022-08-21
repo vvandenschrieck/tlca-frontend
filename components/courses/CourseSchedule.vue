@@ -77,13 +77,13 @@ export default {
   margin: 0px 10px;
   padding-bottom: 15px;
 }
-.dense-timeline-item >>> .v-timeline-item__body {
+.dense-timeline-item:deep(.v-timeline-item__body) {
   max-width: calc(40% - 16px) !important;
 }
-.dense-timeline-item >>> .v-timeline-item__divider {
+.dense-timeline-item:deep(.v-timeline-item__divider) {
   min-width: 32px;
 }
-.dense-timeline-item >>> .v-timeline-item__opposite {
+.dense-timeline-item:deep(.v-timeline-item__opposite) {
   max-width: calc(60% - 16px) !important;
   padding-right: 2px;
 }
