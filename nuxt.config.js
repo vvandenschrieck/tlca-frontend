@@ -39,11 +39,7 @@ export default {
       '~/components/programs',
     ],
   },
-  buildModules: [
-    '@nuxtjs/composition-api/module',
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify',
-  ],
+  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/vuetify'],
   modules: [
     '@nuxtjs/apollo',
     '@nuxtjs/auth-next',
@@ -111,6 +107,9 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     defaultAssets: false,
+  },
+  alias: {
+    vue: 'vue/dist/vue.runtime.esm.js',
   },
   build: {},
   publicRuntimeConfig: {
