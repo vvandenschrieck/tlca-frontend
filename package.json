@@ -1,7 +1,11 @@
 {
-  "name": "tlca",
+  "name": "tlca-frontend",
   "version": "1.0.0",
-  "private": true,
+  "description": "Frontend of the TLCA platform",
+  "repository": "https://github.com/TLCA-project/tlca-frontend.git",
+  "author": "AEI Consulting <info@aei-consulting.be>",
+  "license": "AGPL-3.0-only",
+  "private": false,
   "scripts": {
     "prepare": "husky install",
     "dev": "nuxt",
