@@ -1,0 +1,10 @@
+mutation Register($code: ID!) {
+  register(code: $code) {
+    code
+    isRegistered
+    registration {
+      date
+      invitation
+    }
+  }
+}

@@ -1,0 +1,5 @@
+mutation CloneCourse($cloneCode: String, $code: ID!) {
+  cloneCourse(cloneCode: $cloneCode, code: $code) {
+    code
+  }
+}

@@ -1,0 +1,12 @@
+query GetCompetencies {
+  competencies {
+    code
+    isOwner
+    isPublic
+    name
+    tags
+    user {
+      username
+    }
+  }
+}

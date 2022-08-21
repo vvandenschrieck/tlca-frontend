@@ -1,0 +1,12 @@
+query GetCompetencies {
+  competencies {
+    code
+    isPublic
+    name
+    partners {
+      abbreviation
+      code
+      name
+    }
+  }
+}

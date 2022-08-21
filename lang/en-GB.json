@@ -1,0 +1,413 @@
+{
+  "assessment": {
+    "_": "Assessment | Assessments",
+    "category": {
+      "_": "Category",
+      "casestudy": "Case study",
+      "coding": "Coding",
+      "exercise": "Exercise",
+      "interview": "Interview",
+      "mission": "Mission",
+      "project": "Project",
+      "quiz": "Quiz"
+    },
+    "code": "@:global.code",
+    "competencies": {
+      "_": "Competencies",
+      "add": "Add a competency",
+      "optional": "Optional",
+      "stars": "Stars"
+    },
+    "create": "@:general.create an assessment",
+    "deadline": {
+      "_": "Deadline",
+      "date": "Deadline : {deadline}"
+    },
+    "description": "@:global.description._",
+    "filter_by_competency": "Filter by competency",
+    "name": "@:global.name",
+    "nb": "{nb} evaluation | {nb} evaluations",
+    "nb_of": "Number of assessments",
+    "no": "There are no assessment for now",
+    "schedule": {
+      "_": "Schedule",
+      "end": "End date",
+      "start": "Start date"
+    },
+    "show_selected": "Show only selected rows",
+    "start": {
+      "_": "Opening",
+      "date": "Opens on : {start}"
+    }
+  },
+  "authentication": {
+    "sign_in": "Sign in",
+    "sign_out": "Sign out",
+    "sign_up": "Sign up"
+  },
+  "competency": {
+    "_": "Competency | Competencies",
+    "category": {
+      "advanced": "Advanced",
+      "basic": "Basic",
+      "no": "No category"
+    },
+    "code": "@:global.code",
+    "coordinator": "@:global.coordinator",
+    "create": "@:general.create a competency",
+    "creator": {
+      "external": "External",
+      "own": "Myself",
+      "partners": "Affiliations"
+    },
+    "description": "@:global.description._",
+    "filter": {
+      "creator": "@:general.creator",
+      "tags": "Tags",
+      "visibility": "@:global.visibility._"
+    },
+    "learning_outcomes": {
+      "_": "Learning outcomes"
+    },
+    "name": "@:global.name",
+    "nb": "{nb} competency | {nb} competencies",
+    "nb_of": "Number of competencies",
+    "no": "There are no competencies for now.",
+    "partners": "@:global.partners",
+    "public": "@:global.visibility.public",
+    "show_by": {
+      "category": "Show by category",
+      "level": "Show by level"
+    },
+    "tags": "@:global.tag",
+    "type": {
+      "_": "@:global.type._",
+      "practical": "Practical",
+      "theoretical": "Theoretical"
+    },
+    "visibility": {
+      "_": "@:global.visibility._",
+      "private": "@:global.visibility.private",
+      "public": "@:global.visibility.public"
+    }
+  },
+  "course": {
+    "_": "Course | Courses",
+    "archive": {
+      "_": "Archive",
+      "dialog_instructions": "Enter the code to use for the archived course (keep the same code or choose another not existing one). Leave empty to auto-generate."
+    },
+    "assessments": {
+      "_": "@:assessment._",
+      "list": "Assessments list"
+    },
+    "assessments_list": "Available assessments",
+    "clone": {
+      "_": "Clone",
+      "dialog_instructions": "Enter the code to use for the cloned course (choose a not existing one). Leave empty to auto-generate."
+    },
+    "code": "@:global.code",
+    "colophon": "Colophon",
+    "competencies": {
+      "_": "Competencies",
+      "add": "Add a competency",
+      "category": "Category",
+      "subcategory": "Subcategory"
+    },
+    "competency_coverage": "Competency coverage",
+    "coordinator": "@:global.coordinator",
+    "create": "@:general.create a course",
+    "description": "@:global.description._",
+    "field": "@:global.field",
+    "filter": {
+      "role": "Role",
+      "status": "@:general.status"
+    },
+    "groups": {
+      "_": "Groups",
+      "add": "Add a group",
+      "name": "Name",
+      "no": "There are no groups for now.",
+      "supervisor": "Supervisor",
+      "teaching": {
+        "_": "Teaching",
+        "no": "There are no teaching groups for now."
+      },
+      "working": {
+        "_": "Working",
+        "no": "There are no working groups for now."
+      }
+    },
+    "language": "@:global.language",
+    "load": {
+      "_": "Load",
+      "ects": "ECTS credits",
+      "in_credits": "{credits} ECTS",
+      "in_hours_per_week": "{hoursPerWeek} h/week",
+      "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
+    },
+    "name": "@:global.name",
+    "nb": "{nb} course | {nb} courses",
+    "nb_of": {
+      "_": "Number of courses",
+      "archived": "{nb} archived | {nb} archived",
+      "published": "{nb} published | {nb} published",
+      "unpublished": "{nb} unpublished | {nb} unpublished"
+    },
+    "no": "There are no courses for now.",
+    "publish": "Publish",
+    "register": "Register",
+    "registrations": {
+      "_": "@:registration._",
+      "date": "@:global.date",
+      "group": "Group",
+      "group_name": "Group {nb}",
+      "invites": "Invites",
+      "list": "Registrations list",
+      "name_or_email": "Name or email",
+      "no_group": "No group",
+      "registered": "Registered",
+      "status": "@:general.status"
+    },
+    "request_invite": "Request an invite",
+    "schedule": {
+      "_": "Schedule",
+      "end": "End date",
+      "evaluationsEnd": "End of evaluations",
+      "registrationsEnd": "End of registrations",
+      "registrationsStart": "Start of registrations",
+      "start": "Start date"
+    },
+    "span": {
+      "_": "Span",
+      "in_weeks": "one week | {weeks} weeks"
+    },
+    "status": {
+      "_": "@:global.status._",
+      "archived": "@:global.status.archived",
+      "archived_on": "@:global.status.archived_on",
+      "published": "@:global.status.published",
+      "published_on": "@:global.status.published_on",
+      "unpublished": "@:global.status.unpublished"
+    },
+    "tags": "@:global.tag",
+    "teacher": "@:user.role.teacher | Teachers",
+    "team": "Team",
+    "type": {
+      "_": "@:global.type._",
+      "project": "Project",
+      "training": "@:global.type.training",
+      "ucourse": "µCourse",
+      "unit": "Unit"
+    },
+    "visibility": {
+      "_": "@:global.visibility._",
+      "invite_only": "@:global.visibility.invite_only",
+      "private": "@:global.visibility.private",
+      "public": "@:global.visibility.public"
+    }
+  },
+  "error": {
+    "_": "Error",
+    "unexpected": "An unexpected error occurred, try again later.",
+    "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
+    "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
+    "DUPLICATE_COURSES": "The same course cannot be used more than once",
+    "EXISTING_CODE": "The specified code already exists",
+    "EXISTING_EMAIL_ADDRESS": "Impossible to create an account with this email address",
+    "INVALID_CREDENTIALS": "Invalid credentials",
+    "INVALID_EMAIL_ADDRESS": "Invalid email address",
+    "INVALID_PASSWORD": "Password not strong enough",
+    "INVITE_REQUEST_FAILED": "Invite request failed",
+    "MISSING_BASIC_COMPETENCY": "There must be at least one basic competency",
+    "MISSING_FIELDS": "Some mandatory fields are missing",
+    "MISSING_MANDATORY_COURSE": "There must be at least one mandatory course",
+    "REGISTRATION_FAILED": "Registration failed"
+  },
+  "general": {
+    "action": "Action | Actions",
+    "apply": "Apply",
+    "cancel": "Cancel",
+    "create": "Create",
+    "creator": "Creator",
+    "edit": "Edit",
+    "filter": {
+      "_": "Filter"
+    },
+    "information": {
+      "_": "Information",
+      "additional": "Additional @.lower:general.information._",
+      "general": "General @.lower:general.information._",
+      "optional": "Optional @.lower:general.information._"
+    },
+    "list": "List",
+    "owner": "Owner",
+    "reset": "Reset",
+    "status": "Status",
+    "update": "Update",
+    "upload": "Upload",
+    "upload_click_drag": "Click or drag the file here to upload",
+    "validated": "Validated"
+  },
+  "global": {
+    "banner": {
+      "_": "Banner",
+      "edit": "Edit the banner"
+    },
+    "code": "Code",
+    "coordinator": "Coordinator",
+    "date": "Date",
+    "description": {
+      "_": "Description",
+      "no": "No @.lower:global.description._"
+    },
+    "field": "Field",
+    "language": "Language",
+    "loading": "Loading...",
+    "name": "Name",
+    "partners": "Partners",
+    "powered_by": "Powered by",
+    "spaces": {
+      "_": "Space | Spaces",
+      "admin": "Admin",
+      "home": "Home",
+      "learn": "Learn",
+      "manage": "Manage",
+      "teach": "Teach"
+    },
+    "status": {
+      "_": "@:general.status",
+      "archived": "Archived",
+      "archived_on": "Archived on {date}",
+      "published": "Published",
+      "published_on": "Published on {date}",
+      "unpublished": "Unpublished"
+    },
+    "tag": "Tag | Tags",
+    "type": {
+      "_": "Type",
+      "training": "Training"
+    },
+    "visibility": {
+      "_": "Visibility",
+      "invite_only": "By invite only",
+      "private": "Private",
+      "public": "Public"
+    }
+  },
+  "homepage": {
+    "presentation": "<p>The <em>TLC Academy</em> is the best place where you can <b>learn anything</b> and gain competencies!</p><p>Whether for medium or long term trainings, or for a simple micro-course, learn at your <b>own pace</b> and accumulate <b>competency stars</b> to strenghten your personal profile.</p>",
+    "see_all_courses": "See all courses",
+    "see_all_partners": "See all partners",
+    "see_all_programs": "See all programs",
+    "welcome": "Welcome!"
+  },
+  "partner": {
+    "_": "Partner | Partners",
+    "abbreviation": "Abbreviation",
+    "no": "There are no partners available for now.",
+    "website": "Website"
+  },
+  "program": {
+    "_": "Program | Programs",
+    "code": "@:global.code",
+    "coordinator": "@:global.coordinator",
+    "courses": {
+      "_": "Courses",
+      "add": "Add a course",
+      "optional": "Optional"
+    },
+    "create": "@:general.create a program",
+    "description": "@:global.description._",
+    "field": "@:global.field",
+    "filter": {
+      "status": "@:general.status"
+    },
+    "language": "@:global.language",
+    "name": "@:global.name",
+    "no": "There are no programs for now.",
+    "status": {
+      "_": "@:global.status._",
+      "archived": "@:global.status.archived",
+      "archived_on": "@:global.status.archived_on",
+      "published": "@:global.status.published",
+      "published_on": "@:global.status.published_on",
+      "unpublished": "@:global.status.unpublished"
+    },
+    "tags": "@:global.tag",
+    "type": {
+      "_": "@:global.type._",
+      "training": "@:global.type.training",
+      "uprogram": "µProgram"
+    },
+    "visibility": {
+      "_": "@:global.visibility._",
+      "invite_only": "@:global.visibility.invite_only",
+      "private": "@:global.visibility.private",
+      "public": "@:global.visibility.public"
+    }
+  },
+  "registration": {
+    "_": "Registration | Registrations",
+    "closed": "Closed",
+    "date": "Registration date",
+    "invitation": {
+      "_": "Invitation",
+      "received": {
+        "_": "Invitation received"
+      },
+      "request": {
+        "_": "Invitation request",
+        "nb_of": "Number of invitation requests",
+        "received": "Invitation requests received",
+        "sent": "Invitation request sent",
+        "too_old": "The oldest invitation request is more than {days} days old"
+      },
+      "sent": {
+        "_": "Invitations sent",
+        "nb_of": "Number of invitations sent",
+        "sent": "Invitation sent",
+        "too_old": "The oldest invitation was sent more than {days} days ago"
+      }
+    },
+    "nb_of": "Number of registrations",
+    "no": "There are no registration for now",
+    "open": "Open",
+    "registered_on": "Registered on {date}",
+    "status": "Registration @.lower:general.status",
+    "upcoming": "Upcoming"
+  },
+  "student": {
+    "not_registered_yet": "Not registered yet"
+  },
+  "success": {
+    "_": "Success",
+    "BANNER_UPDATED": "Banner successfully updated!",
+    "COMPETENCY_CREATED": "Competency successfully created!",
+    "COURSE_ARCHIVED": "Course successfully archived!",
+    "COURSE_CREATED": "Course successfully created!",
+    "COURSE_PUBLISHED": "Course successfully published!",
+    "PROGRAM_CREATED": "Program successfully created!",
+    "REGISTERED": "Successfully registered!",
+    "REQUEST_INVITE_SENT": "Invite request successfully sent!",
+    "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
+    "SIGN_UP_SUCCESSFUL": "Successfully signed up!"
+  },
+  "user": {
+    "_": "User | Users",
+    "email": "Email",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "password": "Password",
+    "role": {
+      "_": "Role | Roles",
+      "admin": "Admin",
+      "manager": "Manager",
+      "student": "Student",
+      "teacher": "Teacher",
+      "user": "User"
+    },
+    "username": "Username",
+    "username_or_email": "Username or email"
+  }
+}

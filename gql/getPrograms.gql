@@ -1,0 +1,8 @@
+query GetPrograms {
+  programs(view: USER) {
+    banner
+    code
+    name
+    type
+  }
+}

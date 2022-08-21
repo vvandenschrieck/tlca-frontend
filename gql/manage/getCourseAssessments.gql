@@ -1,0 +1,24 @@
+query GetCourseAssessments($code: ID!) {
+  course(code: $code) {
+    assessments {
+      id
+      name
+      code
+      competencies {
+        competency {
+          code
+        }
+        stars
+      }
+    }
+    code
+    name
+    competencies {
+      competency {
+        code
+        name
+      }
+      category
+    }
+  }
+}

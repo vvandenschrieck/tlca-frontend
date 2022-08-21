@@ -1,0 +1,23 @@
+mutation CreateAssessment(
+  $category: AssessmentCategory!
+  $code: String
+  $competencies: [AssessmentCompetencyInput!]!
+  $course: ID!
+  $description: String!
+  $end: Date
+  $name: String!
+  $start: Date
+) {
+  createAssessment(
+    category: $category
+    code: $code
+    competencies: $competencies
+    course: $course
+    description: $description
+    end: $end
+    name: $name
+    start: $start
+  ) {
+    id
+  }
+}

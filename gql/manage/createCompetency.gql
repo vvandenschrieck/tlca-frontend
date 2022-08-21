@@ -1,0 +1,21 @@
+mutation CreateCompetency(
+  $code: String!
+  $description: String
+  $name: String!
+  $partners: [ID!]
+  $public: Boolean
+  $tags: [String!]
+  $type: CompetencyType
+) {
+  createCompetency(
+    code: $code
+    description: $description
+    name: $name
+    partners: $partners
+    public: $public
+    tags: $tags
+    type: $type
+  ) {
+    code
+  }
+}
