@@ -1,8 +1,7 @@
 query GetCourseAssessments($code: ID!) {
   course(code: $code) {
     assessments {
-      id
-      name
+      category
       code
       competencies {
         competency {
@@ -11,10 +10,13 @@ query GetCourseAssessments($code: ID!) {
         stars
       }
       end
+      id
+      isClosed
+      isHidden
+      name
       start
     }
     code
-    name
     competencies {
       competency {
         code
@@ -22,6 +24,7 @@ query GetCourseAssessments($code: ID!) {
       }
       category
     }
+    name
     schedule {
       name
       datetime

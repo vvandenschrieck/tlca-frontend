@@ -34,31 +34,10 @@
                 <v-tabs-items v-model="currentTab">
                   <v-tab-item>
                     <div v-if="course.assessments?.length">
-                      <v-list class="pa-0">
-                        <template v-for="(assessment, i) in course.assessments">
-                          <v-list-item
-                            :key="assessment.code"
-                            :to="{
-                              name: 'manage-courses-code-assessments-id',
-                              params: {
-                                code: course.code,
-                                id: assessment.id,
-                              },
-                            }"
-                          >
-                            <v-list-item-content>
-                              <v-list-item-title>
-                                <b>{{ assessment.code }}</b>
-                                &nbsp;–&nbsp;{{ assessment.name }}
-                              </v-list-item-title>
-                            </v-list-item-content>
-                          </v-list-item>
-                          <v-divider
-                            v-if="i < course.assessments.length - 1"
-                            :key="i"
-                          />
-                        </template>
-                      </v-list>
+                      <assessments-list
+                        :course-code="course.code"
+                        :items="course.assessments"
+                      />
                     </div>
                     <div
                       v-else-if="
