@@ -1,3 +1,9 @@
+## 1.0.4 (2022-08-24)
+
+### Bug Fixes
+
+- **courses:** fix issues with registration and invitation request for courses
+
 ## 1.0.3 (2022-08-21)
 
 ### Bug Fixes

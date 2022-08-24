@@ -103,12 +103,12 @@ export default {
       let registrationStatus = this.$t('student.not_registered_yet')
       if (registration?.invitation) {
         registrationStatus = {
-          REQUESTED: this.$t('registration.invite_request_sent'),
-          SENT: this.$t('registration.invite_received'),
+          REQUESTED: this.$t('registration.invitation.request.sent'),
+          SENT: this.$t('registration.invitation.sent._'),
         }[registration.invitation]
-      } else if (registration?.date) {
+      } else if (registration?.datetime) {
         registrationStatus = this.$t('registration.registered_on', {
-          date: this.formatDateFull(registration.date),
+          date: this.formatDateFull(registration.datetime),
         })
       }
       items.push({
