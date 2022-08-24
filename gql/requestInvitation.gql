@@ -3,7 +3,7 @@ mutation RequestInvitation($code: ID!) {
     code
     hasRequestedInvitation
     registration {
-      date
+      datetime
       invitation
     }
   }
