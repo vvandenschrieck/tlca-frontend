@@ -3,7 +3,7 @@ mutation Register($code: ID!) {
     code
     isRegistered
     registration {
-      date
+      datetime
       invitation
     }
   }
