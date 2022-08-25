@@ -1,5 +1,5 @@
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory'
-import { concat } from 'apollo-link'
+import { fromPromise } from 'apollo-link'
 import { onError } from 'apollo-link-error'
 
 const cache = new InMemoryCache({
@@ -21,26 +21,40 @@ const cache = new InMemoryCache({
 })
 
 export default (context) => {
-  const promptErrorMessageLink = onError((err) => {
-    context.$notificationManager.displayErrorMessage(err)
-  })
+  const errorLink = onError((err) => {
+    const { forward, graphQLErrors, operation } = err
 
-  const refreshTokenLink = onError(({ graphQLErrors }) => {
     if (graphQLErrors) {
       for (const err of graphQLErrors) {
         switch (err.extensions.code) {
           case 'UNAUTHENTICATED':
-            context.$auth.setUser(false)
-            context.$auth.redirect('login')
-            break
+            return fromPromise(
+              context.$auth.refreshTokens().catch(() => {
+                context.$auth.reset()
+                context.$auth.redirect('login')
+              })
+            )
+              .filter((value) => Boolean(value))
+              .flatMap((token) => {
+                operation.setContext({
+                  headers: {
+                    ...operation.getContext().headers,
+                    Authorization: `Bearer ${token}`,
+                  },
+                })
+
+                return forward(operation)
+              })
         }
       }
     }
+
+    context.$notificationManager.displayErrorMessage(err)
   })
 
   return {
     cache,
     httpEndpoint: context.$config.graphqlEndpoint,
-    link: concat(refreshTokenLink, promptErrorMessageLink),
+    link: errorLink,
   }
 }

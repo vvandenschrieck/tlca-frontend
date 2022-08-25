@@ -1,5 +1,6 @@
-mutation signIn($usernameOrEmail: String!, $password: String!) {
+mutation SignIn($usernameOrEmail: String!, $password: String!) {
   signIn(usernameOrEmail: $usernameOrEmail, password: $password) {
+    refreshToken
     token
   }
 }
