@@ -32,13 +32,17 @@
         <ApolloMutation
           v-if="item.status === 'registered'"
           v-slot="{ mutate, loading }"
-          :mutation="require('../../gql/updateGroup.gql')"
+          :mutation="
+            item.innerGroup !== null
+              ? require('../../gql/updateGroup.gql')
+              : require('../../gql/removeGroup.gql')
+          "
           :variables="{ group: item.innerGroup, id: item.id, type: 'TEACHING' }"
           @done="groupUpdated"
         >
           <v-edit-dialog large @save="mutate">
             {{
-              item.group?.teaching >= 0
+              item.group?.teaching !== null
                 ? item.group.teaching + 1
                 : $t('course.registrations.no_group')
             }}
@@ -139,21 +143,21 @@ export default {
     registrations() {
       return this.course.registrations.map((item) => ({
         ...item,
-        innerGroup: item.group,
+        innerGroup: item.group?.teaching,
         nameOrEmail: this.nameOrEmail(item),
         status: item.invitation ? 'invites' : 'registered',
       }))
     },
   },
   methods: {
-    groupUpdated({
-      data: {
-        updateGroup: { group, id },
-      },
-    }) {
-      const registration = this.course.registrations.find((r) => r.id === id)
+    groupUpdated({ data }) {
+      const result = data.updateGroup || data.removeGroup
+
+      const registration = this.course.registrations.find(
+        (r) => r.id === result.id
+      )
       if (registration) {
-        registration.group = group
+        registration.group.teaching = result.group.teaching
       }
     },
     nameOrEmail(registration) {
