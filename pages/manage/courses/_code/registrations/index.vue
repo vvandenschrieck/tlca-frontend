@@ -21,10 +21,14 @@
             <v-card-text class="text--primary">
               <v-tabs-items v-model="currentTab">
                 <v-tab-item>
-                  <registrations-list
-                    v-if="course.registrations?.length"
-                    :course="course"
-                  />
+                  <div class="text-right">
+                    <course-send-invitation-btn
+                      :course-code="course.code"
+                      @error="invitationSendError"
+                      @success="(r) => invitationSendSuccess(course, r)"
+                    />
+                  </div>
+                  <registrations-list :course="course" />
                 </v-tab-item>
               </v-tabs-items>
             </v-card-text>
@@ -47,6 +51,8 @@
 </template>
 
 <script>
+import { gql } from 'graphql-tag'
+
 export default {
   name: 'ManageCourseRegistrationsPage',
   data() {
@@ -62,7 +68,41 @@ export default {
   },
   methods: {
     setTitle({ data: course }) {
-      this.title = course.name
+      this.title = course?.name ?? ''
+    },
+    invitationSendError() {
+      this.$notificationManager.displayErrorMessage(
+        this.$t('error.INVITATION_SEND')
+      )
+    },
+    invitationSendSuccess(course, registration) {
+      const { defaultClient: apolloClient } = this.$apolloProvider
+      const fragment = gql`
+        fragment reg on Course {
+          registrations {
+            id
+          }
+        }
+      `
+      const id = apolloClient.cache.config.dataIdFromObject({
+        __typename: 'Course',
+        code: course.code,
+      })
+      const data = apolloClient.readFragment({
+        fragment,
+        id,
+      })
+      apolloClient.writeData({
+        id,
+        data: {
+          ...data,
+          registrations: [...data.registrations, registration],
+        },
+      })
+
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.INVITATION_SEND')
+      )
     },
   },
   meta: {

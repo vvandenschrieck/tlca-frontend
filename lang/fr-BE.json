@@ -152,6 +152,11 @@
         "no": "Il n'y a pas de groupes de travail pour le moment."
       }
     },
+    "invitation": {
+      "dialog_instructions": "Entrer l'adresse e-mail de la personne à inviter au cours. Cette personne recevra l'invitation directement sur la plateforme ou par e-mail (si elle n'a pas de compte TLCA), et pourra décider de l'accepter ou non.",
+      "request": "Demander une invitation",
+      "send": "Envoyer une invitation"
+    },
     "language": "@:global.language",
     "learner": "@:learner._",
     "load": {
@@ -196,7 +201,6 @@
       "status": "@:general.status",
       "without_group": "Sans groupe"
     },
-    "request_invite": "Demander une invitation",
     "schedule": {
       "_": "Calendrier",
       "end": "Date de fin",
@@ -238,6 +242,8 @@
   "error": {
     "_": "Erreur",
     "unexpected": "Une erreur inattendue s'est produite, réessayez plus tard.",
+    "ALREADY_REGISTERED": "L'utilisateur est déjà inscrit au cours",
+    "ALREADY_REGISTERED_OR_INVITED": "L'utilisateur est déjà inscrit ou invité au cours",
     "ASSESSMENT_DELETE": "Une erreur inattendue s'est produite lors de la suppression de l'évaluation.",
     "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
     "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
@@ -247,6 +253,8 @@
     "INVALID_CREDENTIALS": "Mauvais identifiants",
     "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
     "INVALID_PASSWORD": "Mot de passe pas assez fort",
+    "INVITATION_SEND": "Une erreur inattendue s'est produite lors de l'envoi d'une invitation",
+    "INVITATION_SENDING_FAILED": "Impossible d'envoyer une invitation à cette e-mail",
     "INVITE_REQUEST_FAILED": "Demande d'invitation échouée",
     "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
     "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
@@ -296,6 +304,7 @@
     "list": "Liste",
     "owner": "Propriétaire",
     "reset": "Réinitialiser",
+    "send": "Envoyer",
     "statistics": {
       "_": "Statistiques"
     },
@@ -455,6 +464,7 @@
     "COURSE_ARCHIVED": "Cours archivé avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
+    "INVITATION_SEND": "Invitation envoyée avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
     "PROGRAM_PUBLISHED": "Programme publié avec succès !",
     "REGISTERED": "Inscrit(e) avec succès !",

@@ -152,6 +152,11 @@
         "no": "There are no working groups for now."
       }
     },
+    "invitation": {
+      "dialog_instructions": "Enter the email address of the person to invite to the course. This person will receive the invitation directly on the platform or by email (if he/she does not have a TLCA account), and can decide whether to accept it or not.",
+      "request": "Request an invitation",
+      "send": "Send an invitation"
+    },
     "language": "@:global.language",
     "learner": "@:learner._",
     "load": {
@@ -196,7 +201,6 @@
       "status": "@:general.status",
       "without_group": "Without group"
     },
-    "request_invite": "Request an invite",
     "schedule": {
       "_": "Schedule",
       "end": "End date",
@@ -238,7 +242,9 @@
   "error": {
     "_": "Error",
     "unexpected": "An unexpected error occurred, try again later.",
-    "ASSESSMENT_DELETE": "An unexpected error occurred while deleting the assessment.",
+    "ALREADY_REGISTERED": "The user is already registered to the course",
+    "ALREADY_REGISTERED_OR_INVITED": "The user is already registered or invited to the course",
+    "ASSESSMENT_DELETE": "An unexpected error occurred while deleting the assessment",
     "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
     "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
     "DUPLICATE_COURSES": "The same course cannot be used more than once",
@@ -247,6 +253,8 @@
     "INVALID_CREDENTIALS": "Invalid credentials",
     "INVALID_EMAIL_ADDRESS": "Invalid email address",
     "INVALID_PASSWORD": "Password not strong enough",
+    "INVITATION_SEND": "An unexpected error occurred while sending an invitation",
+    "INVITATION_SENDING_FAILED": "Impossible to send an invitation to this email",
     "INVITE_REQUEST_FAILED": "Invite request failed",
     "MISSING_BASIC_COMPETENCY": "There must be at least one basic competency",
     "MISSING_FIELDS": "Some mandatory fields are missing",
@@ -296,6 +304,7 @@
     "list": "List",
     "owner": "Owner",
     "reset": "Reset",
+    "send": "Send",
     "statistics": {
       "_": "Statistics"
     },
@@ -455,6 +464,7 @@
     "COURSE_ARCHIVED": "Course successfully archived!",
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
+    "INVITATION_SEND": "Invitation successfully sent!",
     "PROGRAM_CREATED": "Program successfully created!",
     "PROGRAM_PUBLISHED": "Program successfully published!",
     "REGISTERED": "Successfully registered!",
