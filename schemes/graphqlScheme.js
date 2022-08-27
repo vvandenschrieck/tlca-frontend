@@ -50,7 +50,6 @@ export default class GraphQLScheme extends RefreshScheme {
   async login(credentials, { reset = true } = {}) {
     const {
       apolloProvider: { defaultClient: apolloClient },
-      $apolloHelpers,
     } = this.$auth.ctx.app
 
     if (reset) {
@@ -67,7 +66,6 @@ export default class GraphQLScheme extends RefreshScheme {
     this.token.set(response.token)
     this.refreshToken.set(response.refreshToken)
 
-    await $apolloHelpers.onLogin(response.token)
     await this.fetchUser()
     return response.token
   }
@@ -75,7 +73,6 @@ export default class GraphQLScheme extends RefreshScheme {
   async logout() {
     const {
       apolloProvider: { defaultClient: apolloClient },
-      $apolloHelpers,
     } = this.$auth.ctx.app
 
     await apolloClient
@@ -84,7 +81,6 @@ export default class GraphQLScheme extends RefreshScheme {
       })
       .catch(() => {})
 
-    $apolloHelpers.onLogout()
     return this.$auth.reset({ resetInterceptor: false })
   }
 

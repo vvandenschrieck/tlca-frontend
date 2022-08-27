@@ -1,5 +1,6 @@
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory'
 import { fromPromise } from 'apollo-link'
+import { setContext } from 'apollo-link-context'
 import { onError } from 'apollo-link-error'
 
 const cache = new InMemoryCache({
@@ -21,6 +22,16 @@ const cache = new InMemoryCache({
 })
 
 export default (context) => {
+  const authLink = setContext((_, { headers }) => {
+    const token = context.$auth.strategy.token.get()
+    return {
+      headers: {
+        ...headers,
+        Authorization: token,
+      },
+    }
+  })
+
   const errorLink = onError((err) => {
     const { forward, graphQLErrors, operation } = err
 
@@ -55,6 +66,6 @@ export default (context) => {
   return {
     cache,
     httpEndpoint: context.$config.graphqlEndpoint,
-    link: errorLink,
+    link: authLink.concat(errorLink),
   }
 }
