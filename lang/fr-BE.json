@@ -78,7 +78,10 @@
       "visibility": "@:global.visibility._"
     },
     "learning_outcomes": {
-      "_": "Acquis d'apprentissage"
+      "_": "Acquis d'apprentissage",
+      "add": "Ajouter un acquis d'apprentissage",
+      "name": "@:global.name",
+      "no": "Il n'y a pas d'acquis d'apprentissage pour le moment."
     },
     "name": "@:global.name",
     "nb": "{nb} compétence | {nb} compétences",

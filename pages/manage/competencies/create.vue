@@ -68,7 +68,7 @@
                 <v-switch
                   v-model="isPublic"
                   :label="$t('competency.visibility.public')"
-                ></v-switch>
+                />
               </v-col>
             </v-row>
 
@@ -98,7 +98,12 @@
           </v-stepper-step>
 
           <v-stepper-content step="3">
-            <v-alert type="info" dense outlined>Upcoming feature</v-alert>
+            <competencies-select-learning-outcomes
+              v-model="learningOutcomes"
+              class="mb-3"
+              :disabled="formBusy"
+              vid="learningOutcomes"
+            />
           </v-stepper-content>
         </v-stepper>
 
@@ -108,7 +113,7 @@
             :disabled="formBusy"
             color="error"
             text
-            @click="reset()"
+            @click="reset"
           />
           <v-btn
             v-t="'general.create'"
@@ -137,6 +142,7 @@ export default {
       description: '',
       formBusy: false,
       formError: null,
+      learningOutcomes: [],
       name: '',
       partners: [],
       partnersList: [],
@@ -161,6 +167,7 @@ export default {
         const data = {
           code: this.code,
           description: this.description,
+          learningOutcomes: this.learningOutcomes,
           name: this.name,
           partners: this.partners,
           public: this.isPublic,
@@ -207,6 +214,7 @@ export default {
       this.code = ''
       this.description = ''
       this.formError = null
+      this.learningOutcomes = []
       this.name = ''
       this.partners = []
       this.isPublic = false

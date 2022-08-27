@@ -78,7 +78,10 @@
       "visibility": "@:global.visibility._"
     },
     "learning_outcomes": {
-      "_": "Learning outcomes"
+      "_": "Learning outcomes",
+      "add": "Add a learning outcome",
+      "name": "@:global.name",
+      "no": "There are no learning outcomes for now."
     },
     "name": "@:global.name",
     "nb": "{nb} competency | {nb} competencies",
