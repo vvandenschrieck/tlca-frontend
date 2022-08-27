@@ -72,6 +72,7 @@
       "partners": "Affiliations"
     },
     "description": "@:global.description._",
+    "edit": "@:general.edit une compétence",
     "filter": {
       "creator": "@:general.creator",
       "tags": "Tags",
@@ -289,7 +290,7 @@
     "create": "Créer",
     "creator": "Créateur",
     "delete": "Supprimer",
-    "edit": "Éditer",
+    "edit": "Modifier",
     "filter": {
       "_": "Filtre"
     },
@@ -320,7 +321,7 @@
   "global": {
     "banner": {
       "_": "Bannière",
-      "edit": "Éditer la bannière"
+      "edit": "@:general.edit la bannière"
     },
     "coordinator": "Coordinateur",
     "code": "Code",

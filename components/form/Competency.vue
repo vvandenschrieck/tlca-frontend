@@ -15,6 +15,7 @@
             <v-col cols="12" md="2">
               <v-text-field-with-validation
                 v-model="code"
+                :disabled="edit"
                 :label="$t('competency.code')"
                 required
                 rules="required|alpha_dash"
@@ -105,20 +106,12 @@
       </v-stepper>
 
       <div class="text-right mt-5">
-        <v-btn
-          v-t="'general.reset'"
-          :disabled="formBusy"
-          color="error"
-          text
-          @click="reset"
-        />
-        <v-btn
-          v-t="'general.create'"
-          type="submit"
-          :loading="formBusy"
-          color="primary"
-          text
-        />
+        <v-btn color="error" :disabled="formBusy" text @click="resetForm">
+          {{ $t('general.reset') }}
+        </v-btn>
+        <v-btn color="primary" :loading="formBusy" text type="submit">
+          {{ $t(`general.${action}`) }}
+        </v-btn>
       </div>
     </v-form>
   </ValidationObserver>
@@ -131,6 +124,10 @@ export default {
   name: 'FormCompetency',
   components: { ValidationObserver },
   props: {
+    competency: {
+      type: Object,
+      default: null,
+    },
     edit: {
       type: Boolean,
       default: false,
@@ -142,11 +139,11 @@ export default {
       description: '',
       formBusy: false,
       formError: null,
+      isPublic: false,
       learningOutcomes: [],
       name: '',
       partners: [],
       partnersList: [],
-      isPublic: false,
       tags: [],
       type: '',
     }
@@ -162,29 +159,37 @@ export default {
       ]
     },
   },
+  mounted() {
+    this.reset()
+  },
   methods: {
     reset() {
-      this.code = ''
-      this.description = ''
+      const competency = this.competency
+
+      this.code = competency?.code ?? ''
+      this.description = competency?.description ?? ''
+      this.isPublic = competency?.isPublic ?? false
+      this.learningOutcomes = competency?.learningOutcomes ?? []
+      this.name = competency?.name ?? ''
+      this.partners = competency?.partners.map((p) => p.code) ?? []
+      this.tags = competency?.tags ?? []
+      this.type = competency?.type ?? ''
+    },
+    resetForm() {
+      this.reset()
       this.formError = null
-      this.learningOutcomes = []
-      this.name = ''
-      this.partners = []
-      this.isPublic = false
-      this.tags = []
-      this.type = ''
     },
     async submit() {
       this.formBusy = true
 
       try {
         const data = {
-          code: this.code,
+          code: this.competency?.code ?? this.code,
           description: this.description,
           learningOutcomes: this.learningOutcomes,
           name: this.name,
           partners: this.partners,
-          isPublic: this.isPublic,
+          public: this.isPublic,
           tags: this.tags,
           type: this.type || undefined,
         }
@@ -210,7 +215,6 @@ export default {
           return
         }
       } catch (err) {
-        console.log(err)
         if (err.graphQLErrors?.length) {
           const gqlError = err.graphQLErrors[0]
           if (gqlError.extensions?.formErrors) {

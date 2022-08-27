@@ -64,7 +64,20 @@
             md="3"
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
-            <competency-info-panel v-if="competency" :competency="competency" />
+            <competency-info-panel :competency="competency" />
+
+            <v-btn
+              class="mt-5"
+              color="success"
+              small
+              :to="{
+                name: 'manage-competencies-code-edit',
+                params: { code: competency.code },
+              }"
+            >
+              <v-icon left>mdi-pencil</v-icon>
+              <span>{{ $t('general.edit') }}</span>
+            </v-btn>
           </v-col>
         </v-row>
       </div>

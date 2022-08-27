@@ -1,0 +1,23 @@
+mutation EditCompetency(
+  $code: ID!
+  $description: String
+  $learningOutcomes: [String!]
+  $name: String!
+  $partners: [ID!]
+  $public: Boolean
+  $tags: [String!]
+  $type: CompetencyType
+) {
+  editCompetency(
+    code: $code
+    description: $description
+    learningOutcomes: $learningOutcomes
+    name: $name
+    partners: $partners
+    public: $public
+    tags: $tags
+    type: $type
+  ) {
+    code
+  }
+}

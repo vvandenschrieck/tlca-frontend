@@ -72,6 +72,7 @@
       "partners": "Affiliations"
     },
     "description": "@:global.description._",
+    "edit": "@:general.edit a competency",
     "filter": {
       "creator": "@:general.creator",
       "tags": "Tags",
