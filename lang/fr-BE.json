@@ -20,6 +20,7 @@
       "stars": "Étoiles"
     },
     "create": "@:general.create une évaluation",
+    "create_event": "Créer un évènement",
     "deadline": {
       "_": "Échéance",
       "date": "Echéance : {deadline}"

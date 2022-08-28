@@ -20,6 +20,7 @@
       "stars": "Stars"
     },
     "create": "@:general.create an assessment",
+    "create_event": "Create an event",
     "deadline": {
       "_": "Deadline",
       "date": "Deadline : {deadline}"

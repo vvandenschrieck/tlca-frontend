@@ -69,6 +69,7 @@
           <v-stepper-content step="2">
             <select-assessment-competencies
               v-model="competencies"
+              class="mb-3"
               :disabled="formBusy"
               vid="competencies"
             />
@@ -86,13 +87,21 @@
                   :label="$t('assessment.schedule.start')"
                   vid="start"
                 />
-              </v-col>
 
-              <v-col cols="12" md="6">
                 <date-time-field-with-validation
                   v-model="end"
                   :label="$t('assessment.schedule.end')"
                   vid="end"
+                />
+              </v-col>
+
+              <v-col cols="12" md="1"></v-col>
+
+              <v-col cols="12" md="5">
+                <v-switch
+                  v-model="createEvent"
+                  :disabled="!canCreateEvent"
+                  :label="$t('assessment.create_event')"
                 />
               </v-col>
             </v-row>
@@ -105,6 +114,7 @@
           <v-stepper-content step="4">
             <v-switch
               v-model="hasOralDefense"
+              class="ml-3"
               :label="$t('assessment.oral_defense')"
             />
           </v-stepper-content>
@@ -191,6 +201,7 @@ export default {
       category: '',
       code: '',
       competencies: [{}],
+      createEvent: false,
       description: '',
       end: '',
       formBusy: false,
@@ -211,6 +222,9 @@ export default {
     }
   },
   computed: {
+    canCreateEvent() {
+      return this.start && this.end
+    },
     categories() {
       const categories = [
         'quiz',
@@ -246,6 +260,7 @@ export default {
         code: this.code,
         course: this.$route.params.code,
         competencies: this.competencies,
+        createEvent: this.createEvent,
         description: this.description,
         end: this.end,
         hasOralDefense: this.hasOralDefense,
@@ -294,6 +309,7 @@ export default {
       this.category = ''
       this.code = ''
       this.competencies = [{}]
+      this.createEvent = false
       this.description = ''
       this.end = ''
       this.formError = null
