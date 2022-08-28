@@ -1,7 +1,7 @@
 <template>
   <ApolloQuery
     v-slot="{ result: { error, data }, isLoading }"
-    :query="require('~/gql/teach/getCourseAssessments.gql')"
+    :query="require('~/gql/learn/getCourseAssessments.gql')"
     :variables="{ courseCode: $route.params.code }"
     @result="setTitle"
   >
@@ -28,7 +28,8 @@
                   :course-code="data.course?.code"
                   :items="data.assessments"
                   hide-actions
-                  link-prefix="teach"
+                  hide-visibility
+                  link-prefix="learn"
                 />
               </v-tab-item>
 
@@ -58,7 +59,7 @@
 
 <script>
 export default {
-  name: 'TeachCourseAssessmentsPage',
+  name: 'LearnCourseAssessmentsPage',
   data() {
     return {
       currentTab: 0,
@@ -67,7 +68,7 @@ export default {
   },
   head() {
     return {
-      title: this.title + ' | ' + this.$t('global.spaces.teach'),
+      title: this.title + ' | ' + this.$t('global.spaces.learn'),
     }
   },
   methods: {
@@ -76,7 +77,7 @@ export default {
     },
   },
   meta: {
-    roles: ['teacher'],
+    roles: ['student'],
   },
 }
 </script>

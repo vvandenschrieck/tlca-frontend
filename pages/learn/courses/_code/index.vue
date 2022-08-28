@@ -13,7 +13,21 @@
 
       <v-row>
         <v-col cols="12" md="9">
-          {{ course }}
+          <div>
+            {{ course }}
+          </div>
+
+          <div>
+            <v-btn
+              small
+              :to="{
+                name: 'learn-courses-code-assessments',
+                params: { code: $route.params.code },
+              }"
+            >
+              Assessments
+            </v-btn>
+          </div>
         </v-col>
 
         <v-col

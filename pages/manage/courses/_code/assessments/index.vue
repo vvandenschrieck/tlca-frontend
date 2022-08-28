@@ -37,7 +37,23 @@
                       <assessments-list
                         :course-code="course.code"
                         :items="course.assessments"
-                      />
+                        hide-openness
+                        hide-visibility
+                        link-prefix="manage"
+                      >
+                        <template
+                          #actions="{ item: { id, isClosed, isHidden } }"
+                        >
+                          <assessment-show-hide-btn
+                            :id="id"
+                            :is-hidden="isHidden"
+                          />
+                          <assessment-open-close-btn
+                            :id="id"
+                            :is-closed="isClosed"
+                          />
+                        </template>
+                      </assessments-list>
                     </div>
                     <div
                       v-else-if="

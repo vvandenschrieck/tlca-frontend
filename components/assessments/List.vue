@@ -1,60 +1,53 @@
 <template>
-  <div>
-    <!-- <generic-filter-bar
-      v-slot="{ filter: innerFilter, on }"
-      v-model="filter"
-      class="mt-1"
-      :create-link="{
-        name: 'teach-courses-code-evaluations-create',
-        params: { code: courseCode },
-      }"
-    >
-      <evaluations-filter
-        :course-code="courseCode"
-        :value="innerFilter"
-        v-on="on"
-      />
-    </generic-filter-bar> -->
+  <v-data-table
+    v-if="items"
+    :group-by="groupByCategory ? 'categoryText' : null"
+    :group-desc="false"
+    :headers="dataHeaders"
+    :items="assessments"
+    :items-per-page="5"
+    @click:row="goToAssessment"
+  >
+    <template #group.header="{ group, headers, isOpen, toggle }">
+      <td :colspan="headers.length">
+        <v-row align="center">
+          <v-col class="group-header">
+            <b>{{ group }}</b>
+          </v-col>
 
-    <v-data-table
-      v-if="items"
-      :headers="dataHeaders"
-      :items="assessments"
-      :items-per-page="5"
-      @click:row="goToAssessment"
-    >
-      <template #item.name="{ item: assessment }">
-        {{ assessmentName(assessment) }}
-      </template>
+          <v-col align="right">
+            <v-btn icon @click="toggle">
+              <v-icon>{{ `mdi-chevron-${isOpen ? 'up' : 'down'}` }}</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </td>
+    </template>
 
-      <template #item.category="{ value: category }">
-        {{ $t(`assessment.category.${category.toLowerCase()}`) }}
-      </template>
+    <template #footer.prepend>
+      <v-switch v-model="groupByCategory" dense>
+        <span slot="label" class="text-subtitle-2">
+          {{ $t('assessment.group_by_category') }}
+        </span>
+      </v-switch>
+    </template>
 
-      <template #item.actions="{ item: { id, isClosed, isHidden } }">
-        <ApolloMutation
-          v-slot="{ mutate, loading }"
-          :mutation="require('../../gql/manage/showHideAssessment.gql')"
-          tag="span"
-          :variables="{ id }"
-        >
-          <v-btn icon :loading="loading" small @click.stop="mutate">
-            <v-icon small>{{ isHidden ? 'mdi-eye-off' : 'mdi-eye' }}</v-icon>
-          </v-btn>
-        </ApolloMutation>
-        <ApolloMutation
-          v-slot="{ mutate, loading }"
-          :mutation="require('../../gql/manage/openCloseAssessment.gql')"
-          tag="span"
-          :variables="{ id }"
-        >
-          <v-btn icon :loading="loading" small @click.stop="mutate">
-            <v-icon small>{{ isClosed ? 'mdi-lock' : 'mdi-lock-open' }}</v-icon>
-          </v-btn>
-        </ApolloMutation>
-      </template>
-    </v-data-table>
-  </div>
+    <template #item.name="{ item: assessment }">
+      {{ assessmentName(assessment) }}
+    </template>
+
+    <template #item.category="{ item: { categoryText } }">
+      {{ categoryText }}
+    </template>
+
+    <template #item.isHidden="{ value: isHidden }">
+      <v-icon small>{{ isHidden ? 'mdi-eye-off' : 'mdi-eye' }}</v-icon>
+    </template>
+
+    <template v-if="!hideActions" #item.actions="{ item }">
+      <slot name="actions" :item="item" />
+    </template>
+  </v-data-table>
 </template>
 
 <script>
@@ -65,14 +58,43 @@ export default {
       type: String,
       required: true,
     },
+    hideActions: {
+      type: Boolean,
+      default: false,
+    },
+    hideOpenness: {
+      type: Boolean,
+      default: false,
+    },
+    hideVisibility: {
+      type: Boolean,
+      default: false,
+    },
     items: {
       type: Array,
       required: true,
     },
+    linkPrefix: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      groupByCategory: false,
+    }
   },
   computed: {
+    assessments() {
+      return this.items.map((i) => ({
+        ...i,
+        categoryText: this.$t(
+          `assessment.category.${i.category.toLowerCase()}`
+        ),
+      }))
+    },
     dataHeaders() {
-      return [
+      const headers = [
         {
           text: this.$t('assessment.name'),
           value: 'name',
@@ -81,26 +103,41 @@ export default {
           text: this.$t('assessment.category._'),
           value: 'category',
         },
-        {
+      ]
+
+      if (!this.hideVisibility) {
+        headers.push({
+          text: this.$t('assessment.visibility'),
+          value: 'isHidden',
+        })
+      }
+
+      if (!this.hideActions) {
+        headers.push({
           cellClass: 'text-right',
           class: 'text-right',
           sortable: false,
           text: this.$tc('general.action', 2),
           value: 'actions',
-        },
-      ]
-    },
-    assessments() {
-      return this.items
+        })
+      }
+
+      return headers
     },
   },
   methods: {
     assessmentName(assessment) {
-      return (assessment.code ? `${assessment.code} – ` : '') + assessment.name
+      const closed =
+        !this.hideOpenness && assessment.isClosed
+          ? `[${this.$t('assessment.closed')}] `
+          : ''
+      const prefix = assessment.code ? `${assessment.code} – ` : ''
+
+      return closed + prefix + assessment.name
     },
     goToAssessment({ id }) {
       this.$router.push({
-        name: 'manage-courses-code-assessments-id',
+        name: `${this.linkPrefix}-courses-code-assessments-id`,
         params: { code: this.courseCode, id },
       })
     },

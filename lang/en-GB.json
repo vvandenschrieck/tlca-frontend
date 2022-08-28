@@ -11,6 +11,7 @@
       "project": "Project",
       "quiz": "Quiz"
     },
+    "closed": "Closed",
     "code": "@:global.code",
     "competencies": {
       "_": "Competencies",
@@ -29,6 +30,7 @@
     },
     "description": "@:global.description._",
     "filter_by_competency": "Filter by competency",
+    "group_by_category": "Group by category",
     "load": {
       "_": "@:global.workload",
       "defense": "Oral defense",
@@ -39,6 +41,7 @@
     "nb": "{nb} evaluation | {nb} evaluations",
     "nb_of": "Number of assessments",
     "no": "There are no assessment for now",
+    "openness": "Openness",
     "oral_defense": "Oral defense",
     "schedule": {
       "_": "Schedule",
@@ -49,7 +52,8 @@
     "start": {
       "_": "Opening",
       "date": "Opens on : {start}"
-    }
+    },
+    "visibility": "@:global.visibility._"
   },
   "authentication": {
     "sign_in": "Sign in",
