@@ -61,6 +61,9 @@
     "sign_out": "Sign out",
     "sign_up": "Sign up"
   },
+  "calendar": {
+    "_": "Calendar"
+  },
   "competency": {
     "_": "Competency | Competencies",
     "category": {
@@ -318,6 +321,7 @@
       "_": "Statistics"
     },
     "status": "Status",
+    "today": "Today",
     "update": "Update",
     "upload": "Upload",
     "upload_click_drag": "Click or drag the file here to upload",

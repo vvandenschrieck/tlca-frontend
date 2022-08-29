@@ -15,6 +15,7 @@ export default {
       partTitles: {
         admin: () => this.$t('global.spaces.admin'),
         assessments: () => this.$tc('assessment._', 2),
+        calendar: () => this.$t('calendar._'),
         competencies: () => this.$tc('competency._', 2),
         courses: () => this.$tc('course._', 2),
         create: () => this.$t('general.create'),

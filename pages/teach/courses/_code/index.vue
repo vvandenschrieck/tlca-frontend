@@ -44,6 +44,16 @@
           >
             Evaluations
           </v-btn>
+
+          <v-btn
+            small
+            :to="{
+              name: 'teach-courses-code-calendar',
+              params: { code: $route.params.code },
+            }"
+          >
+            Calendar
+          </v-btn>
         </v-col>
 
         <v-col

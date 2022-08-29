@@ -1,0 +1,18 @@
+query GetCourseCalendar($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    isCoordinator
+    isTeacher
+    name
+    schedule {
+      name
+      datetime
+    }
+  }
+
+  events(courseCode: $courseCode) {
+    end
+    start
+    title
+  }
+}

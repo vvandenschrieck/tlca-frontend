@@ -3,6 +3,7 @@ mutation CreateAssessment(
   $code: String
   $competencies: [AssessmentCompetencyInput!]!
   $course: ID!
+  $createEvent: Boolean
   $description: String!
   $end: DateTime
   $hasOralDefense: Boolean
@@ -15,6 +16,7 @@ mutation CreateAssessment(
     code: $code
     competencies: $competencies
     course: $course
+    createEvent: $createEvent
     description: $description
     end: $end
     hasOralDefense: $hasOralDefense
