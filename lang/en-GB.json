@@ -391,6 +391,8 @@
     "_": "Partner | Partners",
     "abbreviation": "Abbreviation",
     "code": "@:global.code",
+    "create": "@:general.create a partner",
+    "description": "@:global.description",
     "name": "@:global.name",
     "no": "There are no partners available for now.",
     "website": "Website"

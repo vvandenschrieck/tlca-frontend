@@ -1,0 +1,17 @@
+mutation CreatePartner(
+  $abbreviation: String
+  $code: ID!
+  $description: String
+  $name: String!
+  $website: String
+) {
+  createPartner(
+    abbreviation: $abbreviation
+    code: $code
+    description: $description
+    name: $name
+    website: $website
+  ) {
+    code
+  }
+}

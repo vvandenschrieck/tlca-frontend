@@ -5,5 +5,8 @@
 <script>
 export default {
   name: 'ManagePartnersPage',
+  meta: {
+    roles: ['manager'],
+  },
 }
 </script>
