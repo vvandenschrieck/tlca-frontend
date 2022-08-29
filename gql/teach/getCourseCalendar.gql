@@ -12,7 +12,9 @@ query GetCourseCalendar($courseCode: ID!) {
 
   events(courseCode: $courseCode) {
     end
+    id
     start
     title
+    type
   }
 }

@@ -10,7 +10,11 @@
     <v-row v-if="!error">
       <v-col cols="12" md="9">
         <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-        <events-calendar v-if="data?.events" :items="data.events" />
+        <events-calendar
+          v-if="data?.events"
+          :course-code="$route.params.code"
+          :items="data.events"
+        />
       </v-col>
 
       <v-col
