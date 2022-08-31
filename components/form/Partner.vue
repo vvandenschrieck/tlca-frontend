@@ -1,79 +1,97 @@
 <template>
   <ValidationObserver ref="form" v-slot="{ handleSubmit }">
-    <v-form :disabled="formBusy" @submit.prevent="handleSubmit(submit)">
+    <v-form
+      :disabled="formBusy"
+      @submit.prevent="
+        formSubmitted = true
+        handleSubmit(submit)
+      "
+    >
       <v-alert v-if="formError" class="mt-5" dense outlined type="error">
         {{ $t(formError) }}
       </v-alert>
 
       <v-stepper non-linear vertical>
-        <v-stepper-step editable step="1">
-          {{ $t('general.information.general') }}
-        </v-stepper-step>
+        <ValidationObserver v-slot="{ touched, valid }">
+          <v-stepper-step
+            editable
+            step="1"
+            :rules="[() => !((touched || formSubmitted) && !valid)]"
+          >
+            {{ $t('general.information.general') }}
+          </v-stepper-step>
 
-        <v-stepper-content step="1">
-          <v-row>
-            <v-col cols="12" md="2">
-              <v-text-field-with-validation
-                v-model="code"
-                :disabled="edit"
-                :label="$t('partner.code')"
-                required
-                rules="required|alpha_dash"
-                vid="code"
-              />
-            </v-col>
+          <v-stepper-content step="1">
+            <v-row>
+              <v-col cols="12" md="2">
+                <v-text-field-with-validation
+                  v-model="code"
+                  :disabled="edit"
+                  :label="$t('partner.code')"
+                  required
+                  rules="required|alpha_dash"
+                  vid="code"
+                />
+              </v-col>
 
-            <v-col cols="12" md="10">
-              <v-text-field-with-validation
-                v-model="name"
-                :label="$t('partner.name')"
-                required
-                rules="required"
-                vid="name"
-              />
-            </v-col>
-          </v-row>
+              <v-col cols="12" md="10">
+                <v-text-field-with-validation
+                  v-model="name"
+                  :label="$t('partner.name')"
+                  required
+                  rules="required"
+                  vid="name"
+                />
+              </v-col>
+            </v-row>
 
-          <v-row>
-            <v-col cols="12" md="12">
-              <v-textarea-with-validation
-                v-model="description"
-                auto-grow
-                clear-icon="mdi-close-circle"
-                clearable
-                filled
-                :label="$t('partner.description._')"
-                required
-                rules="required"
-                vid="description"
-              />
-            </v-col>
-          </v-row>
-        </v-stepper-content>
+            <v-row>
+              <v-col cols="12" md="12">
+                <v-textarea-with-validation
+                  v-model="description"
+                  auto-grow
+                  clear-icon="mdi-close-circle"
+                  clearable
+                  filled
+                  :label="$t('partner.description._')"
+                  required
+                  rules="required"
+                  vid="description"
+                />
+              </v-col>
+            </v-row>
+          </v-stepper-content>
+        </ValidationObserver>
 
-        <v-stepper-step editable step="2">
-          {{ $t('general.information.additional') }}
-        </v-stepper-step>
+        <ValidationObserver v-slot="{ touched, valid }">
+          <v-stepper-step
+            editable
+            step="2"
+            :rules="[() => !((touched || formSubmitted) && !valid)]"
+          >
+            {{ $t('general.information.additional') }}
+          </v-stepper-step>
 
-        <v-stepper-content step="2">
-          <v-row>
-            <v-col cols="12" md="4">
-              <v-text-field-with-validation
-                v-model="abbreviation"
-                :label="$t('partner.abbreviation')"
-                vid="abbreviation"
-              />
-            </v-col>
+          <v-stepper-content step="2">
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-text-field-with-validation
+                  v-model="abbreviation"
+                  :label="$t('partner.abbreviation')"
+                  vid="abbreviation"
+                />
+              </v-col>
 
-            <v-col cols="12" md="8">
-              <v-text-field-with-validation
-                v-model="website"
-                :label="$t('partner.website')"
-                vid="website"
-              />
-            </v-col>
-          </v-row>
-        </v-stepper-content>
+              <v-col cols="12" md="8">
+                <v-text-field-with-validation
+                  v-model="website"
+                  :label="$t('partner.website')"
+                  vid="website"
+                />
+              </v-col>
+            </v-row>
+          </v-stepper-content>
+        </ValidationObserver>
       </v-stepper>
 
       <div class="text-right mt-5">
@@ -111,6 +129,7 @@ export default {
       description: '',
       formBusy: false,
       formError: null,
+      formSubmitted: false,
       name: '',
       website: '',
     }
@@ -136,9 +155,12 @@ export default {
     resetForm() {
       this.reset()
       this.formError = null
+      this.formSubmitted = false
+      this.$refs.form.reset()
     },
     async submit() {
       this.formBusy = true
+      this.formSubmitted = true
 
       try {
         const data = {
