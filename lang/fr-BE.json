@@ -136,7 +136,8 @@
       "_": "Compétences",
       "add": "Ajouter une compétence",
       "category": "Catégorie",
-      "subcategory": "Sous-catégorie"
+      "subcategory": "Sous-catégorie",
+      "use_lo": "Utiliser les AA"
     },
     "competency_coverage": "Couverture des compétences",
     "coordinator": "@:global.coordinator",

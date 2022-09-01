@@ -136,7 +136,8 @@
       "_": "Competencies",
       "add": "Add a competency",
       "category": "Category",
-      "subcategory": "Subcategory"
+      "subcategory": "Subcategory",
+      "use_lo": "Use LO"
     },
     "competency_coverage": "Competency coverage",
     "coordinator": "@:global.coordinator",
