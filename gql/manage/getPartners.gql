@@ -1,5 +1,5 @@
 query GetPartners {
-  partners(view: USER) {
+  partners(view: MANAGER) {
     abbreviation
     banner
     code
