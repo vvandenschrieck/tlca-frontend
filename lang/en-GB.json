@@ -16,6 +16,7 @@
     "competencies": {
       "_": "Competencies",
       "add": "Add a competency",
+      "max_stars": "Max stars",
       "optional": "Optional",
       "stars": "Stars"
     },

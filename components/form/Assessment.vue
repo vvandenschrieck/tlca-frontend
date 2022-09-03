@@ -264,6 +264,7 @@ export default {
       this.competencies = assessment?.competencies.map((c) => ({
         competency: c.competency.code,
         isOptional: c.isOptional,
+        maxStars: c.maxStars,
         stars: c.stars,
       })) ?? [{}]
       //   this.createEvent = false
@@ -296,6 +297,7 @@ export default {
       }
       const competencies = this.competencies.map((c) => ({
         competency: c.competency,
+        maxStars: c.maxStars,
         optional: c.isOptional,
         stars: c.stars,
       }))
