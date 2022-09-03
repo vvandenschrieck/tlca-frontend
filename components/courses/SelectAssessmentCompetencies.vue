@@ -62,9 +62,9 @@
               <v-simple-checkbox
                 dense
                 hide-details
-                :value="competency.optional"
-                :vid="`competency-optional-${index}`"
-                @input="update(index, 'optional', $event)"
+                :value="competency.isOptional"
+                :vid="`competency-isOptional-${index}`"
+                @input="update(index, 'isOptional', $event)"
               />
             </v-col>
 

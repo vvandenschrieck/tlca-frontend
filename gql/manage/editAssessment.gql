@@ -1,0 +1,33 @@
+mutation EditAssessment(
+  $category: AssessmentCategory!
+  $code: String
+  $competencies: [AssessmentCompetencyInput!]!
+  $createEvent: Boolean
+  $description: String!
+  $end: DateTime
+  $id: ID!
+  $incremental: Boolean
+  $instances: Int
+  $load: AssessmentLoadInput
+  $name: String!
+  $oralDefense: Boolean
+  $start: DateTime
+) {
+  editAssessment(
+    category: $category
+    code: $code
+    competencies: $competencies
+    createEvent: $createEvent
+    description: $description
+    end: $end
+    id: $id
+    incremental: $incremental
+    instances: $instances
+    load: $load
+    name: $name
+    oralDefense: $oralDefense
+    start: $start
+  ) {
+    id
+  }
+}

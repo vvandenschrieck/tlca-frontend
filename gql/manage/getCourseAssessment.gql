@@ -5,11 +5,27 @@ query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
   }
 
   assessment(id: $assessmentId) {
+    category
     code
+    competencies {
+      competency {
+        code
+        name
+      }
+      isOptional
+      stars
+    }
     description
     end
+    hasOralDefense
     id
     instances
+    isIncremental
+    load {
+      defense
+      grading
+      work
+    }
     name
     start
     type

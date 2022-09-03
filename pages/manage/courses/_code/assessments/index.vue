@@ -1,109 +1,92 @@
 <template>
   <ApolloQuery
+    v-slot="{ isLoading, result: { data, error } }"
     :query="require('~/gql/manage/getCourseAssessments.gql')"
-    :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ courseCode: $route.params.code }"
+    @result="setTitle"
   >
-    <template #default="{ result: { error, data: course }, isLoading }">
-      <div v-if="isLoading">{{ $t('global.loading') }}</div>
+    <h2>{{ title }}</h2>
 
-      <div v-else-if="course">
-        <h2>
-          {{ course.name }} -
-          {{ $tc('assessment._', course.assessments.length) }}
-        </h2>
-        <v-row>
-          <v-col cols="12" md="9">
-            <v-card>
-              <v-tabs v-model="currentTab" show-arrows>
-                <v-tab>
-                  {{ $tc('assessment._', course.assessments.length) }}
-                </v-tab>
-                <v-tab
-                  v-if="
-                    course.competencies?.length && course.assessments?.length
-                  "
+    <v-row v-if="!error">
+      <v-col cols="12" md="9">
+        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
+
+        <v-card>
+          <v-tabs v-model="currentTab" show-arrows>
+            <v-tab>
+              {{ $tc('assessment._', data?.assessments?.length) }}
+            </v-tab>
+
+            <!-- <v-tab v-if="data.assessments?.length"> -->
+            <v-tab>
+              {{ $t('course.assessments.coverage') }}
+            </v-tab>
+
+            <!-- <v-tab v-if="hasTimeline(data.course, data.assessments)"> -->
+            <v-tab>
+              {{ $t('course.assessments.timeline') }}
+            </v-tab>
+          </v-tabs>
+
+          <v-card-text class="text--primary">
+            <v-tabs-items v-model="currentTab">
+              <v-tab-item>
+                <assessments-list
+                  v-if="data"
+                  :course-code="data.course?.code"
+                  :items="data.assessments"
+                  hide-openness
+                  hide-visibility
+                  link-prefix="manage"
                 >
-                  {{ $t('course.competency_coverage') }}
-                </v-tab>
-                <v-tab v-if="course.assessments?.length && hasTimeline(course)">
-                  {{ $t('course.assessments_timeline') }}
-                </v-tab>
-              </v-tabs>
-              <v-card-text class="text--primary">
-                <v-tabs-items v-model="currentTab">
-                  <v-tab-item>
-                    <div v-if="course.assessments?.length">
-                      <assessments-list
-                        :course-code="course.code"
-                        :items="course.assessments"
-                        hide-openness
-                        hide-visibility
-                        link-prefix="manage"
-                      >
-                        <template
-                          #actions="{ item: { id, isClosed, isHidden } }"
-                        >
-                          <assessment-show-hide-btn
-                            :id="id"
-                            :is-hidden="isHidden"
-                          />
-                          <assessment-open-close-btn
-                            :id="id"
-                            :is-closed="isClosed"
-                          />
-                        </template>
-                      </assessments-list>
-                    </div>
-                    <div
-                      v-else-if="
-                        course.assessments && !course.assessments.length
-                      "
-                    >
-                      {{ $t('assessment.no') }}
-                    </div>
-                  </v-tab-item>
-                  <v-tab-item
-                    v-if="
-                      course.competencies?.length && course.assessments?.length
-                    "
-                  >
-                    <competency-coverage
-                      :competencies="course.competencies"
-                      :assessments="course.assessments"
-                    />
-                  </v-tab-item>
-                  <v-tab-item
-                    v-if="course.assessments?.length && hasTimeline(course)"
-                  >
-                    <assessments-timeline
-                      :assessments="course.assessments"
-                      :schedule="course.schedule"
-                      :code="course.code"
-                    />
-                  </v-tab-item>
-                </v-tabs-items>
-              </v-card-text>
-            </v-card>
-            <!-- <v-skeleton-loader v-else type="table" /> -->
-          </v-col>
+                  <template #actions="{ item: { id, isClosed, isHidden } }">
+                    <assessment-show-hide-btn :id="id" :is-hidden="isHidden" />
+                    <assessment-open-close-btn :id="id" :is-closed="isClosed" />
+                  </template>
+                </assessments-list>
+              </v-tab-item>
 
-          <v-col
-            cols="12"
-            md="3"
-            :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-          >
-            <assessments-list-info-panel
-              v-if="course.assessments"
-              :assessments="course.assessments"
-              :code="course.code"
-            />
-          </v-col>
-        </v-row>
-      </div>
+              <v-tab-item>
+                <competency-coverage
+                  v-if="data"
+                  :competencies="data.course.competencies"
+                  :assessments="data.assessments"
+                />
+              </v-tab-item>
 
-      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
-    </template>
+              <v-tab-item>
+                <assessments-timeline
+                  v-if="data"
+                  :assessments="data.assessments"
+                  :schedule="data.course.schedule"
+                  :code="data.course.code"
+                />
+              </v-tab-item>
+            </v-tabs-items>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col
+        cols="12"
+        md="3"
+        :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+      >
+        <assessments-list-info-panel
+          v-if="data?.assessments"
+          :assessments="data.assessments"
+          class="mb-5"
+          :code="data.course.code"
+        />
+
+        <course-schedule-panel
+          :loading="!!isLoading"
+          :schedule="data?.course.schedule"
+        />
+      </v-col>
+    </v-row>
+
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
@@ -112,25 +95,34 @@ export default {
   name: 'ManageCourseAssessmentsPage',
   data() {
     return {
-      currentTab: '0',
+      currentTab: 0,
+      title: '',
+    }
+  },
+  head() {
+    return {
+      title: this.title + ' | ' + this.$t('global.spaces.teach'),
     }
   },
   methods: {
-    hasTimeline(course) {
-      if (!course.assessments?.length) {
-        return false
-      }
+    // hasTimeline(course, assessments) {
+    //   if (!assessments?.length) {
+    //     return false
+    //   }
 
-      const hasMinDate =
-        course.schedule?.some(({ name }) => name === 'start') ||
-        course.assessments.some((a) => a.start)
+    //   const hasMinDate =
+    //     course.schedule?.some(({ name }) => name === 'start') ||
+    //     assessments.some((a) => a.start)
 
-      const hasMaxDate =
-        course.schedule?.some(
-          ({ name }) => name === 'end' || name === 'evaluationsEnd'
-        ) || course.assessments.some((a) => a.end)
+    //   const hasMaxDate =
+    //     course.schedule?.some(
+    //       ({ name }) => name === 'end' || name === 'evaluationsEnd'
+    //     ) || assessments.some((a) => a.end)
 
-      return hasMinDate && hasMaxDate
+    //   return hasMinDate && hasMaxDate
+    // },
+    setTitle({ data }) {
+      this.title = data?.course.name ?? ''
     },
   },
   meta: {

@@ -30,6 +30,7 @@
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette évaluation ?"
     },
     "description": "@:global.description._",
+    "edit": "@:general.edit une évaluation",
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
     "incremental": "Incrémental",
@@ -136,10 +137,11 @@
     },
     "assessments": {
       "_": "@:assessment._",
-      "list": "Liste des évaluations"
+      "coverage": "Couverture",
+      "list": "Liste des évaluations",
+      "timeline": "Ligne du temps"
     },
     "assessments_list": "Liste des évaluations du cours",
-    "assessments_timeline": "Ligne du temps des évaluations",
     "clone": {
       "_": "Cloner",
       "dialog_instructions": "Entrer le code à utiliser pour le cours cloné (choisissez-en un non existant). Laisser vide pour auto-générer."
@@ -153,7 +155,6 @@
       "subcategory": "Sous-catégorie",
       "use_lo": "Utiliser les AA"
     },
-    "competency_coverage": "Couverture des compétences",
     "coordinator": "@:global.coordinator",
     "create": "@:general.create un cours",
     "description": "@:global.description._",
@@ -489,7 +490,9 @@
   },
   "success": {
     "_": "Succès",
-    "ASSESSMENT_DELETE": "Évaluation supprimée avec succès !",
+    "ASSESSMENT_CREATE": "Évaluation créée avec succès",
+    "ASSESSMENT_DELETE": "Évaluation supprimée avec succès",
+    "ASSESSMENT_EDIT": "Évaluation modifiée avec succès",
     "BANNER_UPDATED": "Bannière mise à jour avec succès !",
     "COMPETENCY_CREATED": "Compétence créée avec succès !",
     "COURSE_ARCHIVED": "Cours archivé avec succès !",

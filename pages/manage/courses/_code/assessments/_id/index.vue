@@ -54,6 +54,19 @@
               @success="deleteSuccess"
               @error="deleteError"
             />
+
+            <v-btn
+              class="mt-5"
+              color="success"
+              small
+              :to="{
+                name: 'manage-courses-code-assessments-id-edit',
+                params: { code: data.course.code, id: data.assessment.id },
+              }"
+            >
+              <v-icon left>mdi-pencil</v-icon>
+              <span>{{ $t('general.edit') }}</span>
+            </v-btn>
           </v-col>
         </v-row>
       </div>
