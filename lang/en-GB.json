@@ -33,7 +33,12 @@
     "filter_by_competency": "Filter by competency",
     "group_by_category": "Group by category",
     "incremental": "Incremental",
-    "instances": "Instances",
+    "instances": {
+      "_": "Instances",
+      "infinite": "Infinite",
+      "max_nb": "Maximal number of instances",
+      "nb": "{n} instance | {n} instances"
+    },
     "load": {
       "_": "@:global.workload",
       "defense": "Oral defense",
@@ -57,6 +62,12 @@
       "date": "Opens on : {start}"
     },
     "takes": "Takes",
+    "type": {
+      "_": "@:global.type._",
+      "incremental": "Incremental",
+      "phased": "Phased",
+      "single_take": "Single take"
+    },
     "visibility": "@:global.visibility._"
   },
   "authentication": {

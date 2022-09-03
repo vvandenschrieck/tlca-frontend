@@ -22,7 +22,25 @@ export default {
     items() {
       const items = []
 
-      // Assessment calendar
+      // Assessment instances.
+      const instances = this.assessment.instances
+      items.push({
+        icon: 'mdi-layers-triple',
+        text: instances
+          ? this.$tc('assessment.instances.nb', instances, { n: instances })
+          : this.$t('assessment.instances.infinite'),
+        tooltip: this.$t('assessment.instances.max_nb'),
+      })
+
+      // Assessment type.
+      const type = this.assessment.type
+      items.push({
+        icon: 'mdi-multiplication-box',
+        text: this.$t(`assessment.type.${type.toLowerCase()}`),
+        tooltip: this.$t('assessment.type._'),
+      })
+
+      // Assessment schedule.
       if (this.assessment.start) {
         items.push({
           icon: 'mdi-calendar',

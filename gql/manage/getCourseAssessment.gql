@@ -6,10 +6,12 @@ query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
 
   assessment(id: $assessmentId) {
     code
-    id
-    name
     description
-    start
     end
+    id
+    instances
+    name
+    start
+    type
   }
 }

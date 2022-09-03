@@ -33,7 +33,12 @@
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
     "incremental": "Incrémental",
-    "instances": "Instances",
+    "instances": {
+      "_": "Instances",
+      "infinite": "Infini",
+      "max_nb": "Nombre d'instances max",
+      "nb": "{n} instance | {n} instances"
+    },
     "load": {
       "_": "@:global.workload",
       "defense": "Défense orale",
@@ -57,6 +62,12 @@
       "date": "Ouverture : {start}"
     },
     "takes": "Passages",
+    "type": {
+      "_": "@:global.type._",
+      "incremental": "Incrémental",
+      "phased": "Phasé",
+      "single_take": "Passage unique"
+    },
     "visibility": "@:global.visibility._"
   },
   "authentication": {
