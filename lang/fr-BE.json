@@ -32,6 +32,8 @@
     "description": "@:global.description._",
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
+    "incremental": "Incrémental",
+    "instances": "Instances",
     "load": {
       "_": "@:global.workload",
       "defense": "Défense orale",
@@ -54,6 +56,7 @@
       "_": "Date d'ouverture",
       "date": "Ouverture : {start}"
     },
+    "takes": "Passages",
     "visibility": "@:global.visibility._"
   },
   "authentication": {
@@ -315,6 +318,7 @@
       "optional": "@:general.information._ optionnelle"
     },
     "list": "Liste",
+    "max_nb": "Nombre maximal",
     "owner": "Propriétaire",
     "reset": "Réinitialiser",
     "send": "Envoyer",

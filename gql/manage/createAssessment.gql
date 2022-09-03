@@ -6,9 +6,11 @@ mutation CreateAssessment(
   $createEvent: Boolean
   $description: String!
   $end: DateTime
-  $hasOralDefense: Boolean
+  $incremental: Boolean
+  $instances: Int
   $load: AssessmentLoadInput
   $name: String!
+  $oralDefense: Boolean
   $start: DateTime
 ) {
   createAssessment(
@@ -19,9 +21,11 @@ mutation CreateAssessment(
     createEvent: $createEvent
     description: $description
     end: $end
-    hasOralDefense: $hasOralDefense
+    incremental: $incremental
+    instances: $instances
     load: $load
     name: $name
+    oralDefense: $oralDefense
     start: $start
   ) {
     id
