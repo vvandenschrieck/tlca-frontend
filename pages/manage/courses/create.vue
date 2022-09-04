@@ -238,7 +238,7 @@
 
             <v-row>
               <v-col cols="12" md="4">
-                <date-time-field-with-validation
+                <date-time-picker-with-validation
                   v-model="schedule.start"
                   :label="$t('course.schedule.start')"
                   vid="schedule-start"
@@ -246,7 +246,7 @@
               </v-col>
 
               <v-col cols="12" md="4">
-                <date-time-field-with-validation
+                <date-time-picker-with-validation
                   v-model="schedule.registrationsStart"
                   :label="$t('course.schedule.registrationsStart')"
                   vid="schedule-registrationsStart"
@@ -256,7 +256,7 @@
 
             <v-row>
               <v-col cols="12" md="4">
-                <date-time-field-with-validation
+                <date-time-picker-with-validation
                   v-model="schedule.end"
                   :label="$t('course.schedule.end')"
                   vid="schedule-end"
@@ -264,7 +264,7 @@
               </v-col>
 
               <v-col cols="12" md="4">
-                <date-time-field-with-validation
+                <date-time-picker-with-validation
                   v-model="schedule.registrationsEnd"
                   :label="$t('course.schedule.registrationsEnd')"
                   vid="schedule-registrationsEnd"
@@ -272,7 +272,7 @@
               </v-col>
 
               <v-col cols="12" md="4">
-                <date-time-field-with-validation
+                <date-time-picker-with-validation
                   v-model="schedule.evaluationsEnd"
                   class="align-self-end d-block"
                   :label="$t('course.schedule.evaluationsEnd')"

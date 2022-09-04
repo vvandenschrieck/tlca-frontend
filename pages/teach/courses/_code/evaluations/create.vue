@@ -44,7 +44,7 @@
             <div v-show="showAllForm">
               <v-row>
                 <v-col cols="12" md="6">
-                  <date-time-field-with-validation
+                  <date-time-picker-with-validation
                     v-model="evalDate"
                     :label="$t('evaluation.date')"
                     vid="evalDate"

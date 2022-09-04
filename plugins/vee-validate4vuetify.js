@@ -4,7 +4,7 @@ import Vue from 'vue'
 
 import { ValidationProvider } from 'vee-validate'
 import { VAutocomplete, VSelect, VTextarea, VTextField } from 'vuetify/lib'
-import DateTimeField from '@/components/base/DateTimeField.vue'
+import DateTimePicker from '@/components/base/DateTimePicker.vue'
 import PasswordField from '@/components/base/PasswordField.vue'
 import StarsField from '@/components/base/StarsField.vue'
 
@@ -13,7 +13,10 @@ Vue.component('v-autocomplete-with-validation', withValidation(VAutocomplete))
 Vue.component('v-select-with-validation', withValidation(VSelect))
 Vue.component('v-text-field-with-validation', withValidation(VTextField))
 Vue.component('v-textarea-with-validation', withValidation(VTextarea))
-Vue.component('date-time-field-with-validation', withValidation(DateTimeField))
+Vue.component(
+  'date-time-picker-with-validation',
+  withValidation(DateTimePicker)
+)
 Vue.component('password-field-with-validation', withValidation(PasswordField))
 Vue.component('stars-field-with-validation', withValidation(StarsField))
 
