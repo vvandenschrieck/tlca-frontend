@@ -92,13 +92,13 @@
         <stepper-step step="4" :title="$t('assessment.schedule._')">
           <v-row>
             <v-col cols="12" md="6">
-              <date-time-field-with-validation
+              <date-time-picker-with-validation
                 v-model="start"
                 :label="$t('assessment.schedule.start')"
                 vid="start"
               />
 
-              <date-time-field-with-validation
+              <date-time-picker-with-validation
                 v-model="end"
                 :label="$t('assessment.schedule.end')"
                 vid="end"
@@ -262,11 +262,16 @@ export default {
       this.category = assessment?.category ?? ''
       this.code = assessment?.code ?? ''
       this.competencies = assessment?.competencies.map((c) => ({
+        ...c,
+        checklist: c.checklist
+          ? {
+              private: c.checklist.private ?? undefined,
+              public: c.checklist.public ?? undefined,
+              __typename: undefined,
+            }
+          : undefined,
         competency: c.competency.code,
-        isOptional: c.isOptional,
-        learningOutcomes: c.learningOutcomes,
-        maxStars: c.maxStars,
-        stars: c.stars,
+        __typename: undefined,
       })) ?? [{}]
       //   this.createEvent = false
       this.description = assessment?.description ?? ''
@@ -297,11 +302,9 @@ export default {
         }
       }
       const competencies = this.competencies.map((c) => ({
-        competency: c.competency,
-        learningOutcomes: c.learningOutcomes,
-        maxStars: c.maxStars,
+        ...c,
+        isOptional: undefined,
         optional: c.isOptional,
-        stars: c.stars,
       }))
 
       const data = {

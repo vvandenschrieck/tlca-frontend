@@ -11,6 +11,13 @@
       "project": "Project",
       "quiz": "Quiz"
     },
+    "checklist": {
+      "_": "Checklist",
+      "add_item": "Add item",
+      "no": "No checklist",
+      "private": "Private checklist",
+      "public": "Public checklist"
+    },
     "closed": "Closed",
     "code": "@:global.code",
     "competencies": {

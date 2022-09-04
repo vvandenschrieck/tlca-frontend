@@ -4,7 +4,7 @@
       {{ title }}
     </v-stepper-step>
 
-    <v-stepper-content :step="step">
+    <v-stepper-content class="content" :step="step">
       <slot />
     </v-stepper-content>
   </ValidationObserver>
@@ -28,8 +28,14 @@ export default {
   },
   methods: {
     hasErrors(errors) {
-      return Object.keys(errors).some((k) => errors[k]?.length)
+      return Object.values(errors).some((error) => error?.length)
     },
   },
 }
 </script>
+
+<style scoped>
+.content {
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
+}
+</style>

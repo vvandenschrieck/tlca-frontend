@@ -1,11 +1,10 @@
 <template>
   <v-input :value="value" :error-messages="$attrs.errorMessages">
     <v-rating
+      v-model="stars"
       class="ma-auto"
-      :value="value"
       v-bind="$attrs"
       v-on="$listeners"
-      @input="$emit('input', $event)"
     />
   </v-input>
 </template>
@@ -17,7 +16,17 @@ export default {
   props: {
     value: {
       type: Number,
-      required: true,
+      default: 0,
+    },
+  },
+  computed: {
+    stars: {
+      get() {
+        return this.value
+      },
+      set(value) {
+        this.$emit('input', value)
+      },
     },
   },
 }

@@ -8,6 +8,10 @@ query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
     category
     code
     competencies {
+      checklist {
+        private
+        public
+      }
       competency {
         code
         name
