@@ -53,6 +53,7 @@
     "no": "Il n'y a aucune évaluation pour le moment",
     "openness": "Ouverture",
     "oral_defense": "Défense orale",
+    "progress_measure": "Mesure du progrès",
     "schedule": {
       "_": "Calendrier",
       "end": "Date de fin",
@@ -104,6 +105,7 @@
     },
     "learning_outcomes": {
       "_": "Acquis d'apprentissage",
+      "abbr": "AA",
       "add": "Ajouter un acquis d'apprentissage",
       "name": "@:global.name",
       "no": "Il n'y a pas d'acquis d'apprentissage pour le moment."
@@ -333,6 +335,7 @@
     "list": "Liste",
     "max_nb": "Nombre maximal",
     "owner": "Propriétaire",
+    "plus_other": "(+ {n} autre) | (+ {n} autres)",
     "reset": "Réinitialiser",
     "send": "Envoyer",
     "statistics": {

@@ -53,6 +53,7 @@
     "no": "There are no assessment for now",
     "openness": "Openness",
     "oral_defense": "Oral defense",
+    "progress_measure": "Progress measure",
     "schedule": {
       "_": "Schedule",
       "end": "End date",
@@ -104,6 +105,7 @@
     },
     "learning_outcomes": {
       "_": "Learning outcomes",
+      "abbr": "LO",
       "add": "Add a learning outcome",
       "name": "@:global.name",
       "no": "There are no learning outcomes for now."
@@ -333,6 +335,7 @@
     "list": "List",
     "max_nb": "Max number",
     "owner": "Owner",
+    "plus_other": "(+ {n} other) | (+ {n} others)",
     "reset": "Reset",
     "send": "Send",
     "statistics": {

@@ -13,6 +13,7 @@ query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
         name
       }
       isOptional
+      learningOutcomes
       maxStars
       stars
     }
