@@ -121,7 +121,8 @@
       "abbr": "AA",
       "add": "Ajouter un acquis d'apprentissage",
       "name": "@:global.name",
-      "no": "Il n'y a pas d'acquis d'apprentissage pour le moment."
+      "no": "Il n'y a pas d'acquis d'apprentissage pour le moment.",
+      "takes": "Passages"
     },
     "name": "@:global.name",
     "nb": "{nb} compétence | {nb} compétences",

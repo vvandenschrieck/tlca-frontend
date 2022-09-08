@@ -1,6 +1,6 @@
 <template>
   <ValidationProvider v-slot="{ errors }" :vid="$attrs.vid">
-    <div v-if="value.length">
+    <div v-if="learningOutcomes.length > 0">
       <v-row>
         <v-col
           v-for="(header, i) in headers"
@@ -12,15 +12,24 @@
         </v-col>
       </v-row>
 
-      <v-row v-for="(learningOutcome, index) in value" :key="index">
-        <v-col cols="12" md="11">
+      <v-row v-for="(learningOutcome, index) in learningOutcomes" :key="index">
+        <v-col cols="12" md="9">
           <v-text-field-with-validation
+            v-model="learningOutcome.name"
             dense
             required
             rules="required"
-            :value="value[index]"
-            :vid="`learningOutcome-${index}`"
-            @input="update(index, $event)"
+            :vid="`learningOutcome-${index}-name`"
+          />
+        </v-col>
+
+        <v-col cols="12" md="2">
+          <v-text-field-with-validation
+            v-model="learningOutcome.takes"
+            dense
+            type="number"
+            rules="positive"
+            :vid="`learningOutcome-${index}-takes`"
           />
         </v-col>
 
@@ -61,7 +70,7 @@
 import { ValidationProvider } from 'vee-validate'
 
 export default {
-  name: 'CompetenciesSelectLearningOutcomes',
+  name: 'SelectCompetenciesLearningOutcomes',
   components: { ValidationProvider },
   props: {
     disabled: {
@@ -70,37 +79,36 @@ export default {
     },
     value: {
       type: Array,
-      default: () => [''],
+      default: () => [{}],
     },
   },
   computed: {
     headers() {
       return [
-        { title: this.$tc('competency.learning_outcomes.name', 1), size: 11 },
+        { title: this.$t('competency.learning_outcomes.name'), size: 9 },
+        { title: this.$t('competency.learning_outcomes.takes'), size: 2 },
         { title: this.$tc('general.action', 1), size: 1 },
       ]
+    },
+    learningOutcomes: {
+      get() {
+        return this.value
+      },
+      set(value) {
+        this.$emit('input', value)
+      },
     },
   },
   methods: {
     addLearningOutcome() {
       if (!this.disabled) {
-        this.$emit('input', [...this.value, ''])
+        this.learningOutcomes.push({})
       }
     },
     removeLearningOutcome(index) {
       if (!this.disabled) {
-        this.$emit('input', [
-          ...this.value.slice(0, index),
-          ...this.value.slice(index + 1),
-        ])
+        this.learningOutcomes = this.learningOutcomes.splice(index, 1)
       }
-    },
-    update(index, value) {
-      this.$emit('input', [
-        ...this.value.slice(0, index),
-        value,
-        ...this.value.slice(index + 1),
-      ])
     },
   },
 }

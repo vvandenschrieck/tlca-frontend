@@ -5,12 +5,10 @@
         {{ $t(formError) }}
       </v-alert>
 
-      <v-stepper non-linear vertical>
-        <v-stepper-step editable step="1">
-          {{ $t('general.information.general') }}
-        </v-stepper-step>
+      {{ learningOutcomes }}
 
-        <v-stepper-content step="1">
+      <v-stepper non-linear vertical>
+        <stepper-step step="1" :title="$t('general.information.general')">
           <v-row>
             <v-col cols="12" md="2">
               <v-text-field-with-validation
@@ -29,6 +27,7 @@
                 :label="$t('competency.name')"
                 required
                 rules="required"
+                vid="name"
               />
             </v-col>
           </v-row>
@@ -42,16 +41,13 @@
                 clearable
                 filled
                 :label="$t('competency.description')"
+                vid="description"
               />
             </v-col>
           </v-row>
-        </v-stepper-content>
+        </stepper-step>
 
-        <v-stepper-step editable step="2">
-          {{ $t('general.information.additional') }}
-        </v-stepper-step>
-
-        <v-stepper-content step="2">
+        <stepper-step step="2" :title="$t('general.information.additional')">
           <v-row>
             <v-col cols="12" md="3">
               <v-select
@@ -59,6 +55,7 @@
                 clearable
                 :items="types"
                 :label="$t('competency.type._')"
+                vid="type"
               />
             </v-col>
 
@@ -66,13 +63,14 @@
               <v-switch
                 v-model="isPublic"
                 :label="$t('competency.visibility.public')"
+                vid="isPublic"
               />
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12" md="6">
-              <partner-select-field v-model="partners" />
+              <partner-select-field v-model="partners" vid="partners" />
             </v-col>
 
             <v-col cols="12" md="6">
@@ -86,32 +84,25 @@
                 :label="$tc('competency.tags', 2)"
                 multiple
                 small-chips
+                vid="tags"
               />
             </v-col>
           </v-row>
-        </v-stepper-content>
+        </stepper-step>
 
-        <v-stepper-step editable step="3">
-          {{ $t('competency.learning_outcomes._') }}
-        </v-stepper-step>
-
-        <v-stepper-content step="3">
-          <competencies-select-learning-outcomes
+        <stepper-step step="3" :title="$t('competency.learning_outcomes._')">
+          <select-competencies-learning-outcomes
             v-model="learningOutcomes"
             class="mb-3"
             :disabled="formBusy"
             vid="learningOutcomes"
           />
-        </v-stepper-content>
+        </stepper-step>
       </v-stepper>
 
       <div class="text-right mt-5">
-        <v-btn color="error" :disabled="formBusy" text @click="resetForm">
-          {{ $t('general.reset') }}
-        </v-btn>
-        <v-btn color="primary" :loading="formBusy" text type="submit">
-          {{ $t(`general.${action}`) }}
-        </v-btn>
+        <reset-btn :disabled="formBusy" @click="resetForm" />
+        <submit-btn :action="action" :loading="formBusy" />
       </div>
     </v-form>
   </ValidationObserver>
@@ -153,10 +144,10 @@ export default {
       return !this.edit ? 'create' : 'edit'
     },
     types() {
-      return [
-        { text: this.$t('competency.type.practical'), value: 'PRACTICAL' },
-        { text: this.$t('competency.type.theoretical'), value: 'THEORETICAL' },
-      ]
+      return ['PRACTICAL', 'THEORETICAL'].map((value) => ({
+        text: this.$t(`competency.type.${value.toLowerCase()}`),
+        value,
+      }))
     },
   },
   mounted() {
@@ -178,23 +169,28 @@ export default {
     resetForm() {
       this.reset()
       this.formError = null
+      this.$refs.form.reset()
     },
     async submit() {
       this.formBusy = true
 
-      try {
-        const data = {
-          code: this.competency?.code ?? this.code,
-          description: this.description,
-          learningOutcomes: this.learningOutcomes,
-          name: this.name,
-          partners: this.partners,
-          public: this.isPublic,
-          tags: this.tags,
-          type: this.type || undefined,
-        }
+      const learningOutcomes = this.learningOutcomes.map((lo) => ({
+        ...lo,
+        takes: parseInt(lo.takes, 10),
+      }))
+      const data = {
+        code: this.competency?.code ?? this.code,
+        description: this.description,
+        learningOutcomes,
+        name: this.name,
+        partners: this.partners,
+        public: this.isPublic,
+        tags: this.tags,
+        type: this.type || undefined,
+      }
+      const mutation = require(`~/gql/manage/${this.action}Competency.gql`)
 
-        const mutation = require(`~/gql/manage/${this.action}Competency.gql`)
+      try {
         const response = await this.$apollo
           .mutate({
             mutation,

@@ -121,7 +121,8 @@
       "abbr": "LO",
       "add": "Add a learning outcome",
       "name": "@:global.name",
-      "no": "There are no learning outcomes for now."
+      "no": "There are no learning outcomes for now.",
+      "takes": "Takes"
     },
     "name": "@:global.name",
     "nb": "{nb} competency | {nb} competencies",

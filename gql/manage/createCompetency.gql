@@ -1,7 +1,7 @@
 mutation CreateCompetency(
   $code: String!
   $description: String
-  $learningOutcomes: [String!]
+  $learningOutcomes: [LearningOutcomeInput!]
   $name: String!
   $partners: [ID!]
   $public: Boolean
