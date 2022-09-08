@@ -69,23 +69,71 @@
               />
             </v-col>
 
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="2">
               <v-switch
                 v-model="isIncremental"
                 class="ml-3"
                 dense
-                :label="$t('assessment.incremental')"
+                :label="$t('assessment.type.incremental')"
+              />
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-text-field-with-validation
+                v-if="isIncremental"
+                v-model="takes"
+                clearable
+                :hint="$t('general.max_nb')"
+                :label="$t('assessment.takes')"
+                rules="positive"
+                type="number"
+                vid="takes"
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" md="4" />
+
+            <v-col cols="12" md="2">
+              <v-switch
+                v-model="isPhased"
+                class="ml-3"
+                dense
+                :label="$t('assessment.type.phased')"
+              />
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-text-field-with-validation
+                v-if="isPhased"
+                v-model="nbPhases"
+                clearable
+                :label="$t('assessment.phase.nb')"
+                rules="min_value:2"
+                type="number"
+                vid="nbPhases"
               />
             </v-col>
           </v-row>
         </stepper-step>
 
-        <stepper-step step="3" :title="$t('assessment.competencies._')">
+        <stepper-step step="3" :title="competenciesTitle">
           <select-assessment-competencies
+            v-if="!isPhased"
             v-model="competencies"
             class="mb-3"
             :disabled="formBusy"
             vid="competencies"
+          />
+
+          <select-assessment-phases
+            v-else
+            v-model="phases"
+            class="mb-3"
+            :disabled="formBusy"
+            :nb="parseInt(nbPhases, 10)"
+            vid="phases"
           />
         </stepper-step>
 
@@ -219,13 +267,17 @@ export default {
       hasOralDefense: false,
       instances: '',
       isIncremental: false,
+      isPhased: false,
       name: '',
+      nbPhases: '',
       load: {
         defense: '',
         grading: '',
         work: '',
       },
+      phases: [],
       start: '',
+      takes: '',
     }
   },
   computed: {
@@ -249,6 +301,11 @@ export default {
         text: this.$t(`assessment.category.${c}`),
         value: c.toUpperCase(),
       }))
+    },
+    competenciesTitle() {
+      return !this.isPhased
+        ? this.$t('assessment.competencies._')
+        : this.$tc('assessment.phase._', this.nbPhases)
     },
   },
   mounted() {
@@ -279,13 +336,16 @@ export default {
       this.hasOralDefense = assessment?.hasOralDefense ?? false
       this.instances = assessment?.instances ?? ''
       this.isIncremental = assessment?.isIncremental ?? false
+      this.isPhased = false
       this.name = assessment?.name ?? ''
+      this.nbPhases = ''
       this.load = {
         defense: load?.defense ?? '',
         grading: load?.grading ?? '',
         work: load?.work ?? '',
       }
       this.start = assessment?.start ?? ''
+      this.takes = ''
     },
     resetForm() {
       this.reset()
@@ -301,11 +361,20 @@ export default {
           load[field] = parseInt(this.load[field], 10)
         }
       }
-      const competencies = this.competencies.map((c) => ({
+      const cleanCompetencies = (c) => ({
         ...c,
         isOptional: undefined,
         optional: c.isOptional,
-      }))
+      })
+      const competencies = !this.isPhased
+        ? this.competencies.map(cleanCompetencies)
+        : undefined
+      const phases = this.isPhased
+        ? this.phases.map((p) => ({
+            ...p,
+            competencies: p.competencies.map(cleanCompetencies),
+          }))
+        : undefined
 
       const data = {
         category: this.category,
@@ -319,7 +388,10 @@ export default {
         load,
         name: this.name,
         oralDefense: this.hasOralDefense,
+        phased: this.isPhased,
+        phases,
         start: this.start,
+        takes: parseInt(this.takes, 10),
       }
 
       if (this.edit) {

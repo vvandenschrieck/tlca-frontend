@@ -41,7 +41,6 @@
     "edit": "@:general.edit une évaluation",
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
-    "incremental": "Incrémental",
     "instances": {
       "_": "Instances",
       "infinite": "Infini",
@@ -60,6 +59,13 @@
     "no": "Il n'y a aucune évaluation pour le moment",
     "openness": "Ouverture",
     "oral_defense": "Défense orale",
+    "phase": {
+      "_": "Phase | Phases",
+      "description": "@:global.description._",
+      "name": "@:global.name",
+      "nb": "Nombre de phases",
+      "phase_nb": "Phase {nb}"
+    },
     "progress_measure": "Mesure du progrès",
     "schedule": {
       "_": "Calendrier",
@@ -297,6 +303,7 @@
     "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
     "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
     "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
+    "MISSING_PHASES": "Les phases ne sont pas définies",
     "PROGRAM_PUBLICATION_FAILED": "Une erreur inattendue s'est produite lors de la publication du programme",
     "REGISTRATION_FAILED": "Inscription échouée",
     "UNPUBLISHED_PROGRAM_COURSES": "Certains cours du programme ne sont pas publiés"

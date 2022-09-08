@@ -47,11 +47,11 @@
               </v-tab-item>
 
               <v-tab-item>
-                <competency-coverage
+                <!-- <competency-coverage
                   v-if="data"
                   :competencies="data.course.competencies"
                   :assessments="data.assessments"
-                />
+                /> -->
               </v-tab-item>
 
               <v-tab-item>
@@ -122,7 +122,7 @@ export default {
     //   return hasMinDate && hasMaxDate
     // },
     setTitle({ data }) {
-      this.title = data?.course.name ?? ''
+      this.title = data.course?.name ?? ''
     },
   },
   meta: {

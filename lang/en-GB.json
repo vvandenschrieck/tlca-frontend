@@ -41,7 +41,6 @@
     "edit": "@:general.edit an assessment",
     "filter_by_competency": "Filter by competency",
     "group_by_category": "Group by category",
-    "incremental": "Incremental",
     "instances": {
       "_": "Instances",
       "infinite": "Infinite",
@@ -60,6 +59,13 @@
     "no": "There are no assessment for now",
     "openness": "Openness",
     "oral_defense": "Oral defense",
+    "phase": {
+      "_": "Phase | Phases",
+      "description": "@:global.description._",
+      "name": "@:global.name",
+      "nb": "Number of phases",
+      "phase_nb": "Phase {nb}"
+    },
     "progress_measure": "Progress measure",
     "schedule": {
       "_": "Schedule",
@@ -297,6 +303,7 @@
     "MISSING_BASIC_COMPETENCY": "There must be at least one basic competency",
     "MISSING_FIELDS": "Some mandatory fields are missing",
     "MISSING_MANDATORY_COURSE": "There must be at least one mandatory course",
+    "MISSING_PHASES": "Phases are not defined",
     "PROGRAM_PUBLICATION_FAILED": "An unexpected error occurred while publishing the program",
     "REGISTRATION_FAILED": "Registration failed",
     "UNPUBLISHED_PROGRAM_COURSES": "Some courses in the program are not published"

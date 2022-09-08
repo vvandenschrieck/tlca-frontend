@@ -183,7 +183,7 @@
 import { ValidationProvider } from 'vee-validate'
 
 export default {
-  name: 'SelectCourseCompetencies',
+  name: 'SelectAssessmentCompetencies',
   components: { ValidationProvider },
   props: {
     disabled: {
@@ -217,7 +217,6 @@ export default {
       },
     },
   },
-  watch: {},
   methods: {
     _competency(course, index) {
       return course.competencies.find(
