@@ -26,6 +26,7 @@
         <v-col cols="12" md="2">
           <v-text-field-with-validation
             v-model="learningOutcome.takes"
+            clearable
             dense
             type="number"
             rules="positive"

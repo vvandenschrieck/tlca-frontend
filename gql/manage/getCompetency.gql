@@ -5,6 +5,7 @@ query GetCompetency($code: ID!) {
     isPublic
     learningOutcomes {
       name
+      takes
     }
     name
     partners {

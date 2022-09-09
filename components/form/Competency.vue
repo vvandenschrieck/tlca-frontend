@@ -5,8 +5,6 @@
         {{ $t(formError) }}
       </v-alert>
 
-      {{ learningOutcomes }}
-
       <v-stepper non-linear vertical>
         <stepper-step step="1" :title="$t('general.information.general')">
           <v-row>
@@ -160,7 +158,11 @@ export default {
       this.code = competency?.code ?? ''
       this.description = competency?.description ?? ''
       this.isPublic = competency?.isPublic ?? false
-      this.learningOutcomes = competency?.learningOutcomes ?? []
+      this.learningOutcomes =
+        competency?.learningOutcomes.map((lo) => ({
+          ...lo,
+          __typename: undefined,
+        })) ?? []
       this.name = competency?.name ?? ''
       this.partners = competency?.partners.map((p) => p.code) ?? []
       this.tags = competency?.tags ?? []
