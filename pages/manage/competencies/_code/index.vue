@@ -33,32 +33,9 @@
                 </v-tab-item>
 
                 <v-tab-item v-if="competency.learningOutcomes?.length">
-                  <v-list class="pa-0" dense>
-                    <template
-                      v-for="(
-                        learningOutcome, i
-                      ) in competency.learningOutcomes"
-                    >
-                      <v-list-item :key="2 * i">
-                        <v-list-item-content>
-                          <v-list-item-title>
-                            {{ learningOutcome.name }}
-                          </v-list-item-title>
-                        </v-list-item-content>
-
-                        <v-list-item-action>
-                          <v-chip x-small>
-                            {{ learningOutcome.takes ?? 1 }}
-                          </v-chip>
-                        </v-list-item-action>
-                      </v-list-item>
-
-                      <v-divider
-                        v-if="i < competency.learningOutcomes.length - 1"
-                        :key="2 * i + 1"
-                      />
-                    </template>
-                  </v-list>
+                  <learning-outcomes-list
+                    :items="competency.learningOutcomes"
+                  />
                 </v-tab-item>
               </v-tabs-items>
             </v-card-text>
