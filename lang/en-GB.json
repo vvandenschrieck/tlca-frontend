@@ -307,7 +307,8 @@
     "MISSING_PHASES": "Phases are not defined",
     "PROGRAM_PUBLICATION_FAILED": "An unexpected error occurred while publishing the program",
     "REGISTRATION_FAILED": "Registration failed",
-    "UNPUBLISHED_PROGRAM_COURSES": "Some courses in the program are not published"
+    "UNPUBLISHED_PROGRAM_COURSES": "Some courses in the program are not published",
+    "VALIDATION_ERROR": "Some fields contain an invalid value"
   },
   "evaluation": {
     "_": "Evaluation | Evaluations",
@@ -444,6 +445,7 @@
     },
     "create": "@:general.create a program",
     "description": "@:global.description._",
+    "edit": "@:general.edit a program",
     "field": "@:global.field",
     "filter": {
       "status": "@:general.status"

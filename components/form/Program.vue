@@ -12,20 +12,42 @@
               <v-text-field-with-validation
                 v-model="code"
                 :disabled="edit"
-                :label="$t('competency.code')"
+                :label="$t('program.code')"
                 required
                 rules="required|alpha_dash"
                 vid="code"
               />
             </v-col>
 
-            <v-col cols="12" md="10">
+            <v-col cols="12" md="6">
               <v-text-field-with-validation
                 v-model="name"
-                :label="$t('competency.name')"
+                :label="$t('program.name')"
                 required
                 rules="required"
                 vid="name"
+              />
+            </v-col>
+
+            <v-col cols="12" md="2">
+              <v-select-with-validation
+                v-model="type"
+                :items="types"
+                :label="$t('program.type._')"
+                required
+                rules="required"
+                vid="type"
+              />
+            </v-col>
+
+            <v-col cols="12" md="2">
+              <v-select-with-validation
+                v-model="visibility"
+                :items="visibilities"
+                :label="$t('program.visibility._')"
+                required
+                rules="required"
+                vid="visibility"
               />
             </v-col>
           </v-row>
@@ -35,65 +57,22 @@
               <v-textarea-with-validation
                 v-model="description"
                 auto-grow
-                clear-icon="mdi-close-circle"
                 clearable
                 filled
-                :label="$t('competency.description')"
+                :label="$t('program.description')"
+                required
+                rules="required"
                 vid="description"
               />
             </v-col>
           </v-row>
         </stepper-step>
 
-        <stepper-step step="2" :title="$t('general.information.additional')">
-          <v-row>
-            <v-col cols="12" md="3">
-              <v-select
-                v-model="type"
-                clearable
-                :items="types"
-                :label="$t('competency.type._')"
-                vid="type"
-              />
-            </v-col>
-
-            <v-col cols="12" md="2">
-              <v-switch
-                v-model="isPublic"
-                :label="$t('competency.visibility.public')"
-                vid="isPublic"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" md="6">
-              <partner-select-field v-model="partners" vid="partners" />
-            </v-col>
-
-            <v-col cols="12" md="6">
-              <v-combobox
-                v-model="tags"
-                append-icon=""
-                chips
-                clearable
-                deletable-chips
-                dense
-                :label="$tc('competency.tags', 2)"
-                multiple
-                small-chips
-                vid="tags"
-              />
-            </v-col>
-          </v-row>
-        </stepper-step>
-
-        <stepper-step step="3" :title="$t('competency.learning_outcomes._')">
-          <select-competencies-learning-outcomes
-            v-model="learningOutcomes"
-            class="mb-3"
+        <stepper-step step="2" :title="$t('program.courses._')">
+          <select-program-courses
+            v-model="courses"
             :disabled="formBusy"
-            vid="learningOutcomes"
+            vid="courses"
           />
         </stepper-step>
       </v-stepper>
@@ -110,10 +89,10 @@
 import { ValidationObserver } from 'vee-validate'
 
 export default {
-  name: 'FormCompetency',
+  name: 'FormProgram',
   components: { ValidationObserver },
   props: {
-    competency: {
+    program: {
       type: Object,
       default: null,
     },
@@ -125,16 +104,13 @@ export default {
   data() {
     return {
       code: '',
+      courses: [{}],
       description: '',
       formBusy: false,
       formError: null,
-      isPublic: false,
-      learningOutcomes: [],
       name: '',
-      partners: [],
-      partnersList: [],
-      tags: [],
       type: '',
+      visibility: '',
     }
   },
   computed: {
@@ -142,8 +118,14 @@ export default {
       return !this.edit ? 'create' : 'edit'
     },
     types() {
-      return ['PRACTICAL', 'THEORETICAL'].map((value) => ({
-        text: this.$t(`competency.type.${value.toLowerCase()}`),
+      return ['UPROGRAM', 'TRAINING'].map((value) => ({
+        text: this.$t(`program.type.${value.toLowerCase()}`),
+        value,
+      }))
+    },
+    visibilities() {
+      return ['PUBLIC', 'INVITE_ONLY', 'PRIVATE'].map((value) => ({
+        text: this.$t(`program.visibility.${value.toLowerCase()}`),
         value,
       }))
     },
@@ -153,20 +135,18 @@ export default {
   },
   methods: {
     reset() {
-      const competency = this.competency
+      const program = this.program
 
-      this.code = competency?.code ?? ''
-      this.description = competency?.description ?? ''
-      this.isPublic = competency?.isPublic ?? false
-      this.learningOutcomes =
-        competency?.learningOutcomes?.map((lo) => ({
-          ...lo,
-          __typename: undefined,
-        })) ?? []
-      this.name = competency?.name ?? ''
-      this.partners = competency?.partners.map((p) => p.code) ?? []
-      this.tags = competency?.tags ?? []
-      this.type = competency?.type ?? ''
+      this.code = program?.code ?? ''
+      this.courses = program?.courses.map((c) => ({
+        ...c,
+        course: c.course.code,
+        __typename: undefined,
+      })) ?? [{}]
+      this.description = program?.description ?? ''
+      this.name = program?.name ?? ''
+      this.type = program?.type ?? ''
+      this.visibility = program?.visibility ?? ''
     },
     resetForm() {
       this.reset()
@@ -176,21 +156,19 @@ export default {
     async submit() {
       this.formBusy = true
 
-      const learningOutcomes = this.learningOutcomes.map((lo) => ({
-        ...lo,
-        takes: parseInt(lo.takes, 10),
-      }))
       const data = {
-        code: this.competency?.code ?? this.code,
+        code: this.program?.code ?? this.code,
+        courses: this.courses.map((c) => ({
+          ...c,
+          isOptional: undefined,
+          optional: c.isOptional,
+        })),
         description: this.description,
-        learningOutcomes,
         name: this.name,
-        partners: this.partners,
-        public: this.isPublic,
-        tags: this.tags,
-        type: this.type || undefined,
+        type: this.type,
+        visibility: this.visibility,
       }
-      const mutation = require(`~/gql/manage/${this.action}Competency.gql`)
+      const mutation = require(`~/gql/manage/${this.action}Program.gql`)
 
       try {
         const response = await this.$apollo
@@ -198,16 +176,16 @@ export default {
             mutation,
             variables: data,
           })
-          .then(({ data }) => data && data[`${this.action}Competency`])
+          .then(({ data }) => data && data[`${this.action}Program`])
 
         if (response) {
           const code = this.code
           this.reset()
           this.$notificationManager.displaySuccessMessage(
-            this.$t('success.COMPETENCY_CREATED')
+            this.$t('success.PROGRAM_CREATED')
           )
           this.$router.push({
-            name: 'manage-competencies-code',
+            name: 'manage-programs-code',
             params: { code },
           })
           return

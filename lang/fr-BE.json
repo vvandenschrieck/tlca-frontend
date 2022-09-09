@@ -307,7 +307,8 @@
     "MISSING_PHASES": "Les phases ne sont pas définies",
     "PROGRAM_PUBLICATION_FAILED": "Une erreur inattendue s'est produite lors de la publication du programme",
     "REGISTRATION_FAILED": "Inscription échouée",
-    "UNPUBLISHED_PROGRAM_COURSES": "Certains cours du programme ne sont pas publiés"
+    "UNPUBLISHED_PROGRAM_COURSES": "Certains cours du programme ne sont pas publiés",
+    "VALIDATION_ERROR": "Certains champs contiennent une valeur invalide"
   },
   "evaluation": {
     "_": "Évaluation | Évaluations",
@@ -444,6 +445,7 @@
     },
     "create": "@:general.create un programme",
     "description": "@:global.description._",
+    "edit": "@:general.edit un programme",
     "field": "@:global.field",
     "filter": {
       "status": "@:general.status"

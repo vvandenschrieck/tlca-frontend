@@ -28,6 +28,19 @@
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
           <program-status-info-panel :program="program" />
+
+          <v-btn
+            class="mt-5"
+            color="success"
+            small
+            :to="{
+              name: 'manage-programs-code-edit',
+              params: { code: program.code },
+            }"
+          >
+            <v-icon left>mdi-pencil</v-icon>
+            <span>{{ $t('general.edit') }}</span>
+          </v-btn>
         </v-col>
       </v-row>
     </div>
