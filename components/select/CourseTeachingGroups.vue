@@ -1,6 +1,6 @@
 <template>
   <ValidationProvider v-slot="{ errors }" :vid="$attrs.vid">
-    <div v-if="value.length > 0">
+    <div v-if="groups.length > 0">
       <v-row>
         <v-col
           v-for="(header, i) in headers"
@@ -12,47 +12,47 @@
         </v-col>
       </v-row>
 
-      <v-row v-for="(group, index) in value" :key="index">
+      <v-row v-for="(group, index) in groups" :key="index">
         <v-col cols="12" md="6">
           <v-text-field
+            v-model="group.name"
             dense
-            :value="group.name"
-            @input="update(index, 'name', $event)"
+            :vid="`group-${index}-name`"
           />
         </v-col>
+
         <v-col cols="12" md="5">
           <v-select-with-validation
+            v-model="group.supervisor"
             dense
             :items="teachers"
             required
             rules="required"
-            :value="group.supervisor"
-            :vid="`group-supervisor-${index}`"
-            @input="update(index, 'supervisor', $event)"
+            :vid="`group-${index}-supervisor`"
           />
         </v-col>
-        <v-col cols="12" md="1" class="text-center">
-          <v-btn icon :disabled="disabled" @click="removeGroup(index)">
+
+        <v-col class="text-center" cols="12" md="1">
+          <v-btn :disabled="disabled" icon @click="removeGroup(index)">
             <v-icon small>mdi-delete</v-icon>
           </v-btn>
         </v-col>
       </v-row>
     </div>
-    <div v-else>
-      {{ $t('course.groups.teaching.no') }}
-    </div>
+
+    <div v-else>{{ $t('course.groups.teaching.no') }}</div>
 
     <div class="text-right mt-5">
       <v-row>
         <v-col class="v-messages error--text" cols="12" md="6">
-          {{ errors[0] }}
+          <span v-if="errors[0]">{{ $t(`error.${errors[0]}`) }}</span>
         </v-col>
 
         <v-col cols="12" md="6">
           <v-btn
             :disabled="!teachers.length || disabled"
             small
-            @click="addGroup()"
+            @click="addGroup"
           >
             <v-icon left>mdi-plus</v-icon>
             {{ $t('course.groups.teaching.add') }}
@@ -76,7 +76,7 @@ export default {
     },
     teachers: {
       type: Array,
-      default: () => [],
+      required: true,
     },
     value: {
       type: Array,
@@ -84,6 +84,14 @@ export default {
     },
   },
   computed: {
+    groups: {
+      get() {
+        return this.value
+      },
+      set(value) {
+        this.$emit('input', value)
+      },
+    },
     headers() {
       return [
         { title: this.$t('course.groups.name'), size: 6 },
@@ -95,26 +103,13 @@ export default {
   methods: {
     addGroup() {
       if (!this.disabled) {
-        this.$emit('input', [...this.value, {}])
+        this.groups.push({})
       }
     },
     removeGroup(index) {
       if (!this.disabled) {
-        this.$emit('input', [
-          ...this.value.slice(0, index),
-          ...this.value.slice(index + 1),
-        ])
+        this.groups.splice(index, 1)
       }
-    },
-    update(index, field, value) {
-      this.$emit('input', [
-        ...this.value.slice(0, index),
-        {
-          ...this.value[index],
-          [field]: value,
-        },
-        ...this.value.slice(index + 1),
-      ])
     },
   },
 }

@@ -1,4 +1,4 @@
-mutation CreateCourse(
+mutation EditCourse(
   $code: String!
   $colophon: String
   $competencies: [CourseCompetencyInput!]!
@@ -16,7 +16,7 @@ mutation CreateCourse(
   $type: CourseType!
   $visibility: Visibility
 ) {
-  createCourse(
+  editCourse(
     code: $code
     colophon: $colophon
     competencies: $competencies

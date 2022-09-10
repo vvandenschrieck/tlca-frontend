@@ -175,6 +175,7 @@
     "coordinator": "@:global.coordinator",
     "create": "@:general.create a course",
     "description": "@:global.description._",
+    "edit": "@:general.edit a course",
     "field": "@:global.field",
     "filter": {
       "role": "Role",

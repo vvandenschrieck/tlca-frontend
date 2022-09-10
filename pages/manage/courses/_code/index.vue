@@ -38,6 +38,19 @@
         >
           <course-status-info-panel :course="course" class="mb-5" />
           <course-schedule-panel :schedule="course.schedule" />
+
+          <v-btn
+            class="mt-5"
+            color="success"
+            small
+            :to="{
+              name: 'manage-courses-code-edit',
+              params: { code: course.code },
+            }"
+          >
+            <v-icon left>mdi-pencil</v-icon>
+            <span>{{ $t('general.edit') }}</span>
+          </v-btn>
         </v-col>
       </v-row>
     </div>
