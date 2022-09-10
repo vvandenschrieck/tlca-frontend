@@ -294,6 +294,7 @@
     "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
     "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
     "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
+    "EMAIL_VALIDATION": "Une erreur inattendue s'est produite lors de la validation de votre adresse e-mail",
     "EXISTING_CODE": "Le code spécifié existe déjà",
     "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
     "INVALID_CREDENTIALS": "Mauvais identifiants",
@@ -308,6 +309,7 @@
     "MISSING_PHASES": "Les phases ne sont pas définies",
     "PROGRAM_PUBLICATION_FAILED": "Une erreur inattendue s'est produite lors de la publication du programme",
     "REGISTRATION_FAILED": "Inscription échouée",
+    "UNCONFIRMED_EMAIL_ADDRESS": "Adresse e-mail pas encore confirmée",
     "UNPUBLISHED_PROGRAM_COURSES": "Certains cours du programme ne sont pas publiés",
     "VALIDATION_ERROR": "Certains champs contiennent une valeur invalide"
   },
@@ -363,6 +365,7 @@
     "update": "Mettre à jour",
     "upload": "Téléverser",
     "upload_click_drag": "Cliquez ou faites glisser le fichier ici pour le téléverser",
+    "validate": "Valider",
     "validated": "Validé"
   },
   "global": {
@@ -520,6 +523,7 @@
     "COURSE_ARCHIVED": "Cours archivé avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
+    "EMAIL_VALIDATION": "Adresse e-mail validée avec succès, vous pouvez maintenant vous connecter sur la plateforme TLCA",
     "INVITATION_SEND": "Invitation envoyée avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
     "PROGRAM_PUBLISHED": "Programme publié avec succès !",
@@ -543,6 +547,10 @@
       "user": "Utilisateur"
     },
     "username": "Nom d'utilisateur",
-    "username_or_email": "Nom d'utilisateur ou e-mail"
+    "username_or_email": "Nom d'utilisateur ou e-mail",
+    "validate_email": {
+      "_": "Valider l'adresse e-mail",
+      "dialog_instructions": "Valider votre adresse e-mail en cliquant sur le bouton pour pouvoir vous connecter sur la plateforme TLCA."
+    }
   }
 }

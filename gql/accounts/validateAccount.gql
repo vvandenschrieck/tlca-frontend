@@ -1,0 +1,6 @@
+mutation ValidateAccount($username: String!, $emailConfirmationToken: String!) {
+  validateAccount(
+    username: $username
+    emailConfirmationToken: $emailConfirmationToken
+  )
+}

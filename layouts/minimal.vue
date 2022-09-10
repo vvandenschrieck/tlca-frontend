@@ -6,6 +6,7 @@
 
     <v-main>
       <v-container>
+        <notification-displayer />
         <Nuxt />
       </v-container>
     </v-main>

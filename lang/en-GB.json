@@ -294,6 +294,7 @@
     "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
     "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
     "DUPLICATE_COURSES": "The same course cannot be used more than once",
+    "EMAIL_VALIDATION": "An unexpected error occurred while validating your email address",
     "EXISTING_CODE": "The specified code already exists",
     "EXISTING_EMAIL_ADDRESS": "Impossible to create an account with this email address",
     "INVALID_CREDENTIALS": "Invalid credentials",
@@ -308,6 +309,7 @@
     "MISSING_PHASES": "Phases are not defined",
     "PROGRAM_PUBLICATION_FAILED": "An unexpected error occurred while publishing the program",
     "REGISTRATION_FAILED": "Registration failed",
+    "UNCONFIRMED_EMAIL_ADDRESS": "Email address not confirmed yet",
     "UNPUBLISHED_PROGRAM_COURSES": "Some courses in the program are not published",
     "VALIDATION_ERROR": "Some fields contain an invalid value"
   },
@@ -363,6 +365,7 @@
     "update": "Update",
     "upload": "Upload",
     "upload_click_drag": "Click or drag the file here to upload",
+    "validate": "Validate",
     "validated": "Validated"
   },
   "global": {
@@ -520,6 +523,7 @@
     "COURSE_ARCHIVED": "Course successfully archived!",
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
+    "EMAIL_VALIDATION": "Email address successfully validated, you can now log in on the TLCA platform",
     "INVITATION_SEND": "Invitation successfully sent!",
     "PROGRAM_CREATED": "Program successfully created!",
     "PROGRAM_PUBLISHED": "Program successfully published!",
@@ -543,6 +547,10 @@
       "user": "User"
     },
     "username": "Username",
-    "username_or_email": "Username or email"
+    "username_or_email": "Username or email",
+    "validate_email": {
+      "_": "Validate email address",
+      "dialog_instructions": "Validate your email address by clicking on the button to be able to log in on the TLCA platform."
+    }
   }
 }
