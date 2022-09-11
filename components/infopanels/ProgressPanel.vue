@@ -4,7 +4,7 @@
     icon="mdi-progress-check"
     :loading="loading"
   >
-    <div v-if="registration" class="d-flex justify-space-around mt-3">
+    <div v-if="registration" class="d-flex justify-space-around mt-4 ml-3 mr-3">
       <competencies-progress
         :label="$t('competency.category.basic')"
         :value="registration.progress.basic"

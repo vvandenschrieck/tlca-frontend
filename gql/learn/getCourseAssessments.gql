@@ -8,17 +8,17 @@ query GetCourseAssessments($courseCode: ID!) {
 
   course(code: $courseCode) {
     code
-    isRegistered
     name
-    registration {
-      progress {
-        advanced
-        basic
-      }
-    }
     schedule {
       name
       datetime
+    }
+  }
+
+  registration(courseCode: $courseCode) {
+    progress {
+      advanced
+      basic
     }
   }
 }

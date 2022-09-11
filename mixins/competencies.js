@@ -1,5 +1,8 @@
 export default {
   methods: {
+    competencyName(competency) {
+      return competency.code + ' – ' + competency.name
+    },
     filteredCompetencies(competencies, filter) {
       const creators = filter.options?.creators || []
       const tags = filter.options?.tags || []

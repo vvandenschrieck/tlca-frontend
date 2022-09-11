@@ -16,6 +16,7 @@
         <div v-if="label" class="label">{{ label }}</div>
       </template>
     </v-progress-circular>
+
     <template v-if="dense"> {{ value }}% </template>
   </div>
 </template>
@@ -39,7 +40,7 @@ export default {
   },
   computed: {
     size() {
-      return this.dense ? 20 : 100
+      return this.dense ? 20 : 90
     },
     width() {
       return this.dense ? 4 : 10

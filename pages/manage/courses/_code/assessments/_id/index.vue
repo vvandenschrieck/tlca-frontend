@@ -1,78 +1,76 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
+    v-slot="{ result: { error, data }, isLoading }"
     :query="require('~/gql/manage/getCourseAssessment.gql')"
     :variables="{
-      courseCode: $route.params.code,
+      courseCode,
       assessmentId: $route.params.id,
     }"
   >
-    <template #default="{ result: { error, data }, isLoading }">
-      <div v-if="isLoading" v-t="'global.loading'"></div>
+    <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
 
-      <div v-else-if="data.course && data.assessment">
-        <h2 v-text="data.assessment.name"></h2>
+    <div v-else-if="data.course && data.assessment">
+      <h2>{{ data.assessment.name }}</h2>
 
-        <v-row>
-          <v-col cols="12" md="9">
-            <v-card>
-              <v-tabs v-model="currentTab" show-arrows>
-                <v-tab>
-                  {{ $t('assessment.description') }}
-                </v-tab>
-                <v-tab>
-                  {{ $t('assessment.competencies._') }}
-                </v-tab>
-              </v-tabs>
+      <v-row>
+        <v-col cols="12" md="9">
+          <v-card>
+            <v-tabs v-model="currentTab" show-arrows>
+              <v-tab>
+                {{ $t('assessment.description') }}
+              </v-tab>
+              <v-tab>
+                {{ $t('assessment.competencies._') }}
+              </v-tab>
+            </v-tabs>
 
-              <v-card-text class="text--primary">
-                <v-tabs-items v-model="currentTab">
-                  <v-tab-item>
-                    <div v-if="data.assessment.description">
-                      <div v-html="data.assessment.description"></div>
-                    </div>
-                    <div v-else v-t="'global.description.no'"></div>
-                  </v-tab-item>
-                  <v-tab-item>
-                    <div>
-                      <div></div>
-                    </div>
-                  </v-tab-item>
-                </v-tabs-items>
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col
-            cols="12"
-            md="3"
-            :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+            <v-card-text class="text--primary">
+              <v-tabs-items v-model="currentTab">
+                <v-tab-item>
+                  <div v-html="data.assessment.description" />
+                </v-tab-item>
+
+                <v-tab-item>
+                  <competencies-assessment-list
+                    :course-code="courseCode"
+                    :items="data.assessment.competencies"
+                  />
+                </v-tab-item>
+              </v-tabs-items>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col
+          cols="12"
+          md="3"
+          :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+        >
+          <assessment-info-panel :assessment="data.assessment" class="mb-5" />
+
+          <assessment-delete-btn
+            :assessment="data.assessment"
+            @success="deleteSuccess"
+            @error="deleteError"
+          />
+
+          <v-btn
+            class="mt-5"
+            color="success"
+            small
+            :to="{
+              name: 'manage-courses-code-assessments-id-edit',
+              params: { code: data.course.code, id: data.assessment.id },
+            }"
           >
-            <assessment-info-panel :assessment="data.assessment" class="mb-5" />
+            <v-icon left>mdi-pencil</v-icon>
+            <span>{{ $t('general.edit') }}</span>
+          </v-btn>
+        </v-col>
+      </v-row>
+    </div>
 
-            <assessment-delete-btn
-              :assessment="data.assessment"
-              @success="deleteSuccess"
-              @error="deleteError"
-            />
-
-            <v-btn
-              class="mt-5"
-              color="success"
-              small
-              :to="{
-                name: 'manage-courses-code-assessments-id-edit',
-                params: { code: data.course.code, id: data.assessment.id },
-              }"
-            >
-              <v-icon left>mdi-pencil</v-icon>
-              <span>{{ $t('general.edit') }}</span>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </div>
-
-      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
-    </template>
+    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
@@ -81,8 +79,13 @@ export default {
   name: 'ManageCourseAssessmentPage',
   data() {
     return {
-      currentTab: '0',
+      currentTab: 0,
     }
+  },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   methods: {
     deleteError() {

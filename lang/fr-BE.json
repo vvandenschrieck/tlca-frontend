@@ -47,6 +47,9 @@
       "max_nb": "Nombre d'instances max",
       "nb": "{n} instance | {n} instances"
     },
+    "learning_outcomes": {
+      "targeted": "@:competency.learning_outcomes._ visé(s)"
+    },
     "load": {
       "_": "@:global.workload",
       "defense": "Défense orale",

@@ -40,7 +40,13 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
+        <progress-panel
+          :loading="!!isLoading"
+          :registration="data?.registration"
+        />
+
         <course-schedule-panel
+          class="mt-5"
           :loading="!!isLoading"
           :schedule="data?.course.schedule"
         />

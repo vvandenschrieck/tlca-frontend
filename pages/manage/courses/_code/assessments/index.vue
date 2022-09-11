@@ -122,7 +122,7 @@ export default {
     //   return hasMinDate && hasMaxDate
     // },
     setTitle({ data }) {
-      this.title = data.course?.name ?? ''
+      this.title = data?.course.name ?? ''
     },
   },
   meta: {

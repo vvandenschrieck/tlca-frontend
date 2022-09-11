@@ -1,0 +1,37 @@
+query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
+  assessment(id: $assessmentId) {
+    code
+    competencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+        name
+      }
+      isOptional
+      learningOutcomes
+      maxStars
+      stars
+    }
+    description
+    id
+    name
+  }
+
+  course(code: $courseCode) {
+    code
+    name
+    schedule {
+      name
+      datetime
+    }
+  }
+
+  registration(courseCode: $courseCode) {
+    progress {
+      advanced
+      basic
+    }
+  }
+}
