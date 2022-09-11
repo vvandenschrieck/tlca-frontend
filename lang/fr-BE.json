@@ -199,6 +199,7 @@
       }
     },
     "invitation": {
+      "accept": "Accepter l'invitation",
       "dialog_instructions": "Entrer l'adresse e-mail de la personne à inviter au cours. Cette personne recevra l'invitation directement sur la plateforme ou par e-mail (si elle n'a pas de compte TLCA), et pourra décider de l'accepter ou non.",
       "request": "Demander une invitation",
       "send": "Envoyer une invitation"
@@ -515,6 +516,7 @@
   },
   "success": {
     "_": "Succès",
+    "ACCEPT_INVITATION": "Invitation acceptée avec succès",
     "ASSESSMENT_CREATE": "Évaluation créée avec succès",
     "ASSESSMENT_DELETE": "Évaluation supprimée avec succès",
     "ASSESSMENT_EDIT": "Évaluation modifiée avec succès",

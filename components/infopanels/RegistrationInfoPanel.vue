@@ -16,6 +16,12 @@
         :course-code="course.code"
         @done="invitationRequestSent"
       />
+
+      <course-accept-invitation-btn
+        v-if="canAcceptInvitation"
+        :id="course.registration.id"
+        @done="invitationAccepted"
+      />
     </div>
   </generic-info-panel>
 </template>
@@ -33,6 +39,20 @@ export default {
     },
   },
   computed: {
+    canAcceptInvitation() {
+      return (
+        (this.course.visibility === 'INVITE_ONLY' ||
+          this.course.visibility === 'PRIVATE') &&
+        this.$auth.user &&
+        this.course.hasReceivedInvitation &&
+        !(
+          this.course.isCoordinator ||
+          this.course.isTeacher ||
+          this.course.isRegistered ||
+          this.course.hasRequestedInvitation
+        )
+      )
+    },
     canRegister() {
       return (
         this.course.visibility === 'PUBLIC' &&
@@ -52,6 +72,7 @@ export default {
           this.course.isCoordinator ||
           this.course.isTeacher ||
           this.course.isRegistered ||
+          this.course.hasReceivedInvitation ||
           this.course.hasRequestedInvitation
         )
       )
@@ -83,7 +104,7 @@ export default {
       if (registration?.invitation) {
         return {
           REQUESTED: this.$t('registration.invitation.request.sent'),
-          SENT: this.$t('registration.invitation.sent._'),
+          SENT: this.$t('registration.invitation.received._'),
         }[registration.invitation]
       }
 
@@ -98,6 +119,11 @@ export default {
     },
   },
   methods: {
+    invitationAccepted() {
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.ACCEPT_INVITATION')
+      )
+    },
     invitationRequestSent() {
       this.$notificationManager.displaySuccessMessage(
         this.$t('success.REQUEST_INVITATION')

@@ -130,7 +130,7 @@ export default {
 
       // Add fields to the query depending on the roles
       if (this.$auth.user) {
-        fields.push('hasRequestedInvitation', {
+        fields.push('hasReceivedInvitation', 'hasRequestedInvitation', {
           registration: ['datetime', 'id', 'invitation'],
         })
 
