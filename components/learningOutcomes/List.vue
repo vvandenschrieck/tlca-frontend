@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <v-list v-if="items.length" class="pa-0" dense>
     <template v-for="(learningOutcome, i) in items">

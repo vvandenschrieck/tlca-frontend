@@ -84,7 +84,10 @@ export default {
   },
   computed: {
     categories() {
-      const categories = ['BASIC', 'ADVANCED']
+      const categories = ['BASIC']
+      if (this.items.some((c) => c.category === 'ADVANCED')) {
+        categories.push('ADVANCED')
+      }
       let withoutCategory = false
 
       if (this.structure === 'subcategory') {

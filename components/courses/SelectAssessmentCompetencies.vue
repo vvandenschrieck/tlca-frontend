@@ -99,11 +99,6 @@
                 <v-col cols="12" md="6">
                   <stars-field-with-validation
                     v-model="competency.stars"
-                    background-color="grey"
-                    dense
-                    empty-icon="mdi-star-outline"
-                    full-icon="mdi-star"
-                    hover
                     length="3"
                     rules="stars_required"
                     :vid="`competency-stars-${index}`"

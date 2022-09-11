@@ -21,6 +21,16 @@
             <v-btn
               small
               :to="{
+                name: 'learn-courses-code-competencies',
+                params: { code: $route.params.code },
+              }"
+            >
+              Competencies
+            </v-btn>
+
+            <v-btn
+              small
+              :to="{
                 name: 'learn-courses-code-assessments',
                 params: { code: $route.params.code },
               }"

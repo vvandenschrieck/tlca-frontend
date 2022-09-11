@@ -2,7 +2,12 @@
   <v-input :value="value" :error-messages="$attrs.errorMessages">
     <v-rating
       v-model="stars"
+      background-color="grey"
       class="ma-auto"
+      dense
+      empty-icon="mdi-star-outline"
+      full-icon="mdi-star"
+      hover
       v-bind="$attrs"
       v-on="$listeners"
     />
