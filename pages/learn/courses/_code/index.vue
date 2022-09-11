@@ -13,21 +13,15 @@
 
       <v-row>
         <v-col cols="12" md="9">
-          <div>
-            {{ course }}
-          </div>
+          <v-row>
+            <v-col cols="12" md="6">
+              <progress-info-card :course-code="course.code" />
+            </v-col>
+
+            <v-col cols="12" md="6"> Coucou </v-col>
+          </v-row>
 
           <div>
-            <v-btn
-              small
-              :to="{
-                name: 'learn-courses-code-competencies',
-                params: { code: $route.params.code },
-              }"
-            >
-              Competencies
-            </v-btn>
-
             <v-btn
               small
               :to="{
@@ -45,7 +39,6 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <progress-panel class="mb-5" :registration="course.registration" />
           <course-schedule-panel :schedule="course.schedule" />
         </v-col>
       </v-row>

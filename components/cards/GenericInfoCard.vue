@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card :loading="loading">
     <v-card-title class="py-2">
       <v-icon left size="20">{{ icon }}</v-icon>
       <span>{{ title }}</span>
@@ -33,6 +33,10 @@ export default {
     link: {
       type: Object,
       default: undefined,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
     },
   },
 }
