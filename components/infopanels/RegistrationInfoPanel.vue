@@ -1,29 +1,38 @@
 <template>
-  <generic-info-panel
-    :title="$tc('registration._', 1)"
-    icon="mdi-book"
-    :items="items"
+  <ApolloQuery
+    v-if="$auth.user"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/registrations/getRegistration.gql')"
+    :variables="{ courseCode }"
+    @result="setRegistration"
   >
-    <div v-if="$auth.user" class="text-center">
-      <course-register-btn
-        v-if="canRegister"
-        :course-code="course.code"
-        @done="registered"
-      />
+    <generic-info-panel
+      :title="$tc('registration._', 1)"
+      icon="mdi-book"
+      :items="items"
+      :loading="!!isLoading"
+    >
+      <div v-if="!error" class="text-center">
+        <course-register-btn
+          v-if="!registration && courseVisibility === 'PUBLIC'"
+          :course-code="courseCode"
+          @done="registered"
+        />
 
-      <course-request-invitation-btn
-        v-if="canRequestInvitation"
-        :course-code="course.code"
-        @done="invitationRequestSent"
-      />
+        <course-request-invitation-btn
+          v-if="!registration && courseVisibility === 'INVITE_ONLY'"
+          :course-code="courseCode"
+          @done="invitationRequestSent"
+        />
 
-      <course-accept-invitation-btn
-        v-if="canAcceptInvitation"
-        :id="course.registration.id"
-        @done="invitationAccepted"
-      />
-    </div>
-  </generic-info-panel>
+        <course-accept-invitation-btn
+          v-if="registration && registration.invitation === 'SENT'"
+          :id="registration.id"
+          @done="invitationAccepted"
+        />
+      </div>
+    </generic-info-panel>
+  </ApolloQuery>
 </template>
 
 <script>
@@ -33,55 +42,26 @@ export default {
   name: 'RegistrationInfoPanel',
   mixins: [datetime],
   props: {
-    course: {
-      type: Object,
+    courseCode: {
+      type: String,
+      required: true,
+    },
+    courseVisibility: {
+      type: String,
       required: true,
     },
   },
+  data() {
+    return {
+      registration: null,
+    }
+  },
   computed: {
-    canAcceptInvitation() {
-      return (
-        (this.course.visibility === 'INVITE_ONLY' ||
-          this.course.visibility === 'PRIVATE') &&
-        this.$auth.user &&
-        this.course.hasReceivedInvitation &&
-        !(
-          this.course.isCoordinator ||
-          this.course.isTeacher ||
-          this.course.isRegistered ||
-          this.course.hasRequestedInvitation
-        )
-      )
-    },
-    canRegister() {
-      return (
-        this.course.visibility === 'PUBLIC' &&
-        this.$auth.user?.hasAnyRoles('student') &&
-        !(
-          this.course.isCoordinator ||
-          this.course.isTeacher ||
-          this.course.isRegistered
-        )
-      )
-    },
-    canRequestInvitation() {
-      return (
-        this.course.visibility === 'INVITE_ONLY' &&
-        this.$auth.user &&
-        !(
-          this.course.isCoordinator ||
-          this.course.isTeacher ||
-          this.course.isRegistered ||
-          this.course.hasReceivedInvitation ||
-          this.course.hasRequestedInvitation
-        )
-      )
-    },
     items() {
       const items = []
 
-      // Course visibility
-      const visibility = this.course.visibility.toLowerCase()
+      // Course visibility.
+      const visibility = this.courseVisibility.toLowerCase()
       items.push({
         icon: 'mdi-eye',
         text: this.$t(`course.visibility.${visibility}`),
@@ -98,20 +78,18 @@ export default {
       return items
     },
     registrationStatus() {
-      const { registration } = this.course
-
       // Invitation requested or invited.
-      if (registration?.invitation) {
+      if (this.registration?.invitation) {
         return {
           REQUESTED: this.$t('registration.invitation.request.sent'),
           SENT: this.$t('registration.invitation.received._'),
-        }[registration.invitation]
+        }[this.registration.invitation]
       }
 
       // Registered.
-      if (registration?.datetime) {
+      if (this.registration?.datetime) {
         return this.$t('registration.registered_on', {
-          date: this.formatDateFull(registration.datetime),
+          date: this.formatDateFull(this.registration.datetime),
         })
       }
 
@@ -119,20 +97,29 @@ export default {
     },
   },
   methods: {
-    invitationAccepted() {
+    invitationAccepted({ data: { acceptInvitation: registration } }) {
+      this.registration = registration
+
       this.$notificationManager.displaySuccessMessage(
         this.$t('success.ACCEPT_INVITATION')
       )
     },
-    invitationRequestSent() {
+    invitationRequestSent({ data: { requestInvitation: registration } }) {
+      this.registration = registration
+
       this.$notificationManager.displaySuccessMessage(
         this.$t('success.REQUEST_INVITATION')
       )
     },
-    registered() {
+    registered({ data: { register: registration } }) {
+      this.registration = registration
+
       this.$notificationManager.displaySuccessMessage(
         this.$t('success.REGISTER')
       )
+    },
+    setRegistration({ data }) {
+      this.registration = data?.registration
     },
   },
 }

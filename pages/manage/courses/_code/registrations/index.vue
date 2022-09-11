@@ -95,7 +95,6 @@ export default {
       apolloClient.writeData({
         id,
         data: {
-          ...data,
           registrations: [...data.registrations, registration],
         },
       })

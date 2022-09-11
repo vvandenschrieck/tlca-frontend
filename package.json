@@ -27,7 +27,6 @@
     "@nuxtjs/i18n": "^7.2.0",
     "core-js": "^3.19.3",
     "echarts": "^5",
-    "gql-query-builder": "^3.6.0",
     "graphql-tag": "^2.12.6",
     "luxon": "^2.3.1",
     "nuxt": "^2.15.8",

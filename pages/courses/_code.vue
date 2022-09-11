@@ -2,9 +2,9 @@
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { data: course, error } }"
-    :query="(gql) => gql(query.query)"
+    :query="require('~/gql/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="query.variables"
+    :variables="{ code: $route.params.code }"
   >
     <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
@@ -52,7 +52,8 @@
         >
           <registration-info-panel
             v-if="$auth.user"
-            :course="course"
+            :course-code="course.code"
+            :course-visibility="course.visibility"
             class="mb-5"
           />
 
@@ -66,8 +67,6 @@
 </template>
 
 <script>
-import { query } from 'gql-query-builder'
-
 export default {
   name: 'CoursePage',
   data() {
@@ -80,87 +79,6 @@ export default {
     return {
       title: this.title,
     }
-  },
-  computed: {
-    query() {
-      const fields = [
-        'code',
-        'colophon',
-        {
-          competencies: [
-            'category',
-            {
-              competency: [
-                'code',
-                'description',
-                {
-                  learningOutcomes: ['name'],
-                },
-                'name',
-              ],
-            },
-            'subcategory',
-            'useLearningOutcomes',
-          ],
-        },
-        {
-          coordinator: ['username'],
-        },
-        'description',
-        'field',
-        'language',
-        {
-          load: ['ects', 'practice', 'theory', 'type', 'weekload'],
-        },
-        'name',
-        {
-          partners: ['abbreviation', 'code', 'name'],
-        },
-        {
-          schedule: ['name', 'datetime'],
-        },
-        'span',
-        'tags',
-        {
-          team: ['displayName', 'username'],
-        },
-        'type',
-        'visibility',
-      ]
-
-      // Add fields to the query depending on the roles
-      if (this.$auth.user) {
-        fields.push('hasReceivedInvitation', 'hasRequestedInvitation', {
-          registration: ['datetime', 'id', 'invitation'],
-        })
-
-        if (this.$auth.user.hasAnyRoles('student')) {
-          fields.push('isRegistered')
-        }
-
-        if (this.$auth.user.hasAnyRoles('teacher')) {
-          fields.push('isCoordinator', 'isTeacher')
-        }
-      }
-
-      return query(
-        {
-          operation: 'course',
-          variables: {
-            code: {
-              value: this.$route.params.code,
-              type: 'ID',
-              required: true,
-            },
-          },
-          fields,
-        },
-        null,
-        {
-          operationName: 'GetCourse',
-        }
-      )
-    },
   },
   methods: {
     setTitle({ data: course }) {
