@@ -33,7 +33,7 @@
               <v-tab-item>
                 <assessments-list
                   v-if="data"
-                  :course-code="data.course?.code"
+                  :course-code="data?.course.code"
                   :items="data.assessments"
                   hide-openness
                   hide-visibility

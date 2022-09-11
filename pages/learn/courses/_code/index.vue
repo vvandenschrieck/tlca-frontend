@@ -18,20 +18,10 @@
               <progress-info-card :course-code="course.code" />
             </v-col>
 
-            <v-col cols="12" md="6"> Coucou </v-col>
+            <v-col cols="12" md="6">
+              <assessments-info-card :course-code="course.code" space="learn" />
+            </v-col>
           </v-row>
-
-          <div>
-            <v-btn
-              small
-              :to="{
-                name: 'learn-courses-code-assessments',
-                params: { code: $route.params.code },
-              }"
-            >
-              Assessments
-            </v-btn>
-          </div>
         </v-col>
 
         <v-col
@@ -63,7 +53,7 @@ export default {
   },
   methods: {
     setTitle({ data: course }) {
-      this.title = course?.name || ''
+      this.title = course?.name ?? ''
     },
   },
   meta: {

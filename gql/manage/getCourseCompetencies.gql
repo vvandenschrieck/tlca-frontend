@@ -4,7 +4,9 @@ query GetCourseCompetencies($courseCode: ID!) {
     competencies {
       competency {
         code
-        learningOutcomes
+        learningOutcomes {
+          name
+        }
         name
       }
       useLearningOutcomes

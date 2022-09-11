@@ -79,9 +79,6 @@
 <script>
 export default {
   name: 'ManageCourseAssessmentPage',
-  meta: {
-    roles: ['teacher'],
-  },
   data() {
     return {
       currentTab: '0',
@@ -102,6 +99,9 @@ export default {
         this.$t('success.ASSESSMENT_DELETE')
       )
     },
+  },
+  meta: {
+    roles: ['teacher'],
   },
 }
 </script>

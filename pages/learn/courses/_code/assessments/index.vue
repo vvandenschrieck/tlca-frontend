@@ -14,10 +14,8 @@
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
             <v-tab>
-              {{ $tc('evaluation._', 2) }}
+              {{ $tc('assessment._', 2) }}
             </v-tab>
-
-            <v-tab>{{ $t('general.statistics._') }}</v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
@@ -31,10 +29,6 @@
                   hide-visibility
                   link-prefix="learn"
                 />
-              </v-tab-item>
-
-              <v-tab-item>
-                <v-alert dense outlined type="info">Upcoming feature</v-alert>
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>
