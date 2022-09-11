@@ -1,0 +1,7 @@
+mutation RequestInvitation($courseCode: ID!) {
+  requestInvitation(courseCode: $courseCode) {
+    datetime
+    id
+    invitation
+  }
+}

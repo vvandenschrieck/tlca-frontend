@@ -1,0 +1,6 @@
+mutation Register($courseCode: ID!) {
+  register(courseCode: $courseCode) {
+    datetime
+    id
+  }
+}

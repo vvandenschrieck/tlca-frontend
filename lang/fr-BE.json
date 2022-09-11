@@ -527,8 +527,8 @@
     "INVITATION_SEND": "Invitation envoyée avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
     "PROGRAM_PUBLISHED": "Programme publié avec succès !",
-    "REGISTERED": "Inscrit(e) avec succès !",
-    "REQUEST_INVITE_SENT": "Demande d'invitation envoyée avec succès !",
+    "REGISTER": "Inscrit(e) avec succès",
+    "REQUEST_INVITATION": "Demande d'invitation envoyée avec succès",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
     "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !"
   },
