@@ -47,27 +47,26 @@
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
           <assessment-info-panel :assessment="data.assessment" class="mb-5" />
-
-          <assessment-delete-btn
-            :assessment="data.assessment"
-            @success="deleteSuccess"
-            @error="deleteError"
-          />
-
-          <v-btn
-            class="mt-5"
-            color="success"
-            small
-            :to="{
-              name: 'manage-courses-code-assessments-id-edit',
-              params: { code: data.course.code, id: data.assessment.id },
-            }"
-          >
-            <v-icon left>mdi-pencil</v-icon>
-            <span>{{ $t('general.edit') }}</span>
-          </v-btn>
         </v-col>
       </v-row>
+
+      <actions-menu
+        :delete-action="{
+          query: {
+            mutation: require('~/gql/manage/deleteAssessment.gql'),
+            variables: { id: data.assessment.id },
+          },
+          link: {
+            name: 'manage-courses-code-assessments',
+            params: { code: courseCode },
+          },
+          object: 'assessment',
+        }"
+        :edit-link="{
+          name: 'manage-courses-code-assessments-id-edit',
+          params: { code: courseCode, id: data.assessment.id },
+        }"
+      />
     </div>
 
     <div v-else-if="error">{{ $t('error.unexpected') }}</div>
@@ -85,22 +84,6 @@ export default {
   computed: {
     courseCode() {
       return this.$route.params.code
-    },
-  },
-  methods: {
-    deleteError() {
-      this.$notificationManager.displayErrorMessage(
-        this.$t('error.ASSESSMENT_DELETE')
-      )
-    },
-    deleteSuccess() {
-      this.$router.push({
-        name: 'manage-courses-code-assessments',
-        params: { code: this.$route.params.code },
-      })
-      this.$notificationManager.displaySuccessMessage(
-        this.$t('success.ASSESSMENT_DELETE')
-      )
     },
   },
   meta: {

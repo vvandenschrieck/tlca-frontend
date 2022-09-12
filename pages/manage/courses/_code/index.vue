@@ -3,7 +3,7 @@
     v-slot="{ result: { error, data: course }, isLoading }"
     :query="require('~/gql/manage/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
     <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
@@ -26,10 +26,7 @@
             </v-col>
 
             <v-col cols="12" md="6">
-              <assessments-info-card
-                :course-code="course.code"
-                space="manage"
-              />
+              <assessments-info-card :course-code="courseCode" space="manage" />
             </v-col>
           </v-row>
         </v-col>
@@ -41,21 +38,15 @@
         >
           <course-status-info-panel :course="course" class="mb-5" />
           <course-schedule-panel :schedule="course.schedule" />
-
-          <v-btn
-            class="mt-5"
-            color="success"
-            small
-            :to="{
-              name: 'manage-courses-code-edit',
-              params: { code: course.code },
-            }"
-          >
-            <v-icon left>mdi-pencil</v-icon>
-            <span>{{ $t('general.edit') }}</span>
-          </v-btn>
         </v-col>
       </v-row>
+
+      <actions-menu
+        :edit-link="{
+          name: 'manage-courses-code-edit',
+          params: { code: courseCode },
+        }"
+      />
     </div>
 
     <div v-else-if="error">{{ $t('error.unexpected') }}</div>
@@ -75,6 +66,11 @@ export default {
       title: this.title,
     }
   },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
+  },
   methods: {
     setTitle({ data: course }) {
       this.title = course?.name || ''
@@ -92,11 +88,11 @@ export default {
       if (course.isPublished || course.isArchived) {
         items.home = {
           name: 'courses-code',
-          params: { code: this.$route.params.code },
+          params: { code: this.courseCode },
         }
         items.teach = {
           name: 'teach-courses-code',
-          params: { code: this.$route.params.code },
+          params: { code: this.courseCode },
         }
       }
 

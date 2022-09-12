@@ -2,7 +2,7 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { data, error } }"
     :query="require('~/gql/manage/getCourseAssessments.gql')"
-    :variables="{ courseCode: $route.params.code }"
+    :variables="{ courseCode }"
     @result="setTitle"
   >
     <h2>{{ title }}</h2>
@@ -33,7 +33,7 @@
               <v-tab-item>
                 <assessments-list
                   v-if="data"
-                  :course-code="data?.course.code"
+                  :course-code="courseCode"
                   :items="data.assessments"
                   hide-openness
                   hide-visibility
@@ -59,7 +59,7 @@
                   v-if="data"
                   :assessments="data.assessments"
                   :schedule="data.course.schedule"
-                  :code="data.course.code"
+                  :code="courseCode"
                 />
               </v-tab-item>
             </v-tabs-items>
@@ -76,7 +76,7 @@
           v-if="data?.assessments"
           :assessments="data.assessments"
           class="mb-5"
-          :code="data.course.code"
+          :code="courseCode"
         />
 
         <course-schedule-panel
@@ -84,6 +84,13 @@
           :schedule="data?.course.schedule"
         />
       </v-col>
+
+      <actions-menu
+        :create-link="{
+          name: 'manage-courses-code-assessments-create',
+          params: { code: courseCode },
+        }"
+      />
     </v-row>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
@@ -103,6 +110,11 @@ export default {
     return {
       title: this.title + ' | ' + this.$t('global.spaces.teach'),
     }
+  },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   methods: {
     // hasTimeline(course, assessments) {

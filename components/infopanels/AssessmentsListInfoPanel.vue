@@ -3,21 +3,7 @@
     icon="mdi-information"
     :items="items"
     :title="$t('general.information._')"
-  >
-    <div class="text-center">
-      <v-btn
-        color="success"
-        small
-        :to="{
-          name: 'manage-courses-code-assessments-create',
-          params: { code: code },
-        }"
-      >
-        <v-icon left>mdi-plus</v-icon>
-        <span v-t="'general.create'"></span>
-      </v-btn>
-    </div>
-  </generic-info-panel>
+  />
 </template>
 
 <script>
@@ -37,7 +23,7 @@ export default {
     items() {
       const items = []
 
-      // Number of assessments
+      // Total number of assessments.
       items.push({
         icon: 'mdi-clipboard-text',
         text: this.$tc('assessment.nb', this.assessments.length, {

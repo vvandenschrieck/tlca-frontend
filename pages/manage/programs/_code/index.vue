@@ -3,7 +3,7 @@
     v-slot="{ result: { error, data: program }, isLoading }"
     :query="require('~/gql/manage/getProgram.gql')"
     :update="(data) => data.program"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: programCode }"
     @result="setTitle"
   >
     <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
@@ -28,21 +28,15 @@
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
           <program-status-info-panel :program="program" />
-
-          <v-btn
-            class="mt-5"
-            color="success"
-            small
-            :to="{
-              name: 'manage-programs-code-edit',
-              params: { code: program.code },
-            }"
-          >
-            <v-icon left>mdi-pencil</v-icon>
-            <span>{{ $t('general.edit') }}</span>
-          </v-btn>
         </v-col>
       </v-row>
+
+      <actions-menu
+        :edit-link="{
+          name: 'manage-programs-code-edit',
+          params: { code: programCode },
+        }"
+      />
     </div>
 
     <div v-else-if="error">{{ $t('error.unexpected') }}</div>
@@ -61,6 +55,11 @@ export default {
     return {
       title: this.title,
     }
+  },
+  computed: {
+    programCode() {
+      return this.$route.params.code
+    },
   },
   methods: {
     setTitle({ data: program }) {
