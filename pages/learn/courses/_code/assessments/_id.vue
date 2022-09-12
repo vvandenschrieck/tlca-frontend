@@ -47,15 +47,9 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <progress-panel
+        <assessment-schedule-panel
           :loading="!!isLoading"
-          :registration="data?.registration"
-        />
-
-        <course-schedule-panel
-          class="mt-5"
-          :loading="!!isLoading"
-          :schedule="data?.course.schedule"
+          :schedule="schedule(data?.assessment)"
         />
       </v-col>
     </v-row>
@@ -65,8 +59,11 @@
 </template>
 
 <script>
+import assessments from '@/mixins/assessments.js'
+
 export default {
   name: 'LearnCourseAssessmentPage',
+  mixins: [assessments],
   data() {
     return {
       currentTab: 0,
