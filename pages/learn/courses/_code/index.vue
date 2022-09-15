@@ -32,7 +32,7 @@
       </v-row>
     </div>
 
-    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 

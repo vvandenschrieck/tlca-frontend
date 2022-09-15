@@ -1,7 +1,7 @@
 <template>
   <ApolloMutation
     v-slot="{ loading, mutate }"
-    :mutation="require('../../gql/manage/sendInvitation.gql')"
+    :mutation="require('~/gql/manage/sendInvitation.gql')"
     :variables="{ courseCode, email }"
     @done="success"
     @error="error"
@@ -15,7 +15,7 @@
       <template #activator="{ on, attrs }">
         <v-btn color="success" small v-bind="attrs" v-on="on">
           <v-icon left>mdi-archive</v-icon>
-          <span>{{ $t('course.invitation.send') }}</span>
+          <span>{{ $t('registration.invitation.send') }}</span>
         </v-btn>
       </template>
 
@@ -23,7 +23,7 @@
         <ValidationObserver ref="form" v-slot="{ handleSubmit }">
           <v-form :disabled="loading" @submit.prevent="handleSubmit(mutate)">
             <v-card-title class="text-h5" dense>
-              {{ $t('course.invitation.send') }}
+              {{ $t('registration.invitation.send') }}
             </v-card-title>
 
             <v-card-text>
@@ -32,7 +32,7 @@
               </v-alert>
 
               <div class="text--primary">
-                {{ $t('course.invitation.dialog_instructions') }}
+                {{ $t('registration.invitation.dialog_instructions') }}
               </div>
 
               <v-text-field-with-validation

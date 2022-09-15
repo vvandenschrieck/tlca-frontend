@@ -1,0 +1,17 @@
+query GetRegistrations($courseCode: ID, $programCode: ID) {
+  registrations(courseCode: $courseCode, programCode: $programCode) {
+    datetime
+    email
+    group {
+      teaching
+      working
+    }
+    id
+    invitation
+    user {
+      displayName
+      email
+      username
+    }
+  }
+}

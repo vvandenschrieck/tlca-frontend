@@ -234,15 +234,12 @@
     "register": "Register",
     "registrations": {
       "_": "@:registration._",
-      "date": "@:global.date",
       "group": "Group",
       "group_name": "Group {nb}",
       "invites": "Invites",
       "list": "Registrations list",
-      "name_or_email": "Name or email",
       "no_group": "No group",
       "registered": "Registered",
-      "status": "@:general.status",
       "without_group": "Without group"
     },
     "schedule": {
@@ -504,6 +501,7 @@
         "too_old": "The oldest invitation was sent more than {days} days ago"
       }
     },
+    "name_or_email": "Name or email",
     "nb_of": "Number of registrations",
     "no": "There are no registration for now",
     "open": "Open",

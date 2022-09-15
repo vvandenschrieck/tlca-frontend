@@ -3,7 +3,7 @@
     v-slot="{ result: { error, data: course }, isLoading }"
     :query="require('~/gql/manage/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
     <div v-if="isLoading">{{ $t('global.loading') }}</div>
@@ -23,12 +23,16 @@
                 <v-tab-item>
                   <div class="text-right">
                     <course-send-invitation-btn
-                      :course-code="course.code"
+                      :course-code="courseCode"
                       @error="invitationSendError"
                       @success="(r) => invitationSendSuccess(course, r)"
                     />
                   </div>
-                  <registrations-list :course="course" />
+                  <registrations-list
+                    :code="courseCode"
+                    entity="course"
+                    :teaching-groups="course.groups?.teaching"
+                  />
                 </v-tab-item>
               </v-tabs-items>
             </v-card-text>
@@ -41,7 +45,7 @@
         >
           <course-status-info-panel :course="course" />
 
-          <course-schedule-panel class="mt-5" :schedule="course.schedule" />
+          <course-schedule-panel class="mt-5" :course-code="courseCode" />
         </v-col>
       </v-row>
     </div>
@@ -66,10 +70,12 @@ export default {
       title: this.title + ' : ' + this.$tc('registration._', 2),
     }
   },
-  methods: {
-    setTitle({ data: course }) {
-      this.title = course?.name ?? ''
+  computed: {
+    courseCode() {
+      return this.$route.params.code
     },
+  },
+  methods: {
     invitationSendError() {
       this.$notificationManager.displayErrorMessage(
         this.$t('error.INVITATION_SEND')
@@ -86,7 +92,7 @@ export default {
       `
       const id = apolloClient.cache.config.dataIdFromObject({
         __typename: 'Course',
-        code: course.code,
+        code: this.courseCode,
       })
       const data = apolloClient.readFragment({
         fragment,
@@ -102,6 +108,9 @@ export default {
       this.$notificationManager.displaySuccessMessage(
         this.$t('success.INVITATION_SEND')
       )
+    },
+    setTitle({ data: course }) {
+      this.title = course?.name ?? ''
     },
   },
   meta: {

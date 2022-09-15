@@ -234,15 +234,12 @@
     "register": "S'inscrire",
     "registrations": {
       "_": "@:registration._",
-      "date": "@:global.date",
       "group": "Groupe",
       "group_name": "Groupe {nb}",
       "invites": "Invitations",
       "list": "Liste des inscriptions",
-      "name_or_email": "Nom ou e-mail",
       "no_group": "Pas de groupe",
       "registered": "Inscrit(e)s",
-      "status": "@:general.status",
       "without_group": "Sans groupe"
     },
     "schedule": {
@@ -504,6 +501,7 @@
         "too_old": "L'invitation la plus ancienne a été envoyée il y a plus de {days} jours"
       }
     },
+    "name_or_email": "Nom ou e-mail",
     "nb_of": "Nombre d'inscriptions",
     "no": "Il n'y a aucune inscription pour le moment",
     "open": "Ouvertes",

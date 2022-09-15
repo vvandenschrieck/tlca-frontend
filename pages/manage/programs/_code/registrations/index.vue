@@ -6,31 +6,27 @@
     :variables="{ code: programCode }"
     @result="setTitle"
   >
-    <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
+    <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
     <div v-else-if="program && program.isCoordinator">
       <h2>{{ title }}</h2>
 
       <v-row>
         <v-col cols="12" md="9">
-          <v-row>
-            <v-col cols="12" md="6">
-              <v-btn
-                :to="{
-                  name: 'manage-programs-code-registrations',
-                  params: { code: programCode },
-                }"
-              >
-                Registrations
-              </v-btn>
-            </v-col>
+          <v-card>
+            <v-tabs v-model="currentTab" show-arrows>
+              <v-tab>{{ $tc('course.registrations._', 2) }}</v-tab>
+            </v-tabs>
 
-            <v-col cols="12" md="6">
-              <program-courses-info-card :program="program" />
-            </v-col>
-          </v-row>
+            <v-card-text class="text--primary">
+              <v-tabs-items v-model="currentTab">
+                <v-tab-item>
+                  <registrations-list :code="programCode" entity="program" />
+                </v-tab-item>
+              </v-tabs-items>
+            </v-card-text>
+          </v-card>
         </v-col>
-
         <v-col
           cols="12"
           md="3"
@@ -39,13 +35,6 @@
           <program-status-info-panel :program="program" />
         </v-col>
       </v-row>
-
-      <actions-menu
-        :edit-link="{
-          name: 'manage-programs-code-edit',
-          params: { code: programCode },
-        }"
-      />
     </div>
 
     <div v-else-if="error">{{ $t('error.unexpected') }}</div>
@@ -54,15 +43,16 @@
 
 <script>
 export default {
-  name: 'ManageProgramPage',
+  name: 'ManageProgramRegistrationsPage',
   data() {
     return {
+      currentTab: 'registrations',
       title: '',
     }
   },
   head() {
     return {
-      title: this.title,
+      title: this.title + ' : ' + this.$tc('registration._', 2),
     }
   },
   computed: {
