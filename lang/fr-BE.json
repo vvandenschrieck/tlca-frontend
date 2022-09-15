@@ -201,12 +201,6 @@
         "no": "Il n'y a pas de groupes de travail pour le moment."
       }
     },
-    "invitation": {
-      "accept": "Accepter l'invitation",
-      "dialog_instructions": "Entrer l'adresse e-mail de la personne à inviter au cours. Cette personne recevra l'invitation directement sur la plateforme ou par e-mail (si elle n'a pas de compte TLCA), et pourra décider de l'accepter ou non.",
-      "request": "Demander une invitation",
-      "send": "Envoyer une invitation"
-    },
     "language": "@:global.language",
     "learner": "@:learner._",
     "load": {
@@ -489,16 +483,20 @@
     "date": "Date d'inscription",
     "invitation": {
       "_": "Invitation",
+      "accept": "Accepter l'invitation",
+      "dialog_instructions": "Entrer l'adresse e-mail de la personne à inviter au cours. Cette personne recevra l'invitation directement sur la plateforme ou par e-mail (si elle n'a pas de compte TLCA), et pourra décider de l'accepter ou non.",
       "received": {
         "_": "Invitation reçue"
       },
       "request": {
         "_": "Demande d'invitation",
+        "__": "Demander une invitation",
         "nb_of": "Nombre de demandes d'invitation",
         "received": "Demandes d'invitation reçues",
         "sent": "Demande d'invitation envoyée",
         "too_old": "La demande d'invitation la plus ancienne date d'il y a plus de {days} jours"
       },
+      "send": "Envoyer une invitation",
       "sent": {
         "_": "Invitations envoyées",
         "nb_of": "Nombre d'invitation envoyée",

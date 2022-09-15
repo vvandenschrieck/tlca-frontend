@@ -201,12 +201,6 @@
         "no": "There are no working groups for now."
       }
     },
-    "invitation": {
-      "accept": "Accept the invitation",
-      "dialog_instructions": "Enter the email address of the person to invite to the course. This person will receive the invitation directly on the platform or by email (if he/she does not have a TLCA account), and can decide whether to accept it or not.",
-      "request": "Request an invitation",
-      "send": "Send an invitation"
-    },
     "language": "@:global.language",
     "learner": "@:learner._",
     "load": {
@@ -489,16 +483,20 @@
     "date": "Registration date",
     "invitation": {
       "_": "Invitation",
+      "accept": "Accept the invitation",
+      "dialog_instructions": "Enter the email address of the person to invite to the course. This person will receive the invitation directly on the platform or by email (if he/she does not have a TLCA account), and can decide whether to accept it or not.",
       "received": {
         "_": "Invitation received"
       },
       "request": {
         "_": "Invitation request",
+        "__": "Request an invitation",
         "nb_of": "Number of invitation requests",
         "received": "Invitation requests received",
         "sent": "Invitation request sent",
         "too_old": "The oldest invitation request is more than {days} days old"
       },
+      "send": "Send an invitation",
       "sent": {
         "_": "Invitations sent",
         "nb_of": "Number of invitations sent",

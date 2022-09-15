@@ -52,8 +52,9 @@
         >
           <registration-info-panel
             v-if="$auth.user"
-            :course-code="course.code"
-            :course-visibility="course.visibility"
+            :code="course.code"
+            entity="course"
+            :visibility="course.visibility"
             class="mb-5"
           />
 

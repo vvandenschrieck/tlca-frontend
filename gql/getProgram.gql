@@ -6,10 +6,12 @@ query GetProgram($code: ID!) {
       username
     }
     courses {
-      banner
-      code
-      name
-      type
+      course {
+        banner
+        code
+        name
+        type
+      }
     }
     description
     field
@@ -21,5 +23,6 @@ query GetProgram($code: ID!) {
       name
     }
     tags
+    visibility
   }
 }

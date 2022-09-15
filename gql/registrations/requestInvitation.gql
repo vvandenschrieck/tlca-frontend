@@ -1,5 +1,5 @@
-mutation RequestInvitation($courseCode: ID!) {
-  requestInvitation(courseCode: $courseCode) {
+mutation RequestInvitation($courseCode: ID, $programCode: ID) {
+  requestInvitation(courseCode: $courseCode, programCode: $programCode) {
     datetime
     id
     invitation

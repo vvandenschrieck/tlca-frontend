@@ -3,7 +3,7 @@
     v-if="$auth.user"
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/registrations/getRegistration.gql')"
-    :variables="{ courseCode }"
+    :variables="{ [`${entity}Code`]: code }"
     @result="setRegistration"
   >
     <generic-info-panel
@@ -13,23 +13,24 @@
       :loading="!!isLoading"
     >
       <div v-if="!error" class="text-center">
-        <course-register-btn
+        <!-- <course-register-btn
           v-if="!registration && courseVisibility === 'PUBLIC'"
           :course-code="courseCode"
           @done="registered"
-        />
+        /> -->
 
-        <course-request-invitation-btn
-          v-if="!registration && courseVisibility === 'INVITE_ONLY'"
-          :course-code="courseCode"
+        <request-invitation-btn
+          v-if="!registration && visibility === 'INVITE_ONLY'"
+          :code="code"
+          :entity="entity"
           @done="invitationRequestSent"
         />
 
-        <course-accept-invitation-btn
+        <!-- <course-accept-invitation-btn
           v-if="registration && registration.invitation === 'SENT'"
           :id="registration.id"
           @done="invitationAccepted"
-        />
+        /> -->
       </div>
     </generic-info-panel>
   </ApolloQuery>
@@ -42,11 +43,15 @@ export default {
   name: 'RegistrationInfoPanel',
   mixins: [datetime],
   props: {
-    courseCode: {
+    code: {
+      type: String,
+      default: null,
+    },
+    entity: {
       type: String,
       required: true,
     },
-    courseVisibility: {
+    visibility: {
       type: String,
       required: true,
     },
@@ -60,24 +65,24 @@ export default {
     items() {
       const items = []
 
-      // Course visibility.
-      const visibility = this.courseVisibility.toLowerCase()
+      // Course or program visibility.
+      const visibility = this.visibility.toLowerCase()
       items.push({
         icon: 'mdi-eye',
-        text: this.$t(`course.visibility.${visibility}`),
-        tooltip: this.$t('course.visibility._'),
+        text: this.$t(`${this.entity}.visibility.${visibility}`),
+        tooltip: this.$t(`${this.entity}.visibility._`),
       })
 
       // Registration status or date
       items.push({
         icon: 'mdi-calendar',
-        text: this.registrationStatus,
+        text: this.status,
         tooltip: this.$t('registration.status'),
       })
 
       return items
     },
-    registrationStatus() {
+    status() {
       // Invitation requested or invited.
       if (this.registration?.invitation) {
         return {

@@ -2,21 +2,25 @@
   <ApolloMutation
     v-slot="{ loading, mutate }"
     :mutation="require('~/gql/registrations/requestInvitation.gql')"
-    :variables="{ courseCode }"
+    :variables="{ [`${entity}Code`]: code }"
     @done="done"
   >
     <v-btn color="success" :loading="loading" small @click="mutate">
       <v-icon left>mdi-email-plus</v-icon>
-      <span>{{ $t('course.invitation.request') }}</span>
+      <span>{{ $t(`registration.invitation.request.__`) }}</span>
     </v-btn>
   </ApolloMutation>
 </template>
 
 <script>
 export default {
-  name: 'CourseRequestInvitationBtn',
+  name: 'RequestInvitationBtn',
   props: {
-    courseCode: {
+    code: {
+      type: String,
+      required: true,
+    },
+    entity: {
       type: String,
       required: true,
     },
