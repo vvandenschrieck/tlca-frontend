@@ -11,24 +11,65 @@
       "project": "Project",
       "quiz": "Quiz"
     },
+    "checklist": {
+      "_": "Checklist",
+      "add_item": "Add item",
+      "no": "No checklist",
+      "private": "Private checklist",
+      "public": "Public checklist"
+    },
+    "closed": "Closed",
     "code": "@:global.code",
     "competencies": {
       "_": "Competencies",
       "add": "Add a competency",
+      "max_stars": "Max stars",
       "optional": "Optional",
       "stars": "Stars"
     },
     "create": "@:general.create an assessment",
+    "create_event": "Create an event",
     "deadline": {
       "_": "Deadline",
       "date": "Deadline : {deadline}"
     },
+    "delete": {
+      "_": "@:general.delete",
+      "dialog_instructions": "Are you sure you want to delete this assessment?"
+    },
     "description": "@:global.description._",
+    "edit": "@:general.edit an assessment",
     "filter_by_competency": "Filter by competency",
+    "group_by_category": "Group by category",
+    "instances": {
+      "_": "Instances",
+      "infinite": "Infinite",
+      "max_nb": "Maximal number of instances",
+      "nb": "{n} instance | {n} instances"
+    },
+    "learning_outcomes": {
+      "targeted": "Targeted @.lower:competency.learning_outcomes._"
+    },
+    "load": {
+      "_": "@:global.workload",
+      "defense": "Oral defense",
+      "grading": "Grading",
+      "work": "Realisation"
+    },
     "name": "@:global.name",
     "nb": "{nb} evaluation | {nb} evaluations",
     "nb_of": "Number of assessments",
     "no": "There are no assessment for now",
+    "openness": "Openness",
+    "oral_defense": "Oral defense",
+    "phase": {
+      "_": "Phase | Phases",
+      "description": "@:global.description._",
+      "name": "@:global.name",
+      "nb": "Number of phases",
+      "phase_nb": "Phase {nb}"
+    },
+    "progress_measure": "Progress measure",
     "schedule": {
       "_": "Schedule",
       "end": "End date",
@@ -38,12 +79,23 @@
     "start": {
       "_": "Opening",
       "date": "Opens on : {start}"
-    }
+    },
+    "takes": "Takes",
+    "type": {
+      "_": "@:global.type._",
+      "incremental": "Incremental",
+      "phased": "Phased",
+      "single_take": "Single take"
+    },
+    "visibility": "@:global.visibility._"
   },
   "authentication": {
     "sign_in": "Sign in",
     "sign_out": "Sign out",
     "sign_up": "Sign up"
+  },
+  "calendar": {
+    "_": "Calendar"
   },
   "competency": {
     "_": "Competency | Competencies",
@@ -61,13 +113,19 @@
       "partners": "Affiliations"
     },
     "description": "@:global.description._",
+    "edit": "@:general.edit a competency",
     "filter": {
       "creator": "@:general.creator",
       "tags": "Tags",
       "visibility": "@:global.visibility._"
     },
     "learning_outcomes": {
-      "_": "Learning outcomes"
+      "_": "Learning outcomes",
+      "abbr": "LO",
+      "add": "Add a learning outcome",
+      "name": "@:global.name",
+      "no": "There are no learning outcomes for now.",
+      "takes": "Takes"
     },
     "name": "@:global.name",
     "nb": "{nb} competency | {nb} competencies",
@@ -99,7 +157,9 @@
     },
     "assessments": {
       "_": "@:assessment._",
-      "list": "Assessments list"
+      "coverage": "Coverage",
+      "list": "Assessments list",
+      "timeline": "Timeline"
     },
     "assessments_list": "Available assessments",
     "clone": {
@@ -112,12 +172,13 @@
       "_": "Competencies",
       "add": "Add a competency",
       "category": "Category",
-      "subcategory": "Subcategory"
+      "subcategory": "Subcategory",
+      "use_lo": "Use LO"
     },
-    "competency_coverage": "Competency coverage",
     "coordinator": "@:global.coordinator",
     "create": "@:general.create a course",
     "description": "@:global.description._",
+    "edit": "@:general.edit a course",
     "field": "@:global.field",
     "filter": {
       "role": "Role",
@@ -130,21 +191,32 @@
       "no": "There are no groups for now.",
       "supervisor": "Supervisor",
       "teaching": {
-        "_": "Teaching",
+        "_": "Teaching group",
+        "add": "Add a teaching group",
         "no": "There are no teaching groups for now."
       },
       "working": {
-        "_": "Working",
+        "_": "Working group",
+        "add": "Add a working group",
         "no": "There are no working groups for now."
       }
     },
     "language": "@:global.language",
+    "learner": "@:learner._",
     "load": {
-      "_": "Load",
+      "_": "@:global.workload",
       "ects": "ECTS credits",
       "in_credits": "{credits} ECTS",
       "in_hours_per_week": "{hoursPerWeek} h/week",
-      "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h"
+      "in_theory_practice_hours": "{theoryHours}h+{practiceHours}h",
+      "practice": "Practice",
+      "theory": "Theory",
+      "type": {
+        "_": "Load type",
+        "theo_prac": "Theory + Practice",
+        "weekly": "Weekly"
+      },
+      "weekload": "Weekly load"
     },
     "name": "@:global.name",
     "nb": "{nb} course | {nb} courses",
@@ -155,25 +227,26 @@
       "unpublished": "{nb} unpublished | {nb} unpublished"
     },
     "no": "There are no courses for now.",
-    "publish": "Publish",
+    "progress_guide": {
+      "_": "Progress guide"
+    },
+    "publish": "@:global.publish",
     "register": "Register",
     "registrations": {
       "_": "@:registration._",
-      "date": "@:global.date",
       "group": "Group",
       "group_name": "Group {nb}",
       "invites": "Invites",
       "list": "Registrations list",
-      "name_or_email": "Name or email",
       "no_group": "No group",
       "registered": "Registered",
-      "status": "@:general.status"
+      "without_group": "Without group"
     },
-    "request_invite": "Request an invite",
     "schedule": {
       "_": "Schedule",
       "end": "End date",
       "evaluationsEnd": "End of evaluations",
+      "no": "No schedule",
       "registrationsEnd": "End of registrations",
       "registrationsStart": "Start of registrations",
       "start": "Start date"
@@ -210,29 +283,62 @@
   "error": {
     "_": "Error",
     "unexpected": "An unexpected error occurred, try again later.",
+    "ALREADY_REGISTERED": "The user is already registered to the course",
+    "ALREADY_REGISTERED_OR_INVITED": "The user is already registered or invited to the course",
+    "ASSESSMENT_DELETE": "An unexpected error occurred while deleting the assessment",
     "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
     "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
     "DUPLICATE_COURSES": "The same course cannot be used more than once",
+    "EMAIL_VALIDATION": "An unexpected error occurred while validating your email address",
     "EXISTING_CODE": "The specified code already exists",
     "EXISTING_EMAIL_ADDRESS": "Impossible to create an account with this email address",
     "INVALID_CREDENTIALS": "Invalid credentials",
     "INVALID_EMAIL_ADDRESS": "Invalid email address",
     "INVALID_PASSWORD": "Password not strong enough",
+    "INVITATION_SEND": "An unexpected error occurred while sending an invitation",
+    "INVITATION_SENDING_FAILED": "Impossible to send an invitation to this email",
     "INVITE_REQUEST_FAILED": "Invite request failed",
     "MISSING_BASIC_COMPETENCY": "There must be at least one basic competency",
     "MISSING_FIELDS": "Some mandatory fields are missing",
     "MISSING_MANDATORY_COURSE": "There must be at least one mandatory course",
-    "REGISTRATION_FAILED": "Registration failed"
+    "MISSING_PHASES": "Phases are not defined",
+    "PROGRAM_PUBLICATION_FAILED": "An unexpected error occurred while publishing the program",
+    "REGISTRATION_FAILED": "Registration failed",
+    "UNCONFIRMED_EMAIL_ADDRESS": "Email address not confirmed yet",
+    "UNPUBLISHED_PROGRAM_COURSES": "Some courses in the program are not published",
+    "VALIDATION_ERROR": "Some fields contain an invalid value"
+  },
+  "evaluation": {
+    "_": "Evaluation | Evaluations",
+    "assessment": "Assessment",
+    "comment": "Comment",
+    "date": "Evaluation date",
+    "learner": "Learner",
+    "publish": "@:global.publish",
+    "published": "@:global.status.published",
+    "status": {
+      "_": "@:global.status._",
+      "published": "@:global.status.published",
+      "published_on": "@:global.status.published_on",
+      "unpublished": "@:global.status.unpublished"
+    }
   },
   "general": {
     "action": "Action | Actions",
     "apply": "Apply",
     "cancel": "Cancel",
+    "confirmation": "Confirmation",
     "create": "Create",
     "creator": "Creator",
+    "delete": "Delete",
     "edit": "Edit",
     "filter": {
       "_": "Filter"
+    },
+    "in": {
+      "hours": "in hours",
+      "minutes": "in minutes",
+      "weeks": "in weeks"
     },
     "information": {
       "_": "Information",
@@ -241,12 +347,20 @@
       "optional": "Optional @.lower:general.information._"
     },
     "list": "List",
+    "max_nb": "Max number",
     "owner": "Owner",
+    "plus_other": "(+ {n} other) | (+ {n} others)",
     "reset": "Reset",
+    "send": "Send",
+    "statistics": {
+      "_": "Statistics"
+    },
     "status": "Status",
+    "today": "Today",
     "update": "Update",
     "upload": "Upload",
     "upload_click_drag": "Click or drag the file here to upload",
+    "validate": "Validate",
     "validated": "Validated"
   },
   "global": {
@@ -267,6 +381,7 @@
     "name": "Name",
     "partners": "Partners",
     "powered_by": "Powered by",
+    "publish": "Publish",
     "spaces": {
       "_": "Space | Spaces",
       "admin": "Admin",
@@ -293,7 +408,8 @@
       "invite_only": "By invite only",
       "private": "Private",
       "public": "Public"
-    }
+    },
+    "workload": "Workload"
   },
   "homepage": {
     "presentation": "<p>The <em>TLC Academy</em> is the best place where you can <b>learn anything</b> and gain competencies!</p><p>Whether for medium or long term trainings, or for a simple micro-course, learn at your <b>own pace</b> and accumulate <b>competency stars</b> to strenghten your personal profile.</p>",
@@ -302,9 +418,18 @@
     "see_all_programs": "See all programs",
     "welcome": "Welcome!"
   },
+  "learner": {
+    "_": "Learner | Learners",
+    "all": "All learners",
+    "no": "There are no learners for now."
+  },
   "partner": {
     "_": "Partner | Partners",
     "abbreviation": "Abbreviation",
+    "code": "@:global.code",
+    "create": "@:general.create a partner",
+    "description": "@:global.description",
+    "name": "@:global.name",
     "no": "There are no partners available for now.",
     "website": "Website"
   },
@@ -319,6 +444,7 @@
     },
     "create": "@:general.create a program",
     "description": "@:global.description._",
+    "edit": "@:general.edit a program",
     "field": "@:global.field",
     "filter": {
       "status": "@:general.status"
@@ -326,6 +452,7 @@
     "language": "@:global.language",
     "name": "@:global.name",
     "no": "There are no programs for now.",
+    "publish": "@:global.publish",
     "status": {
       "_": "@:global.status._",
       "archived": "@:global.status.archived",
@@ -353,16 +480,20 @@
     "date": "Registration date",
     "invitation": {
       "_": "Invitation",
+      "accept": "Accept the invitation",
+      "dialog_instructions": "Enter the email address of the person to invite to the course. This person will receive the invitation directly on the platform or by email (if he/she does not have a TLCA account), and can decide whether to accept it or not.",
       "received": {
         "_": "Invitation received"
       },
       "request": {
         "_": "Invitation request",
+        "__": "Request an invitation",
         "nb_of": "Number of invitation requests",
         "received": "Invitation requests received",
         "sent": "Invitation request sent",
         "too_old": "The oldest invitation request is more than {days} days old"
       },
+      "send": "Send an invitation",
       "sent": {
         "_": "Invitations sent",
         "nb_of": "Number of invitations sent",
@@ -370,9 +501,11 @@
         "too_old": "The oldest invitation was sent more than {days} days ago"
       }
     },
+    "name_or_email": "Name or email",
     "nb_of": "Number of registrations",
     "no": "There are no registration for now",
     "open": "Open",
+    "progress": "Progress",
     "registered_on": "Registered on {date}",
     "status": "Registration @.lower:general.status",
     "upcoming": "Upcoming"
@@ -382,14 +515,21 @@
   },
   "success": {
     "_": "Success",
+    "ACCEPT_INVITATION": "Successfully accepted the invitation",
+    "ASSESSMENT_CREATE": "Assessment successfully created",
+    "ASSESSMENT_DELETE": "Assessment successfully deleted",
+    "ASSESSMENT_EDIT": "Assessment successfully updated",
     "BANNER_UPDATED": "Banner successfully updated!",
     "COMPETENCY_CREATED": "Competency successfully created!",
     "COURSE_ARCHIVED": "Course successfully archived!",
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
+    "EMAIL_VALIDATION": "Email address successfully validated, you can now log in on the TLCA platform",
+    "INVITATION_SEND": "Invitation successfully sent!",
     "PROGRAM_CREATED": "Program successfully created!",
-    "REGISTERED": "Successfully registered!",
-    "REQUEST_INVITE_SENT": "Invite request successfully sent!",
+    "PROGRAM_PUBLISHED": "Program successfully published!",
+    "REGISTER": "Successfully registered",
+    "REQUEST_INVITATION": "Successfully requested an invitation",
     "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
     "SIGN_UP_SUCCESSFUL": "Successfully signed up!"
   },
@@ -408,6 +548,10 @@
       "user": "User"
     },
     "username": "Username",
-    "username_or_email": "Username or email"
+    "username_or_email": "Username or email",
+    "validate_email": {
+      "_": "Validate email address",
+      "dialog_instructions": "Validate your email address by clicking on the button to be able to log in on the TLCA platform."
+    }
   }
 }

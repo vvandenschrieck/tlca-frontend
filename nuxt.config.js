@@ -21,10 +21,11 @@ export default {
   },
   css: ['@mdi/font/css/materialdesignicons.css'],
   plugins: [
-    '~/plugins/vue-rx.js',
+    '~/plugins/echarts.js',
     '~/plugins/notification-manager.js',
     '~/plugins/validation.js',
     '~/plugins/vee-validate4vuetify.js',
+    '~/plugins/vue-rx.js',
   ],
   components: {
     dirs: [
@@ -48,7 +49,7 @@ export default {
       {
         apiKey: process.env.BUGSNAG_BROWSER_API_KEY,
         config: {
-          appVersion: '1.0.4',
+          appVersion: '1.1.0',
           enabledReleaseStages: ['production'],
           environment: process.env.NODE_ENV,
         },
@@ -59,6 +60,11 @@ export default {
   apollo: {
     clientConfigs: {
       default: '~/apollo.config.js',
+    },
+    defaultOptions: {
+      $query: {
+        fetchPolicy: 'cache-and-network',
+      },
     },
   },
   auth: {
@@ -71,7 +77,7 @@ export default {
       },
     },
     redirect: {
-      login: '/',
+      login: '/login',
       logout: '/',
       callback: false,
       home: '/dashboard',
@@ -101,6 +107,9 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     defaultAssets: false,
+  },
+  alias: {
+    vue: 'vue/dist/vue.runtime.esm.js',
   },
   build: {},
   publicRuntimeConfig: {

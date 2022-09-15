@@ -1,12 +1,17 @@
 <template>
-  <div>
+  <ApolloQuery
+    v-slot="{ isLoading, result: { data, error } }"
+    :query="require('~/gql/components/getRegistrations.gql')"
+    :variables="{ [`${entity}Code`]: code }"
+  >
     <v-data-table
-      v-if="course.registrations"
+      v-if="!error"
       group-by="status"
       :group-desc="true"
       :headers="dataHeaders"
-      :items="registrations"
+      :items="registrations(data?.registrations)"
       :items-per-page="5"
+      :loading="!!isLoading"
     >
       <template #group.header="{ group, headers, isOpen, toggle }">
         <td :colspan="headers.length">
@@ -28,17 +33,20 @@
         {{ formatDateTimeFull(datetime) }}
       </template>
 
-      <template #item.teachingGroup="{ item }">
+      <template #item.group.teaching="{ item }">
         <ApolloMutation
           v-if="item.status === 'registered'"
           v-slot="{ mutate, loading }"
-          :mutation="require('../../gql/updateGroup.gql')"
+          :mutation="
+            item.innerGroup !== null
+              ? require('~/gql/updateGroup.gql')
+              : require('~/gql/removeGroup.gql')
+          "
           :variables="{ group: item.innerGroup, id: item.id, type: 'TEACHING' }"
-          @done="groupUpdated"
         >
           <v-edit-dialog large @save="mutate">
             {{
-              item.group.teaching >= 0
+              item.group && item.group.teaching !== null
                 ? item.group.teaching + 1
                 : $t('course.registrations.no_group')
             }}
@@ -61,21 +69,23 @@
         <ApolloMutation
           v-if="invitation === 'REQUESTED'"
           v-slot="{ mutate, loading }"
-          :mutation="require('../../gql/acceptInvitationRequest.gql')"
+          :mutation="require('~/gql/registrations/acceptInvitationRequest.gql')"
           tag="span"
           :variables="{ id }"
-          @done="groupUpdated"
         >
           <v-btn icon :loading="loading" small @click="mutate">
             <v-icon small>mdi-account-plus</v-icon>
           </v-btn>
         </ApolloMutation>
+
         <v-btn icon small @click="remove(id)">
           <v-icon small>mdi-delete</v-icon>
         </v-btn>
       </template>
     </v-data-table>
-  </div>
+
+    <div v-else>{{ $t('error.unexpected') }}</div>
+  </ApolloQuery>
 </template>
 
 <script>
@@ -85,33 +95,38 @@ export default {
   name: 'RegistrationsList',
   mixins: [datetime],
   props: {
-    course: {
-      type: Object,
+    code: {
+      type: String,
       required: true,
+    },
+    entity: {
+      type: String,
+      required: true,
+    },
+    teachingGroups: {
+      type: Array,
+      default: () => [],
     },
   },
   computed: {
     dataHeaders() {
       const headers = [
         {
-          text: this.$t('course.registrations.name_or_email'),
+          text: this.$t('registration.name_or_email'),
           value: 'nameOrEmail',
         },
-        {
-          text: this.$t('course.registrations.date'),
-          value: 'datetime',
-        },
+        { text: this.$t('registration.date'), value: 'datetime' },
         {
           groupable: true,
-          text: this.$t('course.registrations.status'),
+          text: this.$t('registration.status'),
           value: 'status',
         },
       ]
 
-      if (this.course.groups?.teaching?.length) {
+      if (this.teachingGroups?.length) {
         headers.push({
           text: this.$t('course.registrations.group'),
-          value: 'teachingGroup',
+          value: 'group.teaching',
         })
       }
 
@@ -126,7 +141,7 @@ export default {
       return headers
     },
     groups() {
-      const n = this.course.groups?.teaching?.length
+      const n = this.teachingGroups?.length
       if (n) {
         return [...Array(n).keys()].map((i) => ({
           text: i + 1,
@@ -136,25 +151,15 @@ export default {
 
       return null
     },
-    registrations() {
-      return this.course.registrations.map((item) => ({
+  },
+  methods: {
+    registrations(registrations) {
+      return registrations?.map((item) => ({
         ...item,
-        innerGroup: item.group,
+        innerGroup: item.group?.teaching,
         nameOrEmail: this.nameOrEmail(item),
         status: item.invitation ? 'invites' : 'registered',
       }))
-    },
-  },
-  methods: {
-    groupUpdated({
-      data: {
-        updateGroup: { group, id },
-      },
-    }) {
-      const registration = this.course.registrations.find((r) => r.id === id)
-      if (registration) {
-        registration.group = group
-      }
     },
     nameOrEmail(registration) {
       return (

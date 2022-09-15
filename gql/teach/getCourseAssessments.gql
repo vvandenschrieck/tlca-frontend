@@ -1,0 +1,21 @@
+query GetCourseAssessments($courseCode: ID!) {
+  assessments(courseCode: $courseCode) {
+    category
+    code
+    isClosed
+    isHidden
+    id
+    name
+  }
+
+  course(code: $courseCode) {
+    code
+    isCoordinator
+    isTeacher
+    name
+    schedule {
+      name
+      datetime
+    }
+  }
+}

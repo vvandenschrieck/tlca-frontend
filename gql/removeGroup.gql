@@ -1,0 +1,9 @@
+mutation RemoveGroup($id: ID!, $type: GroupType!) {
+  removeGroup(id: $id, type: $type) {
+    group {
+      teaching
+      working
+    }
+    id
+  }
+}

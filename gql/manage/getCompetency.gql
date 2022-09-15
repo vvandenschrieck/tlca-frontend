@@ -3,6 +3,10 @@ query GetCompetency($code: ID!) {
     code
     description
     isPublic
+    learningOutcomes {
+      name
+      takes
+    }
     name
     partners {
       abbreviation

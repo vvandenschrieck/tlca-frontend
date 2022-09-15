@@ -1,0 +1,6 @@
+mutation ShowHideAssessment($id: ID!) {
+  showHideAssessment(id: $id) {
+    id
+    isHidden
+  }
+}

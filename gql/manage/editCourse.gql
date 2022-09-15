@@ -1,0 +1,39 @@
+mutation EditCourse(
+  $code: String!
+  $colophon: String
+  $competencies: [CourseCompetencyInput!]!
+  $description: String!
+  $field: String
+  $groups: CourseGroupInput
+  $language: String
+  $load: CourseLoadInput
+  $name: String!
+  $partners: [ID!]
+  $schedule: [EventInput!]
+  $span: Int
+  $tags: [String!]
+  $teachers: [ID!]
+  $type: CourseType!
+  $visibility: Visibility
+) {
+  editCourse(
+    code: $code
+    colophon: $colophon
+    competencies: $competencies
+    description: $description
+    field: $field
+    groups: $groups
+    language: $language
+    load: $load
+    name: $name
+    partners: $partners
+    schedule: $schedule
+    span: $span
+    tags: $tags
+    teachers: $teachers
+    type: $type
+    visibility: $visibility
+  ) {
+    code
+  }
+}

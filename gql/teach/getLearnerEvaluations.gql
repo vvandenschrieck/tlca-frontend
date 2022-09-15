@@ -1,0 +1,5 @@
+query GetLearnerEvaluations($assessment: ID!, $courseCode: ID!, $learner: ID!) {
+  evaluations(assessment: $assessment, courseCode: $courseCode, learner: $learner) {
+    id
+  }
+}

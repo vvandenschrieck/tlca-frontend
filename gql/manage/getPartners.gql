@@ -1,0 +1,8 @@
+query GetPartners {
+  partners(view: MANAGER) {
+    abbreviation
+    banner
+    code
+    name
+  }
+}

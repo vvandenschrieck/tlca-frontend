@@ -3,7 +3,7 @@
   <ApolloQuery
     :query="require('../../gql/getProgram.gql')"
     :update="(data) => data.program"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: programCode }"
   >
     <template #default="{ result: { error, data: program }, isLoading }">
       <div v-if="isLoading" v-t="'global.loading'"></div>
@@ -22,7 +22,7 @@
             <card-list
               :cards-per-page="3"
               :component="component"
-              :items="program.courses || []"
+              :items="courses(program) || []"
               :items-per-page="8"
               :prop-name="propName"
               class="mt-3"
@@ -33,6 +33,14 @@
             md="3"
             :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
           >
+            <registration-info-panel
+              v-if="$auth.user"
+              :code="programCode"
+              entity="program"
+              :visibility="program.visibility"
+              class="mb-5"
+            />
+
             <program-info-panel :program="program" />
           </v-col>
         </v-row>
@@ -53,6 +61,16 @@ export default {
       component: CourseCard,
       propName: 'course',
     }
+  },
+  computed: {
+    programCode() {
+      return this.$route.params.code
+    },
+  },
+  methods: {
+    courses(program) {
+      return program.courses.map((c) => c.course)
+    },
   },
   meta: {
     roles: ['guest'],

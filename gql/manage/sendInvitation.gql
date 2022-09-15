@@ -1,0 +1,17 @@
+mutation SendInvitation($courseCode: ID!, $email: String!) {
+  sendInvitation(courseCode: $courseCode, email: $email) {
+    datetime
+    email
+    group {
+      teaching
+      working
+    }
+    id
+    invitation
+    user {
+      displayName
+      email
+      username
+    }
+  }
+}

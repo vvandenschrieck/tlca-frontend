@@ -1,0 +1,8 @@
+mutation PublishEvaluation($id: ID!) {
+  publishEvaluation(id: $id) {
+    id
+    isPublished
+    published
+    status
+  }
+}

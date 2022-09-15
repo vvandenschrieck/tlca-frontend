@@ -1,0 +1,17 @@
+mutation CreateEvent(
+  $courseCode: ID
+  $end: DateTime!
+  $start: DateTime!
+  $title: String!
+  $type: EventType
+) {
+  createEvent(
+    courseCode: $courseCode
+    end: $end
+    start: $start
+    title: $title
+    type: $type
+  ) {
+    id
+  }
+}

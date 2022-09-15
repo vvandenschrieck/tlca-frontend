@@ -1,0 +1,8 @@
+query GetProgressInfo($courseCode: ID!) {
+  registration(courseCode: $courseCode) {
+    progress {
+      advanced
+      basic
+    }
+  }
+}

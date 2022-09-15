@@ -1,0 +1,8 @@
+query GetAssessments($courseCode: ID!, $open: Boolean) {
+  assessments(courseCode: $courseCode, open: $open) {
+    category
+    code
+    id
+    name
+  }
+}

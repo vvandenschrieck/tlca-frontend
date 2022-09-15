@@ -1,11 +1,15 @@
 <template>
   <v-input :value="value" :error-messages="$attrs.errorMessages">
     <v-rating
+      v-model="stars"
+      background-color="grey"
       class="ma-auto"
-      :value="value"
+      dense
+      empty-icon="mdi-star-outline"
+      full-icon="mdi-star"
+      hover
       v-bind="$attrs"
       v-on="$listeners"
-      @input="$emit('input', $event)"
     />
   </v-input>
 </template>
@@ -17,7 +21,17 @@ export default {
   props: {
     value: {
       type: Number,
-      required: true,
+      default: 0,
+    },
+  },
+  computed: {
+    stars: {
+      get() {
+        return this.value
+      },
+      set(value) {
+        this.$emit('input', value)
+      },
     },
   },
 }

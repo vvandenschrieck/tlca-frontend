@@ -1,22 +1,38 @@
 mutation CreateAssessment(
   $category: AssessmentCategory!
   $code: String
-  $competencies: [AssessmentCompetencyInput!]!
+  $competencies: [AssessmentCompetencyInput!]
   $course: ID!
+  $createEvent: Boolean
   $description: String!
   $end: DateTime
+  $incremental: Boolean
+  $instances: Int
+  $load: AssessmentLoadInput
   $name: String!
+  $oralDefense: Boolean
+  $phased: Boolean
+  $phases: [AssessmentPhaseInput!]
   $start: DateTime
+  $takes: Int
 ) {
   createAssessment(
     category: $category
     code: $code
     competencies: $competencies
     course: $course
+    createEvent: $createEvent
     description: $description
     end: $end
+    incremental: $incremental
+    instances: $instances
+    load: $load
     name: $name
+    oralDefense: $oralDefense
+    phased: $phased
+    phases: $phases
     start: $start
+    takes: $takes
   ) {
     id
   }

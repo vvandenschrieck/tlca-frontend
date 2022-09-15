@@ -1,0 +1,9 @@
+query GetCourseSchedule($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    schedule {
+      name
+      datetime
+    }
+  }
+}

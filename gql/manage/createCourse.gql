@@ -1,19 +1,35 @@
 mutation CreateCourse(
   $code: String!
+  $colophon: String
   $competencies: [CourseCompetencyInput!]!
-  $description: String
+  $description: String!
+  $field: String
   $groups: CourseGroupInput
+  $language: String
+  $load: CourseLoadInput
   $name: String!
+  $partners: [ID!]
+  $schedule: [EventInput!]
+  $span: Int
+  $tags: [String!]
   $teachers: [ID!]
-  $type: CourseType
+  $type: CourseType!
   $visibility: Visibility
 ) {
   createCourse(
     code: $code
+    colophon: $colophon
     competencies: $competencies
     description: $description
+    field: $field
     groups: $groups
+    language: $language
+    load: $load
     name: $name
+    partners: $partners
+    schedule: $schedule
+    span: $span
+    tags: $tags
     teachers: $teachers
     type: $type
     visibility: $visibility

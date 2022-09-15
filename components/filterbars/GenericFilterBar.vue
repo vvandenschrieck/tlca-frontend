@@ -9,6 +9,7 @@
     @input="updateText"
   >
     <v-menu
+      v-if="!hideFilter"
       slot="append"
       v-model="showMenu"
       :close-on-content-click="false"
@@ -62,6 +63,10 @@ export default {
     createLink: {
       type: Object,
       default: null,
+    },
+    hideFilter: {
+      type: Boolean,
+      default: false,
     },
     value: {
       type: Object,

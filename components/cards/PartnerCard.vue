@@ -1,10 +1,12 @@
 <template>
   <generic-card
     :banner="partner.banner"
-    :to="{ name: 'partners-code', params: { code: partner.code } }"
+    :to="link"
     :label="partner.abbreviation"
   >
-    <v-card-title class="name">{{ partner.name }}</v-card-title>
+    <v-card-title class="name">
+      {{ partner.name }}
+    </v-card-title>
   </generic-card>
 </template>
 
@@ -12,10 +14,22 @@
 export default {
   name: 'PartnerCard',
   props: {
+    linkPrefix: {
+      type: String,
+      default: '',
+    },
     partner: {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      link: {
+        name: `${this.linkPrefix}partners-code`,
+        params: { code: this.partner.code },
+      },
+    }
   },
 }
 </script>

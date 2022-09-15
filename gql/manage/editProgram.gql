@@ -1,0 +1,19 @@
+mutation EditProgram(
+  $code: String!
+  $courses: [ProgramCourseInput!]!
+  $description: String
+  $name: String!
+  $type: ProgramType
+  $visibility: ProgramVisibility
+) {
+  editProgram(
+    code: $code
+    courses: $courses
+    description: $description
+    name: $name
+    type: $type
+    visibility: $visibility
+  ) {
+    code
+  }
+}

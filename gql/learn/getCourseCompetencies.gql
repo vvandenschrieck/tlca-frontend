@@ -1,0 +1,26 @@
+query GetCourseCompetencies($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    competencies {
+      category
+      competency {
+        code
+        name
+      }
+      subcategory
+    }
+    isRegistered
+    name
+    schedule {
+      name
+      datetime
+    }
+  }
+
+  registration(courseCode: $courseCode) {
+    progress {
+      advanced
+      basic
+    }
+  }
+}

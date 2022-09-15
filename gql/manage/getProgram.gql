@@ -1,0 +1,21 @@
+query GetProgram($code: ID!) {
+  program(code: $code) {
+    archived
+    code
+    courses {
+      course {
+        code
+        name
+        status
+      }
+    }
+    description
+    isArchived
+    isCoordinator
+    isPublished
+    name
+    published
+    status
+    visibility
+  }
+}

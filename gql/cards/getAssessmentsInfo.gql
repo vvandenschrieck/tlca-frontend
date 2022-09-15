@@ -1,0 +1,5 @@
+query GetProgressInfo($courseCode: ID!) {
+  assessments(courseCode: $courseCode) {
+    id
+  }
+}

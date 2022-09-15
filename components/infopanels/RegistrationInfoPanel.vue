@@ -1,54 +1,39 @@
 <template>
-  <generic-info-panel
-    :title="$tc('registration._', 1)"
-    icon="mdi-book"
-    :items="items"
+  <ApolloQuery
+    v-if="$auth.user"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/registrations/getRegistration.gql')"
+    :variables="{ [`${entity}Code`]: code }"
+    @result="setRegistration"
   >
-    <div v-if="$auth.user" class="text-center">
-      <!-- Registration button -->
-      <!-- TODO: remove the 'invitation' field when moving to Apollo client 3
-           it has been queried now to be sure that the query on the course
-          page gets refreshed correctly when the mutation is done -->
-      <ApolloMutation
-        :mutation="require('../../gql/register.gql')"
-        :variables="{ code: course.code }"
-        @done="registered"
-      >
-        <template #default="{ mutate, loading }">
-          <v-btn
-            v-if="canRegister"
-            small
-            color="success"
-            :loading="loading"
-            @click="mutate()"
-          >
-            <v-icon left>mdi-plus</v-icon>
-            <span>{{ $t('course.register') }}</span>
-          </v-btn>
-        </template>
-      </ApolloMutation>
+    <generic-info-panel
+      :title="$tc('registration._', 1)"
+      icon="mdi-book"
+      :items="items"
+      :loading="!!isLoading"
+    >
+      <div v-if="!error" class="text-center">
+        <!-- <course-register-btn
+          v-if="!registration && courseVisibility === 'PUBLIC'"
+          :course-code="courseCode"
+          @done="registered"
+        /> -->
 
-      <!-- Invitation request button -->
-      <ApolloMutation
-        :mutation="require('../../gql/requestInvitation.gql')"
-        :variables="{ code: course.code }"
-        @done="invitationRequestSent"
-      >
-        <template #default="{ mutate, loading }">
-          <v-btn
-            v-if="canRequestInvitation"
-            small
-            color="success"
-            :loading="loading"
-            @click="mutate()"
-          >
-            <v-icon left>mdi-email-plus</v-icon>
-            <span>{{ $t('course.request_invite') }}</span>
-          </v-btn>
-        </template>
-      </ApolloMutation>
-    </div>
-  </generic-info-panel>
+        <request-invitation-btn
+          v-if="!registration && visibility === 'INVITE_ONLY'"
+          :code="code"
+          :entity="entity"
+          @done="invitationRequestSent"
+        />
+
+        <!-- <course-accept-invitation-btn
+          v-if="registration && registration.invitation === 'SENT'"
+          :id="registration.id"
+          @done="invitationAccepted"
+        /> -->
+      </div>
+    </generic-info-panel>
+  </ApolloQuery>
 </template>
 
 <script>
@@ -58,78 +43,88 @@ export default {
   name: 'RegistrationInfoPanel',
   mixins: [datetime],
   props: {
-    course: {
-      type: Object,
+    code: {
+      type: String,
+      default: null,
+    },
+    entity: {
+      type: String,
+      required: true,
+    },
+    visibility: {
+      type: String,
       required: true,
     },
   },
+  data() {
+    return {
+      registration: null,
+    }
+  },
   computed: {
-    canRegister() {
-      return (
-        this.course.visibility === 'PUBLIC' &&
-        this.$auth.user?.hasAnyRoles('student') &&
-        !(
-          this.course.isCoordinator ||
-          this.course.isTeacher ||
-          this.course.isRegistered
-        )
-      )
-    },
-    canRequestInvitation() {
-      return (
-        this.course.visibility === 'INVITE_ONLY' &&
-        this.$auth.user &&
-        !(
-          this.course.isCoordinator ||
-          this.course.isTeacher ||
-          this.course.isRegistered ||
-          this.course.hasRequestedInvitation
-        )
-      )
-    },
     items() {
       const items = []
 
-      // Course visibility
-      const visibility = this.course.visibility.toLowerCase()
+      // Course or program visibility.
+      const visibility = this.visibility.toLowerCase()
       items.push({
         icon: 'mdi-eye',
-        text: this.$t(`course.visibility.${visibility}`),
-        tooltip: this.$t('course.visibility._'),
+        text: this.$t(`${this.entity}.visibility.${visibility}`),
+        tooltip: this.$t(`${this.entity}.visibility._`),
       })
 
       // Registration status or date
-      const registration = this.course.registration
-      let registrationStatus = this.$t('student.not_registered_yet')
-      if (registration?.invitation) {
-        registrationStatus = {
-          REQUESTED: this.$t('registration.invitation.request.sent'),
-          SENT: this.$t('registration.invitation.sent._'),
-        }[registration.invitation]
-      } else if (registration?.datetime) {
-        registrationStatus = this.$t('registration.registered_on', {
-          date: this.formatDateFull(registration.datetime),
-        })
-      }
       items.push({
         icon: 'mdi-calendar',
-        text: registrationStatus,
+        text: this.status,
         tooltip: this.$t('registration.status'),
       })
 
       return items
     },
+    status() {
+      // Invitation requested or invited.
+      if (this.registration?.invitation) {
+        return {
+          REQUESTED: this.$t('registration.invitation.request.sent'),
+          SENT: this.$t('registration.invitation.received._'),
+        }[this.registration.invitation]
+      }
+
+      // Registered.
+      if (this.registration?.datetime) {
+        return this.$t('registration.registered_on', {
+          date: this.formatDateFull(this.registration.datetime),
+        })
+      }
+
+      return this.$t('student.not_registered_yet')
+    },
   },
   methods: {
-    invitationRequestSent() {
+    invitationAccepted({ data: { acceptInvitation: registration } }) {
+      this.registration = registration
+
       this.$notificationManager.displaySuccessMessage(
-        this.$t('success.INVITATION_REQUEST_SENT')
+        this.$t('success.ACCEPT_INVITATION')
       )
     },
-    registered() {
+    invitationRequestSent({ data: { requestInvitation: registration } }) {
+      this.registration = registration
+
       this.$notificationManager.displaySuccessMessage(
-        this.$t('success.REGISTERED')
+        this.$t('success.REQUEST_INVITATION')
       )
+    },
+    registered({ data: { register: registration } }) {
+      this.registration = registration
+
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.REGISTER')
+      )
+    },
+    setRegistration({ data }) {
+      this.registration = data?.registration
     },
   },
 }

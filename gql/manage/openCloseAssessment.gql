@@ -1,0 +1,6 @@
+mutation OpenCloseAssessment($id: ID!) {
+  openCloseAssessment(id: $id) {
+    id
+    isClosed
+  }
+}

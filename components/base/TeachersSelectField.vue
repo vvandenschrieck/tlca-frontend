@@ -1,34 +1,32 @@
 <template>
   <ApolloQuery
+    v-slot="{ isLoading, result: { data: colleagues, error } }"
     :query="require('~/gql/manage/getTeachers.gql')"
     :update="(data) => data.colleagues"
   >
-    <template #default="{ result: { error, data: colleagues }, isLoading }">
-      <v-autocomplete
-        v-if="!error"
-        chips
-        clearable
-        deletable-chips
-        dense
-        :disabled="isLoading !== 0"
-        :items="colleagues"
-        :item-text="(u) => u.username || u.displayName"
-        item-value="username"
-        :label="$tc('course.teacher', 2)"
-        :loading="isLoading !== 0"
-        multiple
-        small-chips
-        :value="value"
-        @input="$emit('input', $event)"
-      >
-        <template #item="{ item: { displayName, username } }">
-          {{ displayName }}
-          <span v-if="username !== displayName">&nbsp;({{ username }})</span>
-        </template>
-      </v-autocomplete>
+    <v-autocomplete
+      v-if="!error"
+      v-model="teachers"
+      chips
+      clearable
+      deletable-chips
+      dense
+      :disabled="!!isLoading"
+      :item-text="(u) => u.username || u.displayName"
+      item-value="username"
+      :items="colleagues"
+      :label="$tc('course.teacher', 2)"
+      :loading="!!isLoading"
+      multiple
+      small-chips
+    >
+      <template #item="{ item: { displayName, username } }">
+        {{ displayName }}
+        <span v-if="username !== displayName">&nbsp;({{ username }})</span>
+      </template>
+    </v-autocomplete>
 
-      <div v-else>{{ $t('error.unexpected') }}</div>
-    </template>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
@@ -39,6 +37,16 @@ export default {
     value: {
       type: Array,
       default: () => [],
+    },
+  },
+  computed: {
+    teachers: {
+      get() {
+        return this.value
+      },
+      set(value) {
+        this.$emit('input', value)
+      },
     },
   },
 }

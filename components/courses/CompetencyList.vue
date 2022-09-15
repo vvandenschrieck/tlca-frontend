@@ -4,14 +4,14 @@
     <div v-if="hasCategories" align="right">
       <v-select
         v-model="structure"
-        :items="view"
+        class="d-inline-block text-caption"
+        dense
+        height="20"
+        hide-details
         item-text="by"
         item-value="value"
-        dense
+        :items="view"
         outlined
-        hide-details
-        height="20"
-        class="d-inline-block text-caption"
       >
         <template #selection="{ item }">
           <v-list-item dense class="pa-0 showby">
@@ -24,22 +24,42 @@
         </template>
       </v-select>
     </div>
+
     <div v-for="category in competencies" :key="category.name">
       <h3>{{ category.name }}</h3>
-      <v-expansion-panels accordion multiple tile flat>
+
+      <v-expansion-panels accordion flat multiple tile>
         <v-expansion-panel
-          v-for="{ competency } in category.values"
-          :key="competency.code"
+          v-for="c in category.values"
+          :key="c.competency.code"
         >
           <v-expansion-panel-header class="px-0 name">
-            {{ competency.code }}&nbsp;–&nbsp;{{ competency.name }}
+            {{ competencyName(c.competency) }}
           </v-expansion-panel-header>
+
           <v-expansion-panel-content>
             <v-card flat>
-              <v-card-text
-                class="text--primary font-italic ma-0 pa-0"
-                v-html="description(competency)"
-              ></v-card-text>
+              <v-card-text class="font-italic ma-0 pa-0 text--primary">
+                <div
+                  v-if="c.competency.description"
+                  v-html="c.competency.description"
+                />
+
+                <template v-if="c.useLearningOutcomes">
+                  <h4>{{ $t('competency.learning_outcomes._') }}</h4>
+
+                  <learning-outcomes-list
+                    hide-takes
+                    :items="c.competency.learningOutcomes"
+                  />
+                </template>
+
+                <template
+                  v-if="!c.competency.description && !c.useLearningOutcomes"
+                >
+                  {{ $t('global.description.no') }}
+                </template>
+              </v-card-text>
             </v-card>
           </v-expansion-panel-content>
         </v-expansion-panel>
@@ -64,7 +84,10 @@ export default {
   },
   computed: {
     categories() {
-      const categories = ['BASIC', 'ADVANCED']
+      const categories = ['BASIC']
+      if (this.items.some((c) => c.category === 'ADVANCED')) {
+        categories.push('ADVANCED')
+      }
       let withoutCategory = false
 
       if (this.structure === 'subcategory') {
@@ -123,15 +146,13 @@ export default {
   methods: {
     categoryName(category) {
       if (this.structure === 'category') {
-        return {
-          basic: this.$t('competency.category.basic'),
-          advanced: this.$t('competency.category.advanced'),
-        }[category.toLowerCase()]
+        return this.$t(`competency.category.${category.toLowerCase()}`)
       }
+
       return category
     },
-    description(competency) {
-      return competency.description ?? this.$t('global.description.no')
+    competencyName(competency) {
+      return competency.code + ' – ' + competency.name
     },
   },
 }

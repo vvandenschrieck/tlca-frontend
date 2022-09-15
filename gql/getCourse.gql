@@ -1,0 +1,50 @@
+query GetCourse($code: ID!) {
+  course(code: $code) {
+    code
+    colophon
+    competencies {
+      category
+      competency {
+        code
+        description
+        learningOutcomes {
+          name
+        }
+        name
+      }
+      subcategory
+      useLearningOutcomes
+    }
+    coordinator {
+      username
+    }
+    description
+    field
+    language
+    load {
+      ects
+      practice
+      theory
+      type
+      weekload
+    }
+    name
+    partners {
+      abbreviation
+      code
+      name
+    }
+    schedule {
+      name
+      datetime
+    }
+    span
+    tags
+    team {
+      displayName
+      username
+    }
+    type
+    visibility
+  }
+}

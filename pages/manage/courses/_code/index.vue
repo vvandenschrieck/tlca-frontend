@@ -3,10 +3,10 @@
     v-slot="{ result: { error, data: course }, isLoading }"
     :query="require('~/gql/manage/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <div v-if="isLoading">{{ $t('global.loading') }}</div>
+    <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
 
     <div v-else-if="course && course.isCoordinator">
       <space-switcher :items="spaces(course)" />
@@ -26,7 +26,7 @@
             </v-col>
 
             <v-col cols="12" md="6">
-              <assessments-info-card :course="course" />
+              <assessments-info-card :course-code="courseCode" space="manage" />
             </v-col>
           </v-row>
         </v-col>
@@ -36,13 +36,17 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <course-status-info-panel :course="course" class="mb-5" />
-          <course-schedule-panel
-            v-if="course.schedule"
-            :schedule="course.schedule"
-          />
+          <course-status-info-panel :course="course" />
+          <course-schedule-panel class="mt-5" :course-code="courseCode" />
         </v-col>
       </v-row>
+
+      <actions-menu
+        :edit-link="{
+          name: 'manage-courses-code-edit',
+          params: { code: courseCode },
+        }"
+      />
     </div>
 
     <div v-else-if="error">{{ $t('error.unexpected') }}</div>
@@ -62,9 +66,14 @@ export default {
       title: this.title,
     }
   },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
+  },
   methods: {
     setTitle({ data: course }) {
-      this.title = course.name
+      this.title = course?.name || ''
     },
     showGroupsInfo(course) {
       return (
@@ -79,11 +88,11 @@ export default {
       if (course.isPublished || course.isArchived) {
         items.home = {
           name: 'courses-code',
-          params: { code: this.$route.params.code },
+          params: { code: this.courseCode },
         }
         items.teach = {
           name: 'teach-courses-code',
-          params: { code: this.$route.params.code },
+          params: { code: this.courseCode },
         }
       }
 
