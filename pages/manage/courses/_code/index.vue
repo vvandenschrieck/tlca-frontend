@@ -36,8 +36,8 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <course-status-info-panel :course="course" class="mb-5" />
-          <course-schedule-panel :schedule="course.schedule" />
+          <course-status-info-panel :course="course" />
+          <course-schedule-panel class="mt-5" :course-code="courseCode" />
         </v-col>
       </v-row>
 

@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     setTitle({ data: program }) {
-      this.title = program?.name || ''
+      this.title = program?.name ?? ''
     },
   },
   meta: {

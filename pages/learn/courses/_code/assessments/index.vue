@@ -1,11 +1,11 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data }, isLoading }"
+    v-slot="{ isLoading, result: { data, error } }"
     :query="require('~/gql/learn/getCourseAssessments.gql')"
     :variables="{ courseCode: $route.params.code }"
     @result="setTitle"
   >
-    <h2>{{ title }}</h2>
+    <page-title :loading="!!isLoading" :value="title" />
 
     <v-row v-if="!error">
       <v-col cols="12" md="9">
@@ -45,11 +45,7 @@
           :registration="data?.registration"
         />
 
-        <course-schedule-panel
-          class="mt-5"
-          :loading="!!isLoading"
-          :schedule="data?.course.schedule"
-        />
+        <course-schedule-panel class="mt-5" :course-code="courseCode" />
       </v-col>
     </v-row>
 
@@ -70,6 +66,11 @@ export default {
     return {
       title: this.title + ' | ' + this.$t('global.spaces.learn'),
     }
+  },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   methods: {
     setTitle({ data }) {

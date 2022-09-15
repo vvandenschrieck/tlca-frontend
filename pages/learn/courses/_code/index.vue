@@ -1,25 +1,23 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data: course }, isLoading }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/learn/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
-
-    <div v-else-if="course && course.isRegistered">
-      <h2>{{ title }}</h2>
+    <div v-if="!error">
+      <page-title :loading="!!isLoading" :value="title" />
 
       <v-row>
         <v-col cols="12" md="9">
           <v-row>
             <v-col cols="12" md="6">
-              <progress-info-card :course-code="course.code" />
+              <progress-info-card :course-code="courseCode" />
             </v-col>
 
             <v-col cols="12" md="6">
-              <assessments-info-card :course-code="course.code" space="learn" />
+              <assessments-info-card :course-code="courseCode" space="learn" />
             </v-col>
           </v-row>
         </v-col>
@@ -29,7 +27,7 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <course-schedule-panel :schedule="course.schedule" />
+          <course-schedule-panel :course-code="courseCode" />
         </v-col>
       </v-row>
     </div>
@@ -50,6 +48,11 @@ export default {
     return {
       title: this.title,
     }
+  },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   methods: {
     setTitle({ data: course }) {
