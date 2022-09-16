@@ -19,6 +19,7 @@ export default {
         competencies: () => this.$tc('competency._', 2),
         courses: () => this.$tc('course._', 2),
         create: () => this.$t('general.create'),
+        dashboard: () => this.$t('general.dashboard'),
         edit: () => this.$t('general.edit'),
         evaluations: () => this.$tc('evaluation._', 2),
         groups: () => this.$tc('course.groups._', 2),
