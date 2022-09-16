@@ -118,7 +118,7 @@ export default {
       return !this.edit ? 'create' : 'edit'
     },
     types() {
-      return ['UPROGRAM', 'TRAINING'].map((value) => ({
+      return ['UPROGRAM', 'UNIT', 'TRAINING'].map((value) => ({
         text: this.$t(`program.type.${value.toLowerCase()}`),
         value,
       }))

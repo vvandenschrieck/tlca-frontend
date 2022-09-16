@@ -271,7 +271,7 @@
       "project": "Project",
       "training": "@:global.type.training",
       "ucourse": "µCourse",
-      "unit": "Unit"
+      "unit": "@:global.type.unit"
     },
     "visibility": {
       "_": "@:global.visibility._",
@@ -402,7 +402,8 @@
     "tag": "Tag | Tags",
     "type": {
       "_": "Type",
-      "training": "Training"
+      "training": "Training",
+      "unit": "Unit"
     },
     "visibility": {
       "_": "Visibility",
@@ -466,6 +467,7 @@
     "type": {
       "_": "@:global.type._",
       "training": "@:global.type.training",
+      "unit": "@:global.type.unit",
       "uprogram": "µProgram"
     },
     "visibility": {
