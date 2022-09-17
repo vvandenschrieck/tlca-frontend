@@ -2,7 +2,7 @@
   <ApolloQuery
     v-slot="{ result: { error, data }, isLoading }"
     :query="require('~/gql/teach/getCourseAssessments.gql')"
-    :variables="{ courseCode: $route.params.code }"
+    :variables="{ courseCode }"
     @result="setTitle"
   >
     <h2>{{ title }}</h2>
@@ -25,7 +25,7 @@
               <v-tab-item>
                 <assessments-list
                   v-if="data"
-                  :course-code="data.course?.code"
+                  :course-code="courseCode"
                   :items="data.assessments"
                   hide-actions
                   link-prefix="teach"
@@ -45,10 +45,7 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <course-schedule-panel
-          :loading="!!isLoading"
-          :schedule="data?.course.schedule"
-        />
+        <course-schedule-panel :course-code="courseCode" />
       </v-col>
     </v-row>
 
@@ -57,8 +54,11 @@
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'TeachCourseAssessmentsPage',
+  mixins: [titles],
   data() {
     return {
       currentTab: 0,
@@ -67,8 +67,13 @@ export default {
   },
   head() {
     return {
-      title: this.title + ' | ' + this.$t('global.spaces.teach'),
+      title: this.getTitle(this.title, 'assessment._', 'teach'),
     }
+  },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   methods: {
     setTitle({ data }) {

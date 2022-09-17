@@ -95,8 +95,11 @@
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'ManageCourseAssessmentsPage',
+  mixins: [titles],
   data() {
     return {
       currentTab: 0,
@@ -105,7 +108,7 @@ export default {
   },
   head() {
     return {
-      title: this.title + ' | ' + this.$t('global.spaces.teach'),
+      title: this.getTitle(this.title, 'assessment._', 'manage'),
     }
   },
   computed: {

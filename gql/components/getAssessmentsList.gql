@@ -1,0 +1,10 @@
+query GetAssessmentsList($courseCode: ID!, $teacherView: Boolean!) {
+  assessments(courseCode: $courseCode) {
+    category
+    code
+    id
+    isClosed @include(if: $teacherView)
+    isHidden @include(if: $teacherView)
+    name
+  }
+}

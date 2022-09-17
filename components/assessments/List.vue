@@ -1,53 +1,62 @@
 <template>
-  <v-data-table
-    v-if="items"
-    :group-by="groupByCategory ? 'categoryText' : null"
-    :group-desc="false"
-    :headers="dataHeaders"
-    :items="assessments"
-    :items-per-page="5"
-    @click:row="goToAssessment"
+  <ApolloQuery
+    v-slot="{ isLoading, result: { data, error } }"
+    :query="require('~/gql/components/getAssessmentsList.gql')"
+    :variables="{ courseCode: $route.params.code, teacherView }"
   >
-    <template #group.header="{ group, headers, isOpen, toggle }">
-      <td :colspan="headers.length">
-        <v-row align="center">
-          <v-col class="group-header">
-            <b>{{ group }}</b>
-          </v-col>
+    <v-data-table
+      v-if="!error"
+      :group-by="groupByCategory ? 'categoryText' : null"
+      :group-desc="false"
+      :headers="dataHeaders"
+      :items="assessments(data?.assessments)"
+      :items-per-page="10"
+      :loading="!!isLoading"
+      @click:row="goToAssessment"
+    >
+      <template #group.header="{ group, headers, isOpen, toggle }">
+        <td :colspan="headers.length">
+          <v-row align="center">
+            <v-col class="group-header">
+              <b>{{ group }}</b>
+            </v-col>
 
-          <v-col align="right">
-            <v-btn icon @click="toggle">
-              <v-icon>{{ `mdi-chevron-${isOpen ? 'up' : 'down'}` }}</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </td>
-    </template>
+            <v-col align="right">
+              <v-btn icon @click="toggle">
+                <v-icon>{{ `mdi-chevron-${isOpen ? 'up' : 'down'}` }}</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </td>
+      </template>
 
-    <template #footer.prepend>
-      <v-switch v-model="groupByCategory" dense>
-        <span slot="label" class="text-subtitle-2">
-          {{ $t('assessment.group_by_category') }}
-        </span>
-      </v-switch>
-    </template>
+      <template #footer.prepend>
+        <v-switch v-model="groupByCategory" dense>
+          <span slot="label" class="text-subtitle-2">
+            {{ $t('assessment.group_by_category') }}
+          </span>
+        </v-switch>
+      </template>
 
-    <template #item.name="{ item: assessment }">
-      {{ assessmentName(assessment) }}
-    </template>
+      <template #item.name="{ item: assessment }">
+        {{ assessmentName(assessment) }}
+      </template>
 
-    <template #item.category="{ item: { categoryText } }">
-      {{ categoryText }}
-    </template>
+      <template #item.category="{ item: { categoryText } }">
+        {{ categoryText }}
+      </template>
 
-    <template #item.isHidden="{ value: isHidden }">
-      <v-icon small>{{ isHidden ? 'mdi-eye-off' : 'mdi-eye' }}</v-icon>
-    </template>
+      <template #item.isHidden="{ value: isHidden }">
+        <v-icon small>{{ isHidden ? 'mdi-eye-off' : 'mdi-eye' }}</v-icon>
+      </template>
 
-    <template v-if="!hideActions" #item.actions="{ item }">
-      <slot name="actions" :item="item" />
-    </template>
-  </v-data-table>
+      <template v-if="!hideActions" #item.actions="{ item }">
+        <slot name="actions" :item="item" />
+      </template>
+    </v-data-table>
+
+    <div v-else>{{ $t('error.unexpected') }}</div>
+  </ApolloQuery>
 </template>
 
 <script>
@@ -70,10 +79,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    items: {
-      type: Array,
-      required: true,
-    },
     linkPrefix: {
       type: String,
       required: true,
@@ -85,14 +90,6 @@ export default {
     }
   },
   computed: {
-    assessments() {
-      return this.items.map((i) => ({
-        ...i,
-        categoryText: this.$t(
-          `assessment.category.${i.category.toLowerCase()}`
-        ),
-      }))
-    },
     dataHeaders() {
       const headers = [
         {
@@ -124,6 +121,9 @@ export default {
 
       return headers
     },
+    teacherView() {
+      return this.$auth.user.hasAnyRoles('teacher')
+    },
   },
   methods: {
     assessmentName(assessment) {
@@ -134,6 +134,14 @@ export default {
       const prefix = assessment.code ? `${assessment.code} – ` : ''
 
       return closed + prefix + assessment.name
+    },
+    assessments(items) {
+      return items?.map((i) => ({
+        ...i,
+        categoryText: this.$t(
+          `assessment.category.${i.category.toLowerCase()}`
+        ),
+      }))
     },
     goToAssessment({ id }) {
       this.$router.push({
