@@ -1,0 +1,5 @@
+mutation CreateAssessmentInstance($id: ID!) {
+  createAssessmentInstance(id: $id) {
+    id
+  }
+}

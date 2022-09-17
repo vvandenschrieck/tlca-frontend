@@ -1,13 +1,14 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/courses/getCourseCompetencies.gql')"
-    :update="(data) => data.course.competencies"
-    :variables="{ courseCode }"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/components/getAssessmentCompetencies.gql')"
+    :variables="{ assessmentId, courseCode }"
+    @result="setCompetencies"
   >
     <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-    <v-list v-if="!error && data" class="pa-0">
-      <template v-for="(c, i) in competencies(data)">
+
+    <v-list v-if="!error" class="pa-0">
+      <template v-for="(c, i) in competencies">
         <v-list-item :key="c.competency.code">
           <v-list-item-content>
             <v-list-item-title>
@@ -25,7 +26,9 @@
                 v-if="c.checklist?.public"
                 class="mt-3 ml-3"
                 :items="c.checklist.public"
-                :name="$t('assessment.checklist.public')"
+                :name="
+                  $t(`assessment.checklist.${teacherView ? 'public' : '_'}`)
+                "
               />
 
               <competency-check-list
@@ -50,10 +53,11 @@
           </v-list-item-action>
         </v-list-item>
 
-        <v-divider v-if="i < items.length - 1" :key="i" />
+        <v-divider v-if="i < competencies.length - 1" :key="i" />
       </template>
     </v-list>
-    <span v-else>{{ $t('error.unexpected') }}</span>
+
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
@@ -61,34 +65,45 @@
 import competencies from '@/mixins/competencies.js'
 
 export default {
-  name: 'CompetenciesAssessmentList',
+  name: 'AssessmentCompetenciesList',
   mixins: [competencies],
   props: {
+    assessmentId: {
+      type: String,
+      required: true,
+    },
     courseCode: {
       type: String,
       required: true,
     },
-    items: {
-      type: Array,
-      default: null,
+  },
+  data() {
+    return {
+      competencies: [],
+    }
+  },
+  computed: {
+    teacherView() {
+      return this.$auth.user.hasAnyRoles('teacher')
     },
   },
   methods: {
-    competencies(competencies) {
-      return this.items.map((item) => {
-        const courseCompetency = competencies.find(
-          (c) => c.competency.code === item.competency.code
-        )
-        const learningOutcomes = courseCompetency?.competency.learningOutcomes
+    setCompetencies({ data }) {
+      this.competencies =
+        data?.assessment.competencies.map((item) => {
+          const courseCompetency = data.course.competencies.find(
+            (c) => c.competency.code === item.competency.code
+          )
+          const learningOutcomes = courseCompetency.competency.learningOutcomes
 
-        return {
-          ...item,
-          useLearningOutcomes: courseCompetency?.useLearningOutcomes,
-          learningOutcomes: item.learningOutcomes?.map(
-            (lo) => learningOutcomes[lo]
-          ),
-        }
-      })
+          return {
+            ...item,
+            useLearningOutcomes: courseCompetency?.useLearningOutcomes,
+            learningOutcomes: item.learningOutcomes?.map(
+              (lo) => learningOutcomes[lo]
+            ),
+          }
+        }) ?? null
     },
   },
 }

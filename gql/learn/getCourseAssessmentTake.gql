@@ -1,4 +1,4 @@
-query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
+query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!, $assessmentInstanceId: ID!) {
   assessment(id: $assessmentId) {
     category
     code
@@ -34,6 +34,11 @@ query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
     start
     takes
     type
+  }
+
+  assessmentInstance(id: $assessmentInstanceId) {
+    content
+    id
   }
 
   course(code: $courseCode) {

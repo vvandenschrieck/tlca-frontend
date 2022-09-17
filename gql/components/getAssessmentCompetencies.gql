@@ -1,0 +1,31 @@
+query GetCourseCompetencies($assessmentId: ID!, $courseCode: ID!) {
+  assessment(id: $assessmentId) {
+    code
+    competencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+        name
+      }
+      isOptional
+      learningOutcomes
+      maxStars
+      stars
+    }
+    id
+  }
+
+  course(code: $courseCode) {
+    competencies {
+      competency {
+        code
+        learningOutcomes {
+          name
+        }
+      }
+      useLearningOutcomes
+    }
+  }
+}

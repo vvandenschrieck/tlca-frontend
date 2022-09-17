@@ -23,6 +23,7 @@
               <v-tab>
                 {{ $t('assessment.competencies._') }}
               </v-tab>
+              <v-tab v-if="data.assessment.provider">Provider</v-tab>
             </v-tabs>
 
             <v-card-text class="text--primary">
@@ -37,6 +38,10 @@
                     :items="data.assessment.competencies"
                   />
                 </v-tab-item>
+
+                <v-tab-item v-if="data.assessment.provider">
+                  {{ data.assessment.providerConfig }}
+                </v-tab-item>
               </v-tabs-items>
             </v-card-text>
           </v-card>
@@ -46,7 +51,7 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <assessment-info-panel :assessment="data.assessment" class="mb-5" />
+          <assessment-info-panel :assessment-id="assessmentId" />
         </v-col>
       </v-row>
 
@@ -82,6 +87,9 @@ export default {
     }
   },
   computed: {
+    assessmentId() {
+      return this.$route.params.id
+    },
     courseCode() {
       return this.$route.params.code
     },

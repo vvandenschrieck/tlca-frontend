@@ -5,16 +5,19 @@
         <v-icon>mdi-account</v-icon>
       </v-btn>
     </template>
+
     <v-list>
       <v-subheader>
         {{ $auth.user.displayName }}
       </v-subheader>
+
       <v-divider />
-      <v-list-item v-for="(item, index) in items" :key="index">
+      <v-list-item v-for="(item, index) in items" :key="index" :to="item.to">
         <v-list-item-title>{{ item.title }}</v-list-item-title>
       </v-list-item>
+
       <v-divider />
-      <v-list-item @click="signOut()">
+      <v-list-item @click="signOut">
         <v-list-item-title>
           {{ $t('authentication.sign_out') }}
         </v-list-item-title>
@@ -28,7 +31,12 @@ export default {
   name: 'UserMenu',
   data() {
     return {
-      items: [],
+      items: [
+        {
+          title: this.$t('general.dashboard'),
+          to: { name: 'dashboard' },
+        },
+      ],
     }
   },
   methods: {

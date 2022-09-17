@@ -1,0 +1,7 @@
+query GetAssessment($id: ID!) {
+  assessment(id: $id) {
+    code
+    id
+    name
+  }
+}
