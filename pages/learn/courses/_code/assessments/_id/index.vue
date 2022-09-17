@@ -51,6 +51,16 @@
           :loading="!!isLoading"
           :schedule="schedule(data?.assessment)"
         />
+
+        <v-btn
+          class="mt-5"
+          color="success"
+          :loading="createEvaluation"
+          small
+          @click="take(data?.assessment.id)"
+        >
+          Take
+        </v-btn>
       </v-col>
     </v-row>
 
@@ -66,6 +76,7 @@ export default {
   mixins: [assessments],
   data() {
     return {
+      createEvaluation: false,
       currentTab: 0,
       title: '',
     }
@@ -83,6 +94,34 @@ export default {
   methods: {
     setTitle({ data }) {
       this.title = data?.assessment?.name ?? ''
+    },
+    async take(id) {
+      this.createEvaluation = true
+      try {
+        const mutation = require(`~/gql/learn/createAssessmentInstance.gql`)
+        const response = await this.$apollo
+          .mutate({
+            mutation,
+            variables: { id },
+          })
+          .then(({ data }) => data && data.createAssessmentInstance)
+
+        if (response) {
+          this.$notificationManager.displaySuccessMessage('SUCCESS')
+          this.$router.push({
+            name: 'learn-courses-code-assessments-id-take-uid',
+            params: {
+              code: this.courseCode,
+              id: this.$route.params.id,
+              uid: response.id,
+            },
+          })
+        }
+      } catch (err) {
+        this.$notificationManager.displayErrorMessage('ERROR')
+      }
+
+      this.createEvaluation = false
     },
   },
   meta: {

@@ -79,10 +79,7 @@
           :code="courseCode"
         />
 
-        <course-schedule-panel
-          :loading="!!isLoading"
-          :schedule="data?.course.schedule"
-        />
+        <course-schedule-panel :course-code="courseCode" />
       </v-col>
 
       <actions-menu

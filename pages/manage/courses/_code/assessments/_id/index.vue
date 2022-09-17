@@ -23,6 +23,7 @@
               <v-tab>
                 {{ $t('assessment.competencies._') }}
               </v-tab>
+              <v-tab v-if="data.assessment.provider">Provider</v-tab>
             </v-tabs>
 
             <v-card-text class="text--primary">
@@ -36,6 +37,10 @@
                     :course-code="courseCode"
                     :items="data.assessment.competencies"
                   />
+                </v-tab-item>
+
+                <v-tab-item v-if="data.assessment.provider">
+                  {{ data.assessment.providerConfig }}
                 </v-tab-item>
               </v-tabs-items>
             </v-card-text>
