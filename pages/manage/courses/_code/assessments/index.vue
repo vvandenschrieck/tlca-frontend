@@ -1,21 +1,18 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/manage/getCourseAssessments.gql')"
-    :variables="{ courseCode }"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/manage/getCourse.gql')"
+    :update="(data) => data.course"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <h2>{{ title }}</h2>
+    <page-title :loading="!!isLoading" :value="title" />
 
     <v-row v-if="!error">
       <v-col cols="12" md="9">
-        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>
-              {{ $tc('assessment._', data?.assessments?.length) }}
-            </v-tab>
+            <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
 
             <!-- <v-tab v-if="data.assessments?.length"> -->
             <v-tab>
@@ -32,9 +29,7 @@
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
                 <assessments-list
-                  v-if="data"
                   :course-code="courseCode"
-                  :items="data.assessments"
                   hide-openness
                   hide-visibility
                   link-prefix="manage"
@@ -55,12 +50,12 @@
               </v-tab-item>
 
               <v-tab-item>
-                <assessments-timeline
+                <!-- <assessments-timeline
                   v-if="data"
                   :assessments="data.assessments"
                   :schedule="data.course.schedule"
                   :code="courseCode"
-                />
+                /> -->
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>
@@ -72,12 +67,12 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <assessments-list-info-panel
+        <!-- <assessments-list-info-panel
           v-if="data?.assessments"
           :assessments="data.assessments"
           class="mb-5"
           :code="courseCode"
-        />
+        /> -->
 
         <course-schedule-panel :course-code="courseCode" />
       </v-col>
@@ -133,8 +128,8 @@ export default {
 
     //   return hasMinDate && hasMaxDate
     // },
-    setTitle({ data }) {
-      this.title = data?.course.name ?? ''
+    setTitle({ data: course }) {
+      this.title = course?.name ?? ''
     },
   },
   meta: {
