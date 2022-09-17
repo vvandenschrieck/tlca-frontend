@@ -1,0 +1,7 @@
+query GetPartner($code: ID!) {
+  partner(code: $code) {
+    abbreviation
+    code
+    name
+  }
+}
