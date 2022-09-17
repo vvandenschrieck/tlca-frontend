@@ -12,7 +12,6 @@
               <v-text-field-with-validation
                 v-model="code"
                 :label="$t('assessment.code')"
-                rules="alpha_dash"
                 vid="code"
               />
             </v-col>
