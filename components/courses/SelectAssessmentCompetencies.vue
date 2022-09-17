@@ -250,7 +250,7 @@ export default {
     },
     removeCompetency(index) {
       if (!this.disabled) {
-        this.competencies = this.competencies.splice(index, 1)
+        this.competencies.splice(index, 1)
       }
     },
     useLearningOutcomes(course, index) {
