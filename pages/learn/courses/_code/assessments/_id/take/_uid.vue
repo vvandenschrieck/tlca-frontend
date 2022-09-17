@@ -74,11 +74,8 @@
 </template>
 
 <script>
-import assessments from '@/mixins/assessments.js'
-
 export default {
   name: 'LearnCourseAssessmentPage',
-  mixins: [assessments],
   data() {
     return {
       title: '',

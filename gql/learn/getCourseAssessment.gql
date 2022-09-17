@@ -30,6 +30,7 @@ query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
     phases {
       name
     }
+    provider
     start
     takes
     type

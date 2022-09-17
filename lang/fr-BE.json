@@ -71,8 +71,9 @@
     },
     "progress_measure": "Mesure du progrès",
     "schedule": {
-      "_": "Calendrier",
+      "_": "@:global.schedule._ de l'évaluation",
       "end": "Date de fin",
+      "no": "@:global.schedule.no",
       "start": "Date de début"
     },
     "show_selected": "Filtrer sur la sélection",
@@ -243,10 +244,10 @@
       "without_group": "Sans groupe"
     },
     "schedule": {
-      "_": "Calendrier",
+      "_": "@:global.schedule._ du cours",
       "end": "Date de fin",
       "evaluationsEnd": "Fin des évaluations",
-      "no": "Pas de calendrier",
+      "no": "@:global.schedule.no",
       "registrationsEnd": "Fin des inscriptions",
       "registrationsStart": "Début des inscriptions",
       "start": "Date de début"
@@ -383,6 +384,10 @@
     "partners": "Partenaires",
     "powered_by": "Propulsé par",
     "publish": "Publier",
+    "schedule": {
+      "_": "Calendrier",
+      "no": "Pas de calendrier"
+    },
     "spaces": {
       "_": "Espace | Espaces",
       "admin": "Admin",

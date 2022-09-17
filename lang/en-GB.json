@@ -71,8 +71,9 @@
     },
     "progress_measure": "Progress measure",
     "schedule": {
-      "_": "Schedule",
+      "_": "Assessment @.lower:global.schedule._",
       "end": "End date",
+      "no": "@:global.schedule.no",
       "start": "Start date"
     },
     "show_selected": "Show only selected rows",
@@ -243,10 +244,10 @@
       "without_group": "Without group"
     },
     "schedule": {
-      "_": "Schedule",
+      "_": "Course @.lower:global.schedule._",
       "end": "End date",
       "evaluationsEnd": "End of evaluations",
-      "no": "No schedule",
+      "no": "@:global.schedule.no",
       "registrationsEnd": "End of registrations",
       "registrationsStart": "Start of registrations",
       "start": "Start date"
@@ -383,6 +384,10 @@
     "partners": "Partners",
     "powered_by": "Powered by",
     "publish": "Publish",
+    "schedule": {
+      "_": "Schedule",
+      "no": "No schedule"
+    },
     "spaces": {
       "_": "Space | Spaces",
       "admin": "Admin",

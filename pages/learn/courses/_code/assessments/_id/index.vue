@@ -3,13 +3,10 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { data, error } }"
     :query="require('~/gql/learn/getCourseAssessment.gql')"
-    :variables="{
-      courseCode,
-      assessmentId: $route.params.id,
-    }"
+    :variables="{ courseCode, assessmentId }"
     @result="setTitle"
   >
-    <h2>{{ title }}</h2>
+    <page-title :loading="!!isLoading" :value="title" />
 
     <v-row v-if="!error">
       <v-col cols="12" md="9">
@@ -17,12 +14,8 @@
 
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>
-              {{ $t('assessment.description') }}
-            </v-tab>
-            <v-tab>
-              {{ $t('assessment.competencies._') }}
-            </v-tab>
+            <v-tab>{{ $t('assessment.description') }}</v-tab>
+            <v-tab>{{ $t('assessment.competencies._') }}</v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
@@ -32,9 +25,9 @@
               </v-tab-item>
 
               <v-tab-item>
-                <competencies-assessment-list
+                <assessment-competencies-list
+                  :assessment-id="assessmentId"
                   :course-code="courseCode"
-                  :items="data?.assessment.competencies"
                 />
               </v-tab-item>
             </v-tabs-items>
@@ -47,12 +40,10 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <assessment-schedule-panel
-          :loading="!!isLoading"
-          :schedule="schedule(data?.assessment)"
-        />
+        <assessment-schedule-panel :assessment-id="assessmentId" />
 
         <v-btn
+          v-if="data?.assessment.provider"
           class="mt-5"
           color="success"
           :loading="createEvaluation"
@@ -69,11 +60,11 @@
 </template>
 
 <script>
-import assessments from '@/mixins/assessments.js'
+import titles from '@/mixins/titles.js'
 
 export default {
   name: 'LearnCourseAssessmentPage',
-  mixins: [assessments],
+  mixins: [titles],
   data() {
     return {
       createEvaluation: false,
@@ -83,10 +74,13 @@ export default {
   },
   head() {
     return {
-      title: this.title + ' | ' + this.$t('global.spaces.learn'),
+      title: this.getTitle(this.title, null, 'learn'),
     }
   },
   computed: {
+    assessmentId() {
+      return this.$route.params.id
+    },
     courseCode() {
       return this.$route.params.code
     },
