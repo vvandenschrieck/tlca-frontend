@@ -71,8 +71,9 @@
     },
     "progress_measure": "Mesure du progrès",
     "schedule": {
-      "_": "Calendrier",
+      "_": "@:global.schedule._ de l'évaluation",
       "end": "Date de fin",
+      "no": "@:global.schedule.no",
       "start": "Date de début"
     },
     "show_selected": "Filtrer sur la sélection",
@@ -87,7 +88,10 @@
       "phased": "Phasé",
       "single_take": "Passage unique"
     },
-    "visibility": "@:global.visibility._"
+    "visibility": "@:global.visibility._",
+    "work_plan": {
+      "_": "Plan de travail"
+    }
   },
   "authentication": {
     "sign_in": "Se connecter",
@@ -243,10 +247,10 @@
       "without_group": "Sans groupe"
     },
     "schedule": {
-      "_": "Calendrier",
+      "_": "@:global.schedule._ du cours",
       "end": "Date de fin",
       "evaluationsEnd": "Fin des évaluations",
-      "no": "Pas de calendrier",
+      "no": "@:global.schedule.no",
       "registrationsEnd": "Fin des inscriptions",
       "registrationsStart": "Début des inscriptions",
       "start": "Date de début"
@@ -271,7 +275,7 @@
       "project": "Projet",
       "training": "@:global.type.training",
       "ucourse": "µCours",
-      "unit": "Unité"
+      "unit": "@:global.type.unit"
     },
     "visibility": {
       "_": "@:global.visibility._",
@@ -330,6 +334,7 @@
     "confirmation": "Confirmation",
     "create": "Créer",
     "creator": "Créateur",
+    "dashboard": "Tableau de bord",
     "delete": "Supprimer",
     "edit": "Modifier",
     "filter": {
@@ -356,12 +361,16 @@
       "_": "Statistiques"
     },
     "status": "Statut",
+    "time": {
+      "minutes": "{n} minute | {n} minutes"
+    },
     "today": "Aujourd'hui",
     "update": "Mettre à jour",
     "upload": "Téléverser",
     "upload_click_drag": "Cliquez ou faites glisser le fichier ici pour le téléverser",
     "validate": "Valider",
-    "validated": "Validé"
+    "validated": "Validé",
+    "yes": "Oui"
   },
   "global": {
     "banner": {
@@ -382,6 +391,10 @@
     "partners": "Partenaires",
     "powered_by": "Propulsé par",
     "publish": "Publier",
+    "schedule": {
+      "_": "Calendrier",
+      "no": "Pas de calendrier"
+    },
     "spaces": {
       "_": "Espace | Espaces",
       "admin": "Admin",
@@ -401,7 +414,8 @@
     "tag": "Tag | Tags",
     "type": {
       "_": "Type",
-      "training": "Formation"
+      "training": "Formation",
+      "unit": "Unité"
     },
     "visibility": {
       "_": "Visibilité",
@@ -465,6 +479,7 @@
     "type": {
       "_": "@:global.type._",
       "training": "@:global.type.training",
+      "unit": "@:global.type.unit",
       "uprogram": "µProgramme"
     },
     "visibility": {

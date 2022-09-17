@@ -1,0 +1,8 @@
+query GetAssessmentSchedule($assessmentId: ID!) {
+  assessment(id: $assessmentId) {
+    code
+    end
+    id
+    start
+  }
+}

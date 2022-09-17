@@ -71,8 +71,9 @@
     },
     "progress_measure": "Progress measure",
     "schedule": {
-      "_": "Schedule",
+      "_": "Assessment @.lower:global.schedule._",
       "end": "End date",
+      "no": "@:global.schedule.no",
       "start": "Start date"
     },
     "show_selected": "Show only selected rows",
@@ -87,7 +88,10 @@
       "phased": "Phased",
       "single_take": "Single take"
     },
-    "visibility": "@:global.visibility._"
+    "visibility": "@:global.visibility._",
+    "work_plan": {
+      "_": "Work plan"
+    }
   },
   "authentication": {
     "sign_in": "Sign in",
@@ -243,10 +247,10 @@
       "without_group": "Without group"
     },
     "schedule": {
-      "_": "Schedule",
+      "_": "Course @.lower:global.schedule._",
       "end": "End date",
       "evaluationsEnd": "End of evaluations",
-      "no": "No schedule",
+      "no": "@:global.schedule.no",
       "registrationsEnd": "End of registrations",
       "registrationsStart": "Start of registrations",
       "start": "Start date"
@@ -271,7 +275,7 @@
       "project": "Project",
       "training": "@:global.type.training",
       "ucourse": "µCourse",
-      "unit": "Unit"
+      "unit": "@:global.type.unit"
     },
     "visibility": {
       "_": "@:global.visibility._",
@@ -330,6 +334,7 @@
     "confirmation": "Confirmation",
     "create": "Create",
     "creator": "Creator",
+    "dashboard": "Dashboard",
     "delete": "Delete",
     "edit": "Edit",
     "filter": {
@@ -356,12 +361,16 @@
       "_": "Statistics"
     },
     "status": "Status",
+    "time": {
+      "minutes": "{n} minute | {n} minutes"
+    },
     "today": "Today",
     "update": "Update",
     "upload": "Upload",
     "upload_click_drag": "Click or drag the file here to upload",
     "validate": "Validate",
-    "validated": "Validated"
+    "validated": "Validated",
+    "yes": "Yes"
   },
   "global": {
     "banner": {
@@ -382,6 +391,10 @@
     "partners": "Partners",
     "powered_by": "Powered by",
     "publish": "Publish",
+    "schedule": {
+      "_": "Schedule",
+      "no": "No schedule"
+    },
     "spaces": {
       "_": "Space | Spaces",
       "admin": "Admin",
@@ -401,7 +414,8 @@
     "tag": "Tag | Tags",
     "type": {
       "_": "Type",
-      "training": "Training"
+      "training": "Training",
+      "unit": "Unit"
     },
     "visibility": {
       "_": "Visibility",
@@ -465,6 +479,7 @@
     "type": {
       "_": "@:global.type._",
       "training": "@:global.type.training",
+      "unit": "@:global.type.unit",
       "uprogram": "µProgram"
     },
     "visibility": {

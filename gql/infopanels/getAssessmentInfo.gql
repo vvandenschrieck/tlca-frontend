@@ -1,0 +1,12 @@
+query GetAssessmentInfo($id: ID!) {
+  assessment(id: $id) {
+    hasOralDefense
+    id
+    instances
+    load {
+      defense
+      work
+    }
+    type
+  }
+}

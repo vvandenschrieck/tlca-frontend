@@ -33,6 +33,8 @@ query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
       work
     }
     name
+    provider
+    providerConfig
     start
     type
   }

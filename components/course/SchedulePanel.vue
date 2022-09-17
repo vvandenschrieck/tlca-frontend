@@ -1,9 +1,10 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data: course, error } }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/infopanels/getCourseSchedule.gql')"
     :update="(data) => data.course"
     :variables="{ courseCode }"
+    @result="setSchedule"
   >
     <generic-info-panel
       :title="$t('course.schedule._')"
@@ -11,11 +12,7 @@
       :loading="!!isLoading"
     >
       <div v-if="!error" class="mt-3 text-center">
-        <course-schedule
-          v-if="course?.schedule"
-          dense
-          :items="course.schedule"
-        />
+        <schedule-timeline v-if="schedule" dense :items="schedule" />
 
         <v-card-text v-else>{{ $t('course.schedule.no') }}</v-card-text>
       </div>
@@ -32,6 +29,16 @@ export default {
     courseCode: {
       type: String,
       required: true,
+    },
+  },
+  data() {
+    return {
+      schedule: null,
+    }
+  },
+  methods: {
+    setSchedule({ data: course }) {
+      this.schedule = course?.schedule
     },
   },
 }

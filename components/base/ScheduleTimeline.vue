@@ -26,7 +26,7 @@ import { DateTime } from 'luxon'
 import datetime from '@/mixins/datetime.js'
 
 export default {
-  name: 'CourseSchedule',
+  name: 'ScheduleTimeline',
   mixins: [datetime],
   props: {
     dense: {

@@ -2,6 +2,8 @@ query GetCourses {
   courses(view: STUDENT) {
     banner
     code
+    isArchived
+    isPublished
     name
     type
     visibility

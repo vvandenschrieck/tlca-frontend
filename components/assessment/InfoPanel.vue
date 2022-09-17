@@ -1,9 +1,20 @@
 <template>
-  <generic-info-panel
-    :title="$t('general.information._')"
-    icon="mdi-information"
-    :items="items"
-  />
+  <ApolloQuery
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/infopanels/getAssessmentInfo.gql')"
+    :update="(data) => data.assessment"
+    :variables="{ id: assessmentId }"
+    @result="setItems"
+  >
+    <generic-info-panel
+      :title="$t('general.information._')"
+      icon="mdi-information"
+      :items="items"
+      :loading="!!isLoading"
+    >
+      <v-card-text v-if="error">{{ $t('error.unexpected') }}</v-card-text>
+    </generic-info-panel>
+  </ApolloQuery>
 </template>
 
 <script>
@@ -13,53 +24,67 @@ export default {
   name: 'AssessmentInfoPanel',
   mixins: [datetime],
   props: {
-    assessment: {
-      type: Object,
+    assessmentId: {
+      type: String,
       required: true,
     },
   },
-  computed: {
-    items() {
+  data() {
+    return {
+      items: [],
+    }
+  },
+  methods: {
+    setItems({ data: assessment }) {
       const items = []
 
-      // Assessment instances.
-      const instances = this.assessment.instances
-      items.push({
-        icon: 'mdi-layers-triple',
-        text: instances
-          ? this.$tc('assessment.instances.nb', instances, { n: instances })
-          : this.$t('assessment.instances.infinite'),
-        tooltip: this.$t('assessment.instances.max_nb'),
-      })
-
-      // Assessment type.
-      const type = this.assessment.type
-      items.push({
-        icon: 'mdi-multiplication-box',
-        text: this.$t(`assessment.type.${type.toLowerCase()}`),
-        tooltip: this.$t('assessment.type._'),
-      })
-
-      // Assessment schedule.
-      if (this.assessment.start) {
+      if (assessment) {
+        // Assessment instances.
+        const instances = assessment.instances
         items.push({
-          icon: 'mdi-calendar',
-          text: this.$t('assessment.start.date', {
-            start: this.formatDateFull(this.assessment.start),
-          }),
-          tooltip: this.$t('assessment.start._'),
+          icon: 'mdi-layers-triple',
+          text: instances
+            ? this.$tc('assessment.instances.nb', instances, { n: instances })
+            : this.$t('assessment.instances.infinite'),
+          tooltip: this.$t('assessment.instances.max_nb'),
         })
-      }
-      if (this.assessment.end) {
+
+        // Assessment type.
+        const type = assessment.type
         items.push({
-          icon: 'mdi-calendar',
-          text: this.$t('assessment.deadline.date', {
-            deadline: this.formatDateFull(this.assessment.end),
-          }),
-          tooltip: this.$t('assessment.deadline._'),
+          icon: 'mdi-multiplication-box',
+          text: this.$t(`assessment.type.${type.toLowerCase()}`),
+          tooltip: this.$t('assessment.type._'),
         })
+
+        // Assessment work load.
+        const workload = assessment.load?.work
+        if (workload) {
+          items.push({
+            icon: 'mdi-clock-outline',
+            text:
+              '~' + this.$tc('general.time.minutes', workload, { n: workload }),
+            tooltip: this.$t('assessment.load.work'),
+          })
+        }
+
+        // Assessment oral defense.
+        if (assessment.hasOralDefense) {
+          const defenseDuration = assessment.load?.defense
+          items.push({
+            icon: 'mdi-account-voice',
+            text: defenseDuration
+              ? '~' +
+                this.$tc('general.time.minutes', defenseDuration, {
+                  n: defenseDuration,
+                })
+              : this.$t('general.yes'),
+            tooltip: this.$t('assessment.load.defense'),
+          })
+        }
       }
-      return items
+
+      this.items = items
     },
   },
 }
