@@ -88,7 +88,10 @@
       "phased": "Phasé",
       "single_take": "Passage unique"
     },
-    "visibility": "@:global.visibility._"
+    "visibility": "@:global.visibility._",
+    "work_plan": {
+      "_": "Plan de travail"
+    }
   },
   "authentication": {
     "sign_in": "Se connecter",

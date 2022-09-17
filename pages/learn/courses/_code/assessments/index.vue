@@ -13,6 +13,7 @@
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
             <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
+            <v-tab>{{ $tc('assessment.work_plan._', 2) }}</v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
@@ -24,6 +25,10 @@
                   hide-visibility
                   link-prefix="learn"
                 />
+              </v-tab-item>
+
+              <v-tab-item>
+                <v-alert type="info" dense outlined>Upcoming feature</v-alert>
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>

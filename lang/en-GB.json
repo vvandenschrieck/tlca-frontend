@@ -88,7 +88,10 @@
       "phased": "Phased",
       "single_take": "Single take"
     },
-    "visibility": "@:global.visibility._"
+    "visibility": "@:global.visibility._",
+    "work_plan": {
+      "_": "Work plan"
+    }
   },
   "authentication": {
     "sign_in": "Sign in",
