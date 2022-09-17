@@ -1,3 +1,29 @@
+## 1.1.1 (2022-09-17)
+
+### Features
+
+- **assessments:** create an assessment instance (student)
+
+- **programs:** create a program with the 'unit' type (coordinator)
+
+- **misc:** go to the dashboard with a link in the user menu
+
+### Improvements
+
+- **assessments:** add the code or name of the assessment in the breadcrumb
+
+- **courses:** add course search bar and filter (student)
+
+### Bug Fixes
+
+- **assessments:** remove the validation rule for assessment code
+- fixed entity removal in several select components due to a misuse of the JavaScript splice method of arrays
+- fixed title computation and display error in assessments list page in manage and learn space
+
+### Code Refactoring
+
+- moved GraphQL queries in the component (for info panels and several 'list' components)
+
 ## 1.1.0 (2022-09-15)
 
 ### Features
