@@ -361,12 +361,16 @@
       "_": "Statistiques"
     },
     "status": "Statut",
+    "time": {
+      "minutes": "{n} minute | {n} minutes"
+    },
     "today": "Aujourd'hui",
     "update": "Mettre à jour",
     "upload": "Téléverser",
     "upload_click_drag": "Cliquez ou faites glisser le fichier ici pour le téléverser",
     "validate": "Valider",
-    "validated": "Validé"
+    "validated": "Validé",
+    "yes": "Oui"
   },
   "global": {
     "banner": {

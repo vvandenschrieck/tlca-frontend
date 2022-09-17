@@ -51,7 +51,7 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <assessment-info-panel :assessment="data.assessment" class="mb-5" />
+          <assessment-info-panel :assessment-id="assessmentId" />
         </v-col>
       </v-row>
 
@@ -87,6 +87,9 @@ export default {
     }
   },
   computed: {
+    assessmentId() {
+      return this.$route.params.id
+    },
     courseCode() {
       return this.$route.params.code
     },

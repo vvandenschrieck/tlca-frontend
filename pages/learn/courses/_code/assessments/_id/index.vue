@@ -40,7 +40,8 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <assessment-schedule-panel :assessment-id="assessmentId" />
+        <assessment-info-panel :assessment-id="assessmentId" />
+        <assessment-schedule-panel :assessment-id="assessmentId" class="mt-5" />
 
         <v-btn
           v-if="data?.assessment.provider"
