@@ -1,3 +1,23 @@
+## 1.1.2 (2022-09-18)
+
+### Features
+
+- **assessments:** consult the details of a given assessment from a given course (teacher)
+
+- **evaluations:** define the acquired competencies in the evaluation creation form (teacher)
+
+### Improvements
+
+- set up the info cards on the course detail page in teach space
+
+### Bug Fixes
+
+- fixed breadcrumb to display correctly parts containing special characters
+
+### Code Refactoring
+
+- refactored code in the teach space, by moving GraphQL queries into components instead of making them directly in the page
+
 ## 1.1.1 (2022-09-17)
 
 ### Features
