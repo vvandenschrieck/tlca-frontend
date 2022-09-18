@@ -10,11 +10,9 @@
 
     <v-row v-if="!error">
       <v-col cols="12" md="9">
-        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>{{ $tc('evaluation._', 2) }}</v-tab>
+            <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
             <v-tab>{{ $t('general.statistics._') }}</v-tab>
           </v-tabs>
 

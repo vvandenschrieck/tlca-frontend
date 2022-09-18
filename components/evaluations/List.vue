@@ -1,13 +1,15 @@
 <template>
-  <div>
+  <ApolloQuery
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/components/getEvaluationsList.gql')"
+    :update="(data) => data.evaluations"
+    :variables="{ courseCode }"
+    @result="setEvaluations"
+  >
     <generic-filter-bar
       v-slot="{ filter: innerFilter, on }"
       v-model="filter"
       class="mt-1"
-      :create-link="{
-        name: 'teach-courses-code-evaluations-create',
-        params: { code: courseCode },
-      }"
     >
       <evaluations-filter
         :course-code="courseCode"
@@ -17,11 +19,12 @@
     </generic-filter-bar>
 
     <v-data-table
-      v-if="items"
+      v-if="!error"
       :headers="dataHeaders"
-      :items="evaluations"
+      :items="filteredEvaluations(evaluations, filter)"
       :items-per-page="5"
-      @click:row="gotoEvaluation"
+      :loading="!!isLoading"
+      @click:row="goToEvaluation"
     >
       <template #item.assessment="{ value: assessment }">
         {{ assessmentName(assessment) }}
@@ -35,7 +38,9 @@
         <boolean-value-icon :value="isPublished" />
       </template>
     </v-data-table>
-  </div>
+
+    <div v-else>{{ $t('error.unexpected') }}</div>
+  </ApolloQuery>
 </template>
 
 <script>
@@ -50,13 +55,10 @@ export default {
       type: String,
       required: true,
     },
-    items: {
-      type: Array,
-      required: true,
-    },
   },
   data() {
     return {
+      evaluations: [],
       filter: {},
     }
   },
@@ -82,19 +84,19 @@ export default {
         },
       ]
     },
-    evaluations() {
-      return this.filteredEvaluations(this.items, this.filter)
-    },
   },
   methods: {
     assessmentName(assessment) {
       return (assessment.code ? `${assessment.code} – ` : '') + assessment.name
     },
-    gotoEvaluation({ id }) {
+    goToEvaluation({ id }) {
       this.$router.push({
         name: 'teach-courses-code-evaluations-id',
         params: { code: this.$route.params.code, id },
       })
+    },
+    setEvaluations({ data: evaluations }) {
+      this.evaluations = evaluations ?? []
     },
   },
 }
