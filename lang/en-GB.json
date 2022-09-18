@@ -21,7 +21,7 @@
     "closed": "Closed",
     "code": "@:global.code",
     "competencies": {
-      "_": "Competencies",
+      "_": "@:global.competencies._",
       "add": "Add a competency",
       "max_stars": "Max stars",
       "optional": "Optional",
@@ -173,7 +173,7 @@
     "code": "@:global.code",
     "colophon": "Colophon",
     "competencies": {
-      "_": "Competencies",
+      "_": "@:global.competencies._",
       "add": "Add a competency",
       "category": "Category",
       "subcategory": "Subcategory",
@@ -316,8 +316,13 @@
     "_": "Evaluation | Evaluations",
     "assessment": "Assessment",
     "comment": "Comment",
+    "competencies": {
+      "_": "@:global.competencies._"
+    },
+    "create": "@:general.create an evaluation",
     "date": "Evaluation date",
     "learner": "Learner",
+    "note": "Note",
     "publish": "@:global.publish",
     "published": "@:global.status.published",
     "status": {
@@ -349,7 +354,8 @@
       "_": "Information",
       "additional": "Additional @.lower:general.information._",
       "general": "General @.lower:general.information._",
-      "optional": "Optional @.lower:general.information._"
+      "optional": "Optional @.lower:general.information._",
+      "private": "Private @.lower:general.information._"
     },
     "list": "List",
     "max_nb": "Max number",
@@ -378,6 +384,9 @@
       "edit": "Edit the banner"
     },
     "code": "Code",
+    "competencies": {
+      "_": "Competencies"
+    },
     "coordinator": "Coordinator",
     "date": "Date",
     "description": {
@@ -540,6 +549,7 @@
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
     "EMAIL_VALIDATION": "Email address successfully validated, you can now log in on the TLCA platform",
+    "EVALUATION_CREATE": "Evaluation successfully created",
     "INVITATION_SEND": "Invitation successfully sent!",
     "PROGRAM_CREATED": "Program successfully created!",
     "PROGRAM_PUBLISHED": "Program successfully published!",

@@ -21,7 +21,7 @@
     "closed": "Fermée",
     "code": "@:global.code",
     "competencies": {
-      "_": "Compétences",
+      "_": "@:global.competencies._",
       "add": "Ajouter une compétence",
       "max_stars": "Étoiles max",
       "optional": "Optionnelle",
@@ -173,7 +173,7 @@
     "code": "@:global.code",
     "colophon": "Colophon",
     "competencies": {
-      "_": "Compétences",
+      "_": "@:global.competencies._",
       "add": "Ajouter une compétence",
       "category": "Catégorie",
       "subcategory": "Sous-catégorie",
@@ -316,8 +316,13 @@
     "_": "Évaluation | Évaluations",
     "assessment": "Évaluation",
     "comment": "Commentaire",
+    "competencies": {
+      "_": "@:global.competencies._"
+    },
+    "create": "@:general.create une évaluation",
     "date": "Date de l'évaluation",
     "learner": "Apprenant",
+    "note": "Note",
     "publish": "@:global.publish",
     "published": "@:global.status.published",
     "status": {
@@ -349,7 +354,8 @@
       "_": "Information",
       "additional": "@:general.information._ additionnelle",
       "general": "@:general.information._ générale",
-      "optional": "@:general.information._ optionnelle"
+      "optional": "@:general.information._ optionnelle",
+      "private": "@:general.information._ privée"
     },
     "list": "Liste",
     "max_nb": "Nombre maximal",
@@ -379,6 +385,9 @@
     },
     "coordinator": "Coordinateur",
     "code": "Code",
+    "competencies": {
+      "_": "Compétences"
+    },
     "date": "Date",
     "description": {
       "_": "Description",
@@ -540,6 +549,7 @@
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
     "EMAIL_VALIDATION": "Adresse e-mail validée avec succès, vous pouvez maintenant vous connecter sur la plateforme TLCA",
+    "EVALUATION_CREATE": "Évaluation créée avec succès",
     "INVITATION_SEND": "Invitation envoyée avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
     "PROGRAM_PUBLISHED": "Programme publié avec succès !",

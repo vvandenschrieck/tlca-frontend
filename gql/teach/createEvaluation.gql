@@ -1,14 +1,18 @@
 mutation CreateEvaluation(
   $assessment: ID!
   $comment: String
+  $competencies: [EvaluationCompetencyInput!]
   $evalDate: DateTime
   $learner: ID!
+  $note: String
 ) {
   createEvaluation(
     assessment: $assessment
     comment: $comment
+    competencies: $competencies
     evalDate: $evalDate
     learner: $learner
+    note: $note
   ) {
     id
   }
