@@ -1,8 +1,9 @@
-query GetCourseCompetencies($assessmentId: ID!, $courseCode: ID!) {
+query GetAssessmentCompetencies($assessmentId: ID!, $courseCode: ID!, $teacherView: Boolean!) {
   assessment(id: $assessmentId) {
     code
     competencies {
       checklist {
+        private @include(if: $teacherView)
         public
       }
       competency {

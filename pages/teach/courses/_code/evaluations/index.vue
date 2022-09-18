@@ -1,31 +1,25 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { data, error }, isLoading }"
-    :query="require('~/gql/teach/getEvaluations.gql')"
-    :variables="{ courseCode: $route.params.code }"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/teach/getCourse.gql')"
+    :update="(data) => data.course"
+    :variables="{ code: courseCode }"
+    @result="setTitle"
   >
-    <h2>{{ title }}</h2>
+    <page-title :loading="!!isLoading" :value="title" />
 
     <v-row v-if="!error">
       <v-col cols="12" md="9">
-        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-
-        <v-card v-if="data">
+        <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>
-              {{ $tc('evaluation._', 2) }}
-            </v-tab>
-
+            <v-tab>{{ $tc('evaluation._', 2) }}</v-tab>
             <v-tab>{{ $t('general.statistics._') }}</v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <evaluations-list
-                  :course-code="data.course.code"
-                  :items="data.evaluations"
-                />
+                <evaluations-list :course-code="courseCode" />
               </v-tab-item>
 
               <v-tab-item>
@@ -41,12 +35,15 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <course-schedule-panel
-          v-if="!!isLoading || data?.course.schedule"
-          :loading="!!isLoading"
-          :schedule="data?.course.schedule"
-        />
+        <course-schedule-panel :course-code="courseCode" />
       </v-col>
+
+      <actions-menu
+        :create-link="{
+          name: 'teach-courses-code-evaluations-create',
+          params: { code: courseCode },
+        }"
+      />
     </v-row>
 
     <div v-else-if="error">{{ $t('error.unexpected') }}</div>
@@ -55,24 +52,30 @@
 
 <script>
 import datetime from '@/mixins/datetime.js'
+import titles from '@/mixins/titles.js'
 
 export default {
   name: 'TeachEvaluationsPage',
-  mixins: [datetime],
+  mixins: [datetime, titles],
   data() {
     return {
       currentTab: 0,
+      title: '',
     }
   },
   head() {
     return {
-      title:
-        this.$tc('evaluation._', 2) + ' | ' + this.$t('global.spaces.teach'),
+      title: this.getTitle(this.title, 'evaluation._', 'teach'),
     }
   },
   computed: {
-    title() {
-      return this.$tc('evaluation._', 2)
+    courseCode() {
+      return this.$route.params.code
+    },
+  },
+  methods: {
+    setTitle({ data: course }) {
+      this.title = course?.name ?? ''
     },
   },
   meta: {

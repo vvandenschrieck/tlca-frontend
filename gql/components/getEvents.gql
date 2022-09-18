@@ -1,0 +1,9 @@
+query GetEvents($courseCode: ID!) {
+  events(courseCode: $courseCode) {
+    end
+    id
+    start
+    title
+    type
+  }
+}

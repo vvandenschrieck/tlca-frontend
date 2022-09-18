@@ -86,10 +86,7 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <course-schedule-panel
-          :loading="!!isLoading"
-          :schedule="data?.course.schedule"
-        />
+        <course-schedule-panel :course-code="courseCode" />
       </v-col>
     </v-row>
 
@@ -111,6 +108,9 @@ export default {
     }
   },
   computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
     title() {
       return this.$tc('learner._', 2)
     },

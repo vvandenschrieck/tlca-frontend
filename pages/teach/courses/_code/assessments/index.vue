@@ -1,22 +1,18 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data }, isLoading }"
-    :query="require('~/gql/teach/getCourseAssessments.gql')"
-    :variables="{ courseCode }"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/teach/getCourse.gql')"
+    :update="(data) => data.course"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <h2>{{ title }}</h2>
+    <page-title :loading="!!isLoading" :value="title" />
 
     <v-row v-if="!error">
       <v-col cols="12" md="9">
-        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>
-              {{ $tc('evaluation._', 2) }}
-            </v-tab>
-
+            <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
             <v-tab>{{ $t('general.statistics._') }}</v-tab>
           </v-tabs>
 
@@ -24,9 +20,7 @@
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
                 <assessments-list
-                  v-if="data"
                   :course-code="courseCode"
-                  :items="data.assessments"
                   hide-actions
                   link-prefix="teach"
                 />
@@ -76,8 +70,8 @@ export default {
     },
   },
   methods: {
-    setTitle({ data }) {
-      this.title = data?.course.name ?? ''
+    setTitle({ data: course }) {
+      this.title = course?.name ?? ''
     },
   },
   meta: {

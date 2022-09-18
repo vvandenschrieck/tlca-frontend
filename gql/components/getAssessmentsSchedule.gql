@@ -1,0 +1,17 @@
+query GetAssessmentsSchedule($courseCode: ID!) {
+  assessments(courseCode: $courseCode) {
+    code
+    end
+    id
+    name
+    start
+  }
+
+  course(code: $courseCode) {
+    code
+    schedule {
+      datetime
+      name
+    }
+  }
+}
