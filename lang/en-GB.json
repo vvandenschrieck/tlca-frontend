@@ -27,6 +27,7 @@
       "optional": "Optional",
       "stars": "Stars"
     },
+    "coverage": "Coverage",
     "create": "@:general.create an assessment",
     "create_event": "Create an event",
     "deadline": {
@@ -82,6 +83,7 @@
       "date": "Opens on : {start}"
     },
     "takes": "Takes",
+    "timeline": "Timeline",
     "type": {
       "_": "@:global.type._",
       "incremental": "Incremental",
@@ -161,9 +163,7 @@
     },
     "assessments": {
       "_": "@:assessment._",
-      "coverage": "Coverage",
-      "list": "Assessments list",
-      "timeline": "Timeline"
+      "list": "Assessments list"
     },
     "assessments_list": "Available assessments",
     "clone": {

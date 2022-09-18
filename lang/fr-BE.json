@@ -27,6 +27,7 @@
       "optional": "Optionnelle",
       "stars": "Étoiles"
     },
+    "coverage": "Couverture",
     "create": "@:general.create une évaluation",
     "create_event": "Créer un évènement",
     "deadline": {
@@ -82,6 +83,7 @@
       "date": "Ouverture : {start}"
     },
     "takes": "Passages",
+    "timeline": "Ligne du temps",
     "type": {
       "_": "@:global.type._",
       "incremental": "Incrémental",
@@ -161,9 +163,7 @@
     },
     "assessments": {
       "_": "@:assessment._",
-      "coverage": "Couverture",
-      "list": "Liste des évaluations",
-      "timeline": "Ligne du temps"
+      "list": "Liste des évaluations"
     },
     "assessments_list": "Liste des évaluations du cours",
     "clone": {

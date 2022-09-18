@@ -1,4 +1,4 @@
-query GetCourseCompetencies($assessmentId: ID!, $courseCode: ID!) {
+query GetAssessmentCompetencies($assessmentId: ID!, $courseCode: ID!) {
   assessment(id: $assessmentId) {
     code
     competencies {
