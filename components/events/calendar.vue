@@ -1,58 +1,70 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <div>
-    <v-sheet height="64">
-      <v-toolbar flat>
-        <v-btn
-          outlined
-          class="mr-4"
-          color="grey darken-2"
-          small
-          @click="setToday"
+  <ApolloQuery
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/components/getEvents.gql')"
+    :update="(data) => data.events"
+    :variables="{ courseCode }"
+    @result="setEvents"
+  >
+    <v-progress-linear v-if="!!isLoading" indeterminate />
+
+    <div v-if="!error">
+      <v-sheet height="64">
+        <v-toolbar flat>
+          <v-btn
+            outlined
+            class="mr-4"
+            color="grey darken-2"
+            small
+            @click="setToday"
+          >
+            {{ $t('general.today') }}
+          </v-btn>
+
+          <v-btn color="grey darken-2" fab small text @click="prev">
+            <v-icon small>mdi-chevron-left</v-icon>
+          </v-btn>
+
+          <v-btn color="grey darken-2" fab small text @click="next">
+            <v-icon small>mdi-chevron-right</v-icon>
+          </v-btn>
+
+          <v-toolbar-title v-if="$refs.calendar">
+            {{ $refs.calendar.title }}
+          </v-toolbar-title>
+
+          <v-spacer />
+        </v-toolbar>
+      </v-sheet>
+
+      <v-sheet height="450">
+        <v-calendar
+          ref="calendar"
+          v-model="focus"
+          color="primary"
+          :events="allEvents"
+          :locale="$i18n.locale"
+          type="week"
+          @mousedown:event="startDrag"
+          @mousedown:time="startTime"
+          @mousemove:time="mouseMove"
+          @mouseup:time="endDrag"
         >
-          {{ $t('general.today') }}
-        </v-btn>
+          <template #event="{ event, eventSummary, timed }">
+            <div class="v-event-draggable" v-html="eventSummary()" />
+            <div
+              v-if="timed"
+              class="v-event-drag-bottom"
+              @mousedown.stop="extendBottom(event)"
+            />
+          </template>
+        </v-calendar>
+      </v-sheet>
+    </div>
 
-        <v-btn color="grey darken-2" fab small text @click="prev">
-          <v-icon small>mdi-chevron-left</v-icon>
-        </v-btn>
-
-        <v-btn color="grey darken-2" fab small text @click="next">
-          <v-icon small>mdi-chevron-right</v-icon>
-        </v-btn>
-
-        <v-toolbar-title v-if="$refs.calendar">
-          {{ $refs.calendar.title }}
-        </v-toolbar-title>
-
-        <v-spacer />
-      </v-toolbar>
-    </v-sheet>
-
-    <v-sheet height="450">
-      <v-calendar
-        ref="calendar"
-        v-model="focus"
-        color="primary"
-        :events="events"
-        :locale="$i18n.locale"
-        type="week"
-        @mousedown:event="startDrag"
-        @mousedown:time="startTime"
-        @mousemove:time="mouseMove"
-        @mouseup:time="endDrag"
-      >
-        <template #event="{ event, eventSummary, timed }">
-          <div class="v-event-draggable" v-html="eventSummary()" />
-          <div
-            v-if="timed"
-            class="v-event-drag-bottom"
-            @mousedown.stop="extendBottom(event)"
-          />
-        </template>
-      </v-calendar>
-    </v-sheet>
-  </div>
+    <div v-else>{{ $t('error.unexpected') }}</div>
+  </ApolloQuery>
 </template>
 
 <script>
@@ -68,16 +80,13 @@ export default {
       type: String,
       required: true,
     },
-    items: {
-      type: Array,
-      required: true,
-    },
   },
   data() {
     return {
       createdEvents: [],
       dragStart: null,
       dragTime: null,
+      events: [],
       extendOriginal: null,
       focus: '',
       newEvent: null,
@@ -86,8 +95,8 @@ export default {
     }
   },
   computed: {
-    events() {
-      return this.items
+    allEvents() {
+      return this.events
         .map((e) => ({
           color: this.eventColor(e.type),
           end: this.toFormat(e.end),
@@ -191,6 +200,9 @@ export default {
       return down
         ? time - (time % roundDownTime)
         : time + (roundDownTime - (time % roundDownTime))
+    },
+    setEvents({ data: events }) {
+      this.events = events ?? []
     },
     setToday() {
       this.focus = ''
