@@ -1,59 +1,31 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data: course }, isLoading }"
+    v-slot="{ isLoading, result: { data: course, error } }"
     :query="require('~/gql/teach/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
+    <page-title
+      :spaces="spaces(course)"
+      :loading="!!isLoading"
+      :value="title"
+    />
 
-    <div v-else-if="course && (course.isCoordinator || course.isTeacher)">
-      <space-switcher :items="spaces(course)" />
-
-      <h2>{{ title }}</h2>
-
+    <div v-if="!error">
       <v-row>
         <v-col cols="12" md="9">
-          <v-btn
-            small
-            :to="{
-              name: 'teach-courses-code-learners',
-              params: { code: $route.params.code },
-            }"
-          >
-            Learners
-          </v-btn>
+          <v-row>
+            <v-col cols="12" md="6">
+              <learners-info-card :course-code="courseCode" />
+              <calendar-info-card class="mt-5" :course-code="courseCode" />
+            </v-col>
 
-          <v-btn
-            small
-            :to="{
-              name: 'teach-courses-code-assessments',
-              params: { code: $route.params.code },
-            }"
-          >
-            Assessments
-          </v-btn>
-
-          <v-btn
-            small
-            :to="{
-              name: 'teach-courses-code-evaluations',
-              params: { code: $route.params.code },
-            }"
-          >
-            Evaluations
-          </v-btn>
-
-          <v-btn
-            small
-            :to="{
-              name: 'teach-courses-code-calendar',
-              params: { code: $route.params.code },
-            }"
-          >
-            Calendar
-          </v-btn>
+            <v-col cols="12" md="6">
+              <assessments-info-card :course-code="courseCode" space="teach" />
+              <evaluations-info-card class="mt-5" :course-code="courseCode" />
+            </v-col>
+          </v-row>
         </v-col>
 
         <v-col
@@ -61,7 +33,7 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <course-schedule-panel :schedule="course.schedule" />
+          <course-schedule-panel :course-code="courseCode" />
         </v-col>
       </v-row>
     </div>
@@ -71,8 +43,11 @@
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'TeachCoursePage',
+  mixins: [titles],
   data() {
     return {
       title: '',
@@ -80,25 +55,30 @@ export default {
   },
   head() {
     return {
-      title: this.title,
+      title: this.getTitle(this.title, null, 'teach'),
     }
+  },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   methods: {
     setTitle({ data: course }) {
-      this.title = course?.name || ''
+      this.title = course?.name ?? ''
     },
     spaces(course) {
       const items = {
         home: {
           name: 'courses-code',
-          params: { code: this.$route.params.code },
+          params: { code: this.courseCode },
         },
       }
 
-      if (course.isCoordinator) {
+      if (course?.isCoordinator) {
         items.manage = {
           name: 'manage-courses-code',
-          params: { code: this.$route.params.code },
+          params: { code: this.courseCode },
         }
       }
 

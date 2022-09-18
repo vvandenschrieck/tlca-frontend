@@ -17,12 +17,8 @@
         <v-col cols="12" md="9">
           <v-card>
             <v-tabs v-model="currentTab" show-arrows>
-              <v-tab>
-                {{ $t('assessment.description') }}
-              </v-tab>
-              <v-tab>
-                {{ $t('assessment.competencies._') }}
-              </v-tab>
+              <v-tab>{{ $t('assessment.description') }}</v-tab>
+              <v-tab>{{ $t('assessment.competencies._') }}</v-tab>
               <v-tab v-if="data.assessment.provider">Provider</v-tab>
             </v-tabs>
 
@@ -33,9 +29,9 @@
                 </v-tab-item>
 
                 <v-tab-item>
-                  <competencies-assessment-list
+                  <assessment-competencies-list
+                    :assessment-id="assessmentId"
                     :course-code="courseCode"
-                    :items="data.assessment.competencies"
                   />
                 </v-tab-item>
 

@@ -1,20 +1,16 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/teach/getCourseCalendar.gql')"
-    :variables="{ courseCode: $route.params.code }"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/teach/getCourse.gql')"
+    :update="(data) => data.course"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <h2>{{ title }}</h2>
+    <page-title :loading="!!isLoading" :value="title" />
 
     <v-row v-if="!error">
       <v-col cols="12" md="9">
-        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-        <events-calendar
-          v-if="data?.events"
-          :course-code="$route.params.code"
-          :items="data.events"
-        />
+        <events-calendar :course-code="courseCode" />
       </v-col>
 
       <v-col
@@ -22,10 +18,7 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <course-schedule-panel
-          :loading="!!isLoading"
-          :schedule="data?.course.schedule"
-        />
+        <course-schedule-panel :course-code="courseCode" />
       </v-col>
     </v-row>
 
@@ -34,8 +27,11 @@
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'TeachCourseCalendarPage',
+  mixins: [titles],
   data() {
     return {
       title: '',
@@ -43,12 +39,17 @@ export default {
   },
   head() {
     return {
-      title: this.title + ' | ' + this.$t('global.spaces.teach'),
+      title: this.getTitle(this.title, 'calendar._', 'teach'),
     }
   },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
+  },
   methods: {
-    setTitle({ data }) {
-      this.title = data?.course.name ?? ''
+    setTitle({ data: course }) {
+      this.title = course?.name ?? ''
     },
   },
   meta: {

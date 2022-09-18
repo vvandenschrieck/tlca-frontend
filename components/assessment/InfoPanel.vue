@@ -7,10 +7,10 @@
     @result="setItems"
   >
     <generic-info-panel
-      :title="$t('general.information._')"
       icon="mdi-information"
       :items="items"
       :loading="!!isLoading"
+      :title="$t('general.information._')"
     >
       <v-card-text v-if="error">{{ $t('error.unexpected') }}</v-card-text>
     </generic-info-panel>

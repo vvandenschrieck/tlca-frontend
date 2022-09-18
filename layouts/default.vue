@@ -27,7 +27,7 @@
 
     <v-footer app>
       <span class="text-caption">
-        {{ $t('global.powered_by') }} AEI Consulting – v1.1.1.
+        {{ $t('global.powered_by') }} AEI Consulting – v1.1.2.
       </span>
 
       <v-spacer />

@@ -1,0 +1,16 @@
+query GetEvaluationsList($courseCode: ID!) {
+  evaluations(courseCode: $courseCode) {
+    assessment {
+      id
+      code
+      name
+    }
+    date
+    id
+    isPublished
+    learner {
+      displayName
+      username
+    }
+  }
+}

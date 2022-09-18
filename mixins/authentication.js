@@ -1,4 +1,9 @@
 export default {
+  computed: {
+    teacherView() {
+      return this.$auth.user.hasAnyRoles('teacher')
+    },
+  },
   methods: {
     hasRole(role) {
       return this.$auth.user && this.$auth.user.roles.includes(role)

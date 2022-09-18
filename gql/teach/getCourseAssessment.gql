@@ -1,0 +1,13 @@
+query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
+  assessment(id: $assessmentId) {
+    code
+    description
+    id
+    name
+  }
+
+  course(code: $courseCode) {
+    code
+    name
+  }
+}

@@ -13,16 +13,8 @@
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
             <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
-
-            <!-- <v-tab v-if="data.assessments?.length"> -->
-            <v-tab>
-              {{ $t('course.assessments.coverage') }}
-            </v-tab>
-
-            <!-- <v-tab v-if="hasTimeline(data.course, data.assessments)"> -->
-            <v-tab>
-              {{ $t('course.assessments.timeline') }}
-            </v-tab>
+            <v-tab>{{ $t('assessment.coverage') }}</v-tab>
+            <v-tab>{{ $t('assessment.timeline') }}</v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
@@ -42,20 +34,11 @@
               </v-tab-item>
 
               <v-tab-item>
-                <!-- <competency-coverage
-                  v-if="data"
-                  :competencies="data.course.competencies"
-                  :assessments="data.assessments"
-                /> -->
+                <assessments-coverage :course-code="courseCode" />
               </v-tab-item>
 
               <v-tab-item>
-                <!-- <assessments-timeline
-                  v-if="data"
-                  :assessments="data.assessments"
-                  :schedule="data.course.schedule"
-                  :code="courseCode"
-                /> -->
+                <assessments-timeline :course-code="courseCode" />
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>
@@ -67,14 +50,8 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <!-- <assessments-list-info-panel
-          v-if="data?.assessments"
-          :assessments="data.assessments"
-          class="mb-5"
-          :code="courseCode"
-        /> -->
-
-        <course-schedule-panel :course-code="courseCode" />
+        <assessments-info-panel :course-code="courseCode" />
+        <course-schedule-panel class="mt-5" :course-code="courseCode" />
       </v-col>
 
       <actions-menu
@@ -112,22 +89,6 @@ export default {
     },
   },
   methods: {
-    // hasTimeline(course, assessments) {
-    //   if (!assessments?.length) {
-    //     return false
-    //   }
-
-    //   const hasMinDate =
-    //     course.schedule?.some(({ name }) => name === 'start') ||
-    //     assessments.some((a) => a.start)
-
-    //   const hasMaxDate =
-    //     course.schedule?.some(
-    //       ({ name }) => name === 'end' || name === 'evaluationsEnd'
-    //     ) || assessments.some((a) => a.end)
-
-    //   return hasMinDate && hasMaxDate
-    // },
     setTitle({ data: course }) {
       this.title = course?.name ?? ''
     },
