@@ -87,7 +87,7 @@ export default {
       return () => item.part
     },
     async generateBreadCrumb() {
-      const parts = this.$route.fullPath.slice(1).split('/')
+      const parts = decodeURI(this.$route.fullPath).slice(1).split('/')
       const isHomeSpace = !['admin', 'learn', 'manage', 'teach'].includes(
         parts[0]
       )
