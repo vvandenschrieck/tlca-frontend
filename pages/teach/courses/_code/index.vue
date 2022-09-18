@@ -3,7 +3,7 @@
     v-slot="{ result: { error, data: course }, isLoading }"
     :query="require('~/gql/teach/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
     <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
@@ -19,7 +19,7 @@
             small
             :to="{
               name: 'teach-courses-code-learners',
-              params: { code: $route.params.code },
+              params: { code: courseCode },
             }"
           >
             Learners
@@ -29,7 +29,7 @@
             small
             :to="{
               name: 'teach-courses-code-assessments',
-              params: { code: $route.params.code },
+              params: { code: courseCode },
             }"
           >
             Assessments
@@ -39,7 +39,7 @@
             small
             :to="{
               name: 'teach-courses-code-evaluations',
-              params: { code: $route.params.code },
+              params: { code: courseCode },
             }"
           >
             Evaluations
@@ -49,7 +49,7 @@
             small
             :to="{
               name: 'teach-courses-code-calendar',
-              params: { code: $route.params.code },
+              params: { code: courseCode },
             }"
           >
             Calendar
@@ -61,7 +61,7 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <course-schedule-panel :schedule="course.schedule" />
+          <course-schedule-panel :course-code="courseCode" />
         </v-col>
       </v-row>
     </div>
@@ -83,6 +83,11 @@ export default {
       title: this.title,
     }
   },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
+  },
   methods: {
     setTitle({ data: course }) {
       this.title = course?.name || ''
@@ -91,14 +96,14 @@ export default {
       const items = {
         home: {
           name: 'courses-code',
-          params: { code: this.$route.params.code },
+          params: { code: this.courseCode },
         },
       }
 
       if (course.isCoordinator) {
         items.manage = {
           name: 'manage-courses-code',
-          params: { code: this.$route.params.code },
+          params: { code: this.courseCode },
         }
       }
 

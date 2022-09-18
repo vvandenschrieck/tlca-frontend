@@ -2,7 +2,7 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getAssessmentCompetencies.gql')"
-    :variables="{ assessmentId, courseCode }"
+    :variables="{ assessmentId, courseCode, teacherView }"
     @result="setCompetencies"
   >
     <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
@@ -62,11 +62,12 @@
 </template>
 
 <script>
+import authentication from '@/mixins/authentication.js'
 import competencies from '@/mixins/competencies.js'
 
 export default {
   name: 'AssessmentCompetenciesList',
-  mixins: [competencies],
+  mixins: [authentication, competencies],
   props: {
     assessmentId: {
       type: String,
@@ -81,11 +82,6 @@ export default {
     return {
       competencies: [],
     }
-  },
-  computed: {
-    teacherView() {
-      return this.$auth.user.hasAnyRoles('teacher')
-    },
   },
   methods: {
     setCompetencies({ data }) {
