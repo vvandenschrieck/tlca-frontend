@@ -5,7 +5,7 @@
     :variables="{ courseCode }"
   >
     <generic-info-card
-      icon="mdi-clipboard"
+      icon="mdi-clipboard-text"
       :link="link"
       :loading="!!isLoading"
       :title="$tc('assessment._', 2)"

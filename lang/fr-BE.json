@@ -101,7 +101,8 @@
     "sign_up": "S'inscrire"
   },
   "calendar": {
-    "_": "Calendrier"
+    "_": "Calendrier",
+    "event": "Évènement | Évènements"
   },
   "competency": {
     "_": "Compétence | Compétences",
