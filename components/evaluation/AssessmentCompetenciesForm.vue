@@ -138,17 +138,29 @@ export default {
           }
         }) ?? null
 
-      this.selectedCompetencies = data?.assessment.competencies.map(
-        ({ competency }) => ({
-          checklist: {
-            private: [],
-            public: [],
-          },
-          competency: competency.code,
-          learningOutcomes: [],
-          selected: false,
-        })
-      )
+      this.selectedCompetencies =
+        this.competencies?.map(
+          ({ checklist, competency, learningOutcomes }) => {
+            return {
+              checklist: {
+                private: Array.from(
+                  { length: checklist?.private?.length ?? 0 },
+                  () => false
+                ),
+                public: Array.from(
+                  { length: checklist?.public?.length ?? 0 },
+                  () => false
+                ),
+              },
+              competency: competency.code,
+              learningOutcomes: Array.from(
+                { length: learningOutcomes?.length ?? 0 },
+                () => false
+              ),
+              selected: false,
+            }
+          }
+        ) ?? []
     },
   },
 }
