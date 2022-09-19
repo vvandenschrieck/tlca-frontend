@@ -162,11 +162,10 @@ export default {
       }))
     },
     nameOrEmail(registration) {
-      return (
-        registration.user?.displayName ||
-        registration.user?.email ||
-        registration.email
-      )
+      const user = registration.user
+      const email = user?.email ?? registration.email
+
+      return user?.displayName === user?.username ? email : user?.displayName
     },
     remove(id) {
       // TODO: remove this ID
