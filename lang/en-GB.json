@@ -42,10 +42,12 @@
     "edit": "@:general.edit an assessment",
     "filter_by_competency": "Filter by competency",
     "group_by_category": "Group by category",
-    "instances": {
-      "_": "Instances",
+    "instance": {
+      "_": "Instance | Instances",
       "infinite": "Infinite",
+      "instance_name": "Instance {nb}",
       "max_nb": "Maximal number of instances",
+      "new": "New instance",
       "nb": "{n} instance | {n} instances"
     },
     "learning_outcomes": {
@@ -351,6 +353,7 @@
       "minutes": "in minutes",
       "weeks": "in weeks"
     },
+    "infinity": "Infinity",
     "information": {
       "_": "Information",
       "additional": "Additional @.lower:general.information._",
@@ -358,6 +361,7 @@
       "optional": "Optional @.lower:general.information._",
       "private": "Private @.lower:general.information._"
     },
+    "limit": "Limit",
     "list": "List",
     "max_nb": "Max number",
     "owner": "Owner",

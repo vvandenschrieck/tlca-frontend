@@ -61,7 +61,7 @@
                 v-model="instances"
                 clearable
                 :hint="$t('general.max_nb')"
-                :label="$t('assessment.instances._')"
+                :label="$tc('assessment.instance._', 2)"
                 rules="positive"
                 type="number"
                 vid="instances"

@@ -44,9 +44,9 @@ export default {
         items.push({
           icon: 'mdi-layers-triple',
           text: instances
-            ? this.$tc('assessment.instances.nb', instances, { n: instances })
-            : this.$t('assessment.instances.infinite'),
-          tooltip: this.$t('assessment.instances.max_nb'),
+            ? this.$tc('assessment.instance.nb', instances, { n: instances })
+            : this.$t('assessment.instance.infinite'),
+          tooltip: this.$t('assessment.instance.max_nb'),
         })
 
         // Assessment type.
