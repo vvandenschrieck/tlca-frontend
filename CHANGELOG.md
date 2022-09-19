@@ -1,3 +1,9 @@
+## 1.1.3 (2022-09-19)
+
+### Improvements
+
+- replaced the default display name by the email address in the registrations list (coordinator)
+
 ## 1.1.2 (2022-09-18)
 
 ### Features
