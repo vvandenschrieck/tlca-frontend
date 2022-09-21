@@ -324,6 +324,10 @@
     },
     "create": "@:general.create une évaluation",
     "date": "Date de l'évaluation",
+    "delete": {
+      "_": "@:general.delete",
+      "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette évaluation ?"
+    },
     "learner": "Apprenant",
     "note": "Note",
     "publish": "@:global.publish",
