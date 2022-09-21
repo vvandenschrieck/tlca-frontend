@@ -573,7 +573,8 @@
     "REQUEST_INVITATION": "Demande d'invitation envoyée avec succès",
     "RESEND_EMAIL_CONFIRMATION": "E-mail de confirmation réenvoyé avec succès",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
-    "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !"
+    "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
+    "USER_EDIT": "Utilisateur modifié avec succès"
   },
   "user": {
     "_": "Utilisateur | Utilisateurs",
@@ -582,10 +583,12 @@
       "dialog_instructions": "Confirmez votre adresse e-mail en cliquant sur le bouton pour ensuite pouvoir vous connecter sur la plateforme TLCA.",
       "resend": "Resend email"
     },
+    "edit": "@:general.edit un profil",
     "email": "E-mail",
     "first_name": "Prénom",
     "last_name": "Nom",
     "password": "Mot de passe",
+    "profile": "Profil",
     "role": {
       "_": "Rôle | Rôles",
       "admin": "Admin",

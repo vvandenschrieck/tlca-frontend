@@ -28,6 +28,7 @@ export default {
         learners: () => this.$tc('learner._', 2),
         manage: () => this.$t('global.spaces.manage'),
         partners: () => this.$tc('partner._', 2),
+        profiles: () => this.$t('user.profile'),
         programs: () => this.$tc('program._', 2),
         registrations: () => this.$tc('registration._', 2),
         teach: () => this.$tc('global.spaces.teach', 2),
@@ -71,11 +72,13 @@ export default {
       const routeName = this.$router.resolve(item.to).route.name
 
       // Compute text specific to the page and entry, based on a GraphQL query.
-      const suffixName = Object.keys(this.breadCrumbTitles).find((r) =>
-        routeName.endsWith(r)
-      )
-      if (suffixName) {
-        return await this.breadCrumbTitles[suffixName].apply(this)
+      if (routeName) {
+        const suffixName = Object.keys(this.breadCrumbTitles).find((r) =>
+          routeName.endsWith(r)
+        )
+        if (suffixName) {
+          return await this.breadCrumbTitles[suffixName].apply(this)
+        }
       }
 
       // Use a text from the mapping table.

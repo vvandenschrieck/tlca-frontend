@@ -573,7 +573,8 @@
     "REQUEST_INVITATION": "Successfully requested an invitation",
     "RESEND_EMAIL_CONFIRMATION": "Confirmation email successfully resent",
     "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
-    "SIGN_UP_SUCCESSFUL": "Successfully signed up!"
+    "SIGN_UP_SUCCESSFUL": "Successfully signed up!",
+    "USER_EDIT": "User successfully updated"
   },
   "user": {
     "_": "User | Users",
@@ -582,10 +583,12 @@
       "dialog_instructions": "Confirm your email address by clicking on the button to then be able to log in on the TLCA platform.",
       "resend": "Resend email"
     },
+    "edit": "@:general.edit a profile",
     "email": "Email",
     "first_name": "First Name",
     "last_name": "Last Name",
     "password": "Password",
+    "profile": "Profile",
     "role": {
       "_": "Role | Roles",
       "admin": "Admin",
