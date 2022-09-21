@@ -1,5 +1,7 @@
-query GetProgressInfo($courseCode: ID!) {
+query GetProgressInfo($courseCode: ID!, $teacherView: Boolean!) {
   assessments(courseCode: $courseCode) {
+    isClosed
     id
+    isHidden @include(if: $teacherView)
   }
 }

@@ -18,7 +18,7 @@
       "private": "Private checklist",
       "public": "Public checklist"
     },
-    "closed": "Closed",
+    "closed": "@:global.closed",
     "code": "@:global.code",
     "competencies": {
       "_": "@:global.competencies._",
@@ -42,6 +42,7 @@
     "edit": "@:general.edit an assessment",
     "filter_by_competency": "Filter by competency",
     "group_by_category": "Group by category",
+    "hidden": "@:global.hidden",
     "instance": {
       "_": "Instance | Instances",
       "infinite": "Infinite",
@@ -63,6 +64,7 @@
     "nb": "{nb} evaluation | {nb} evaluations",
     "nb_of": "Number of assessments",
     "no": "There are no assessment for now",
+    "no_available": "There are no assessment available for now",
     "openness": "Openness",
     "oral_defense": "Oral defense",
     "phase": {
@@ -342,6 +344,7 @@
   "general": {
     "action": "Action | Actions",
     "apply": "Apply",
+    "available": "Available",
     "cancel": "Cancel",
     "confirmation": "Confirmation",
     "create": "Create",
@@ -392,6 +395,7 @@
       "_": "Banner",
       "edit": "Edit the banner"
     },
+    "closed": "Closed",
     "code": "Code",
     "competencies": {
       "_": "Competencies"
@@ -403,6 +407,7 @@
       "no": "No @.lower:global.description._"
     },
     "field": "Field",
+    "hidden": "Hidden",
     "language": "Language",
     "loading": "Loading...",
     "name": "Name",

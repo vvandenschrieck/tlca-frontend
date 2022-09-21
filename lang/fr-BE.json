@@ -18,7 +18,7 @@
       "private": "Checklist privée",
       "public": "Checklist publique"
     },
-    "closed": "Fermée",
+    "closed": "@:global.closed",
     "code": "@:global.code",
     "competencies": {
       "_": "@:global.competencies._",
@@ -42,6 +42,7 @@
     "edit": "@:general.edit une évaluation",
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
+    "hidden": "@:global.hidden",
     "instance": {
       "_": "Instance | Instances",
       "infinite": "Infini",
@@ -63,6 +64,7 @@
     "nb": "{nb} évaluation | {nb} évaluations",
     "nb_of": "Nombre d'évaluations",
     "no": "Il n'y a aucune évaluation pour le moment",
+    "no_available": "Il n'y a aucune évaluation disponible pour le moment",
     "openness": "Ouverture",
     "oral_defense": "Défense orale",
     "phase": {
@@ -342,6 +344,7 @@
   "general": {
     "action": "Action | Actions",
     "apply": "Appliquer",
+    "available": "Disponible",
     "cancel": "Annuler",
     "confirmation": "Confirmation",
     "create": "Créer",
@@ -392,6 +395,7 @@
       "_": "Bannière",
       "edit": "@:general.edit la bannière"
     },
+    "closed": "Fermé",
     "coordinator": "Coordinateur",
     "code": "Code",
     "competencies": {
@@ -403,6 +407,7 @@
       "no": "Pas de @.lower:global.description._"
     },
     "field": "Domaine",
+    "hidden": "Caché",
     "language": "Langue",
     "loading": "Chargement...",
     "name": "Nom",
