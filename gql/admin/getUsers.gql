@@ -2,7 +2,7 @@ query GetUsers {
   users {
     id
     firstName
-    isValidated
+    isConfirmed
     lastName
     roles
     username
