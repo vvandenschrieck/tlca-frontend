@@ -1,54 +1,104 @@
 <template>
-  <ApolloMutation
-    v-slot="{ loading, mutate }"
-    :mutation="require('~/gql/accounts/validateAccount.gql')"
-    :variables="{
-      username: $route.params.username,
-      emailConfirmationToken: $route.params.emailConfirmationToken,
-    }"
-    @done="done"
-  >
-    <v-container class="d-flex" style="height: 85vh">
-      <v-card
-        class="align-self-center ma-auto"
-        style="min-width: 30vw; max-width: 35vw"
-      >
-        <v-card-title class="text-h5">
-          {{ $t('user.validate_email._') }}
-        </v-card-title>
+  <v-container class="d-flex" style="height: 85vh">
+    <v-card
+      class="align-self-center ma-auto"
+      style="min-width: 30vw; max-width: 35vw"
+    >
+      <v-card-title class="text-h5">
+        {{ $t('user.confirm_email._') }}
+      </v-card-title>
 
-        <v-card-text>
-          {{ $t('user.validate_email.dialog_instructions') }}
-        </v-card-text>
+      <v-card-text>
+        {{ $t('user.confirm_email.dialog_instructions') }}
+      </v-card-text>
 
-        <v-card-actions>
-          <v-spacer />
+      <v-card-actions>
+        <v-spacer />
 
+        <!-- Resend confirmation link button -->
+        <ApolloMutation
+          v-if="showResendBtn && !confirmationEmailSent"
+          v-slot="{ loading, mutate }"
+          :mutation="require('~/gql/accounts/resendConfirmationEmail.gql')"
+          :variables="{ username }"
+          @done="onConfirmationEmailSent"
+        >
+          <v-btn
+            class="mr-3"
+            color="primary"
+            :loading="loading"
+            small
+            @click="mutate"
+          >
+            <v-icon left>mdi-email-fast</v-icon>
+            <span>{{ $t('user.confirm_email.resend') }}</span>
+          </v-btn>
+        </ApolloMutation>
+
+        <!-- Confirmation button -->
+        <ApolloMutation
+          v-slot="{ loading, mutate }"
+          :mutation="require('~/gql/accounts/confirmAccount.gql')"
+          :variables="{ username, emailConfirmationToken }"
+          @done="onAccountConfirmed"
+          @error="error"
+        >
           <v-btn color="success" :loading="loading" small @click="mutate">
             <v-icon left>mdi-account-check</v-icon>
-            <span>{{ $t('general.validate') }}</span>
+            <span>{{ $t('general.confirm') }}</span>
           </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-container>
-  </ApolloMutation>
+        </ApolloMutation>
+      </v-card-actions>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
 export default {
   name: 'EmailConfirmationPage',
   layout: 'minimal',
+  data() {
+    return {
+      showResendBtn: false,
+      confirmationEmailSent: false,
+    }
+  },
+  computed: {
+    emailConfirmationToken() {
+      return this.$route.params.emailConfirmationToken
+    },
+    username() {
+      return this.$route.params.username
+    },
+  },
   methods: {
-    done({ data: { validateAccount: result } }) {
+    onAccountConfirmed({ data: { confirmAccount: result } }) {
       if (result) {
         this.$notificationManager.displaySuccessMessage(
-          this.$t('success.EMAIL_VALIDATION')
+          this.$t('success.CONFIRM_EMAIL')
         )
-        this.$router.push({ name: 'login' })
-      } else {
-        this.$notificationManager.displayErrorMessage(
-          this.$t('error.EMAIL_VALIDATION')
+        return this.$router.push({ name: 'login' })
+      }
+
+      this.$notificationManager.displayErrorMessage(
+        this.$t('error.CONFIRM_EMAIL')
+      )
+    },
+    onConfirmationEmailSent({ data: { resendConfirmationEmail: result } }) {
+      if (result) {
+        this.$notificationManager.displaySuccessMessage(
+          this.$t('success.RESEND_EMAIL_CONFIRMATION')
         )
+        this.confirmationEmailSent = true
+      }
+    },
+    error(err) {
+      const error = err.graphQLErrors[0]
+      if (
+        error?.extensions?.code === 'BAD_USER_INPUT' &&
+        error?.message === 'INVALID_CONFIRMATION_TOKEN'
+      ) {
+        this.showResendBtn = true
       }
     },
   },

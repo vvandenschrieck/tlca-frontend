@@ -3,8 +3,8 @@
   <ApolloQuery
     :query="require('~/gql/teach/getEvaluation.gql')"
     :variables="{
-      courseCode: $route.params.code,
-      evaluationId: $route.params.id,
+      courseCode,
+      evaluationId,
     }"
   >
     <template #default="{ result: { error, data }, isLoading }">
@@ -43,6 +43,20 @@
             <evaluation-status-info-panel :evaluation="data.evaluation" />
           </v-col>
         </v-row>
+
+        <actions-menu
+          :delete-action="{
+            query: {
+              mutation: require('~/gql/teach/deleteEvaluation.gql'),
+              variables: { id: evaluationId },
+            },
+            link: {
+              name: 'teach-courses-code-evaluations',
+              params: { code: courseCode },
+            },
+            object: 'evaluation',
+          }"
+        />
       </div>
 
       <div v-else-if="error">{{ $t('error.unexpected') }}</div>
@@ -53,6 +67,14 @@
 <script>
 export default {
   name: 'TeachEvaluationPage',
+  computed: {
+    evaluationId() {
+      return this.$route.params.id
+    },
+    courseCode() {
+      return this.$route.params.code
+    },
+  },
   meta: {
     roles: ['teacher'],
   },

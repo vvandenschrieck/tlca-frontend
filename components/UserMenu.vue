@@ -36,6 +36,13 @@ export default {
           title: this.$t('general.dashboard'),
           to: { name: 'dashboard' },
         },
+        {
+          title: this.$t('user.profile'),
+          to: {
+            name: 'profiles-username',
+            params: { username: this.$auth.user.username },
+          },
+        },
       ],
     }
   },
