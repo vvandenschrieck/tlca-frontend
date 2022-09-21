@@ -1,3 +1,18 @@
+## 1.1.4 (2022-09-20)
+
+### Features
+
+- **evaluations:** delete a non-published evaluation (teacher)
+
+- **users:** edit a user (user)
+- **users:** resend the confirmation email (user and admin)
+
+### Improvements
+
+- updated the evaluation creation form with the possibility to create or select an existing assessment instance
+- showed the results of the previous published evaluations when creating a new one
+- displayed detailed informations on the assessments info card for teachers and students
+
 ## 1.1.3 (2022-09-19)
 
 ### Improvements
