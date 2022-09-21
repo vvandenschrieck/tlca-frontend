@@ -292,6 +292,7 @@
   "error": {
     "_": "Error",
     "unexpected": "An unexpected error occurred, try again later.",
+    "ALREADY_CONFIRMED": "Your email address is already confirmed, you can now sign in",
     "ALREADY_REGISTERED": "The user is already registered to the course",
     "ALREADY_REGISTERED_OR_INVITED": "The user is already registered or invited to the course",
     "ASSESSMENT_DELETE": "An unexpected error occurred while deleting the assessment",
@@ -301,6 +302,7 @@
     "EMAIL_VALIDATION": "An unexpected error occurred while validating your email address",
     "EXISTING_CODE": "The specified code already exists",
     "EXISTING_EMAIL_ADDRESS": "Impossible to create an account with this email address",
+    "INVALID_CONFIRMATION_TOKEN": "Invalid or expired confirmation link, check it or ask for a new one",
     "INVALID_CREDENTIALS": "Invalid credentials",
     "INVALID_EMAIL_ADDRESS": "Invalid email address",
     "INVALID_PASSWORD": "Password not strong enough",
@@ -346,7 +348,9 @@
     "apply": "Apply",
     "available": "Available",
     "cancel": "Cancel",
+    "confirm": "Confirm",
     "confirmation": "Confirmation",
+    "confirmed": "Confirmed",
     "create": "Create",
     "creator": "Creator",
     "dashboard": "Dashboard",
@@ -386,8 +390,6 @@
     "update": "Update",
     "upload": "Upload",
     "upload_click_drag": "Click or drag the file here to upload",
-    "validate": "Validate",
-    "validated": "Validated",
     "yes": "Yes"
   },
   "global": {
@@ -559,21 +561,27 @@
     "ASSESSMENT_EDIT": "Assessment successfully updated",
     "BANNER_UPDATED": "Banner successfully updated!",
     "COMPETENCY_CREATED": "Competency successfully created!",
+    "CONFIRM_EMAIL": "Email address successfully validated, you can now log in on the TLCA platform",
     "COURSE_ARCHIVED": "Course successfully archived!",
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
-    "EMAIL_VALIDATION": "Email address successfully validated, you can now log in on the TLCA platform",
     "EVALUATION_CREATE": "Evaluation successfully created",
     "INVITATION_SEND": "Invitation successfully sent!",
     "PROGRAM_CREATED": "Program successfully created!",
     "PROGRAM_PUBLISHED": "Program successfully published!",
     "REGISTER": "Successfully registered",
     "REQUEST_INVITATION": "Successfully requested an invitation",
+    "RESEND_EMAIL_CONFIRMATION": "Confirmation email successfully resent",
     "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
     "SIGN_UP_SUCCESSFUL": "Successfully signed up!"
   },
   "user": {
     "_": "User | Users",
+    "confirm_email": {
+      "_": "Confirm email address",
+      "dialog_instructions": "Confirm your email address by clicking on the button to then be able to log in on the TLCA platform.",
+      "resend": "Resend email"
+    },
     "email": "Email",
     "first_name": "First Name",
     "last_name": "Last Name",
@@ -587,10 +595,6 @@
       "user": "User"
     },
     "username": "Username",
-    "username_or_email": "Username or email",
-    "validate_email": {
-      "_": "Validate email address",
-      "dialog_instructions": "Validate your email address by clicking on the button to be able to log in on the TLCA platform."
-    }
+    "username_or_email": "Username or email"
   }
 }

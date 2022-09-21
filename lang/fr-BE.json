@@ -292,6 +292,7 @@
   "error": {
     "_": "Erreur",
     "unexpected": "Une erreur inattendue s'est produite, réessayez plus tard.",
+    "ALREADY_CONFIRMED": "Votre adresse e-mail est déjà confirmée, vous pouvez maintenant vous connecter",
     "ALREADY_REGISTERED": "L'utilisateur est déjà inscrit au cours",
     "ALREADY_REGISTERED_OR_INVITED": "L'utilisateur est déjà inscrit ou invité au cours",
     "ASSESSMENT_DELETE": "Une erreur inattendue s'est produite lors de la suppression de l'évaluation.",
@@ -301,6 +302,7 @@
     "EMAIL_VALIDATION": "Une erreur inattendue s'est produite lors de la validation de votre adresse e-mail",
     "EXISTING_CODE": "Le code spécifié existe déjà",
     "EXISTING_EMAIL_ADDRESS": "Impossible de créer un compte avec cette adresse e-mail",
+    "INVALID_CONFIRMATION_TOKEN": "Lien de confirmation invalide ou expiré, vérifiez-le ou demandez-en un nouveau",
     "INVALID_CREDENTIALS": "Mauvais identifiants",
     "INVALID_EMAIL_ADDRESS": "Mauvaise adresse e-mail",
     "INVALID_PASSWORD": "Mot de passe pas assez fort",
@@ -346,7 +348,9 @@
     "apply": "Appliquer",
     "available": "Disponible",
     "cancel": "Annuler",
+    "confirm": "Confirmer",
     "confirmation": "Confirmation",
+    "confirmed": "Confirmé",
     "create": "Créer",
     "creator": "Créateur",
     "dashboard": "Tableau de bord",
@@ -386,8 +390,6 @@
     "update": "Mettre à jour",
     "upload": "Téléverser",
     "upload_click_drag": "Cliquez ou faites glisser le fichier ici pour le téléverser",
-    "validate": "Valider",
-    "validated": "Validé",
     "yes": "Oui"
   },
   "global": {
@@ -559,21 +561,27 @@
     "ASSESSMENT_EDIT": "Évaluation modifiée avec succès",
     "BANNER_UPDATED": "Bannière mise à jour avec succès !",
     "COMPETENCY_CREATED": "Compétence créée avec succès !",
+    "CONFIRM_EMAIL": "Adresse e-mail validée avec succès, vous pouvez maintenant vous connecter sur la plateforme TLCA",
     "COURSE_ARCHIVED": "Cours archivé avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
-    "EMAIL_VALIDATION": "Adresse e-mail validée avec succès, vous pouvez maintenant vous connecter sur la plateforme TLCA",
     "EVALUATION_CREATE": "Évaluation créée avec succès",
     "INVITATION_SEND": "Invitation envoyée avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
     "PROGRAM_PUBLISHED": "Programme publié avec succès !",
     "REGISTER": "Inscrit(e) avec succès",
     "REQUEST_INVITATION": "Demande d'invitation envoyée avec succès",
+    "RESEND_EMAIL_CONFIRMATION": "E-mail de confirmation réenvoyé avec succès",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
     "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !"
   },
   "user": {
     "_": "Utilisateur | Utilisateurs",
+    "confirm_email": {
+      "_": "Confirmer l'adresse e-mail",
+      "dialog_instructions": "Confirmez votre adresse e-mail en cliquant sur le bouton pour ensuite pouvoir vous connecter sur la plateforme TLCA.",
+      "resend": "Resend email"
+    },
     "email": "E-mail",
     "first_name": "Prénom",
     "last_name": "Nom",
@@ -587,10 +595,6 @@
       "user": "Utilisateur"
     },
     "username": "Nom d'utilisateur",
-    "username_or_email": "Nom d'utilisateur ou e-mail",
-    "validate_email": {
-      "_": "Valider l'adresse e-mail",
-      "dialog_instructions": "Valider votre adresse e-mail en cliquant sur le bouton pour pouvoir vous connecter sur la plateforme TLCA."
-    }
+    "username_or_email": "Nom d'utilisateur ou e-mail"
   }
 }
