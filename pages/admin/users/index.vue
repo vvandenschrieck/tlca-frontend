@@ -11,35 +11,48 @@
           v-if="data"
           :headers="headers"
           :items="data"
-          :items-per-page="5"
+          :items-per-page="15"
           class="elevation-1"
         >
-          <template #item.firstName="{ value: firstName }">{{
-            firstName || '—'
-          }}</template>
-          <template #item.lastName="{ value: lastName }">{{
-            lastName || '—'
-          }}</template>
+          <template #item.firstName="{ value: firstName }">
+            {{ firstName ?? '—' }}
+          </template>
+
+          <template #item.lastName="{ value: lastName }">
+            {{ lastName ?? '—' }}
+          </template>
+
           <template #item.roles="{ value: roles }">
             <v-chip-group active-class="primary--text" column max="0" multiple>
-              <v-chip
-                v-for="role in roles"
-                :key="role"
-                v-t="`user.role.${role}`"
-                small
-              >
+              <v-chip v-for="role in roles" :key="role" value="coursou" small>
+                {{ $t(`user.role.${role}`) }}
               </v-chip>
             </v-chip-group>
           </template>
-          <template #item.isValidated="{ value: validated }">
-            <boolean-value-icon :value="validated" />
+
+          <template #item.isConfirmed="{ value: isConfirmed }">
+            <boolean-value-icon :value="isConfirmed" />
+          </template>
+
+          <template #item.actions="{ item }">
+            <ApolloMutation
+              v-if="!item.isConfirmed"
+              v-slot="{ mutate, loading }"
+              :mutation="require('~/gql/accounts/resendConfirmationEmail.gql')"
+              tag="span"
+              :variables="{ username: item.username }"
+            >
+              <v-btn icon :loading="loading" small @click.stop="mutate">
+                <v-icon small>mdi-email-fast</v-icon>
+              </v-btn>
+            </ApolloMutation>
           </template>
         </v-data-table>
 
         <v-skeleton-loader v-else type="table"></v-skeleton-loader>
       </div>
 
-      <div v-else-if="error">An error occurred</div>
+      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
     </template>
   </ApolloQuery>
 </template>
@@ -55,9 +68,16 @@ export default {
         { text: this.$t('user.username'), value: 'username' },
         { text: this.$tc('user.role._', 2), value: 'roles' },
         {
-          text: this.$t('general.validated'),
-          value: 'isValidated',
+          text: this.$t('general.confirmed'),
+          value: 'isConfirmed',
           align: 'center',
+        },
+        {
+          cellClass: 'text-right',
+          class: 'text-right',
+          sortable: false,
+          text: this.$tc('general.action', 2),
+          value: 'actions',
         },
       ]
     },

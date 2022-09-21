@@ -10,6 +10,7 @@
               v-model="checked[i]"
               class="ml-1"
               dense
+              :disabled="disabled"
               :readonly="!form"
               hide-details
             >
@@ -26,6 +27,10 @@
 export default {
   name: 'CompetencyCheckList',
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     form: {
       type: Boolean,
       default: false,

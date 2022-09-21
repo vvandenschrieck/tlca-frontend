@@ -26,7 +26,11 @@
             </v-col>
 
             <v-col cols="12" md="6">
-              <assessments-info-card :course-code="courseCode" space="manage" />
+              <assessments-info-card
+                :course-code="courseCode"
+                space="manage"
+                :teacher-view="true"
+              />
             </v-col>
           </v-row>
         </v-col>
