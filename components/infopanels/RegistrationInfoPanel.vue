@@ -2,7 +2,7 @@
   <ApolloQuery
     v-if="$auth.user"
     v-slot="{ isLoading, result: { error } }"
-    :query="require('~/gql/registrations/getRegistration.gql')"
+    :query="require(`~/gql/infopanels/${queryFile}`)"
     :variables="{ [`${entity}Code`]: code }"
     @result="setRegistration"
   >
@@ -38,10 +38,11 @@
 
 <script>
 import datetime from '@/mixins/datetime.js'
+import utils from '@/mixins/utils.js'
 
 export default {
   name: 'RegistrationInfoPanel',
-  mixins: [datetime],
+  mixins: [datetime, utils],
   props: {
     code: {
       type: String,
@@ -51,14 +52,11 @@ export default {
       type: String,
       required: true,
     },
-    visibility: {
-      type: String,
-      required: true,
-    },
   },
   data() {
     return {
       registration: null,
+      visibility: null,
     }
   },
   computed: {
@@ -66,12 +64,14 @@ export default {
       const items = []
 
       // Course or program visibility.
-      const visibility = this.visibility.toLowerCase()
-      items.push({
-        icon: 'mdi-eye',
-        text: this.$t(`${this.entity}.visibility.${visibility}`),
-        tooltip: this.$t(`${this.entity}.visibility._`),
-      })
+      const visibility = this.visibility?.toLowerCase()
+      if (visibility) {
+        items.push({
+          icon: 'mdi-eye',
+          text: this.$t(`${this.entity}.visibility.${visibility}`),
+          tooltip: this.$t(`${this.entity}.visibility._`),
+        })
+      }
 
       // Registration status or date
       items.push({
@@ -81,6 +81,10 @@ export default {
       })
 
       return items
+    },
+    queryFile() {
+      const entity = this.capitalise(this.entity)
+      return `get${entity}RegistrationInfo.gql`
     },
     status() {
       // Invitation requested or invited.
@@ -125,6 +129,7 @@ export default {
     },
     setRegistration({ data }) {
       this.registration = data?.registration
+      this.visibility = data?.course?.visibility
     },
   },
 }

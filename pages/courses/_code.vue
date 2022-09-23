@@ -4,12 +4,11 @@
     v-slot="{ isLoading, result: { data: course, error } }"
     :query="require('~/gql/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: courseCode }"
+    @result="setTitle"
   >
-    <div v-if="isLoading">{{ $t('global.loading') }}</div>
-
-    <div v-else-if="course">
-      <h2>{{ course.name }}</h2>
+    <div v-if="!error">
+      <page-title :loading="!!isLoading" :value="title" />
 
       <v-row>
         <v-col cols="12" md="9">
@@ -17,7 +16,7 @@
             <v-tabs v-model="currentTab" show-arrows>
               <v-tab>{{ $t('course.description') }}</v-tab>
               <v-tab>{{ $t('course.competencies._') }}</v-tab>
-              <v-tab v-if="course.schedule">
+              <v-tab v-if="course?.schedule">
                 {{ $t('course.schedule._') }}
               </v-tab>
             </v-tabs>
@@ -25,20 +24,20 @@
             <v-card-text class="text--primary">
               <v-tabs-items v-model="currentTab">
                 <v-tab-item>
-                  <div v-html="course.description" />
+                  <div v-html="course?.description" />
 
-                  <div v-if="course.colophon">
+                  <div v-if="course?.colophon">
                     <h3>{{ $t('course.colophon') }}</h3>
                     <div v-html="course.colophon" />
                   </div>
                 </v-tab-item>
 
                 <v-tab-item>
-                  <competency-list :items="course.competencies" />
+                  <course-competencies-list :course-code="courseCode" />
                 </v-tab-item>
 
-                <v-tab-item v-if="course.schedule">
-                  <course-schedule :items="course.schedule" />
+                <v-tab-item v-if="course?.schedule">
+                  <schedule-timeline :items="course.schedule" />
                 </v-tab-item>
               </v-tabs-items>
             </v-card-text>
@@ -52,13 +51,11 @@
         >
           <registration-info-panel
             v-if="$auth.user"
-            :code="course.code"
-            entity="course"
-            :visibility="course.visibility"
             class="mb-5"
+            :code="courseCode"
+            entity="course"
           />
-
-          <course-info-panel :course="course" />
+          <course-info-panel :course-code="courseCode" />
         </v-col>
       </v-row>
     </div>
@@ -80,6 +77,11 @@ export default {
     return {
       title: this.title,
     }
+  },
+  computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   methods: {
     setTitle({ data: course }) {

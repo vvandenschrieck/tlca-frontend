@@ -1,0 +1,25 @@
+query GetCourseInfo($code: ID!) {
+  course(code: $code) {
+    code
+    field
+    language
+    load {
+      ects
+      practice
+      theory
+      type
+      weekload
+    }
+    partners {
+      abbreviation
+      code
+      name
+    }
+    span
+    tags
+    team {
+      displayName
+      username
+    }
+  }
+}
