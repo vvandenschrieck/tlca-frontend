@@ -7,10 +7,10 @@
     @result="setRegistration"
   >
     <generic-info-panel
-      :title="$tc('registration._', 1)"
       icon="mdi-book"
       :items="items"
       :loading="!!isLoading"
+      :title="$tc('registration._', 1)"
     >
       <div v-if="!error" class="text-center">
         <!-- <course-register-btn
@@ -20,7 +20,9 @@
         /> -->
 
         <request-invitation-btn
-          v-if="!registration && visibility === 'INVITE_ONLY'"
+          v-if="
+            !registration && showRegistrationBtn && visibility === 'INVITE_ONLY'
+          "
           :code="code"
           :entity="entity"
           @done="invitationRequestSent"
@@ -56,6 +58,7 @@ export default {
   data() {
     return {
       registration: null,
+      showRegistrationBtn: false,
       visibility: null,
     }
   },
@@ -117,7 +120,7 @@ export default {
       this.registration = registration
 
       this.$notificationManager.displaySuccessMessage(
-        this.$t('success.REQUEST_INVITATION')
+        this.$t('success.INVITATION_REQUEST')
       )
     },
     registered({ data: { register: registration } }) {
@@ -129,7 +132,16 @@ export default {
     },
     setRegistration({ data }) {
       this.registration = data?.registration
-      this.visibility = data?.course?.visibility
+
+      const course = data?.course
+      if (course) {
+        this.showRegistrationBtn = !(
+          course.isCoordinator ||
+          course.isRegistered ||
+          course.isTeacher
+        )
+        this.visibility = course.visibility
+      }
     },
   },
 }

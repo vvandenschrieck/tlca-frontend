@@ -1,6 +1,9 @@
 query GetCourseRegistration($courseCode: ID!) {
   course(code: $courseCode) {
     code
+    isCoordinator
+    isRegistered
+    isTeacher
     visibility
   }
 
