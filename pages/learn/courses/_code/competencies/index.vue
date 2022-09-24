@@ -1,42 +1,43 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data }, isLoading }"
-    :query="require('~/gql/learn/getCourseCompetencies.gql')"
-    :variables="{ courseCode }"
+    v-slot="{ isLoading, result: { data: course, error } }"
+    :query="require('~/gql/learn/getCourse.gql')"
+    :update="(data) => data.course"
+    :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <page-title :loading="!!isLoading" :value="title" />
+    <div v-if="!error">
+      <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error && data?.course.isRegistered">
-      <v-col cols="12" md="9">
-        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
+      <v-row v-if="course?.isRegistered">
+        <v-col cols="12" md="9">
+          <v-card>
+            <v-tabs v-model="currentTab" show-arrows>
+              <v-tab>{{ $tc('competency._', 2) }}</v-tab>
+            </v-tabs>
 
-        <v-card>
-          <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>{{ $tc('competency._', 2) }}</v-tab>
-          </v-tabs>
+            <v-card-text class="text--primary">
+              <v-tabs-items v-model="currentTab">
+                <v-tab-item>
+                  <course-competencies-progress-list
+                    :course-code="courseCode"
+                  />
+                </v-tab-item>
+              </v-tabs-items>
+            </v-card-text>
+          </v-card>
+        </v-col>
 
-          <v-card-text class="text--primary">
-            <v-tabs-items v-model="currentTab">
-              <v-tab-item>
-                <competencies-progress-list
-                  :items="data?.course.competencies"
-                />
-              </v-tab-item>
-            </v-tabs-items>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col
-        cols="12"
-        md="3"
-        :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-      >
-        <progress-panel :course-code="courseCode" />
-        <course-schedule-panel class="mt-5" :course-code="courseCode" />
-      </v-col>
-    </v-row>
+        <v-col
+          cols="12"
+          md="3"
+          :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+        >
+          <progress-panel :course-code="courseCode" />
+          <course-schedule-panel class="mt-5" :course-code="courseCode" />
+        </v-col>
+      </v-row>
+    </div>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
@@ -65,8 +66,8 @@ export default {
     },
   },
   methods: {
-    setTitle({ data }) {
-      this.title = data?.course.name ?? ''
+    setTitle({ data: course }) {
+      this.title = course?.name ?? ''
     },
   },
   meta: {

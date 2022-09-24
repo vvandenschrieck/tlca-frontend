@@ -1,4 +1,4 @@
-query GetCourseCompetencies($courseCode: ID!) {
+query GetCourseCompetenciesProgress($courseCode: ID!) {
   course(code: $courseCode) {
     code
     competencies {
@@ -10,17 +10,18 @@ query GetCourseCompetencies($courseCode: ID!) {
       subcategory
     }
     isRegistered
-    name
-    schedule {
-      name
-      datetime
-    }
   }
 
   registration(courseCode: $courseCode) {
+    id
     progress {
-      advanced
-      basic
+      competencies {
+        competency {
+          code
+        }
+        learningOutcomes
+        progress
+      }
     }
   }
 }

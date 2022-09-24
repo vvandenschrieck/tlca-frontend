@@ -7,12 +7,13 @@
         <v-list-item-content class="pa-0">
           <v-list-item-title>
             <v-checkbox
-              v-model="checked[i]"
+              v-model="learningOutcomes[i].selected"
               class="ml-1"
               dense
-              :disabled="disabled"
+              :disabled="disabled || learningOutcomes[i].disabled"
               :readonly="!form"
               hide-details
+              @change="$emit('change', value)"
             >
               <span slot="label" class="text-subtitle-2">{{ item.name }}</span>
             </v-checkbox>
@@ -45,7 +46,7 @@ export default {
     },
   },
   computed: {
-    checked: {
+    learningOutcomes: {
       get() {
         return this.value
       },

@@ -26,6 +26,7 @@ query GetLearnerEvaluations($assessment: ID!, $courseCode: ID!, $learner: ID!) {
       competency {
         code
       }
+      learningOutcomes
       selected
     }
     id

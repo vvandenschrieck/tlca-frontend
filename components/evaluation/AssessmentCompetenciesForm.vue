@@ -28,6 +28,7 @@
                 dense
                 :disabled="selectedCompetencies[i].disabled"
                 :label="competencyName(c.competency)"
+                :readonly="c.useLearningOutcomes"
               />
             </v-list-item-title>
 
@@ -39,6 +40,7 @@
                 :disabled="selectedCompetencies[i].disabled"
                 form
                 :items="c.learningOutcomes"
+                @change="() => learningOutcomesUpdated(i)"
               />
 
               <competency-check-list
@@ -125,6 +127,12 @@ export default {
     },
   },
   methods: {
+    learningOutcomesUpdated(i) {
+      const competency = this.selectedCompetencies[i]
+      competency.selected = competency.learningOutcomes.every(
+        (lo) => lo.selected
+      )
+    },
     setCompetencies({ data }) {
       this.competencies =
         data?.assessment.competencies.map((item) => {
@@ -160,7 +168,7 @@ export default {
               disabled: false,
               learningOutcomes: Array.from(
                 { length: learningOutcomes?.length ?? 0 },
-                () => false
+                () => ({ disabled: false, selected: false })
               ),
               selected: false,
             }
