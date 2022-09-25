@@ -6,9 +6,9 @@
     :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <div v-if="!error">
-      <page-title :loading="!!isLoading" :value="title" />
+    <page-title :loading="!!isLoading" :value="title" />
 
+    <div v-if="!error">
       <v-row>
         <v-col cols="12" md="9">
           <v-row>
@@ -37,8 +37,11 @@
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'LearnCoursePage',
+  mixins: [titles],
   data() {
     return {
       title: '',
@@ -46,7 +49,7 @@ export default {
   },
   head() {
     return {
-      title: this.title,
+      title: this.getTitle(this.title, null, 'learn'),
     }
   },
   computed: {
