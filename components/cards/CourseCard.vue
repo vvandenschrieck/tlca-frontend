@@ -2,19 +2,14 @@
   <generic-card
     :banner="course.banner"
     :banner-edit-options="bannerEditOptions"
-    :to="link"
     :label="type"
+    :to="link"
   >
-    <v-chip
-      v-if="status"
-      id="status"
-      v-t="`course.status.${status}`"
-      small
-    ></v-chip>
+    <v-chip v-if="status" class="status" small>{{ status }}</v-chip>
 
-    <v-card-title v-text="course.code"></v-card-title>
+    <v-card-title>{{ course.code }}</v-card-title>
     <v-card-subtitle>
-      <div class="name" v-text="course.name"></div>
+      <div class="name">{{ course.name }}</div>
     </v-card-subtitle>
   </generic-card>
 </template>
@@ -27,39 +22,41 @@ export default {
       type: Object,
       required: true,
     },
-    linkPrefix: {
+    hidePublished: {
+      type: Boolean,
+      default: false,
+    },
+    space: {
       type: String,
       default: '',
     },
   },
-  data() {
-    return {
-      link: {
-        name: `${this.linkPrefix}courses-code`,
-        params: { code: this.course.code },
-      },
-    }
-  },
   computed: {
     bannerEditOptions() {
-      if (
-        this.$auth?.user?.roles?.includes('teacher') &&
-        this.$route.path.startsWith('/manage')
-      ) {
+      if (this.canEditBanner) {
         return { code: this.course.code, type: 'COURSE' }
       }
-
       return null
     },
+    canEditBanner() {
+      return (
+        this.$route.path.startsWith('/manage') &&
+        this.$auth.user?.hasAnyRoles('teacher') &&
+        this.course.isCoordinator
+      )
+    },
+    link() {
+      const prefix = this.space ? `${this.space}-` : ''
+      return {
+        name: `${prefix}courses-code`,
+        params: { code: this.course.code },
+      }
+    },
     status() {
-      if (this.course.isPublished === false) {
-        return 'unpublished'
+      const status = this.course.status?.toLowerCase()
+      if (status && (!this.hidePublished || status !== 'published')) {
+        return this.$t(`course.status.${status}`)
       }
-
-      if (this.course.isArchived === true) {
-        return 'archived'
-      }
-
       return undefined
     },
     type() {
@@ -73,16 +70,17 @@ export default {
 <style scoped>
 .name {
   display: -webkit-box;
-  min-height: 20px;
   max-height: 45px;
+  min-height: 20px;
   overflow: hidden;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
-#status {
-  top: 0px;
+
+.status {
   margin: 10px 10px 0px 0;
   position: absolute;
   right: 0px;
+  top: 0px;
 }
 </style>
