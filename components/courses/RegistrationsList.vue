@@ -1,15 +1,17 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getRegistrations.gql')"
+    :update="(data) => data.registrations"
     :variables="{ [`${entity}Code`]: code }"
+    @result="setRegistrations"
   >
     <v-data-table
       v-if="!error"
       group-by="status"
       :group-desc="true"
       :headers="dataHeaders"
-      :items="registrations(data?.registrations)"
+      :items="registrations"
       :items-per-page="5"
       :loading="!!isLoading"
     >
@@ -78,9 +80,17 @@
           </v-btn>
         </ApolloMutation>
 
-        <v-btn icon small @click="remove(id)">
-          <v-icon small>mdi-delete</v-icon>
-        </v-btn>
+        <ApolloMutation
+          v-slot="{ mutate, loading }"
+          :mutation="require('~/gql/registrations/deleteRegistration.gql')"
+          tag="span"
+          :variables="{ id }"
+          @done="(r) => registrationDeleted(id, r)"
+        >
+          <v-btn icon :loading="loading" small @click="mutate">
+            <v-icon small>mdi-delete</v-icon>
+          </v-btn>
+        </ApolloMutation>
       </template>
     </v-data-table>
 
@@ -89,6 +99,8 @@
 </template>
 
 <script>
+import getRegistrations from '@/gql/components/getRegistrations.gql'
+
 import datetime from '@/mixins/datetime.js'
 
 export default {
@@ -107,6 +119,11 @@ export default {
       type: Array,
       default: () => [],
     },
+  },
+  data() {
+    return {
+      registrations: [],
+    }
   },
   computed: {
     dataHeaders() {
@@ -153,22 +170,49 @@ export default {
     },
   },
   methods: {
-    registrations(registrations) {
-      return registrations?.map((item) => ({
+    nameOrEmail(registration) {
+      return (
+        registration.user?.displayName ||
+        registration.user?.email ||
+        registration.email
+      )
+    },
+    registrationDeleted(id, { data: { deleteRegistration } }) {
+      if (!deleteRegistration) {
+        return this.$notificationManager.displayErrorMessage(
+          this.$t('error.REGISTRATION_DELETE')
+        )
+      }
+
+      // Update local cache.
+      const { defaultClient: apolloClient } = this.$apolloProvider
+      const data = apolloClient.readQuery({
+        query: getRegistrations,
+        variables: { [`${this.entity}Code`]: this.code },
+      })
+      const i = data.registrations.findIndex((r) => r.id === id)
+      apolloClient.writeQuery({
+        query: getRegistrations,
+        data: {
+          registrations: [
+            ...data.registrations.slice(0, i),
+            ...data.registrations.slice(i + 1),
+          ],
+        },
+        variables: { [`${this.entity}Code`]: this.code },
+      })
+
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.REGISTRATION_DELETE')
+      )
+    },
+    setRegistrations({ data: registrations }) {
+      this.registrations = registrations?.map((item) => ({
         ...item,
         innerGroup: item.group?.teaching,
         nameOrEmail: this.nameOrEmail(item),
         status: item.invitation ? 'invites' : 'registered',
       }))
-    },
-    nameOrEmail(registration) {
-      const user = registration.user
-      const email = user?.email ?? registration.email
-
-      return user?.displayName === user?.username ? email : user?.displayName
-    },
-    remove(id) {
-      // TODO: remove this ID
     },
   },
 }

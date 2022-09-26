@@ -314,9 +314,11 @@
     "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
     "MISSING_PHASES": "Les phases ne sont pas définies",
     "PROGRAM_PUBLICATION_FAILED": "Une erreur inattendue s'est produite lors de la publication du programme",
+    "REGISTRATION_DELETE": "Une erreur inattendue s'est produite lors de la suppression de l'inscription",
     "REGISTRATION_FAILED": "Inscription échouée",
     "UNCONFIRMED_EMAIL_ADDRESS": "Adresse e-mail pas encore confirmée",
     "UNPUBLISHED_PROGRAM_COURSES": "Certains cours du programme ne sont pas publiés",
+    "UPCOMING_FEATURE": "Cette fonctionnalité n'est pas encore implémentée",
     "VALIDATION_ERROR": "Certains champs contiennent une valeur invalide"
   },
   "evaluation": {
@@ -573,6 +575,7 @@
     "PROGRAM_CREATED": "Programme créé avec succès !",
     "PROGRAM_PUBLISHED": "Programme publié avec succès !",
     "REGISTER": "Inscrit(e) avec succès",
+    "REGISTRATION_DELETE": "Inscription supprimée avec succès",
     "RESEND_EMAIL_CONFIRMATION": "E-mail de confirmation réenvoyé avec succès",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
     "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
