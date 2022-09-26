@@ -6,38 +6,39 @@
     :variables="{ code: courseCode }"
     @result="setTitle"
   >
-    <div v-if="!error">
-      <page-title :loading="!!isLoading" :value="title" />
+    <page-title :loading="!!isLoading" :value="title" />
 
-      <v-row v-if="course?.isRegistered">
-        <v-col cols="12" md="9">
-          <v-card>
-            <v-tabs v-model="currentTab" show-arrows>
-              <v-tab>{{ $tc('competency._', 2) }}</v-tab>
-            </v-tabs>
+    <v-row v-if="!error && course?.isRegistered">
+      <v-col cols="12" md="9">
+        <v-card>
+          <v-tabs v-model="currentTab" show-arrows>
+            <v-tab>{{ $tc('competency._', 2) }}</v-tab>
+            <v-tab>{{ $t('general.progress') }}</v-tab>
+          </v-tabs>
 
-            <v-card-text class="text--primary">
-              <v-tabs-items v-model="currentTab">
-                <v-tab-item>
-                  <course-competencies-progress-list
-                    :course-code="courseCode"
-                  />
-                </v-tab-item>
-              </v-tabs-items>
-            </v-card-text>
-          </v-card>
-        </v-col>
+          <v-card-text class="text--primary">
+            <v-tabs-items v-model="currentTab">
+              <v-tab-item>
+                <course-competencies-progress-list :course-code="courseCode" />
+              </v-tab-item>
 
-        <v-col
-          cols="12"
-          md="3"
-          :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-        >
-          <progress-panel :course-code="courseCode" />
-          <course-schedule-panel class="mt-5" :course-code="courseCode" />
-        </v-col>
-      </v-row>
-    </div>
+              <v-tab-item>
+                <v-alert type="info" dense outlined>Upcoming feature</v-alert>
+              </v-tab-item>
+            </v-tabs-items>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col
+        cols="12"
+        md="3"
+        :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+      >
+        <progress-panel :course-code="courseCode" />
+        <course-schedule-panel class="mt-5" :course-code="courseCode" />
+      </v-col>
+    </v-row>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>

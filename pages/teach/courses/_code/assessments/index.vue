@@ -22,7 +22,7 @@
                 <assessments-list
                   :course-code="courseCode"
                   hide-actions
-                  link-prefix="teach"
+                  space="teach"
                 />
               </v-tab-item>
 

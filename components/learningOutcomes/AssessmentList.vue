@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div v-if="items?.length">
     <i>{{ $t('assessment.learning_outcomes.targeted') }}</i>
 
-    <v-list class="pa-0 mt-2">
+    <v-list class="pa-0">
       <v-list-item v-for="(item, i) in items" :key="i" class="line pl-3" dense>
         <v-list-item-content class="pa-0">
           <v-list-item-title>
@@ -11,8 +11,8 @@
               class="ml-1"
               dense
               :disabled="disabled || learningOutcomes[i].disabled"
-              :readonly="!form"
               hide-details
+              :readonly="!form"
               @change="$emit('change', value)"
             >
               <span slot="label" class="text-subtitle-2">{{ item.name }}</span>
@@ -38,7 +38,7 @@ export default {
     },
     items: {
       type: Array,
-      required: true,
+      default: null,
     },
     value: {
       type: Array,
@@ -48,7 +48,10 @@ export default {
   computed: {
     learningOutcomes: {
       get() {
-        return this.value
+        if (this.value?.length) {
+          return this.value
+        }
+        return this.items.map((_) => ({ disabled: false, selected: false }))
       },
       set(value) {
         this.$emit('input', value)

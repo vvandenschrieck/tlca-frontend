@@ -8,11 +8,9 @@
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error">
+    <v-row v-if="!error && data?.course?.isRegistered">
       <v-col cols="12" md="9">
-        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-
-        <v-card>
+        <v-card :loading="!!isLoading">
           <v-tabs v-model="currentTab" show-arrows>
             <v-tab>{{ $t('assessment.description') }}</v-tab>
             <v-tab>{{ $t('assessment.competencies._') }}</v-tab>

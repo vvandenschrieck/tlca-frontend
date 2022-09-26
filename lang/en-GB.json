@@ -359,6 +359,7 @@
     "filter": {
       "_": "Filter"
     },
+    "history": "History",
     "in": {
       "hours": "in hours",
       "minutes": "in minutes",
@@ -377,6 +378,7 @@
     "max_nb": "Max number",
     "owner": "Owner",
     "plus_other": "(+ {n} other) | (+ {n} others)",
+    "progress": "Progress",
     "reset": "Reset",
     "send": "Send",
     "statistics": {
