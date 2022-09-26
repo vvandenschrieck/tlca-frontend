@@ -566,6 +566,7 @@
     "BANNER_UPDATED": "Bannière mise à jour avec succès !",
     "COMPETENCY_CREATED": "Compétence créée avec succès !",
     "CONFIRM_EMAIL": "Adresse e-mail validée avec succès, vous pouvez maintenant vous connecter sur la plateforme TLCA",
+    "CONFIRMATION_EMAIL_RESEND": "E-mail de confirmation réenvoyé avec succès",
     "COURSE_ARCHIVED": "Cours archivé avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
@@ -576,7 +577,6 @@
     "PROGRAM_PUBLISHED": "Programme publié avec succès !",
     "REGISTER": "Inscrit(e) avec succès",
     "REGISTRATION_DELETE": "Inscription supprimée avec succès",
-    "RESEND_EMAIL_CONFIRMATION": "E-mail de confirmation réenvoyé avec succès",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
     "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
     "USER_EDIT": "Utilisateur modifié avec succès"

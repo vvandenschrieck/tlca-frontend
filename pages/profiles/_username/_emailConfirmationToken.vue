@@ -16,24 +16,12 @@
         <v-spacer />
 
         <!-- Resend confirmation link button -->
-        <ApolloMutation
+        <resend-confirmation-email-btn
           v-if="showResendBtn && !confirmationEmailSent"
-          v-slot="{ loading, mutate }"
-          :mutation="require('~/gql/accounts/resendConfirmationEmail.gql')"
-          :variables="{ username }"
+          class="mr-3"
+          :username-or-email="username"
           @done="onConfirmationEmailSent"
-        >
-          <v-btn
-            class="mr-3"
-            color="primary"
-            :loading="loading"
-            small
-            @click="mutate"
-          >
-            <v-icon left>mdi-email-fast</v-icon>
-            <span>{{ $t('user.confirm_email.resend') }}</span>
-          </v-btn>
-        </ApolloMutation>
+        />
 
         <!-- Confirmation button -->
         <ApolloMutation
@@ -87,7 +75,7 @@ export default {
     onConfirmationEmailSent({ data: { resendConfirmationEmail: result } }) {
       if (result) {
         this.$notificationManager.displaySuccessMessage(
-          this.$t('success.RESEND_EMAIL_CONFIRMATION')
+          this.$t('success.CONFIRMATION_EMAIL_RESEND')
         )
         this.confirmationEmailSent = true
       }

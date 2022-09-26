@@ -1,5 +1,5 @@
-mutation ResendConfirmationEmail($username: String!) {
+mutation ResendConfirmationEmail($usernameOrEmail: String!) {
   resendConfirmationEmail(
-    username: $username
+    usernameOrEmail: $usernameOrEmail
   )
 }
