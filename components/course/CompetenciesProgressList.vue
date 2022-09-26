@@ -24,7 +24,13 @@
               </v-list-item-content>
 
               <v-list-item-action>
-                <stars-field readonly :value="c.progress.value" />
+                <v-progress-linear
+                  v-if="c.useLearningOutcomes"
+                  class="loProgress"
+                  height="15"
+                  :value="c.progress.value"
+                />
+                <stars-field v-else readonly :value="c.progress.value" />
               </v-list-item-action>
             </v-list-item>
 
@@ -77,3 +83,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.loProgress {
+  width: 132px;
+}
+</style>

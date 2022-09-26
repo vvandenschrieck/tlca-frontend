@@ -8,6 +8,7 @@ query GetCourseCompetenciesProgress($courseCode: ID!) {
         name
       }
       subcategory
+      useLearningOutcomes
     }
     isRegistered
   }
