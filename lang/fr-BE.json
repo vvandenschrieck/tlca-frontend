@@ -343,7 +343,8 @@
       "published": "@:global.status.published",
       "published_on": "@:global.status.published_on",
       "unpublished": "@:global.status.unpublished"
-    }
+    },
+    "submitted": "Soumis"
   },
   "general": {
     "action": "Action | Actions",
