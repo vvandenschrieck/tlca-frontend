@@ -6,7 +6,7 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getAssessmentCompetencies.gql')"
-    :variables="{ assessmentId, courseCode, teacherView: true }"
+    :variables="{ assessmentId, courseCode, teacherView }"
     @result="setCompetencies"
   >
     <v-progress-linear v-if="!!isLoading" indeterminate />
@@ -28,7 +28,7 @@
                 dense
                 :disabled="selectedCompetencies[i].disabled"
                 :label="competencyName(c.competency)"
-                :readonly="c.useLearningOutcomes"
+                :readonly="c.useLearningOutcomes || readonly"
               />
             </v-list-item-title>
 
@@ -38,7 +38,7 @@
                 v-model="selectedCompetencies[i].learningOutcomes"
                 class="mt-3 ml-3"
                 :disabled="selectedCompetencies[i].disabled"
-                form
+                :form="!readonly"
                 :items="c.learningOutcomes"
                 @change="() => learningOutcomesUpdated(i)"
               />
@@ -48,7 +48,7 @@
                 v-model="selectedCompetencies[i].checklist.public"
                 class="mt-3 ml-3"
                 :disabled="selectedCompetencies[i].disabled"
-                form
+                :form="!readonly"
                 :items="c.checklist.public"
                 :name="$t(`assessment.checklist.public`)"
               />
@@ -58,14 +58,14 @@
                 v-model="selectedCompetencies[i].checklist.private"
                 class="mt-3 ml-3"
                 :disabled="selectedCompetencies[i].disabled"
-                form
+                :form="!readonly"
                 :items="c.checklist.private"
                 :name="$t('assessment.checklist.private')"
               />
             </v-list-item-subtitle>
           </v-list-item-content>
 
-          <v-list-item-action>
+          <v-list-item-action class="align-self-baseline">
             <stars-field
               v-if="!c.useLearningOutcomes"
               :color="selectedCompetencies[i]?.selected ? 'success' : 'primary'"
@@ -105,6 +105,14 @@ export default {
     courseCode: {
       type: String,
       required: true,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
+    teacherView: {
+      type: Boolean,
+      default: true,
     },
     value: {
       type: Array,

@@ -159,7 +159,7 @@
                   clear-icon="mdi-close-circle"
                   clearable
                   filled
-                  :label="$t('evaluation.comment')"
+                  :label="$t('evaluation.comment._')"
                 />
               </v-col>
             </v-row>
@@ -183,7 +183,7 @@
                   clear-icon="mdi-close-circle"
                   clearable
                   filled
-                  :label="$t('evaluation.note')"
+                  :label="$t('evaluation.note._')"
                 />
               </v-col>
             </v-row>

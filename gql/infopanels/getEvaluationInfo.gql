@@ -1,0 +1,6 @@
+query GetEvaluationInfo($id: ID!) {
+  evaluation(id: $id) {
+    date
+    id
+  }
+}

@@ -324,7 +324,10 @@
   "evaluation": {
     "_": "Evaluation | Evaluations",
     "assessment": "Assessment",
-    "comment": "Comment",
+    "comment": {
+      "_": "Comment",
+      "no": "No comment"
+    },
     "competencies": {
       "_": "@:global.competencies._"
     },
@@ -336,7 +339,10 @@
     },
     "learner": "Learner",
     "no": "There are no evaluation for now",
-    "note": "Note",
+    "note": {
+      "_": "Note",
+      "no": "No note"
+    },
     "publish": "@:global.publish",
     "published": "@:global.status.published",
     "status": {
@@ -573,6 +579,7 @@
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
     "EVALUATION_CREATE": "Evaluation successfully created",
+    "EVALUATION_DELETE": "Evaluation successfully deleted",
     "INVITATION_REQUEST": "Successfully requested an invitation",
     "INVITATION_SEND": "Invitation successfully sent!",
     "PROGRAM_CREATED": "Program successfully created!",

@@ -1,10 +1,4 @@
-query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
-  course(code: $courseCode) {
-    code
-    isCoordinator
-    isTeacher
-  }
-
+query GetCourseEvaluation($courseCode: ID!, $evaluationId: ID!) {
   evaluation(id: $evaluationId) {
     assessment {
       id
@@ -22,9 +16,10 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       selected
     }
     id
-    isPublished
-    note
-    published
-    status
+  }
+
+  course(code: $courseCode) {
+    code
+    isRegistered
   }
 }
