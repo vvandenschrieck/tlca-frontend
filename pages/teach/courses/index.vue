@@ -16,11 +16,11 @@
 
         <card-list
           class="mt-5"
+          :card-props="{ hidePublished: true, space: 'teach' }"
           :component="component"
           :items="filteredCourses(courses, filter)"
           :items-per-page="8"
-          link-prefix="teach-"
-          :prop-name="propName"
+          prop-name="course"
         />
       </div>
 

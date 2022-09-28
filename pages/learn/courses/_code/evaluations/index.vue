@@ -1,33 +1,29 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { error } }"
-    :query="require('~/gql/teach/getCourse.gql')"
+    v-slot="{ isLoading, result: { data: course, error } }"
+    :query="require('~/gql/learn/getCourse.gql')"
     :update="(data) => data.course"
     :variables="{ code: courseCode }"
     @result="setTitle"
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error">
+    <v-row v-if="!error && course?.isRegistered">
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
-            <v-tab>{{ $t('general.statistics._') }}</v-tab>
+            <v-tab>{{ $tc('evaluation._', 2) }}</v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <assessments-list
+                <evaluations-list
                   :course-code="courseCode"
-                  hide-actions
-                  space="teach"
+                  hide-filter-bar
+                  hide-learner
+                  space="learn"
                 />
-              </v-tab-item>
-
-              <v-tab-item>
-                <v-alert dense outlined type="info">Upcoming feature</v-alert>
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>
@@ -39,7 +35,8 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <course-schedule-panel :course-code="courseCode" />
+        <progress-panel :course-code="courseCode" />
+        <course-schedule-panel class="mt-5" :course-code="courseCode" />
       </v-col>
     </v-row>
 
@@ -51,7 +48,7 @@
 import titles from '@/mixins/titles.js'
 
 export default {
-  name: 'TeachCourseAssessmentsPage',
+  name: 'LearnCourseEvaluationsPage',
   mixins: [titles],
   data() {
     return {
@@ -61,7 +58,7 @@ export default {
   },
   head() {
     return {
-      title: this.getTitle(this.title, 'assessment._', 'teach'),
+      title: this.getTitle(this.title, 'evaluation._', 'learn'),
     }
   },
   computed: {
@@ -75,7 +72,7 @@ export default {
     },
   },
   meta: {
-    roles: ['teacher'],
+    roles: ['student'],
   },
 }
 </script>

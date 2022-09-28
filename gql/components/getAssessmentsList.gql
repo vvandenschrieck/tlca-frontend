@@ -3,7 +3,7 @@ query GetAssessmentsList($courseCode: ID!, $teacherView: Boolean!) {
     category
     code
     id
-    isClosed @include(if: $teacherView)
+    isClosed
     isHidden @include(if: $teacherView)
     name
   }

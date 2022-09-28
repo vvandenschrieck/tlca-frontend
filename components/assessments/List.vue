@@ -79,7 +79,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    linkPrefix: {
+    space: {
       type: String,
       required: true,
     },
@@ -145,7 +145,7 @@ export default {
     },
     goToAssessment({ id }) {
       this.$router.push({
-        name: `${this.linkPrefix}-courses-code-assessments-id`,
+        name: `${this.space}-courses-code-assessments-id`,
         params: { code: this.courseCode, id },
       })
     },

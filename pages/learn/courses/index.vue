@@ -18,15 +18,15 @@
 
       <card-list
         class="mt-5"
+        :card-props="{ hidePublished: true, space: 'learn' }"
         :component="component"
         :items="filteredCourses(courses, filter)"
         :items-per-page="8"
-        link-prefix="learn-"
         prop-name="course"
       />
     </div>
 
-    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
@@ -42,13 +42,17 @@ export default {
     return {
       component: CourseCard,
       filter: {},
-      title: this.$tc('course._', 2),
     }
   },
   head() {
     return {
       title: this.getTitle(this.title, null, 'learn'),
     }
+  },
+  computed: {
+    title() {
+      return this.$tc('course._', 2)
+    },
   },
   meta: {
     roles: ['student'],

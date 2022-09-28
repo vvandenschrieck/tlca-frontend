@@ -1,0 +1,12 @@
+query GetProgramRegistration($programCode: ID!) {
+  program(code: $programCode) {
+    code
+    visibility
+  }
+
+  registration(programCode: $programCode) {
+    datetime
+    id
+    invitation
+  }
+}

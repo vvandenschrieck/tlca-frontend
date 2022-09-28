@@ -5,55 +5,13 @@
     :variables="{ assessmentId, courseCode, teacherView }"
     @result="setCompetencies"
   >
-    <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
+    <v-progress-linear v-if="!!isLoading" indeterminate />
 
     <v-list v-if="!error" class="pa-0">
-      <template v-for="(c, i) in competencies">
-        <v-list-item :key="c.competency.code">
-          <v-list-item-content>
-            <v-list-item-title>
-              {{ competencyName(c.competency) }}
-            </v-list-item-title>
+      <template v-for="(competency, i) in competencies">
+        <competency-list-item :key="i * 2" :competency="competency" />
 
-            <v-list-item-subtitle>
-              <learning-outcomes-assessment-list
-                v-if="c.useLearningOutcomes"
-                class="mt-3 ml-3"
-                :items="c.learningOutcomes"
-              />
-
-              <competency-check-list
-                v-if="c.checklist?.public"
-                class="mt-3 ml-3"
-                :items="c.checklist.public"
-                :name="
-                  $t(`assessment.checklist.${teacherView ? 'public' : '_'}`)
-                "
-              />
-
-              <competency-check-list
-                v-if="c.checklist?.private"
-                class="mt-3 ml-3"
-                :items="c.checklist.private"
-                :name="$t('assessment.checklist.private')"
-              />
-            </v-list-item-subtitle>
-          </v-list-item-content>
-
-          <v-list-item-action>
-            <stars-field
-              v-if="!c.useLearningOutcomes"
-              :length="3"
-              readonly
-              :value="c.stars"
-            />
-            <v-chip v-else color="primary" small>
-              {{ $t('competency.learning_outcomes.abbr') }}
-            </v-chip>
-          </v-list-item-action>
-        </v-list-item>
-
-        <v-divider v-if="i < competencies.length - 1" :key="i" />
+        <v-divider v-if="i < competencies.length - 1" :key="i * 2 + 1" />
       </template>
     </v-list>
 
@@ -63,11 +21,10 @@
 
 <script>
 import authentication from '@/mixins/authentication.js'
-import competencies from '@/mixins/competencies.js'
 
 export default {
   name: 'AssessmentCompetenciesList',
-  mixins: [authentication, competencies],
+  mixins: [authentication],
   props: {
     assessmentId: {
       type: String,

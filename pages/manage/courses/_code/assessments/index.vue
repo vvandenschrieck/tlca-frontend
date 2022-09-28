@@ -24,7 +24,7 @@
                   :course-code="courseCode"
                   hide-openness
                   hide-visibility
-                  link-prefix="manage"
+                  space="manage"
                 >
                   <template #actions="{ item: { id, isClosed, isHidden } }">
                     <assessment-show-hide-btn :id="id" :is-hidden="isHidden" />

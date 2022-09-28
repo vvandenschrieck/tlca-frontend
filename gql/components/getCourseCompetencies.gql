@@ -1,0 +1,17 @@
+query GetCourseCompetencies($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    competencies {
+      category
+      competency {
+        code
+        description
+        learningOutcomes {
+          name
+        }
+        name
+      }
+      subcategory
+    }
+  }
+}

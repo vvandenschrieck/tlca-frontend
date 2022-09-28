@@ -1,6 +1,6 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { error } }"
+    v-slot="{ isLoading, result: { data: course, error } }"
     :query="require('~/gql/learn/getCourse.gql')"
     :update="(data) => data.course"
     :variables="{ code: courseCode }"
@@ -8,7 +8,7 @@
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error">
+    <v-row v-if="!error && course?.isRegistered">
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
@@ -23,7 +23,7 @@
                   :course-code="courseCode"
                   hide-actions
                   hide-visibility
-                  link-prefix="learn"
+                  space="learn"
                 />
               </v-tab-item>
 

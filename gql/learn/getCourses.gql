@@ -3,9 +3,8 @@ query GetCourses {
     banner
     code
     isArchived
-    isPublished
     name
+    status
     type
-    visibility
   }
 }

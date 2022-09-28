@@ -29,7 +29,15 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <resend-confirmation-email-btn
+            v-if="showResendBtn && !confirmationEmailSent"
+            class="ml-2"
+            outlined
+            :username-or-email="usernameOrEmail"
+            @done="onConfirmationEmailSent"
+          />
+
+          <v-spacer />
 
           <v-btn color="error" :disabled="formBusy" text @click="reset">
             {{ $t('general.cancel') }}
@@ -57,10 +65,12 @@ export default {
   },
   data() {
     return {
-      usernameOrEmail: '',
+      confirmationEmailSent: false,
       formBusy: false,
       formError: null,
       password: '',
+      showResendBtn: false,
+      usernameOrEmail: '',
     }
   },
   watch: {
@@ -99,7 +109,9 @@ export default {
         }
       } catch (err) {
         if (err.graphQLErrors?.length) {
-          this.formError = `error.${err.graphQLErrors[0].message}`
+          const errKey = err.graphQLErrors[0].message
+          this.showResendBtn = errKey === 'UNCONFIRMED_EMAIL_ADDRESS'
+          this.formError = `error.${errKey}`
         }
       }
 
@@ -107,6 +119,14 @@ export default {
         this.formError = 'error._'
       }
       this.formBusy = false
+    },
+    onConfirmationEmailSent({ data: { resendConfirmationEmail: result } }) {
+      if (result) {
+        this.$notificationManager.displaySuccessMessage(
+          this.$t('success.CONFIRMATION_EMAIL_RESEND')
+        )
+        this.confirmationEmailSent = true
+      }
     },
   },
 }
