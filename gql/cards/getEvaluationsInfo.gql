@@ -1,0 +1,6 @@
+query GetEvaluationsInfo($courseCode: ID!) {
+  evaluations(courseCode: $courseCode) {
+    id
+    isPublished
+  }
+}

@@ -1,0 +1,15 @@
+query GetCourseRegistration($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    isCoordinator
+    isRegistered
+    isTeacher
+    visibility
+  }
+
+  registration(courseCode: $courseCode) {
+    datetime
+    id
+    invitation
+  }
+}

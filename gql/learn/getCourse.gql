@@ -3,15 +3,5 @@ query GetCourse($code: ID!) {
     code
     isRegistered
     name
-    registration {
-      progress {
-        advanced
-        basic
-      }
-    }
-    schedule {
-      name
-      datetime
-    }
   }
 }

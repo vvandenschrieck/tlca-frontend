@@ -2,15 +2,15 @@
   <ApolloQuery
     v-if="$auth.user"
     v-slot="{ isLoading, result: { error } }"
-    :query="require('~/gql/registrations/getRegistration.gql')"
+    :query="require(`~/gql/infopanels/${queryFile}`)"
     :variables="{ [`${entity}Code`]: code }"
     @result="setRegistration"
   >
     <generic-info-panel
-      :title="$tc('registration._', 1)"
       icon="mdi-book"
       :items="items"
       :loading="!!isLoading"
+      :title="$tc('registration._', 1)"
     >
       <div v-if="!error" class="text-center">
         <!-- <course-register-btn
@@ -20,7 +20,9 @@
         /> -->
 
         <request-invitation-btn
-          v-if="!registration && visibility === 'INVITE_ONLY'"
+          v-if="
+            !registration && showRegistrationBtn && visibility === 'INVITE_ONLY'
+          "
           :code="code"
           :entity="entity"
           @done="invitationRequestSent"
@@ -38,10 +40,11 @@
 
 <script>
 import datetime from '@/mixins/datetime.js'
+import utils from '@/mixins/utils.js'
 
 export default {
   name: 'RegistrationInfoPanel',
-  mixins: [datetime],
+  mixins: [datetime, utils],
   props: {
     code: {
       type: String,
@@ -51,14 +54,12 @@ export default {
       type: String,
       required: true,
     },
-    visibility: {
-      type: String,
-      required: true,
-    },
   },
   data() {
     return {
       registration: null,
+      showRegistrationBtn: false,
+      visibility: null,
     }
   },
   computed: {
@@ -66,12 +67,14 @@ export default {
       const items = []
 
       // Course or program visibility.
-      const visibility = this.visibility.toLowerCase()
-      items.push({
-        icon: 'mdi-eye',
-        text: this.$t(`${this.entity}.visibility.${visibility}`),
-        tooltip: this.$t(`${this.entity}.visibility._`),
-      })
+      const visibility = this.visibility?.toLowerCase()
+      if (visibility) {
+        items.push({
+          icon: 'mdi-eye',
+          text: this.$t(`${this.entity}.visibility.${visibility}`),
+          tooltip: this.$t(`${this.entity}.visibility._`),
+        })
+      }
 
       // Registration status or date
       items.push({
@@ -81,6 +84,10 @@ export default {
       })
 
       return items
+    },
+    queryFile() {
+      const entity = this.capitalise(this.entity)
+      return `get${entity}RegistrationInfo.gql`
     },
     status() {
       // Invitation requested or invited.
@@ -113,7 +120,7 @@ export default {
       this.registration = registration
 
       this.$notificationManager.displaySuccessMessage(
-        this.$t('success.REQUEST_INVITATION')
+        this.$t('success.INVITATION_REQUEST')
       )
     },
     registered({ data: { register: registration } }) {
@@ -125,6 +132,16 @@ export default {
     },
     setRegistration({ data }) {
       this.registration = data?.registration
+
+      const course = data?.course
+      if (course) {
+        this.showRegistrationBtn = !(
+          course.isCoordinator ||
+          course.isRegistered ||
+          course.isTeacher
+        )
+        this.visibility = course.visibility
+      }
     },
   },
 }

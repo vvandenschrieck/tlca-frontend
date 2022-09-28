@@ -17,11 +17,11 @@
 
         <card-list
           class="mt-5"
+          :card-props="{ space: 'manage' }"
           :component="component"
           :items="filteredCourses(courses, filter)"
           :items-per-page="8"
-          link-prefix="manage-"
-          :prop-name="propName"
+          prop-name="course"
         />
       </div>
 

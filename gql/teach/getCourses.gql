@@ -10,6 +10,7 @@ query GetCourses {
     isPublished
     isTeacher
     name
+    status
     type
     visibility
   }

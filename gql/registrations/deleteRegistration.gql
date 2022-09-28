@@ -1,0 +1,3 @@
+mutation DeleteRegistration($id: ID!) {
+  deleteRegistration(id: $id)
+}

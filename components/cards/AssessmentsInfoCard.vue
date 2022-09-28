@@ -109,7 +109,7 @@ export default {
       if (
         this.$auth.user.hasAnyRoles('teacher') &&
         this.teacherView &&
-        stats[0].value === 1
+        stats[0].value === 0
       ) {
         stats[0].alert = this.$t('assessment.no_available')
       }

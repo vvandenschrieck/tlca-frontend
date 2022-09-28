@@ -1,54 +1,13 @@
 query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
   assessment(id: $assessmentId) {
-    category
-    code
-    competencies {
-      checklist {
-        public
-      }
-      competency {
-        code
-        name
-      }
-      isOptional
-      learningOutcomes
-      maxStars
-      stars
-    }
     description
-    end
-    hasOralDefense
     id
-    isIncremental
-    isPhased
-    instances
-    load {
-      defense
-      work
-    }
     name
-    phases {
-      name
-    }
     provider
-    start
-    takes
-    type
   }
 
   course(code: $courseCode) {
     code
-    name
-    schedule {
-      name
-      datetime
-    }
-  }
-
-  registration(courseCode: $courseCode) {
-    progress {
-      advanced
-      basic
-    }
+    isRegistered
   }
 }

@@ -159,7 +159,7 @@
                   clear-icon="mdi-close-circle"
                   clearable
                   filled
-                  :label="$t('evaluation.comment')"
+                  :label="$t('evaluation.comment._')"
                 />
               </v-col>
             </v-row>
@@ -183,7 +183,7 @@
                   clear-icon="mdi-close-circle"
                   clearable
                   filled
-                  :label="$t('evaluation.note')"
+                  :label="$t('evaluation.note._')"
                 />
               </v-col>
             </v-row>
@@ -300,18 +300,26 @@ export default {
         const mandatoryCompetencies = {}
         const allCompetencies = {}
         assessment.competencies.forEach(({ competency, isOptional }) => {
-          allCompetencies[competency.code] = false
+          allCompetencies[competency.code] = {
+            selected: false,
+            learningOutcomes: [],
+          }
           if (!isOptional) {
             mandatoryCompetencies[competency.code] = false
           }
         })
         evaluations.forEach((e) => {
-          e.competencies.forEach(({ competency, selected }) => {
-            allCompetencies[competency.code] ||= selected
-            if (competency.code in mandatoryCompetencies) {
-              mandatoryCompetencies[competency.code] ||= selected
+          e.competencies.forEach(
+            ({ competency, learningOutcomes, selected }) => {
+              allCompetencies[competency.code].selected ||= selected
+              learningOutcomes.forEach((lo, i) => {
+                allCompetencies[competency.code].learningOutcomes[i] ||= lo
+              })
+              if (competency.code in mandatoryCompetencies) {
+                mandatoryCompetencies[competency.code] ||= selected
+              }
             }
-          })
+          )
         })
 
         if (
@@ -323,7 +331,21 @@ export default {
         }
 
         Object.keys(allCompetencies).forEach((code) => {
-          if (allCompetencies[code]) {
+          if (allCompetencies[code].learningOutcomes?.length) {
+            const sc = this.selectedCompetencies.find(
+              (c) => c.competency === code
+            )
+            if (sc) {
+              allCompetencies[code].learningOutcomes.forEach((lo, i) => {
+                if (lo) {
+                  sc.learningOutcomes[i].disabled = true
+                  sc.learningOutcomes[i].selected = true
+                }
+              })
+            }
+          }
+
+          if (allCompetencies[code].selected) {
             const sc = this.selectedCompetencies.find(
               (c) => c.competency === code
             )
@@ -383,7 +405,9 @@ export default {
           .map((c) => ({
             checklist: c.checklist,
             competency: c.competency,
-            learningOutcomes: c.learningOutcomes,
+            learningOutcomes: c.learningOutcomes.map(
+              (lo) => lo.selected && !lo.disabled
+            ),
             selected: c.selected,
           })),
         evalDate: this.evalDate,

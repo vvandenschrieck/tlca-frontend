@@ -1,26 +1,46 @@
 <template>
-  <generic-info-panel
-    :title="$t('general.information._')"
-    icon="mdi-information"
-    :items="items"
-  />
+  <ApolloQuery
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/infopanels/getCourseInfo.gql')"
+    :update="(data) => data.course"
+    :variables="{ code: courseCode }"
+    @result="setItems"
+  >
+    <generic-info-panel
+      icon="mdi-information"
+      :items="items"
+      :loading="!!isLoading"
+      :title="$t('general.information._')"
+    >
+      <v-card-text v-if="error">{{ $t('error.unexpected') }}</v-card-text>
+    </generic-info-panel>
+  </ApolloQuery>
 </template>
 
 <script>
 export default {
   name: 'CourseInfoPanel',
   props: {
-    course: {
-      type: Object,
+    courseCode: {
+      type: String,
       required: true,
     },
   },
-  computed: {
-    items() {
+  data() {
+    return {
+      items: [],
+    }
+  },
+  methods: {
+    setItems({ data: course }) {
+      if (!course) {
+        return []
+      }
+
       const items = []
 
       // Course span
-      const span = this.course.span
+      const span = course.span
       if (span) {
         items.push({
           icon: 'mdi-calendar',
@@ -30,7 +50,7 @@ export default {
       }
 
       // Course load
-      const load = this.course.load
+      const load = course.load
       if (load) {
         const ects = load.ects
         if (ects) {
@@ -79,7 +99,7 @@ export default {
       }
 
       // Course partners
-      const partners = this.course.partners
+      const partners = course.partners
       if (partners?.length) {
         items.push({
           icon: 'mdi-domain',
@@ -89,7 +109,7 @@ export default {
       }
 
       // Course field
-      const field = this.course.field
+      const field = course.field
       if (field) {
         items.push({
           icon: 'mdi-school',
@@ -99,7 +119,7 @@ export default {
       }
 
       // Course tags
-      const tags = this.course.tags
+      const tags = course.tags
       if (tags?.length) {
         items.push({
           icon: 'mdi-tag-multiple',
@@ -109,7 +129,7 @@ export default {
       }
 
       // Course language
-      const language = this.course.language
+      const language = course.language
       if (language) {
         items.push({
           icon: 'mdi-translate',
@@ -119,7 +139,7 @@ export default {
       }
 
       // Course team
-      const team = this.course.team
+      const team = course.team
       if (team?.length) {
         items.push({
           icon: 'mdi-account-group',
@@ -128,7 +148,7 @@ export default {
         })
       }
 
-      return items
+      this.items = items
     },
   },
 }

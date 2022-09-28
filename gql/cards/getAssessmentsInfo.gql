@@ -1,4 +1,4 @@
-query GetProgressInfo($courseCode: ID!, $teacherView: Boolean!) {
+query GetAssessmentsInfo($courseCode: ID!, $teacherView: Boolean!) {
   assessments(courseCode: $courseCode) {
     isClosed
     id

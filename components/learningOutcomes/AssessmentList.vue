@@ -1,20 +1,23 @@
 <template>
-  <div>
+  <div v-if="items?.length">
     <i>{{ $t('assessment.learning_outcomes.targeted') }}</i>
 
-    <v-list class="pa-0 mt-2">
+    <v-list class="pa-0">
       <v-list-item v-for="(item, i) in items" :key="i" class="line pl-3" dense>
         <v-list-item-content class="pa-0">
           <v-list-item-title>
             <v-checkbox
-              v-model="checked[i]"
-              class="ml-1"
+              v-model="learningOutcomes[i].selected"
+              class="checkbox ml-1"
               dense
-              :disabled="disabled"
-              :readonly="!form"
+              :disabled="disabled || learningOutcomes[i].disabled"
               hide-details
+              :readonly="!form"
+              @change="$emit('change', value)"
             >
-              <span slot="label" class="text-subtitle-2">{{ item.name }}</span>
+              <span slot="label" class="checkbox-label text-subtitle-2">
+                {{ item.name }}
+              </span>
             </v-checkbox>
           </v-list-item-title>
         </v-list-item-content>
@@ -37,7 +40,7 @@ export default {
     },
     items: {
       type: Array,
-      required: true,
+      default: null,
     },
     value: {
       type: Array,
@@ -45,9 +48,12 @@ export default {
     },
   },
   computed: {
-    checked: {
+    learningOutcomes: {
       get() {
-        return this.value
+        if (this.value?.length) {
+          return this.value
+        }
+        return this.items.map((_) => ({ disabled: false, selected: false }))
       },
       set(value) {
         this.$emit('input', value)
@@ -58,6 +64,13 @@ export default {
 </script>
 
 <style scoped>
+.checkbox:deep(.v-input--selection-controls__input) {
+  align-self: baseline;
+}
+.checkbox-label {
+  text-align: justify;
+  white-space: normal;
+}
 .line {
   min-height: 30px;
 }

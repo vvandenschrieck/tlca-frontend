@@ -19,7 +19,7 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <evaluations-list :course-code="courseCode" />
+                <evaluations-list :course-code="courseCode" space="teach" />
               </v-tab-item>
 
               <v-tab-item>
