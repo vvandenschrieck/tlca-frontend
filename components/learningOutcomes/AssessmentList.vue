@@ -8,14 +8,16 @@
           <v-list-item-title>
             <v-checkbox
               v-model="learningOutcomes[i].selected"
-              class="ml-1"
+              class="checkbox ml-1"
               dense
               :disabled="disabled || learningOutcomes[i].disabled"
               hide-details
               :readonly="!form"
               @change="$emit('change', value)"
             >
-              <span slot="label" class="text-subtitle-2">{{ item.name }}</span>
+              <span slot="label" class="checkbox-label text-subtitle-2">
+                {{ item.name }}
+              </span>
             </v-checkbox>
           </v-list-item-title>
         </v-list-item-content>
@@ -62,6 +64,13 @@ export default {
 </script>
 
 <style scoped>
+.checkbox:deep(.v-input--selection-controls__input) {
+  align-self: baseline;
+}
+.checkbox-label {
+  text-align: justify;
+  white-space: normal;
+}
 .line {
   min-height: 30px;
 }
