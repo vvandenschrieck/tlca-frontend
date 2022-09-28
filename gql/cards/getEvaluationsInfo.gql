@@ -1,5 +1,5 @@
-query GetEvaluationsInfo($courseCode: ID!, $learner: ID!) {
-  evaluations(courseCode: $courseCode, learner: $learner) {
+query GetEvaluationsInfo($courseCode: ID!) {
+  evaluations(courseCode: $courseCode) {
     id
     isPublished
   }

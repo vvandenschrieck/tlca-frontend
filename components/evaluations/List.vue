@@ -7,6 +7,7 @@
     @result="setEvaluations"
   >
     <generic-filter-bar
+      v-if="!hideFilterBar"
       v-slot="{ filter: innerFilter, on }"
       v-model="filter"
       class="mt-1"
@@ -55,6 +56,18 @@ export default {
       type: String,
       required: true,
     },
+    hideFilterBar: {
+      type: Boolean,
+      default: false,
+    },
+    hideLearner: {
+      type: Boolean,
+      default: false,
+    },
+    space: {
+      type: String,
+      required: true,
+    },
   },
   data() {
     return {
@@ -64,15 +77,21 @@ export default {
   },
   computed: {
     dataHeaders() {
-      return [
+      const items = [
         {
           text: this.$t('evaluation.assessment'),
           value: 'assessment',
         },
-        {
+      ]
+
+      if (!this.hideLearner) {
+        items.push({
           text: this.$t('evaluation.learner'),
           value: 'learner.displayName',
-        },
+        })
+      }
+
+      items.push(
         {
           text: this.$t('evaluation.date'),
           value: 'date',
@@ -81,8 +100,10 @@ export default {
           align: 'center',
           text: this.$t('evaluation.published'),
           value: 'isPublished',
-        },
-      ]
+        }
+      )
+
+      return items
     },
   },
   methods: {
@@ -91,7 +112,7 @@ export default {
     },
     goToEvaluation({ id }) {
       this.$router.push({
-        name: 'teach-courses-code-evaluations-id',
+        name: `${this.space}-courses-code-evaluations-id`,
         params: { code: this.$route.params.code, id },
       })
     },

@@ -335,6 +335,7 @@
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette évaluation ?"
     },
     "learner": "Apprenant",
+    "no": "Il n'y a aucune évaluation pour le moment",
     "note": "Note",
     "publish": "@:global.publish",
     "published": "@:global.status.published",
