@@ -1,4 +1,18 @@
-## 1.1.5 (2022-09-20)
+## 1.1.6 (2022-09-30)
+
+### Improvements
+
+- removed the stepper in the evaluation creation form
+
+### Bug Fixes
+
+- fixed issue with two functional components by temporarily making them non-functional again
+
+### Code Refactoring
+
+- refactored the two learning outcomes list components into a single one
+
+## 1.1.5 (2022-09-28)
 
 ### Features
 
