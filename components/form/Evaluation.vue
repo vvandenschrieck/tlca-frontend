@@ -5,9 +5,9 @@
         {{ $t(formError) }}
       </v-alert>
 
-      <v-stepper non-linear vertical>
-        <v-card-text class="mt-5 pb-0">
-          <v-row>
+      <v-card>
+        <v-card-text>
+          <v-row class="mt-1">
             <v-col cols="12" md="6">
               <learner-select-field
                 v-model="learner"
@@ -117,30 +117,30 @@
               </v-progress-linear>
             </v-col>
           </v-row>
-        </v-card-text>
 
-        <v-progress-linear v-if="formLoading" :indeterminate="true" />
+          <v-progress-linear v-if="formLoading" :indeterminate="true" />
 
-        <v-alert
-          v-if="
-            canAddEvaluation &&
-            assessmentInstances &&
-            evaluations?.filter(
-              (e) =>
-                !e.isPublished &&
-                e.instance.id === assessmentInstances[instance]?.id
-            ).length
-          "
-          class="mx-4"
-          dense
-          outlined
-          type="warning"
-        >
-          Il y a des évaluations non publiées pour cette instance
-        </v-alert>
+          <v-alert
+            v-if="
+              canAddEvaluation &&
+              assessmentInstances &&
+              evaluations?.filter(
+                (e) =>
+                  !e.isPublished &&
+                  e.instance.id === assessmentInstances[instance]?.id
+              ).length
+            "
+            class="mx-4"
+            dense
+            outlined
+            type="warning"
+          >
+            Il y a des évaluations non publiées pour cette instance
+          </v-alert>
 
-        <div v-if="showAllForm && canAddEvaluation">
-          <stepper-step step="1" :title="$t('general.information.general')">
+          <div v-if="showAllForm && canAddEvaluation">
+            <h4>{{ $t('general.information.general') }}</h4>
+
             <v-row>
               <v-col cols="12" md="6">
                 <date-time-picker-with-validation
@@ -163,18 +163,18 @@
                 />
               </v-col>
             </v-row>
-          </stepper-step>
 
-          <stepper-step step="2" :title="$t('evaluation.competencies._')">
+            <h4>{{ $t('evaluation.competencies._') }}</h4>
+
             <evaluation-assessment-competencies-form
               v-if="assessment"
               v-model="selectedCompetencies"
               :assessment-id="assessment"
               :course-code="courseCode"
             />
-          </stepper-step>
 
-          <stepper-step step="3" :title="$t('general.information.private')">
+            <h4>{{ $t('general.information.private') }}</h4>
+
             <v-row>
               <v-col cols="12" md="12">
                 <v-textarea
@@ -187,19 +187,19 @@
                 />
               </v-col>
             </v-row>
-          </stepper-step>
-        </div>
+          </div>
 
-        <v-alert
-          v-if="showAllForm && !canAddEvaluation"
-          class="mx-4 mt-5"
-          dense
-          outlined
-          type="info"
-        >
-          Cannot add evaluation
-        </v-alert>
-      </v-stepper>
+          <v-alert
+            v-if="showAllForm && !canAddEvaluation"
+            class="mx-4 mt-5"
+            dense
+            outlined
+            type="info"
+          >
+            Cannot add evaluation
+          </v-alert>
+        </v-card-text>
+      </v-card>
 
       <div v-if="canAddEvaluation" class="text-right mt-5">
         <reset-btn :disabled="formBusy" @click="resetForm" />
