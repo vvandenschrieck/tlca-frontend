@@ -1,3 +1,45 @@
+## 1.1.6 (2022-09-30)
+
+### Improvements
+
+- removed the stepper in the evaluation creation form
+
+### Bug Fixes
+
+- fixed issue with two functional components by temporarily making them non-functional again
+
+### Code Refactoring
+
+- refactored the two learning outcomes list components into a single one
+
+## 1.1.5 (2022-09-28)
+
+### Features
+
+- **courses:** consult the details of the progress competencies (student)
+- **courses:** display the competencies progress with a progress bar when using learning outcomes (student)
+
+- **evaluations:** get the details of a given evaluation (student)
+- **evaluations:** get the list of all the evaluations associated to a given course concerning a learner (student)
+
+- **registrations:** delete a registration that is not confirmed, that is, invitations and invitation requests (coordinator)
+
+- **users:** resend the confirmation email, from the sign in form (user)
+
+### Bug Fixes
+
+- **assessments:** fix issue with displayed assessments on the assessments list (student)
+- **assessments:** fix the alert displayed when there are no available assessments (coordinator)
+
+- **competencies:** fix display issues with too long description for learning outcomes or checklist items
+
+- **registrations:** hid invitation request button when already registered and for the coordinator and teachers
+
+### Code Refactoring
+
+- refactored all the pages used in the learn space, by moving GraphQL queries into components instead of making them directly in the page and by cleaning and making their structures similar
+- refactored the course card component to use the 'status' field
+
 ## 1.1.4 (2022-09-20)
 
 ### Features
