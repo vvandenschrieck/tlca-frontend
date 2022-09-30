@@ -33,12 +33,14 @@
             </v-list-item-title>
 
             <v-list-item-subtitle>
-              <learning-outcomes-assessment-list
+              <learning-outcomes-list
                 v-if="c.useLearningOutcomes"
                 v-model="selectedCompetencies[i].learningOutcomes"
                 class="mt-3 ml-3"
                 :disabled="selectedCompetencies[i].disabled"
                 :form="!readonly"
+                hide-divider
+                hide-takes
                 :items="c.learningOutcomes"
                 @change="() => learningOutcomesUpdated(i)"
               />

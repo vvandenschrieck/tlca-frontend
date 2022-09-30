@@ -12,6 +12,7 @@ query GetCourseCompetencies($courseCode: ID!) {
         name
       }
       subcategory
+      useLearningOutcomes
     }
   }
 }
