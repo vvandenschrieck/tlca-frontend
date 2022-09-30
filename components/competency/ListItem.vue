@@ -6,9 +6,12 @@
       </v-list-item-title>
 
       <v-list-item-subtitle>
-        <learning-outcomes-assessment-list
+        <learning-outcomes-list
           class="ml-3 mt-3"
+          hide-divider
+          hide-takes
           :items="props.competency.learningOutcomes"
+          :title="parent.$t('assessment.learning_outcomes.targeted')"
         />
 
         <competency-check-list

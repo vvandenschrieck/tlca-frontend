@@ -29,11 +29,11 @@
                   />
 
                   <template v-if="c.useLearningOutcomes">
-                    <h4>{{ $t('competency.learning_outcomes._') }}</h4>
-
                     <learning-outcomes-list
+                      hide-divider
                       hide-takes
                       :items="c.competency.learningOutcomes"
+                      :title="$t('competency.learning_outcomes._')"
                     />
                   </template>
 
