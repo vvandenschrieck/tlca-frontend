@@ -357,6 +357,9 @@
     },
     "publish": "@:global.publish",
     "published": "@:global.status.published",
+    "request": {
+      "_": "Request an evaluation"
+    },
     "status": {
       "_": "@:global.status._",
       "published": "@:global.status.published",

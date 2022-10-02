@@ -21,10 +21,16 @@
               <v-tab-item>
                 <assessments-list
                   :course-code="courseCode"
-                  hide-actions
                   hide-visibility
                   space="learn"
-                />
+                >
+                  <template #actions="{ item: { id } }">
+                    <assessment-request-evaluation-btn
+                      :course-code="courseCode"
+                      :assessment-id="id"
+                    />
+                  </template>
+                </assessments-list>
               </v-tab-item>
 
               <v-tab-item>
