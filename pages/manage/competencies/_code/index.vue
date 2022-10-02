@@ -1,59 +1,49 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data: competency }, isLoading }"
+    v-slot="{ isLoading, result: { data: competency, error } }"
     :query="require('~/gql/manage/getCompetency.gql')"
     :update="(data) => data.competency"
     :variables="{ code: competencyCode }"
-    @result="setTitle"
+    @result="setCompetency"
   >
-    <div v-if="isLoading">{{ $t('global.loading') }}</div>
+    <page-title :loading="!!isLoading" :value="title" />
 
-    <div v-else-if="competency">
-      <h2>{{ title }}</h2>
+    <v-row v-if="!error">
+      <v-col cols="12" md="9">
+        <v-card>
+          <v-tabs v-model="currentTab" show-arrows>
+            <v-tab v-if="showDescription">
+              {{ $t('competency.description') }}
+            </v-tab>
+            <v-tab v-if="showLearningOutcomes">
+              {{ $t('competency.learning_outcomes._') }}
+            </v-tab>
+          </v-tabs>
 
-      <v-row>
-        <v-col cols="12" md="9">
-          <v-card>
-            <v-tabs v-model="currentTab" show-arrows>
-              <v-tab v-if="showDescription">
-                {{ $t('competency.description') }}
-              </v-tab>
-              <v-tab v-if="competency.learningOutcomes?.length">
-                {{ $t('competency.learning_outcomes._') }}
-              </v-tab>
-            </v-tabs>
+          <v-card-text class="text--primary">
+            <v-tabs-items v-model="currentTab">
+              <v-tab-item v-if="showDescription">
+                <description-content :text="competency.description" />
+              </v-tab-item>
 
-            <v-card-text class="text--primary">
-              <v-tabs-items v-model="currentTab">
-                <v-tab-item v-if="showDescription">
-                  <div
-                    v-if="competency.description"
-                    v-html="competency.description"
-                  />
-                  <div v-else>{{ $t('global.description.no') }}</div>
-                </v-tab-item>
+              <v-tab-item v-if="showLearningOutcomes">
+                <learning-outcomes-list :items="competency.learningOutcomes" />
+              </v-tab-item>
+            </v-tabs-items>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
-                <v-tab-item v-if="competency.learningOutcomes?.length">
-                  <learning-outcomes-list
-                    :items="competency.learningOutcomes"
-                  />
-                </v-tab-item>
-              </v-tabs-items>
-            </v-card-text>
-          </v-card>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="3"
-          :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-        >
-          <competency-info-panel :competency-code="competencyCode" />
-        </v-col>
-      </v-row>
+      <v-col
+        cols="12"
+        md="3"
+        :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+      >
+        <competency-info-panel :competency-code="competencyCode" />
+      </v-col>
 
       <actions-menu
+        v-if="competency"
         :custom-action="customAction(competency)"
         :edit-link="{
           name: 'manage-competencies-code-edit',
@@ -63,6 +53,7 @@
       />
 
       <!-- Archive confirmation dialog -->
+      <!-- TODO:: refactor to a dedicated yes/no dialog component -->
       <v-dialog
         v-model="dialog"
         :fullscreen="$vuetify.breakpoint.xsOnly"
@@ -96,27 +87,31 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div>
+    </v-row>
 
-    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'ManageCompetencyPage',
+  mixins: [titles],
   data() {
     return {
       currentTab: 0,
       dialog: false,
       loading: false,
-      showDescription: true,
+      showDescription: false,
+      showLearningOutcomes: false,
       title: '',
     }
   },
   head() {
     return {
-      title: this.title,
+      title: this.getTitle(this.title, null, 'manage'),
     }
   },
   computed: {
@@ -170,13 +165,15 @@ export default {
         icon: 'mdi-archive',
       }
     },
-    setTitle({ data: competency }) {
+    setCompetency({ data: competency }) {
       this.title = competency?.name ?? ''
+
       this.showDescription =
         competency &&
         (competency.description ||
           !competency.learningOutcomes ||
           !competency.learningOutcomes.length)
+      this.showLearningOutcomes = competency?.learningOutcomes?.length > 0
     },
     showArchiveDialog() {
       this.dialog = true
