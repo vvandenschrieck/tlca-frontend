@@ -4,13 +4,15 @@ export default {
       return competency.code + ' – ' + competency.name
     },
     filteredCompetencies(competencies, filter) {
-      const creators = filter.options?.creators || []
-      const tags = filter.options?.tags || []
-      const visibilities = filter.options?.visibilities || []
+      const creators = filter.options?.creators ?? []
+      const includeArchived = filter.options?.includeArchived ?? false
+      const tags = filter.options?.tags ?? []
+      const visibilities = filter.options?.visibilities ?? []
       const text = filter.text?.trim().toLowerCase()
 
       if (
         (!creators || !creators.length) &&
+        includeArchived &&
         (!tags || !tags.length) &&
         (!visibilities || !visibilities.length) &&
         (!text || !text.length)
@@ -24,6 +26,7 @@ export default {
             !text.length ||
             c.code.toLowerCase().includes(text) ||
             c.name.toLowerCase().includes(text)) &&
+          (includeArchived || !c.isArchived) &&
           (!creators ||
             !creators.length ||
             (c.isOwner && creators.includes('OWN')) ||

@@ -49,6 +49,17 @@
       >
         <v-icon>mdi-delete</v-icon>
       </v-btn>
+
+      <v-btn
+        v-if="customAction"
+        color="blue"
+        dark
+        fab
+        small
+        @click.stop="$emit('customActionClicked')"
+      >
+        <v-icon>{{ customAction.icon }}</v-icon>
+      </v-btn>
     </v-speed-dial>
 
     <!-- Delete confirmation dialog -->
@@ -94,6 +105,10 @@ export default {
   name: 'ActionsMenu',
   props: {
     createLink: {
+      type: Object,
+      default: null,
+    },
+    customAction: {
       type: Object,
       default: null,
     },

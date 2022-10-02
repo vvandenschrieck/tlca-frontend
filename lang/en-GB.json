@@ -110,6 +110,10 @@
   },
   "competency": {
     "_": "Competency | Competencies",
+    "archive": {
+      "_": "Archive",
+      "dialog_instructions": "Are you sure you want to archive this competency?"
+    },
     "category": {
       "advanced": "Advanced",
       "basic": "Basic",
@@ -147,6 +151,11 @@
     "show_by": {
       "category": "Show by category",
       "level": "Show by level"
+    },
+    "status": {
+      "_": "@:global.status._",
+      "archived": "@:global.status.archived",
+      "archived_on": "@:global.status.archived_on"
     },
     "tags": "@:global.tag",
     "type": {
@@ -297,6 +306,9 @@
     "ALREADY_REGISTERED_OR_INVITED": "The user is already registered or invited to the course",
     "ASSESSMENT_DELETE": "An unexpected error occurred while deleting the assessment",
     "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
+    "COMPETENCY_ALREADY_ARCHIVED": "This competency is already archived",
+    "COMPETENCY_ARCHIVE": "An unexpected error occurred while archiving the competency",
+    "COMPETENCY_ARCHIVE_FAILED": "Impossible to archive a competency used in non archived courses",
     "DUPLICATE_COMPETENCIES": "The same competency cannot be used more than once",
     "DUPLICATE_COURSES": "The same course cannot be used more than once",
     "EMAIL_VALIDATION": "An unexpected error occurred while validating your email address",
@@ -572,6 +584,7 @@
     "ASSESSMENT_DELETE": "Assessment successfully deleted",
     "ASSESSMENT_EDIT": "Assessment successfully updated",
     "BANNER_UPDATED": "Banner successfully updated!",
+    "COMPETENCY_ARCHIVE": "Competency successfully archived",
     "COMPETENCY_CREATED": "Competency successfully created!",
     "CONFIRM_EMAIL": "Email address successfully validated, you can now log in on the TLCA platform",
     "CONFIRMATION_EMAIL_RESEND": "Confirmation email successfully resent",

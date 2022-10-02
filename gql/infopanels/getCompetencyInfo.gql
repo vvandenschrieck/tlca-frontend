@@ -1,0 +1,19 @@
+query GetCompetencyInfo($code: ID!) {
+  competency(code: $code) {
+    archived
+    code
+    isArchived
+    isPublic
+    partners {
+      abbreviation
+      code
+      name
+    }
+    tags
+    type
+    user {
+      displayName
+      username
+    }
+  }
+}

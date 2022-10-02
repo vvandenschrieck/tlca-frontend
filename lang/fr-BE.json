@@ -110,6 +110,10 @@
   },
   "competency": {
     "_": "Compétence | Compétences",
+    "archive": {
+      "_": "Archiver",
+      "dialog_instructions": "Êtes-vous sûr de vouloir archiver cette compétence ?"
+    },
     "category": {
       "advanced": "Avancée",
       "basic": "Basique",
@@ -147,6 +151,11 @@
     "show_by": {
       "category": "Montrer par catégorie",
       "level": "Montrer par niveau"
+    },
+    "status": {
+      "_": "@:global.status._",
+      "archived": "@:global.status.archived",
+      "archived_on": "@:global.status.archived_on"
     },
     "tags": "@:global.tag",
     "type": {
@@ -297,6 +306,9 @@
     "ALREADY_REGISTERED_OR_INVITED": "L'utilisateur est déjà inscrit ou invité au cours",
     "ASSESSMENT_DELETE": "Une erreur inattendue s'est produite lors de la suppression de l'évaluation.",
     "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
+    "COMPETENCY_ALREADY_ARCHIVED": "Cette compétence est déjà archivée",
+    "COMPETENCY_ARCHIVE": "Une erreur inattendue s'est produite lors de l'archivage de la compétence",
+    "COMPETENCY_ARCHIVE_FAILED": "Impossible d'archiver une compétence utilisée dans des cours non archivés",
     "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
     "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
     "EMAIL_VALIDATION": "Une erreur inattendue s'est produite lors de la validation de votre adresse e-mail",
@@ -572,6 +584,7 @@
     "ASSESSMENT_DELETE": "Évaluation supprimée avec succès",
     "ASSESSMENT_EDIT": "Évaluation modifiée avec succès",
     "BANNER_UPDATED": "Bannière mise à jour avec succès !",
+    "COMPETENCY_ARCHIVE": "Compétence archivée avec succès",
     "COMPETENCY_CREATED": "Compétence créée avec succès !",
     "CONFIRM_EMAIL": "Adresse e-mail validée avec succès, vous pouvez maintenant vous connecter sur la plateforme TLCA",
     "CONFIRMATION_EMAIL_RESEND": "E-mail de confirmation réenvoyé avec succès",
