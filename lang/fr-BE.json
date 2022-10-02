@@ -334,7 +334,7 @@
     "VALIDATION_ERROR": "Certains champs contiennent une valeur invalide"
   },
   "evaluation": {
-    "_": "Évaluation | Évaluations",
+    "_": "Passage d'évaluation | Passages d'évaluations",
     "assessment": "Évaluation",
     "comment": {
       "_": "Commentaire",
@@ -343,14 +343,14 @@
     "competencies": {
       "_": "@:global.competencies._"
     },
-    "create": "@:general.create une évaluation",
-    "date": "Date de l'évaluation",
+    "create": "@:general.create un passage d'évaluation",
+    "date": "Date du passage d'évaluation",
     "delete": {
       "_": "@:general.delete",
-      "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette évaluation ?"
+      "dialog_instructions": "Êtes-vous sûr de vouloir supprimer ce passage d'évaluation ?"
     },
     "learner": "Apprenant",
-    "no": "Il n'y a aucune évaluation pour le moment",
+    "no": "Il n'y a aucun passage d'évaluation pour le moment",
     "note": {
       "_": "Note",
       "no": "Pas de note"
@@ -591,8 +591,8 @@
     "COURSE_ARCHIVED": "Cours archivé avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
-    "EVALUATION_CREATE": "Évaluation créée avec succès",
-    "EVALUATION_DELETE": "Évaluation supprimée avec succès",
+    "EVALUATION_CREATE": "Passage d'évaluation créé avec succès",
+    "EVALUATION_DELETE": "Passage d'évaluation supprimé avec succès",
     "INVITATION_REQUEST": "Demande d'invitation envoyée avec succès",
     "INVITATION_SEND": "Invitation envoyée avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",
