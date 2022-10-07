@@ -64,6 +64,9 @@ h3 {
   margin-top: 0.6rem;
   margin-bottom: 0.2rem;
 }
+h4 {
+  margin-bottom: 0.2rem;
+}
 p {
   text-align: justify;
 }
