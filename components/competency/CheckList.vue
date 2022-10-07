@@ -7,14 +7,18 @@
         <v-list-item-content class="pa-0">
           <v-list-item-title>
             <v-checkbox
-              v-model="checked[i]"
-              class="ml-1"
+              v-model="checked"
+              class="checkbox ml-1"
               dense
-              :disabled="disabled"
               hide-details
               :readonly="!form"
+              :ripple="form"
+              :value="i"
+              @change="update"
             >
-              <span slot="label" class="text-subtitle-2">{{ item }}</span>
+              <span slot="label" class="checkbox-label text-subtitle-2">
+                {{ item }}
+              </span>
             </v-checkbox>
           </v-list-item-title>
         </v-list-item-content>
@@ -27,10 +31,6 @@
 export default {
   name: 'CompetencyCheckList',
   props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
     form: {
       type: Boolean,
       default: false,
@@ -48,23 +48,43 @@ export default {
       default: () => [],
     },
   },
-  computed: {
-    checked: {
-      get() {
-        if (this.value?.length) {
-          return this.value
-        }
-        return this.items.map((_) => false)
+  data() {
+    return {
+      checked: [],
+    }
+  },
+  watch: {
+    items: {
+      handler: 'update',
+      immediate: true,
+    },
+    value: {
+      handler(value) {
+        this.checked = value.reduce(
+          (acc, checked, i) => (checked ? [...acc, i] : acc),
+          []
+        )
       },
-      set(value) {
-        this.$emit('input', value)
-      },
+      immediate: true,
+    },
+  },
+  methods: {
+    update() {
+      const result = this.items?.map((_, i) => this.checked.includes(i))
+      this.$emit('input', result)
     },
   },
 }
 </script>
 
 <style scoped>
+.checkbox:deep(.v-input--selection-controls__input) {
+  align-self: baseline;
+}
+.checkbox-label {
+  text-align: justify;
+  white-space: normal;
+}
 .line {
   min-height: 30px;
 }

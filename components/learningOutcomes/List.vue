@@ -8,13 +8,15 @@
           <v-list-item-content class="pa-0">
             <v-list-item-title>
               <v-checkbox
-                v-model="learningOutcomes[i].selected"
+                v-model="selected"
                 class="checkbox ml-1"
                 dense
-                :disabled="disabled || learningOutcomes[i].disabled"
+                :disabled="disabled[i]"
                 hide-details
                 :readonly="!form"
-                @change="$emit('change', value)"
+                :ripple="form"
+                :value="i"
+                @change="update"
               >
                 <span slot="label" class="checkbox-label text-body-2">
                   {{ item.name }}
@@ -42,10 +44,6 @@
 export default {
   name: 'LearningOutcomesAssessmentList',
   props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
     form: {
       type: Boolean,
       default: false,
@@ -71,17 +69,35 @@ export default {
       default: () => [],
     },
   },
-  computed: {
-    learningOutcomes: {
-      get() {
-        if (this.value?.length) {
-          return this.value
-        }
-        return this.items.map((_) => ({ disabled: false, selected: false }))
+  data() {
+    return {
+      disabled: [],
+      selected: [],
+    }
+  },
+  watch: {
+    items: {
+      handler: 'update',
+      immediate: true,
+    },
+    value: {
+      handler(value) {
+        this.disabled = value.map((item) => item.disabled)
+        this.selected = value.reduce(
+          (acc, item, i) => (item.selected ? [...acc, i] : acc),
+          []
+        )
       },
-      set(value) {
-        this.$emit('input', value)
-      },
+      immediate: true,
+    },
+  },
+  methods: {
+    update() {
+      const result = this.items?.map((_, i) => ({
+        disabled: this.disabled[i] ?? false,
+        selected: this.selected.includes(i),
+      }))
+      this.$emit('input', result)
     },
   },
 }

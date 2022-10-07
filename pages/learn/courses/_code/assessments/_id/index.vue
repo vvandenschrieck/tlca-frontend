@@ -26,6 +26,7 @@
                 <assessment-competencies-list
                   :assessment-id="assessmentId"
                   :course-code="courseCode"
+                  student-view
                 />
               </v-tab-item>
             </v-tabs-items>
