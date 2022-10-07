@@ -86,7 +86,10 @@
       "_": "Date d'ouverture",
       "date": "Ouverture : {start}"
     },
-    "takes": "Passages",
+    "takes": {
+      "_": "Passages",
+      "max_nb": "Nombre de passages max"
+    },
     "timeline": "Ligne du temps",
     "type": {
       "_": "@:global.type._",
@@ -349,6 +352,10 @@
       "_": "@:general.delete",
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer ce passage d'évaluation ?"
     },
+    "explanation": {
+      "_": "Explication",
+      "no": "Pas d'explication"
+    },
     "learner": "Apprenant",
     "no": "Il n'y a aucun passage d'évaluation pour le moment",
     "note": {
@@ -371,6 +378,7 @@
   "general": {
     "action": "Action | Actions",
     "apply": "Appliquer",
+    "ask": "Demander",
     "available": "Disponible",
     "cancel": "Annuler",
     "confirm": "Confirmer",
@@ -400,6 +408,7 @@
     },
     "limit": "Limite",
     "list": "Liste",
+    "max_n": "{n} max",
     "max_nb": "Nombre maximal",
     "owner": "Propriétaire",
     "plus_other": "(+ {n} autre) | (+ {n} autres)",
