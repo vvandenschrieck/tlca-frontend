@@ -1,0 +1,15 @@
+mutation RequestEvaluation(
+  $assessment: ID!
+  $competencies: [EvaluationCompetencyInput!]
+  $explanation: String
+  $instance: ID
+) {
+  requestEvaluation(
+    assessment: $assessment
+    competencies: $competencies
+    explanation: $explanation
+    instance: $instance
+  ) {
+    id
+  }
+}
