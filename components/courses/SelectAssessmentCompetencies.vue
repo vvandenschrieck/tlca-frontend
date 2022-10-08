@@ -128,19 +128,16 @@
           </v-col>
 
           <v-col class="text-center" cols="12" md="2">
-            <v-btn
+            <checklist-define-btn
               :disabled="
                 disabled || !competency.competency || !!competency.checklist
               "
-              icon
-              @click="addCheckList(index)"
-            >
-              <v-icon small>mdi-playlist-check</v-icon>
-            </v-btn>
-
-            <v-btn :disabled="disabled" icon @click="removeCompetency(index)">
-              <v-icon small>mdi-delete</v-icon>
-            </v-btn>
+              @click="() => addCheckList(index)"
+            />
+            <competency-remove-btn
+              :disabled="disabled"
+              @click="() => removeCompetency(index)"
+            />
           </v-col>
         </v-row>
       </div>

@@ -111,6 +111,9 @@
     "_": "Calendrier",
     "event": "Évènement | Évènements"
   },
+  "checklist": {
+    "define": "Définir les checklists"
+  },
   "competency": {
     "_": "Compétence | Compétences",
     "archive": {
@@ -151,6 +154,7 @@
     "no": "Il n'y a pas de compétences pour le moment.",
     "partners": "@:global.partners",
     "public": "@:global.visibility.public",
+    "remove": "Retirer la compétence",
     "show_by": {
       "category": "Montrer par catégorie",
       "level": "Montrer par niveau"

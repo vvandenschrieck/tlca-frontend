@@ -111,6 +111,9 @@
     "_": "Calendar",
     "event": "Event | Events"
   },
+  "checklist": {
+    "define": "Define checklists"
+  },
   "competency": {
     "_": "Competency | Competencies",
     "archive": {
@@ -151,6 +154,7 @@
     "no": "There are no competencies for now.",
     "partners": "@:global.partners",
     "public": "@:global.visibility.public",
+    "remove": "Remove the competency",
     "show_by": {
       "category": "Show by category",
       "level": "Show by level"
