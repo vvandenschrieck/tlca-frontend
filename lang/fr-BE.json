@@ -86,7 +86,10 @@
       "_": "Date d'ouverture",
       "date": "Ouverture : {start}"
     },
-    "takes": "Passages",
+    "takes": {
+      "_": "Passages",
+      "max_nb": "Nombre de passages max"
+    },
     "timeline": "Ligne du temps",
     "type": {
       "_": "@:global.type._",
@@ -108,8 +111,15 @@
     "_": "Calendrier",
     "event": "Évènement | Évènements"
   },
+  "checklist": {
+    "define": "Définir les checklists"
+  },
   "competency": {
     "_": "Compétence | Compétences",
+    "archive": {
+      "_": "Archiver",
+      "dialog_instructions": "Êtes-vous sûr de vouloir archiver cette compétence ?"
+    },
     "category": {
       "advanced": "Avancée",
       "basic": "Basique",
@@ -144,9 +154,15 @@
     "no": "Il n'y a pas de compétences pour le moment.",
     "partners": "@:global.partners",
     "public": "@:global.visibility.public",
+    "remove": "Retirer la compétence",
     "show_by": {
       "category": "Montrer par catégorie",
       "level": "Montrer par niveau"
+    },
+    "status": {
+      "_": "@:global.status._",
+      "archived": "@:global.status.archived",
+      "archived_on": "@:global.status.archived_on"
     },
     "tags": "@:global.tag",
     "type": {
@@ -297,6 +313,9 @@
     "ALREADY_REGISTERED_OR_INVITED": "L'utilisateur est déjà inscrit ou invité au cours",
     "ASSESSMENT_DELETE": "Une erreur inattendue s'est produite lors de la suppression de l'évaluation.",
     "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
+    "COMPETENCY_ALREADY_ARCHIVED": "Cette compétence est déjà archivée",
+    "COMPETENCY_ARCHIVE": "Une erreur inattendue s'est produite lors de l'archivage de la compétence",
+    "COMPETENCY_ARCHIVE_FAILED": "Impossible d'archiver une compétence utilisée dans des cours non archivés",
     "DUPLICATE_COMPETENCIES": "La même compétence ne peut pas être utilisée plus d'une fois",
     "DUPLICATE_COURSES": "Le même cours ne peut pas être utilisé plus d'une fois",
     "EMAIL_VALIDATION": "Une erreur inattendue s'est produite lors de la validation de votre adresse e-mail",
@@ -322,7 +341,7 @@
     "VALIDATION_ERROR": "Certains champs contiennent une valeur invalide"
   },
   "evaluation": {
-    "_": "Évaluation | Évaluations",
+    "_": "Passage d'évaluation | Passages d'évaluations",
     "assessment": "Évaluation",
     "comment": {
       "_": "Commentaire",
@@ -331,20 +350,27 @@
     "competencies": {
       "_": "@:global.competencies._"
     },
-    "create": "@:general.create une évaluation",
-    "date": "Date de l'évaluation",
+    "create": "@:general.create un passage d'évaluation",
+    "date": "Date du passage d'évaluation",
     "delete": {
       "_": "@:general.delete",
-      "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette évaluation ?"
+      "dialog_instructions": "Êtes-vous sûr de vouloir supprimer ce passage d'évaluation ?"
+    },
+    "explanation": {
+      "_": "Explication",
+      "no": "Pas d'explication"
     },
     "learner": "Apprenant",
-    "no": "Il n'y a aucune évaluation pour le moment",
+    "no": "Il n'y a aucun passage d'évaluation pour le moment",
     "note": {
       "_": "Note",
       "no": "Pas de note"
     },
     "publish": "@:global.publish",
     "published": "@:global.status.published",
+    "request": {
+      "_": "Demander un passage d'évaluation"
+    },
     "status": {
       "_": "@:global.status._",
       "published": "@:global.status.published",
@@ -356,6 +382,7 @@
   "general": {
     "action": "Action | Actions",
     "apply": "Appliquer",
+    "ask": "Demander",
     "available": "Disponible",
     "cancel": "Annuler",
     "confirm": "Confirmer",
@@ -385,6 +412,7 @@
     },
     "limit": "Limite",
     "list": "Liste",
+    "max_n": "{n} max",
     "max_nb": "Nombre maximal",
     "owner": "Propriétaire",
     "plus_other": "(+ {n} autre) | (+ {n} autres)",
@@ -572,14 +600,15 @@
     "ASSESSMENT_DELETE": "Évaluation supprimée avec succès",
     "ASSESSMENT_EDIT": "Évaluation modifiée avec succès",
     "BANNER_UPDATED": "Bannière mise à jour avec succès !",
+    "COMPETENCY_ARCHIVE": "Compétence archivée avec succès",
     "COMPETENCY_CREATED": "Compétence créée avec succès !",
     "CONFIRM_EMAIL": "Adresse e-mail validée avec succès, vous pouvez maintenant vous connecter sur la plateforme TLCA",
     "CONFIRMATION_EMAIL_RESEND": "E-mail de confirmation réenvoyé avec succès",
     "COURSE_ARCHIVED": "Cours archivé avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
-    "EVALUATION_CREATE": "Évaluation créée avec succès",
-    "EVALUATION_DELETE": "Évaluation supprimée avec succès",
+    "EVALUATION_CREATE": "Passage d'évaluation créé avec succès",
+    "EVALUATION_DELETE": "Passage d'évaluation supprimé avec succès",
     "INVITATION_REQUEST": "Demande d'invitation envoyée avec succès",
     "INVITATION_SEND": "Invitation envoyée avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",

@@ -1,0 +1,7 @@
+mutation ArchiveCompetency($code: ID!) {
+  archiveCompetency(code: $code) {
+    archived
+    code
+    isArchived
+  }
+}

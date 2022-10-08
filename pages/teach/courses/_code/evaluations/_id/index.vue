@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { data, error } }"
@@ -24,30 +23,20 @@
                 <v-tab-item>
                   <h4>{{ $t('evaluation.comment._') }}</h4>
 
-                  <div
-                    v-if="data?.evaluation?.comment"
-                    v-html="data?.evaluation.comment"
-                  />
-                  <div v-else>{{ $t('evaluation.comment.no') }}</div>
+                  <description-content :text="data?.evaluation.comment" />
 
                   <h4>{{ $tc('competency._', 2) }}</h4>
 
-                  <evaluation-assessment-competencies-form
-                    :assessment-id="data?.evaluation?.assessment.id"
+                  <assessment-competencies-list
+                    v-if="data?.evaluation"
+                    :assessment-id="data.evaluation.assessment.id"
                     :course-code="courseCode"
-                    readonly
-                    :value="
-                      selectedCompetencies(data?.evaluation?.competencies)
-                    "
+                    :selected="data?.evaluation.competencies"
                   />
 
                   <h4>{{ $t('evaluation.note._') }}</h4>
 
-                  <div
-                    v-if="data?.evaluation?.note"
-                    v-html="data?.evaluation.note"
-                  />
-                  <div v-else>{{ $t('evaluation.note.no') }}</div>
+                  <description-content :text="data?.evaluation.note" />
                 </v-tab-item>
 
                 <v-tab-item>
@@ -104,14 +93,6 @@ export default {
     },
   },
   methods: {
-    selectedCompetencies(competencies) {
-      return competencies?.map((c) => ({
-        ...c,
-        learningOutcomes: c.learningOutcomes.map((lo) => ({
-          selected: lo,
-        })),
-      }))
-    },
     setTitle({ data }) {
       this.title = data?.evaluation?.assessment.name ?? ''
     },

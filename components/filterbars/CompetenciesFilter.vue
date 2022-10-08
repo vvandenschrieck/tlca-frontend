@@ -16,6 +16,19 @@
     </v-row>
 
     <v-row>
+      <v-col cols="3">{{ $t('competency.status.archived') }}</v-col>
+      <v-col cols="9">
+        <v-switch
+          class="mt-0 pt-0"
+          dense
+          hide-details
+          :value="value.includeArchived"
+          @change="update('includeArchived', $event)"
+        />
+      </v-col>
+    </v-row>
+
+    <v-row>
       <v-col cols="3">{{ $t('competency.filter.creator') }}</v-col>
       <v-col cols="9">
         <v-select
@@ -59,6 +72,7 @@ export default {
       default: () => {
         return {
           creators: null,
+          includeArchived: false,
           tags: null,
           visibilities: null,
         }

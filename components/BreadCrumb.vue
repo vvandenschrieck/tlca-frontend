@@ -31,6 +31,7 @@ export default {
         profiles: () => this.$t('user.profile'),
         programs: () => this.$tc('program._', 2),
         registrations: () => this.$tc('registration._', 2),
+        requestEvaluation: () => this.$t('evaluation.request._'),
         teach: () => this.$tc('global.spaces.teach', 2),
         users: () => this.$tc('user._', 2),
       },

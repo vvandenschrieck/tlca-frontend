@@ -2,11 +2,16 @@ query GetCompetency($code: ID!) {
   competency(code: $code) {
     code
     description
-    isArchived
+    isPublic
     learningOutcomes {
       name
       takes
     }
     name
+    partners {
+      code
+    }
+    tags
+    type
   }
 }

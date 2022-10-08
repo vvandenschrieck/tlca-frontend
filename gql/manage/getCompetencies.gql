@@ -2,6 +2,7 @@ query GetCompetencies {
   competencies {
     code
     hasLearningOutcomes
+    isArchived
     isOwner
     isPublic
     name

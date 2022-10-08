@@ -54,7 +54,7 @@
           </v-row>
         </stepper-step>
 
-        <stepper-step step="2" :title="$t('assessment.takes')">
+        <stepper-step step="2" :title="$t('assessment.takes._')">
           <v-row>
             <v-col cols="12" md="4">
               <v-text-field-with-validation
@@ -83,7 +83,7 @@
                 v-model="takes"
                 clearable
                 :hint="$t('general.max_nb')"
-                :label="$t('assessment.takes')"
+                :label="$t('assessment.takes._')"
                 rules="positive"
                 type="number"
                 vid="takes"
