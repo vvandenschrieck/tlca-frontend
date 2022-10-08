@@ -57,6 +57,16 @@ export default {
           tooltip: this.$t('assessment.type._'),
         })
 
+        // Assessment max takes.
+        const takes = assessment.takes
+        if (takes && type === 'INCREMENTAL') {
+          items.push({
+            icon: 'mdi-format-list-numbered',
+            text: this.$t('general.max_n', { n: takes }),
+            tooltip: this.$t('assessment.takes.max_nb'),
+          })
+        }
+
         // Assessment work load.
         const workload = assessment.load?.work
         if (workload) {

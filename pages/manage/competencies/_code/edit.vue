@@ -1,11 +1,11 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data: competency }, isLoading }"
-    :query="require('~/gql/manage/getCompetency.gql')"
+    v-slot="{ isLoading, result: { data: competency, error } }"
+    :query="require('~/gql/manage/edit/getCompetency.gql')"
     :update="(data) => data.competency"
     :variables="{ code: $route.params.code }"
   >
-    <h2>{{ $t('competency.edit') }}</h2>
+    <h2>{{ title }}</h2>
 
     <div v-if="isLoading">{{ $t('global.loading') }}</div>
 

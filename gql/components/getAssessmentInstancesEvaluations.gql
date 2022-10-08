@@ -1,0 +1,44 @@
+query GetAssessmentInstancesEvaluations($assessmentId: ID!, $courseCode: ID!, $learner: ID) {
+  assessment(id: $assessmentId) {
+    competencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+    }
+    id
+    instances
+    isIncremental
+    takes
+  }
+
+  assessmentInstances(assessment: $assessmentId, learner: $learner) {
+    datetime
+    id
+  }
+
+  evaluations(
+    assessment: $assessmentId
+    courseCode: $courseCode
+  ) {
+    competencies {
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
+    id
+    instance {
+      id
+    }
+    isPublished
+    learner {
+      displayName
+      username
+    }
+  }
+}

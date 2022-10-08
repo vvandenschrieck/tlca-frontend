@@ -1,3 +1,22 @@
+## 1.1.7 (2022-10-08)
+
+### Features
+
+- **competencies:** archive a competency (coordinator)
+- **competencies:** include archived competencies with the competencies filter, they are hidden by default (coordinator)
+
+- **evaluations:** request an evaluation (student)
+
+### Improvements
+
+- changed the french translation of 'evaluation'
+- added information in several info panels (assessment and competency)
+
+### Code Refactoring
+
+- defined a component to display an HTML text
+- completely refactored the assessment competencies list component to have a single one that can be used as a form or just to display information
+
 ## 1.1.6 (2022-09-30)
 
 ### Improvements

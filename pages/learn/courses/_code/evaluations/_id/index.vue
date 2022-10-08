@@ -29,12 +29,12 @@
 
                 <h4>{{ $tc('competency._', 2) }}</h4>
 
-                <evaluation-assessment-competencies-form
-                  :assessment-id="data?.evaluation?.assessment.id"
+                <assessment-competencies-list
+                  v-if="data?.evaluation"
+                  :assessment-id="data.evaluation.assessment.id"
                   :course-code="courseCode"
-                  readonly
-                  :teacher-view="false"
-                  :value="selectedCompetencies(data?.evaluation?.competencies)"
+                  :selected="data?.evaluation.competencies"
+                  student-view
                 />
               </v-tab-item>
 
@@ -85,14 +85,6 @@ export default {
     },
   },
   methods: {
-    selectedCompetencies(competencies) {
-      return competencies?.map((c) => ({
-        ...c,
-        learningOutcomes: c.learningOutcomes.map((lo) => ({
-          selected: lo,
-        })),
-      }))
-    },
     setTitle({ data }) {
       this.title = data?.evaluation?.assessment.name ?? ''
     },
