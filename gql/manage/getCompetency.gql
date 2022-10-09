@@ -3,6 +3,7 @@ query GetCompetency($code: ID!) {
     code
     description
     isArchived
+    isOwner
     learningOutcomes {
       name
       takes
