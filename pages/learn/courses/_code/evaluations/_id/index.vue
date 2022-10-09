@@ -51,7 +51,7 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <evaluation-info-panel :evaluation-id="evaluationId" />
+        <evaluation-info-panel :evaluation-id="evaluationId" hide-learner />
       </v-col>
     </v-row>
 
