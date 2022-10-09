@@ -136,9 +136,10 @@
     "description": "@:global.description._",
     "edit": "@:general.edit une compétence",
     "filter": {
+      "archived": "@:global.status.archived",
       "creator": "@:general.creator",
-      "tags": "Tags",
-      "visibility": "@:global.visibility._"
+      "public": "@:global.visibility.public",
+      "tags": "Tags"
     },
     "learning_outcomes": {
       "_": "Acquis d'apprentissage",
