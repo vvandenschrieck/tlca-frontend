@@ -1,0 +1,16 @@
+query GetLearnersInfo($courseCode: ID!) {
+  course (code: $courseCode) {
+    code
+    groups {
+      teaching {
+        supervisor {
+          username
+        }
+      }
+    }
+  }
+
+  registrations(confirmed: true, courseCode: $courseCode) {
+    id
+  }
+}

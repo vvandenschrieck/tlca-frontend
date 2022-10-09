@@ -63,7 +63,7 @@
     "name": "@:global.name",
     "nb": "{nb} evaluation | {nb} evaluations",
     "nb_of": "Number of assessments",
-    "no": "There are no assessment for now",
+    "no": "There are no assessments for now",
     "no_available": "There are no assessment available for now",
     "openness": "Openness",
     "oral_defense": "Oral defense",
@@ -145,13 +145,13 @@
       "abbr": "LO",
       "add": "Add a learning outcome",
       "name": "@:global.name",
-      "no": "There are no learning outcomes for now.",
+      "no": "There are no learning outcomes for now",
       "takes": "Takes"
     },
     "name": "@:global.name",
     "nb": "{nb} competency | {nb} competencies",
     "nb_of": "Number of competencies",
-    "no": "There are no competencies for now.",
+    "no": "There are no competencies for now",
     "partners": "@:global.partners",
     "public": "@:global.visibility.public",
     "remove": "Remove the competency",
@@ -213,17 +213,17 @@
       "_": "Groups",
       "add": "Add a group",
       "name": "Name",
-      "no": "There are no groups for now.",
+      "no": "There are no groups for now",
       "supervisor": "Supervisor",
       "teaching": {
         "_": "Teaching group",
         "add": "Add a teaching group",
-        "no": "There are no teaching groups for now."
+        "no": "There are no teaching groups for now"
       },
       "working": {
         "_": "Working group",
         "add": "Add a working group",
-        "no": "There are no working groups for now."
+        "no": "There are no working groups for now"
       }
     },
     "language": "@:global.language",
@@ -251,7 +251,7 @@
       "published": "{nb} published | {nb} published",
       "unpublished": "{nb} unpublished | {nb} unpublished"
     },
-    "no": "There are no courses for now.",
+    "no": "There are no courses for now",
     "progress_guide": {
       "_": "Progress guide"
     },
@@ -361,7 +361,7 @@
       "no": "No explanation"
     },
     "learner": "Learner",
-    "no": "There are no evaluation for now",
+    "no": "There are no evaluations for now",
     "note": {
       "_": "Note",
       "no": "No note"
@@ -378,6 +378,13 @@
       "unpublished": "@:global.status.unpublished"
     },
     "submitted": "Submitted"
+  },
+  "event": {
+    "_": "Event | Events",
+    "no": "There are no events for now",
+    "ongoing": "Ongoing",
+    "past": "Past",
+    "upcoming": "Upcoming"
   },
   "general": {
     "action": "Action | Actions",
@@ -500,7 +507,7 @@
   "learner": {
     "_": "Learner | Learners",
     "all": "All learners",
-    "no": "There are no learners for now."
+    "no": "There are no learners for now"
   },
   "partner": {
     "_": "Partner | Partners",
@@ -509,7 +516,7 @@
     "create": "@:general.create a partner",
     "description": "@:global.description",
     "name": "@:global.name",
-    "no": "There are no partners available for now.",
+    "no": "There are no partners for now",
     "website": "Website"
   },
   "program": {
@@ -530,7 +537,7 @@
     },
     "language": "@:global.language",
     "name": "@:global.name",
-    "no": "There are no programs for now.",
+    "no": "There are no program for now",
     "publish": "@:global.publish",
     "status": {
       "_": "@:global.status._",
@@ -583,7 +590,7 @@
     },
     "name_or_email": "Name or email",
     "nb_of": "Number of registrations",
-    "no": "There are no registration for now",
+    "no": "There are no registrations for now",
     "open": "Open",
     "progress": "Progress",
     "registered_on": "Registered on {date}",

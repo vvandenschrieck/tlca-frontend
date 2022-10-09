@@ -1,24 +1,20 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data: course, error } }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/teach/getCourse.gql')"
     :update="(data) => data.course"
     :variables="{ code: courseCode }"
-    @result="setTitle"
+    @result="setResult"
   >
-    <page-title
-      :spaces="spaces(course)"
-      :loading="!!isLoading"
-      :value="title"
-    />
+    <page-title :spaces="spaces" :loading="!!isLoading" :value="title" />
 
     <div v-if="!error">
-      <v-row>
+      <v-row v-if="course?.isCoordinator || course?.isTeacher">
         <v-col cols="12" md="9">
           <v-row>
             <v-col cols="12" md="6">
               <learners-info-card :course-code="courseCode" />
-              <calendar-info-card class="mt-5" :course-code="courseCode" />
+              <events-info-card class="mt-5" :course-code="courseCode" />
             </v-col>
 
             <v-col cols="12" md="6">
@@ -42,7 +38,7 @@
       </v-row>
     </div>
 
-    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
@@ -54,6 +50,7 @@ export default {
   mixins: [titles],
   data() {
     return {
+      course: null,
       title: '',
     }
   },
@@ -66,12 +63,11 @@ export default {
     courseCode() {
       return this.$route.params.code
     },
-  },
-  methods: {
-    setTitle({ data: course }) {
-      this.title = course?.name ?? ''
-    },
-    spaces(course) {
+    spaces() {
+      if (!this.course) {
+        return null
+      }
+
       const items = {
         home: {
           name: 'courses-code',
@@ -79,7 +75,7 @@ export default {
         },
       }
 
-      if (course?.isCoordinator) {
+      if (this.course.isCoordinator) {
         items.manage = {
           name: 'manage-courses-code',
           params: { code: this.courseCode },
@@ -87,6 +83,12 @@ export default {
       }
 
       return items
+    },
+  },
+  methods: {
+    setResult({ data: course }) {
+      this.course = course
+      this.title = course?.name ?? ''
     },
   },
   meta: {
