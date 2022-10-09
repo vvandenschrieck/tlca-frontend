@@ -1,4 +1,5 @@
 mutation EditAssessment(
+  $canRequestEvaluation: Boolean
   $category: AssessmentCategory!
   $code: String
   $competencies: [AssessmentCompetencyInput!]!
@@ -12,8 +13,10 @@ mutation EditAssessment(
   $name: String!
   $oralDefense: Boolean
   $start: DateTime
+  $takes: Int
 ) {
   editAssessment(
+    canRequestEvaluation: $canRequestEvaluation
     category: $category
     code: $code
     competencies: $competencies
@@ -27,6 +30,7 @@ mutation EditAssessment(
     name: $name
     oralDefense: $oralDefense
     start: $start
+    takes: $takes
   ) {
     id
   }

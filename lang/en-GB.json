@@ -40,6 +40,7 @@
     },
     "description": "@:global.description._",
     "edit": "@:general.edit an assessment",
+    "evaluation_request": "Evaluation request",
     "filter_by_competency": "Filter by competency",
     "group_by_category": "Group by category",
     "hidden": "@:global.hidden",

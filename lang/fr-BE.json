@@ -40,6 +40,7 @@
     },
     "description": "@:global.description._",
     "edit": "@:general.edit une évaluation",
+    "evaluation_request": "Demande de passage d'évaluation",
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
     "hidden": "@:global.hidden",

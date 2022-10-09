@@ -165,12 +165,25 @@
         </stepper-step>
 
         <stepper-step step="5" :title="$t('general.information.additional')">
-          <v-switch
-            v-model="hasOralDefense"
-            class="ml-3"
-            dense
-            :label="$t('assessment.oral_defense')"
-          />
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-switch
+                v-model="hasOralDefense"
+                class="ml-3"
+                dense
+                :label="$t('assessment.oral_defense')"
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <v-switch
+                v-model="canRequestEvaluation"
+                class="ml-3"
+                dense
+                :label="$t('assessment.evaluation_request')"
+              />
+            </v-col>
+          </v-row>
         </stepper-step>
 
         <stepper-step step="6" :title="$t('global.workload')">
@@ -255,6 +268,7 @@ export default {
   },
   data() {
     return {
+      canRequestEvaluation: false,
       category: '',
       code: '',
       competencies: [{}],
@@ -306,6 +320,9 @@ export default {
         ? this.$t('assessment.competencies._')
         : this.$tc('assessment.phase._', this.nbPhases)
     },
+    courseCode() {
+      return this.$route.params.code
+    },
   },
   mounted() {
     this.reset()
@@ -315,6 +332,7 @@ export default {
       const assessment = this.assessment
       const load = assessment?.load
 
+      this.canRequestEvaluation = assessment?.canRequestEvaluation ?? false
       this.category = assessment?.category ?? ''
       this.code = assessment?.code ?? ''
       this.competencies = assessment?.competencies.map((c) => ({
@@ -376,6 +394,7 @@ export default {
         : undefined
 
       const data = {
+        canRequestEvaluation: this.canRequestEvaluation,
         category: this.category,
         code: this.code,
         competencies,
@@ -396,7 +415,7 @@ export default {
       if (this.edit) {
         data.id = this.assessment.id
       } else {
-        data.course = this.$route.params.code
+        data.course = this.courseCode
       }
       const mutation = require(`~/gql/manage/${this.action}Assessment.gql`)
 
@@ -416,7 +435,7 @@ export default {
           )
           this.$router.push({
             name: 'manage-courses-code-assessments-id',
-            params: { code: this.$route.params.code, id },
+            params: { code: this.courseCode, id },
           })
           return
         }
