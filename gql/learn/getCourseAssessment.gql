@@ -1,5 +1,6 @@
 query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
   assessment(id: $assessmentId) {
+    canRequestEvaluation
     description
     id
     name

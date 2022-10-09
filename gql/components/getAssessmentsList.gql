@@ -1,5 +1,6 @@
 query GetAssessmentsList($courseCode: ID!, $teacherView: Boolean!) {
   assessments(courseCode: $courseCode) {
+    canRequestEvaluation
     category
     code
     id

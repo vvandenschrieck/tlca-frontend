@@ -4,9 +4,5 @@ query GetCourse($code: ID!) {
     isCoordinator
     isTeacher
     name
-    schedule {
-      name
-      datetime
-    }
   }
 }

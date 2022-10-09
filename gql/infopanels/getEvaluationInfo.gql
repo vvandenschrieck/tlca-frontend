@@ -1,6 +1,22 @@
-query GetEvaluationInfo($id: ID!) {
+query GetEvaluationInfo($id: ID!, $teacherView: Boolean!) {
   evaluation(id: $id) {
+    assessment {
+      code
+      id
+      name
+    }
+    created @include(if: $teacherView)
     date
+    evaluator {
+      displayName
+      username
+    }
     id
+    learner {
+      displayName
+      username
+    }
+    published
+    status
   }
 }

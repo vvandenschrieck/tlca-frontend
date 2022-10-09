@@ -1,3 +1,24 @@
+## 1.1.8 (2022-10-09)
+
+### Features
+
+- **assessments:** configure an assessment to not authorise evaluation request (coordinator)
+
+### Improvements
+
+- updated the course detail page in the teach space, by defining the missing info cards
+- changed the visibilities filter of competencies list in manage space by one to show/hide public competencies
+- updated the evaluation info panel to include additional items (evaluator, creation date, assessment and learner)
+
+### Bug Fixes
+
+- fixed issue with takes field of assessment that was not taken into account upon edit
+- hid the competency archive button if the connected user is not its owner
+
+### Code Refactoring
+
+- defined a component to display a list of stats (for info cards)
+
 ## 1.1.7 (2022-10-08)
 
 ### Features

@@ -50,16 +50,28 @@
         <v-icon>mdi-delete</v-icon>
       </v-btn>
 
-      <v-btn
+      <v-tooltip
         v-if="customAction"
-        color="blue"
-        dark
-        fab
-        small
-        @click.stop="$emit('customActionClicked')"
+        :disabled="!customAction.tooltip"
+        left
+        open-delay="500"
       >
-        <v-icon>{{ customAction.icon }}</v-icon>
-      </v-btn>
+        <template #activator="{ on, attrs }">
+          <v-btn
+            color="blue"
+            dark
+            fab
+            small
+            v-bind="attrs"
+            v-on="on"
+            @click.stop="$emit('customActionClicked')"
+          >
+            <v-icon>{{ customAction.icon }}</v-icon>
+          </v-btn>
+        </template>
+
+        <span>{{ customAction.tooltip }}</span>
+      </v-tooltip>
     </v-speed-dial>
 
     <!-- Delete confirmation dialog -->
