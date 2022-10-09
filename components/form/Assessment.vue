@@ -344,7 +344,7 @@ export default {
         work: load?.work ?? '',
       }
       this.start = assessment?.start ?? ''
-      this.takes = ''
+      this.takes = assessment?.takes ?? ''
     },
     resetForm() {
       this.reset()
