@@ -4,7 +4,7 @@
     :query="require('~/gql/cards/getEvaluationsInfo.gql')"
     :update="(data) => data.evaluations"
     :variables="{ courseCode, learner }"
-    @result="setEvaluations"
+    @result="setResult"
   >
     <generic-info-card
       icon="mdi-clipboard-edit"
@@ -12,32 +12,7 @@
       :loading="!!isLoading"
       :title="$tc('evaluation._', 2)"
     >
-      <div v-if="!error">
-        <div v-if="evaluations?.length">
-          <v-simple-table dense>
-            <tbody>
-              <tr v-for="(stat, i) in stats" :key="i">
-                <td class="pl-1 pr-0 text-center">
-                  <v-tooltip v-if="stat.alert" bottom open-delay="500">
-                    <template #activator="{ on, attrs }">
-                      <v-icon color="red" small v-bind="attrs" v-on="on">
-                        mdi-alert
-                      </v-icon>
-                    </template>
-
-                    <span>{{ stat.alert }}</span>
-                  </v-tooltip>
-                </td>
-                <td class="pl-2">{{ stat.text }}</td>
-                <td class="text-center">{{ stat.value }}</td>
-              </tr>
-            </tbody>
-          </v-simple-table>
-        </div>
-
-        <span v-else>{{ $t('evaluation.no') }}</span>
-      </div>
-
+      <stats-list v-if="!error" entity="evaluation" :stats="stats" />
       <span v-else>{{ $t('error.unexpected') }}</span>
     </generic-info-card>
   </ApolloQuery>
@@ -66,8 +41,11 @@ export default {
     }
   },
   computed: {
+    hasEvaluations() {
+      return this.evaluations?.length > 0
+    },
     learner() {
-      return this.$auth.user?.username
+      return this.$auth.user.username
     },
     link() {
       return {
@@ -80,6 +58,10 @@ export default {
       }
     },
     stats() {
+      if (!this.hasEvaluations) {
+        return null
+      }
+
       const items = [
         {
           text: this.$t('evaluation.published'),
@@ -91,17 +73,17 @@ export default {
         },
       ]
 
-      // Compute the registrations stats.
+      // Compute the evaluations stats.
       const stats = items.map((i) => ({
         ...i,
-        value: this.evaluations?.filter(i.filter)?.length ?? 0,
+        value: this.evaluations.filter(i.filter)?.length ?? 0,
       }))
 
       return stats
     },
   },
   methods: {
-    setEvaluations({ data: evaluations }) {
+    setResult({ data: evaluations }) {
       this.evaluations = evaluations
     },
   },

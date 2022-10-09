@@ -1,14 +1,11 @@
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { data: assessment, error } }"
-    :query="require('~/gql/manage/getCourseAssessment.gql')"
+    :query="require('~/gql/manage/edit/getAssessment.gql')"
     :update="(data) => data.assessment"
-    :variables="{
-      courseCode: $route.params.code,
-      assessmentId: $route.params.id,
-    }"
+    :variables="{ assessmentId }"
   >
-    <h2>{{ $t('assessment.edit') }}</h2>
+    <h2>{{ title }}</h2>
 
     <div v-if="isLoading">{{ $t('global.loading') }}</div>
 
@@ -19,14 +16,20 @@
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'ManageEditAssessmentPage',
+  mixins: [titles],
   head() {
     return {
-      title: this.title,
+      title: this.getTitle(this.title, null, 'manage'),
     }
   },
   computed: {
+    assessmentId() {
+      return this.$route.params.id
+    },
     title() {
       return this.$t('assessment.edit')
     },

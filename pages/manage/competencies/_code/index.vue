@@ -157,7 +157,7 @@ export default {
       this.dialog = false
     },
     customAction(competency) {
-      if (competency.isArchived) {
+      if (competency.isArchived || !competency.isOwner) {
         return null
       }
 

@@ -3,7 +3,7 @@
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/infopanels/getEvaluationInfo.gql')"
     :update="(data) => data.evaluation"
-    :variables="{ id: evaluationId }"
+    :variables="{ id: evaluationId, teacherView }"
     @result="setItems"
   >
     <generic-info-panel
@@ -18,15 +18,24 @@
 </template>
 
 <script>
+import assessments from '@/mixins/assessments.js'
 import datetime from '@/mixins/datetime.js'
 
 export default {
   name: 'EvaluationInfoPanel',
-  mixins: [datetime],
+  mixins: [assessments, datetime],
   props: {
     evaluationId: {
       type: String,
       required: true,
+    },
+    hideLearner: {
+      type: Boolean,
+      default: false,
+    },
+    teacherView: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -36,15 +45,73 @@ export default {
   },
   methods: {
     setItems({ data: evaluation }) {
+      if (!evaluation) {
+        return []
+      }
+
       const items = []
 
-      if (evaluation) {
-        // Evaluation date.
-        const date = evaluation.date
+      // Status.
+      const status = {
+        icon: 'mdi-cloud-upload',
+        tooltip: this.$t('evaluation.status._'),
+      }
+      switch (evaluation.status) {
+        case 'UNPUBLISHED':
+          status.text = this.$t('evaluation.status.unpublished')
+          break
+
+        case 'PUBLISHED':
+          status.text = this.$t('evaluation.status.published_on', {
+            date: this.formatDateFull(evaluation.published),
+          })
+          break
+      }
+      items.push(status)
+
+      // Evaluated learner.
+      if (!this.hideLearner) {
+        const learner = evaluation.learner
+        items.push({
+          icon: 'mdi-account-school',
+          text: learner.displayName,
+          tooltip: this.$t('evaluation.learner'),
+        })
+      }
+
+      // Assessment.
+      const assessment = evaluation.assessment
+      items.push({
+        icon: 'mdi-clipboard-text',
+        text: this.shortName(assessment),
+        tooltip: this.$t('evaluation.assessment'),
+      })
+
+      // Evaluator.
+      const evaluator = evaluation.evaluator
+      if (evaluator) {
+        items.push({
+          icon: 'mdi-account-school',
+          text: evaluator.displayName,
+          tooltip: this.$t('evaluation.evaluator'),
+        })
+      }
+
+      // Evaluation date.
+      const date = evaluation.date
+      items.push({
+        icon: 'mdi-calendar-clock',
+        text: this.formatDateTimeFull(date),
+        tooltip: this.$t('evaluation.date'),
+      })
+
+      // Creation date.
+      const created = evaluation.created
+      if (created && created !== date) {
         items.push({
           icon: 'mdi-calendar-clock',
-          text: this.formatDateTimeFull(date),
-          tooltip: this.$t('evaluation.date'),
+          text: this.formatDateTimeFull(created),
+          tooltip: this.$t('evaluation.created'),
         })
       }
 

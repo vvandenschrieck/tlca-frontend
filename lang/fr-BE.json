@@ -40,6 +40,7 @@
     },
     "description": "@:global.description._",
     "edit": "@:general.edit une évaluation",
+    "evaluation_request": "Demande de passage d'évaluation",
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
     "hidden": "@:global.hidden",
@@ -63,7 +64,7 @@
     "name": "@:global.name",
     "nb": "{nb} évaluation | {nb} évaluations",
     "nb_of": "Nombre d'évaluations",
-    "no": "Il n'y a aucune évaluation pour le moment",
+    "no": "Il n'y a pas d'évaluations pour le moment",
     "no_available": "Il n'y a aucune évaluation disponible pour le moment",
     "openness": "Ouverture",
     "oral_defense": "Défense orale",
@@ -136,22 +137,23 @@
     "description": "@:global.description._",
     "edit": "@:general.edit une compétence",
     "filter": {
+      "archived": "@:global.status.archived",
       "creator": "@:general.creator",
-      "tags": "Tags",
-      "visibility": "@:global.visibility._"
+      "public": "@:global.visibility.public",
+      "tags": "Tags"
     },
     "learning_outcomes": {
       "_": "Acquis d'apprentissage",
       "abbr": "AA",
       "add": "Ajouter un acquis d'apprentissage",
       "name": "@:global.name",
-      "no": "Il n'y a pas d'acquis d'apprentissage pour le moment.",
+      "no": "Il n'y a pas d'acquis d'apprentissage pour le moment",
       "takes": "Passages"
     },
     "name": "@:global.name",
     "nb": "{nb} compétence | {nb} compétences",
     "nb_of": "Nombre de compétences",
-    "no": "Il n'y a pas de compétences pour le moment.",
+    "no": "Il n'y a pas de compétences pour le moment",
     "partners": "@:global.partners",
     "public": "@:global.visibility.public",
     "remove": "Retirer la compétence",
@@ -213,17 +215,17 @@
       "_": "Groupes",
       "add": "Ajouter un groupe",
       "name": "Nom",
-      "no": "Il n'y a pas de groupes pour le moment.",
+      "no": "Il n'y a pas de groupes pour le moment",
       "supervisor": "Superviseur",
       "teaching": {
         "_": "Groupe d'enseignement",
         "add": "Ajouter un groupe d'enseignement",
-        "no": "Il n'y a pas de groupes d'enseignement pour le moment."
+        "no": "Il n'y a pas de groupes d'enseignement pour le moment"
       },
       "working": {
         "_": "Groupe de travail",
         "add": "Ajouter un groupe de travail",
-        "no": "Il n'y a pas de groupes de travail pour le moment."
+        "no": "Il n'y a pas de groupes de travail pour le moment"
       }
     },
     "language": "@:global.language",
@@ -251,7 +253,7 @@
       "published": "{nb} publié | {nb} publiés",
       "unpublished": "{nb} non publié | {nb} non publiés"
     },
-    "no": "Il n'y a pas de cours pour le moment.",
+    "no": "Il n'y a pas de cours pour le moment",
     "progress_guide": {
       "_": "Guide de progression"
     },
@@ -351,17 +353,19 @@
       "_": "@:global.competencies._"
     },
     "create": "@:general.create un passage d'évaluation",
+    "created": "Date de création",
     "date": "Date du passage d'évaluation",
     "delete": {
       "_": "@:general.delete",
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer ce passage d'évaluation ?"
     },
+    "evaluator": "Évaluateur",
     "explanation": {
       "_": "Explication",
       "no": "Pas d'explication"
     },
     "learner": "Apprenant",
-    "no": "Il n'y a aucun passage d'évaluation pour le moment",
+    "no": "Il n'y a pas de passages d'évaluation pour le moment",
     "note": {
       "_": "Note",
       "no": "Pas de note"
@@ -378,6 +382,13 @@
       "unpublished": "@:global.status.unpublished"
     },
     "submitted": "Soumis"
+  },
+  "event": {
+    "_": "Évènement | Évènements",
+    "no": "Il n'y a pas d'évènements pour le moment",
+    "ongoing": "En cours",
+    "past": "Passé",
+    "upcoming": "À venir"
   },
   "general": {
     "action": "Action | Actions",
@@ -500,7 +511,7 @@
   "learner": {
     "_": "Apprenant | Apprenants",
     "all": "Tous les apprenants",
-    "no": "Il n'y a pas d'apprenants pour le moment."
+    "no": "Il n'y a pas d'apprenants pour le moment"
   },
   "partner": {
     "_": "Partenaire | Partenaires",
@@ -509,7 +520,7 @@
     "create": "@:general.create un partenaire",
     "description": "@:global.description",
     "name": "@:global.name",
-    "no": "Il n'y a pas de partenaires disponibles pour le moment.",
+    "no": "Il n'y a pas de partenaires pour le moment",
     "website": "Site web"
   },
   "program": {
@@ -530,7 +541,7 @@
     },
     "language": "@:global.language",
     "name": "@:global.name",
-    "no": "Il n'y a pas de programmes pour le moment.",
+    "no": "Il n'y a pas de programmes pour le moment",
     "publish": "@:global.publish",
     "status": {
       "_": "@:global.status._",
@@ -583,7 +594,7 @@
     },
     "name_or_email": "Nom ou e-mail",
     "nb_of": "Nombre d'inscriptions",
-    "no": "Il n'y a aucune inscription pour le moment",
+    "no": "Il n'y a pas d'inscriptions pour le moment",
     "open": "Ouvertes",
     "progress": "Progression",
     "registered_on": "Inscrit(e) le {date}",
@@ -609,6 +620,7 @@
     "COURSE_PUBLISHED": "Cours publié avec succès !",
     "EVALUATION_CREATE": "Passage d'évaluation créé avec succès",
     "EVALUATION_DELETE": "Passage d'évaluation supprimé avec succès",
+    "EVALUATION_PUBLISH": "Passage d'évaluation publié avec succès",
     "INVITATION_REQUEST": "Demande d'invitation envoyée avec succès",
     "INVITATION_SEND": "Invitation envoyée avec succès !",
     "PROGRAM_CREATED": "Programme créé avec succès !",

@@ -1,13 +1,13 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/learn/getCourseAssessment.gql')"
     :variables="{ courseCode, assessmentId }"
-    @result="setTitle"
+    @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error && (!data || data?.course?.isRegistered)">
+    <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <ValidationObserver ref="form" v-slot="{ handleSubmit }">
           <v-form :disabled="formBusy" @submit.prevent="handleSubmit(submit)">
@@ -15,7 +15,7 @@
               {{ $t(formError) }}
             </v-alert>
 
-            <v-card :loading="!!isLoading">
+            <v-card>
               <v-card-text class="text--primary">
                 <h4>{{ $tc('assessment.instance._', 1) }}</h4>
 
@@ -86,6 +86,8 @@ export default {
   mixins: [titles],
   data() {
     return {
+      assessment: null,
+      course: null,
       explanation: '',
       formBusy: false,
       formError: null,
@@ -104,12 +106,20 @@ export default {
     assessmentId() {
       return this.$route.params.id
     },
+    canShowContent() {
+      return (
+        (!this.course && !this.assessment) ||
+        (this.course.isRegistered && this.assessment.canRequestEvaluation)
+      )
+    },
     courseCode() {
       return this.$route.params.code
     },
   },
   methods: {
-    setTitle({ data }) {
+    setResult({ data }) {
+      this.assessment = data?.assessment
+      this.course = data?.course
       this.title = data?.assessment?.name ?? ''
     },
     async submit() {

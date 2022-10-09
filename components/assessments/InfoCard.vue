@@ -4,7 +4,7 @@
     :query="require('~/gql/cards/getAssessmentsInfo.gql')"
     :update="(data) => data.assessments"
     :variables="{ courseCode, teacherView }"
-    @result="setAssessments"
+    @result="setResult"
   >
     <generic-info-card
       icon="mdi-clipboard-text"
@@ -12,32 +12,7 @@
       :loading="!!isLoading"
       :title="$tc('assessment._', 2)"
     >
-      <div v-if="!error">
-        <div v-if="assessments?.length">
-          <v-simple-table dense>
-            <tbody>
-              <tr v-for="(stat, i) in stats" :key="i">
-                <td class="pl-1 pr-0 text-center">
-                  <v-tooltip v-if="stat.alert" bottom open-delay="500">
-                    <template #activator="{ on, attrs }">
-                      <v-icon color="red" small v-bind="attrs" v-on="on">
-                        mdi-alert
-                      </v-icon>
-                    </template>
-
-                    <span>{{ stat.alert }}</span>
-                  </v-tooltip>
-                </td>
-                <td class="pl-2">{{ stat.text }}</td>
-                <td class="text-center">{{ stat.value }}</td>
-              </tr>
-            </tbody>
-          </v-simple-table>
-        </div>
-
-        <span v-else>{{ $t('assessment.no') }}</span>
-      </div>
-
+      <stats-list v-if="!error" entity="assessment" :stats="stats" />
       <span v-else>{{ $t('error.unexpected') }}</span>
     </generic-info-card>
   </ApolloQuery>
@@ -70,6 +45,9 @@ export default {
     }
   },
   computed: {
+    hasAssessments() {
+      return this.assessments?.length > 0
+    },
     link() {
       return {
         icon: 'mdi-view-list',
@@ -81,6 +59,10 @@ export default {
       }
     },
     stats() {
+      if (!this.hasAssessments) {
+        return null
+      }
+
       const items = [
         {
           text: this.$t('general.available'),
@@ -118,7 +100,7 @@ export default {
     },
   },
   methods: {
-    setAssessments({ data: assessments }) {
+    setResult({ data: assessments }) {
       this.assessments = assessments
     },
   },
