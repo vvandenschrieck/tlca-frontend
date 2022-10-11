@@ -21,9 +21,17 @@
                 <v-list-item-title>
                   {{ competencyName(c.competency) }}
                 </v-list-item-title>
+
+                <learning-outcomes-list
+                  v-if="c.useLearningOutcomes"
+                  class="mt-3"
+                  hide-divider
+                  :items="c.competency.learningOutcomes"
+                  :takes="c.progress.learningOutcomes"
+                />
               </v-list-item-content>
 
-              <v-list-item-action>
+              <v-list-item-action class="align-self-baseline">
                 <v-progress-linear
                   v-if="c.useLearningOutcomes"
                   class="loProgress"

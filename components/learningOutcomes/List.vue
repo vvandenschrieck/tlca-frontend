@@ -26,7 +26,9 @@
           </v-list-item-content>
 
           <v-list-item-action v-if="!hideTakes" class="align-self-baseline">
-            <v-chip x-small>{{ item.takes ?? 1 }}</v-chip>
+            <v-chip :color="takesColor(i)" x-small>
+              {{ takesProgress(i) }}
+            </v-chip>
           </v-list-item-action>
         </v-list-item>
 
@@ -57,6 +59,10 @@ export default {
       default: false,
     },
     items: {
+      type: Array,
+      default: null,
+    },
+    takes: {
       type: Array,
       default: null,
     },
@@ -92,6 +98,18 @@ export default {
     },
   },
   methods: {
+    takesColor(i) {
+      if (!this.takes) {
+        return 'default'
+      }
+
+      const maxTakes = this.items[i]?.takes ?? 1
+      return this.takes[i] === maxTakes ? 'success' : 'default'
+    },
+    takesProgress(i) {
+      const maxTakes = this.items[i]?.takes ?? 1
+      return this.takes ? `${this.takes[i]} / ${maxTakes}` : maxTakes
+    },
     update() {
       const result = this.items?.map((_, i) => ({
         disabled: this.disabled[i] ?? false,

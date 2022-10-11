@@ -5,6 +5,10 @@ query GetCourseCompetenciesProgress($courseCode: ID!) {
       category
       competency {
         code
+        learningOutcomes {
+          name
+          takes
+        }
         name
       }
       subcategory
