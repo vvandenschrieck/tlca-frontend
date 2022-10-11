@@ -9,6 +9,7 @@
       clearable
       dense
       :disabled="!!isLoading || disabled"
+      :filter="filter"
       :items="learners(data)"
       item-value="user.username"
       :label="$t('evaluation.learner')"
@@ -48,6 +49,13 @@ export default {
     },
   },
   methods: {
+    filter(item, query) {
+      query = query.trim().toLowerCase()
+      return (
+        item.header ||
+        (item.user && item.user.displayName.toLowerCase().includes(query))
+      )
+    },
     learners(data) {
       if (data) {
         const learners = []
