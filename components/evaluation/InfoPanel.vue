@@ -57,14 +57,20 @@ export default {
         tooltip: this.$t('evaluation.status._'),
       }
       switch (evaluation.status) {
-        case 'UNPUBLISHED':
-          status.text = this.$t('evaluation.status.unpublished')
-          break
-
         case 'PUBLISHED':
           status.text = this.$t('evaluation.status.published_on', {
             date: this.formatDateFull(evaluation.published),
           })
+          break
+
+        case 'REQUESTED':
+          status.text = this.$t('evaluation.status.requested_on', {
+            date: this.formatDateFull(evaluation.requested),
+          })
+          break
+
+        case 'UNPUBLISHED':
+          status.text = this.$t('evaluation.status.unpublished')
           break
       }
       items.push(status)
@@ -99,11 +105,13 @@ export default {
 
       // Evaluation date.
       const date = evaluation.date
-      items.push({
-        icon: 'mdi-calendar-clock',
-        text: this.formatDateTimeFull(date),
-        tooltip: this.$t('evaluation.date'),
-      })
+      if (evaluation.status === 'PUBLISHED') {
+        items.push({
+          icon: 'mdi-calendar-clock',
+          text: this.formatDateTimeFull(date),
+          tooltip: this.$t('evaluation.date'),
+        })
+      }
 
       // Creation date.
       const created = evaluation.created

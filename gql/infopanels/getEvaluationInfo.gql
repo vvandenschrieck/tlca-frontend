@@ -17,6 +17,7 @@ query GetEvaluationInfo($id: ID!, $teacherView: Boolean!) {
       username
     }
     published
+    requested
     status
   }
 }

@@ -23,7 +23,7 @@
       v-if="!error"
       :headers="dataHeaders"
       :items="filteredEvaluations(evaluations, filter)"
-      :items-per-page="5"
+      :items-per-page="15"
       :loading="!!isLoading"
       @click:row="goToEvaluation"
     >
@@ -33,6 +33,10 @@
 
       <template #item.date="{ value: date }">
         {{ formatDateTimeFull(date) }}
+      </template>
+
+      <template #item.status="{ value: status }">
+        {{ $t(`evaluation.status.${status.toLowerCase()}`) }}
       </template>
 
       <template #item.isPublished="{ value: isPublished }">
@@ -45,16 +49,21 @@
 </template>
 
 <script>
+import assessments from '@/mixins/assessments.js'
 import datetime from '@/mixins/datetime.js'
 import evaluations from '@/mixins/evaluations.js'
 
 export default {
   name: 'EvaluationsList',
-  mixins: [datetime, evaluations],
+  mixins: [assessments, datetime, evaluations],
   props: {
     courseCode: {
       type: String,
       required: true,
+    },
+    hideAssessment: {
+      type: Boolean,
+      default: false,
     },
     hideFilterBar: {
       type: Boolean,
@@ -71,18 +80,20 @@ export default {
   },
   data() {
     return {
-      evaluations: [],
+      evaluations: null,
       filter: {},
     }
   },
   computed: {
     dataHeaders() {
-      const items = [
-        {
+      const items = []
+
+      if (!this.hideAssessment) {
+        items.push({
           text: this.$t('evaluation.assessment'),
           value: 'assessment',
-        },
-      ]
+        })
+      }
 
       if (!this.hideLearner) {
         items.push({
@@ -98,6 +109,11 @@ export default {
         },
         {
           align: 'center',
+          text: this.$t('evaluation.status._'),
+          value: 'status',
+        },
+        {
+          align: 'center',
           text: this.$t('evaluation.published'),
           value: 'isPublished',
         }
@@ -107,9 +123,6 @@ export default {
     },
   },
   methods: {
-    assessmentName(assessment) {
-      return (assessment.code ? `${assessment.code} – ` : '') + assessment.name
-    },
     goToEvaluation({ id }) {
       this.$router.push({
         name: `${this.space}-courses-code-evaluations-id`,
@@ -117,7 +130,7 @@ export default {
       })
     },
     setEvaluations({ data: evaluations }) {
-      this.evaluations = evaluations ?? []
+      this.evaluations = evaluations
     },
   },
 }

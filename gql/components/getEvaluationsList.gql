@@ -12,5 +12,6 @@ query GetEvaluationsList($courseCode: ID!) {
       displayName
       username
     }
+    status
   }
 }

@@ -379,6 +379,8 @@
       "_": "@:global.status._",
       "published": "@:global.status.published",
       "published_on": "@:global.status.published_on",
+      "requested": "Requested",
+      "requested_on": "Requested on {date}",
       "unpublished": "@:global.status.unpublished"
     },
     "submitted": "Submitted"

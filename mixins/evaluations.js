@@ -1,17 +1,25 @@
 export default {
   methods: {
     filteredEvaluations(evaluations, filter) {
-      const assessment = filter.options?.assessment || null
-      const learner = filter.options?.learner || null
-      const text = filter.text?.trim().toLowerCase()
+      if (!evaluations) {
+        return []
+      }
 
-      if (!assessment && !learner && (!text || !text.length)) {
+      const options = filter.options ?? {}
+
+      // Get the values of the different filter options.
+      const assessment = options.assessment ?? null
+      const learner = options.learner ?? null
+      const text = filter.text?.trim().toLowerCase() ?? ''
+
+      if (!assessment && !learner && !text.length) {
         return evaluations
       }
 
+      // Filter the list of evaluations.
       return evaluations.filter((e) => {
         return (
-          (!text || !text.length) &&
+          !text.length &&
           (!assessment || e.assessment.id === assessment) &&
           (!learner || e.learner.username === learner)
         )
