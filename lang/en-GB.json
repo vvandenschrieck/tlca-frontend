@@ -371,9 +371,9 @@
       "no": "No note"
     },
     "publish": "@:global.publish",
-    "published": "@:global.status.published",
     "request": {
-      "_": "Request an evaluation"
+      "_": "Request an evaluation",
+      "too_old": "The oldest evaluation request was sent more than {days} days ago"
     },
     "status": {
       "_": "@:global.status._",
@@ -382,8 +382,7 @@
       "requested": "Requested",
       "requested_on": "Requested on {date}",
       "unpublished": "@:global.status.unpublished"
-    },
-    "submitted": "Submitted"
+    }
   },
   "event": {
     "_": "Event | Events",

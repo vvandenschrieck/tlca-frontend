@@ -371,9 +371,9 @@
       "no": "Pas de note"
     },
     "publish": "@:global.publish",
-    "published": "@:global.status.published",
     "request": {
-      "_": "Demander un passage d'évaluation"
+      "_": "Demander un passage d'évaluation",
+      "too_old": "La demande de passage d'évaluation la plus ancienne date d'il y a plus de {days} jours"
     },
     "status": {
       "_": "@:global.status._",
@@ -382,8 +382,7 @@
       "requested": "Demandé",
       "requested_on": "Demandé le {date}",
       "unpublished": "@:global.status.unpublished"
-    },
-    "submitted": "Soumis"
+    }
   },
   "event": {
     "_": "Évènement | Évènements",

@@ -114,7 +114,7 @@ export default {
         },
         {
           align: 'center',
-          text: this.$t('evaluation.published'),
+          text: this.$t('evaluation.status.published'),
           value: 'isPublished',
         }
       )
