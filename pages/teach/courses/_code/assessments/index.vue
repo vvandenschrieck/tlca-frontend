@@ -4,11 +4,11 @@
     :query="require('~/gql/teach/getCourse.gql')"
     :update="(data) => data.course"
     :variables="{ code: courseCode }"
-    @result="setTitle"
+    @result="setResult"
   >
-    <page-title :loading="!!isLoading" :value="title" />
+    <page-title :spaces="spaces" :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error">
+    <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
@@ -55,6 +55,7 @@ export default {
   mixins: [titles],
   data() {
     return {
+      course: null,
       currentTab: 0,
       title: '',
     }
@@ -65,12 +66,30 @@ export default {
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isCoordinator || this.course.isTeacher
+    },
     courseCode() {
       return this.$route.params.code
     },
+    spaces() {
+      if (!this.course || !this.course.isCoordinator) {
+        return null
+      }
+
+      const items = {
+        manage: {
+          name: 'manage-courses-code-assessments',
+          params: { code: this.courseCode },
+        },
+      }
+
+      return items
+    },
   },
   methods: {
-    setTitle({ data: course }) {
+    setResult({ data: course }) {
+      this.course = course
       this.title = course?.name ?? ''
     },
   },
