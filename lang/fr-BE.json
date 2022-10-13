@@ -359,11 +359,13 @@
       "_": "@:general.delete",
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer ce passage d'évaluation ?"
     },
+    "edit": "@:general.edit un passage d'évaluation",
     "evaluator": "Évaluateur",
     "explanation": {
       "_": "Explication",
       "no": "Pas d'explication"
     },
+    "group_by_status": "Grouper par statut",
     "learner": "Apprenant",
     "no": "Il n'y a pas de passages d'évaluation pour le moment",
     "note": {
