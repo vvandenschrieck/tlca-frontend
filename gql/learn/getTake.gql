@@ -1,0 +1,31 @@
+query GetTake($courseCode: ID!, $assessmentId: ID!, $instanceId: ID!) {
+  assessment(id: $assessmentId) {
+    competencies {
+      competency {
+        code
+        name
+      }
+    }
+    end
+    id
+    name
+    provider
+    start
+  }
+
+  assessmentInstance(id: $instanceId) {
+    content
+    id
+  }
+
+  course(code: $courseCode) {
+    code
+    isRegistered
+    name
+  }
+
+  evaluations(instance: $instanceId) {
+    data
+    id
+  }
+}

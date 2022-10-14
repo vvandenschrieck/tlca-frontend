@@ -1,0 +1,3 @@
+mutation SaveAssessmentTake($id: ID!, $answer: [[Boolean!]!]!) {
+  saveAssessmentTake(id: $id, answer: $answer)
+}
