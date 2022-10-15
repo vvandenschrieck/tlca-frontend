@@ -19,14 +19,20 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <h4>{{ $t('evaluation.comment._') }}</h4>
+                <!-- Either show comment (published/unpublished) or explanation (requested) -->
+                <div v-if="data?.evaluation?.status !== 'REQUESTED'">
+                  <h4>{{ $t('evaluation.comment._') }}</h4>
 
-                <div
-                  v-if="data?.evaluation?.comment"
-                  v-html="data?.evaluation.comment"
-                />
-                <div v-else>{{ $t('evaluation.comment.no') }}</div>
+                  <description-content :text="data?.evaluation?.comment" />
+                </div>
 
+                <div v-else>
+                  <h4>{{ $t('evaluation.explanation._') }}</h4>
+
+                  <description-content :text="data?.evaluation?.explanation" />
+                </div>
+
+                <!-- Show list of competencies and checked items/learning outcomes -->
                 <h4>{{ $tc('competency._', 2) }}</h4>
 
                 <assessment-competencies-list

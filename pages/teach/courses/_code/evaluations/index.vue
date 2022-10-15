@@ -4,11 +4,11 @@
     :query="require('~/gql/teach/getCourse.gql')"
     :update="(data) => data.course"
     :variables="{ code: courseCode }"
-    @result="setTitle"
+    @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error">
+    <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
@@ -46,7 +46,7 @@
       />
     </v-row>
 
-    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
@@ -69,12 +69,16 @@ export default {
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isCoordinator || this.course.isTeacher
+    },
     courseCode() {
       return this.$route.params.code
     },
   },
   methods: {
-    setTitle({ data: course }) {
+    setResult({ data: course }) {
+      this.course = course
       this.title = course?.name ?? ''
     },
   },

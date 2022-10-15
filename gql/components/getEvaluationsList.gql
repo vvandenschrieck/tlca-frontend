@@ -7,10 +7,10 @@ query GetEvaluationsList($courseCode: ID!) {
     }
     date
     id
-    isPublished
     learner {
       displayName
       username
     }
+    status
   }
 }

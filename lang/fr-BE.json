@@ -359,11 +359,13 @@
       "_": "@:general.delete",
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer ce passage d'évaluation ?"
     },
+    "edit": "@:general.edit un passage d'évaluation",
     "evaluator": "Évaluateur",
     "explanation": {
       "_": "Explication",
       "no": "Pas d'explication"
     },
+    "group_by_status": "Grouper par statut",
     "learner": "Apprenant",
     "no": "Il n'y a pas de passages d'évaluation pour le moment",
     "note": {
@@ -371,17 +373,18 @@
       "no": "Pas de note"
     },
     "publish": "@:global.publish",
-    "published": "@:global.status.published",
     "request": {
-      "_": "Demander un passage d'évaluation"
+      "_": "Demander un passage d'évaluation",
+      "too_old": "La demande de passage d'évaluation la plus ancienne date d'il y a plus de {days} jours"
     },
     "status": {
       "_": "@:global.status._",
       "published": "@:global.status.published",
       "published_on": "@:global.status.published_on",
+      "requested": "Demandé",
+      "requested_on": "Demandé le {date}",
       "unpublished": "@:global.status.unpublished"
-    },
-    "submitted": "Soumis"
+    }
   },
   "event": {
     "_": "Évènement | Évènements",
@@ -402,6 +405,7 @@
     "create": "Créer",
     "creator": "Créateur",
     "dashboard": "Tableau de bord",
+    "deadline": "Échéance",
     "delete": "Supprimer",
     "edit": "Modifier",
     "filter": {

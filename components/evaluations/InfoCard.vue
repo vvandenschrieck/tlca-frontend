@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { DateTime } from 'luxon'
+
 export default {
   name: 'EvaluationsInfoCard',
   props: {
@@ -64,12 +66,16 @@ export default {
 
       const items = [
         {
-          text: this.$t('evaluation.published'),
-          filter: (e) => e.isPublished,
+          text: this.$t('evaluation.status.published'),
+          filter: (e) => e.status === 'PUBLISHED',
         },
         {
-          text: this.$t('evaluation.submitted'),
-          filter: (e) => e.isSubmitted,
+          text: this.$t('evaluation.status.unpublished'),
+          filter: (e) => e.status === 'UNPUBLISHED',
+        },
+        {
+          text: this.$t('evaluation.status.requested'),
+          filter: (e) => e.status === 'REQUESTED',
         },
       ]
 
@@ -78,6 +84,19 @@ export default {
         ...i,
         value: this.evaluations.filter(i.filter)?.length ?? 0,
       }))
+
+      // Check the oldest evaluation request, if any.
+      if (stats[2].value) {
+        const oldest = this.evaluations
+          .filter(stats[2].filter)
+          .map((e) => DateTime.fromISO(e.requested))
+          .sort((a, b) => a - b)[0]
+
+        const days = Math.trunc(DateTime.now().diff(oldest, 'days').values.days)
+        if (days > 5) {
+          stats[2].alert = this.$t(`evaluation.request.too_old`, { days })
+        }
+      }
 
       return stats
     },

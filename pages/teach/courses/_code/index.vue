@@ -8,35 +8,33 @@
   >
     <page-title :spaces="spaces" :loading="!!isLoading" :value="title" />
 
-    <div v-if="!error">
-      <v-row v-if="course?.isCoordinator || course?.isTeacher">
-        <v-col cols="12" md="9">
-          <v-row>
-            <v-col cols="12" md="6">
-              <learners-info-card :course-code="courseCode" />
-              <events-info-card class="mt-5" :course-code="courseCode" />
-            </v-col>
+    <v-row v-if="!error && canShowContent">
+      <v-col cols="12" md="9">
+        <v-row>
+          <v-col cols="12" md="6">
+            <learners-info-card :course-code="courseCode" />
+            <events-info-card class="mt-5" :course-code="courseCode" />
+          </v-col>
 
-            <v-col cols="12" md="6">
-              <assessments-info-card :course-code="courseCode" space="teach" />
-              <evaluations-info-card
-                class="mt-5"
-                :course-code="courseCode"
-                space="teach"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
+          <v-col cols="12" md="6">
+            <assessments-info-card :course-code="courseCode" space="teach" />
+            <evaluations-info-card
+              class="mt-5"
+              :course-code="courseCode"
+              space="teach"
+            />
+          </v-col>
+        </v-row>
+      </v-col>
 
-        <v-col
-          cols="12"
-          md="3"
-          :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-        >
-          <course-schedule-panel :course-code="courseCode" />
-        </v-col>
-      </v-row>
-    </div>
+      <v-col
+        cols="12"
+        md="3"
+        :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+      >
+        <course-schedule-panel :course-code="courseCode" />
+      </v-col>
+    </v-row>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
@@ -60,6 +58,9 @@ export default {
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isCoordinator || this.course.isTeacher
+    },
     courseCode() {
       return this.$route.params.code
     },

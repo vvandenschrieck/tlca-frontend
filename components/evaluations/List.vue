@@ -21,22 +21,42 @@
 
     <v-data-table
       v-if="!error"
+      :group-by="groupByStatus ? 'status.text' : null"
+      :group-desc="false"
       :headers="dataHeaders"
       :items="filteredEvaluations(evaluations, filter)"
-      :items-per-page="5"
+      :items-per-page="15"
       :loading="!!isLoading"
       @click:row="goToEvaluation"
     >
-      <template #item.assessment="{ value: assessment }">
-        {{ assessmentName(assessment) }}
+      <template #group.header="{ group, headers, isOpen, toggle }">
+        <td :colspan="headers.length">
+          <v-row align="center">
+            <v-col class="group-header">
+              <b>{{ group }}</b>
+            </v-col>
+
+            <v-col align="right">
+              <v-btn icon @click="toggle">
+                <v-icon>{{ `mdi-chevron-${isOpen ? 'up' : 'down'}` }}</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </td>
       </template>
 
-      <template #item.date="{ value: date }">
-        {{ formatDateTimeFull(date) }}
+      <template #footer.prepend>
+        <v-switch v-model="groupByStatus" dense>
+          <span slot="label" class="text-subtitle-2">
+            {{ $t('evaluation.group_by_status') }}
+          </span>
+        </v-switch>
       </template>
 
-      <template #item.isPublished="{ value: isPublished }">
-        <boolean-value-icon :value="isPublished" />
+      <template #item.status="{ value: status }">
+        <v-chip :color="status.color" small>
+          {{ status.text }}
+        </v-chip>
       </template>
     </v-data-table>
 
@@ -45,16 +65,21 @@
 </template>
 
 <script>
+import assessments from '@/mixins/assessments.js'
 import datetime from '@/mixins/datetime.js'
 import evaluations from '@/mixins/evaluations.js'
 
 export default {
   name: 'EvaluationsList',
-  mixins: [datetime, evaluations],
+  mixins: [assessments, datetime, evaluations],
   props: {
     courseCode: {
       type: String,
       required: true,
+    },
+    hideAssessment: {
+      type: Boolean,
+      default: false,
     },
     hideFilterBar: {
       type: Boolean,
@@ -71,18 +96,21 @@ export default {
   },
   data() {
     return {
-      evaluations: [],
+      evaluations: null,
       filter: {},
+      groupByStatus: false,
     }
   },
   computed: {
     dataHeaders() {
-      const items = [
-        {
+      const items = []
+
+      if (!this.hideAssessment) {
+        items.push({
           text: this.$t('evaluation.assessment'),
           value: 'assessment',
-        },
-      ]
+        })
+      }
 
       if (!this.hideLearner) {
         items.push({
@@ -91,25 +119,22 @@ export default {
         })
       }
 
-      items.push(
-        {
-          text: this.$t('evaluation.date'),
-          value: 'date',
-        },
-        {
-          align: 'center',
-          text: this.$t('evaluation.published'),
-          value: 'isPublished',
-        }
-      )
+      items.push({
+        text: this.$t('evaluation.date'),
+        value: 'date',
+      })
+
+      if (!this.groupByStatus) {
+        items.push({
+          text: this.$t('evaluation.status._'),
+          value: 'status',
+        })
+      }
 
       return items
     },
   },
   methods: {
-    assessmentName(assessment) {
-      return (assessment.code ? `${assessment.code} – ` : '') + assessment.name
-    },
     goToEvaluation({ id }) {
       this.$router.push({
         name: `${this.space}-courses-code-evaluations-id`,
@@ -117,7 +142,26 @@ export default {
       })
     },
     setEvaluations({ data: evaluations }) {
-      this.evaluations = evaluations ?? []
+      if (!evaluations) {
+        return
+      }
+
+      this.evaluations = evaluations.map((e) => ({
+        ...e,
+        assessment: this.assessmentName(e.assessment),
+        data: this.formatDateTimeFull(e.date),
+        status: {
+          color: this.statusColor(e.status),
+          text: this.$t(`evaluation.status.${e.status.toLowerCase()}`),
+        },
+      }))
+    },
+    statusColor(status) {
+      return {
+        PUBLISHED: 'success',
+        REQUESTED: 'primary',
+        UNPUBLISHED: 'default',
+      }[status]
     },
   },
 }

@@ -18,10 +18,20 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <h4>{{ $t('evaluation.comment._') }}</h4>
+                <!-- Either show comment (published/unpublished) or explanation (requested) -->
+                <div v-if="evaluation?.status !== 'REQUESTED'">
+                  <h4>{{ $t('evaluation.comment._') }}</h4>
 
-                <description-content :text="evaluation?.comment" />
+                  <description-content :text="evaluation?.comment" />
+                </div>
 
+                <div v-else>
+                  <h4>{{ $t('evaluation.explanation._') }}</h4>
+
+                  <description-content :text="evaluation?.explanation" />
+                </div>
+
+                <!-- Show list of competencies and checked items/learning outcomes -->
                 <h4>{{ $tc('competency._', 2) }}</h4>
 
                 <assessment-competencies-list
@@ -31,9 +41,12 @@
                   :selected="evaluation.competencies"
                 />
 
-                <h4>{{ $t('evaluation.note._') }}</h4>
+                <!-- Show note (published/unpublished) -->
+                <div v-if="evaluation?.status !== 'REQUESTED'">
+                  <h4>{{ $t('evaluation.note._') }}</h4>
 
-                <description-content :text="evaluation?.note" />
+                  <description-content :text="evaluation?.note" />
+                </div>
               </v-tab-item>
 
               <v-tab-item>
@@ -54,17 +67,7 @@
 
       <actions-menu
         :custom-action="customAction"
-        :delete-action="{
-          query: {
-            mutation: require('~/gql/teach/deleteEvaluation.gql'),
-            variables: { id: evaluationId },
-          },
-          link: {
-            name: 'teach-courses-code-evaluations',
-            params: { code: courseCode },
-          },
-          object: 'evaluation',
-        }"
+        :delete-action="deleteAction"
         @customActionClicked="publish"
       />
     </v-row>
@@ -94,13 +97,30 @@ export default {
       return this.$route.params.code
     },
     customAction() {
-      if (!this.evaluation || this.evaluation.isPublished) {
+      if (!this.evaluation || this.evaluation.status !== 'UNPUBLISHED') {
         return null
       }
 
       return {
         icon: 'mdi-cloud-upload',
         tooltip: this.$t('global.publish'),
+      }
+    },
+    deleteAction() {
+      if (!this.evaluation || this.evaluation.status === 'REQUESTED') {
+        return null
+      }
+
+      return {
+        query: {
+          mutation: require('~/gql/teach/deleteEvaluation.gql'),
+          variables: { id: this.evaluationId },
+        },
+        link: {
+          name: 'teach-courses-code-evaluations',
+          params: { code: this.courseCode },
+        },
+        object: 'evaluation',
       }
     },
     evaluationId() {

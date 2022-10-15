@@ -26,8 +26,7 @@ export default {
       // Filter the list of competencies.
       return competencies.filter((c) => {
         return (
-          (!text ||
-            !text.length ||
+          (!text.length ||
             c.code.toLowerCase().includes(text) ||
             c.name.toLowerCase().includes(text)) &&
           (includeArchived || !c.isArchived) &&

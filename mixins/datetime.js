@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon'
+import { DateTime, Duration } from 'luxon'
 
 export default {
   methods: {
@@ -29,11 +29,27 @@ export default {
     formatDateTimeFull(datetime) {
       return this.formatDateTime(datetime, DateTime.DATETIME_MED_WITH_WEEKDAY)
     },
+    formatDuration(seconds) {
+      if (seconds === null || seconds === undefined) {
+        return '--:--'
+      }
+      return Duration.fromMillis(seconds * 1000).toFormat('mm:ss')
+    },
     isInFuture(datetime) {
       return datetime && datetime > DateTime.now()
     },
     isInPast(datetime) {
       return datetime && datetime < DateTime.now()
+    },
+    remainingTime(deadline) {
+      if (!deadline) {
+        return 0
+      }
+
+      const remaining = DateTime.fromISO(deadline)
+        .diff(DateTime.now())
+        .as('seconds')
+      return remaining >= 0 ? remaining : 0
     },
     toFormat(datetime, format = 'yyyy-MM-dd HH:mm') {
       // Try to convert the 'datetime' to a DateTime object.
