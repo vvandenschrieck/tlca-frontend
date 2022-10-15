@@ -317,6 +317,8 @@ export default {
             }
           }
         ) ?? []
+
+      this.newInstance = !this.instances.length
     },
     switchNewInstance(value) {
       if (value) {

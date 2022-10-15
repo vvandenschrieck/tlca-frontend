@@ -103,11 +103,11 @@ export default {
         if (response) {
           this.$notificationManager.displaySuccessMessage('SUCCESS')
           this.$router.push({
-            name: 'learn-courses-code-assessments-id-take-uid',
+            name: 'learn-courses-code-assessments-id-take-iid',
             params: {
               code: this.courseCode,
               id: this.$route.params.id,
-              uid: response.id,
+              iid: response.id,
             },
           })
         }

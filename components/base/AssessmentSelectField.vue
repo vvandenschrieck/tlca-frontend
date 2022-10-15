@@ -10,6 +10,7 @@
       clearable
       dense
       :disabled="!!isLoading || disabled"
+      :filter="filter"
       :items="assessments(data)"
       item-value="id"
       :label="$t('evaluation.assessment')"
@@ -19,11 +20,11 @@
       @input="$emit('input', $event)"
     >
       <template #selection="{ item }">
-        <span v-if="item.id">{{ assessment_name(item) }}</span>
+        <span v-if="item.id">{{ assessmentName(item) }}</span>
       </template>
 
       <template #item="{ item }">
-        <span v-if="item.id">{{ assessment_name(item) }}</span>
+        <span v-if="item.id">{{ assessmentName(item) }}</span>
       </template>
     </v-autocomplete>
 
@@ -32,8 +33,11 @@
 </template>
 
 <script>
+import assessments from '@/mixins/assessments.js'
+
 export default {
   name: 'AssessmentSelectField',
+  mixins: [assessments],
   props: {
     courseCode: {
       type: String,
@@ -68,8 +72,13 @@ export default {
 
       return assessments
     },
-    assessment_name(assessment) {
-      return (assessment.code ? `${assessment.code} – ` : '') + assessment.name
+    filter(item, query) {
+      query = query.trim().toLowerCase()
+      return (
+        item.header ||
+        (item.code && item.code.toLowerCase().includes(query)) ||
+        (item.name && item.name.toLowerCase().includes(query))
+      )
     },
   },
 }

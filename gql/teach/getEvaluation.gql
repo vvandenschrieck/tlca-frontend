@@ -21,6 +21,7 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       learningOutcomes
       selected
     }
+    explanation
     id
     isPublished
     note
