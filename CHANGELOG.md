@@ -1,3 +1,23 @@
+## 1.1.9 (2022-10-15)
+
+### Features
+
+- **assessments:** take and submit an assessment that has been defined with the tfq provider (student)
+
+### Improvements
+
+- added a switch to group evaluations by status on the evaluations list page
+- added the learning outcomes progress on the competencies list page (students)
+- added the requested status for evaluations on the evaluations list page
+- hid categories column on assessments list when grouping by categories
+- improved the evaluations info card with new pieces of information (teacher)
+- toggled the new instance button automatically when creating a new evaluation for which it does not exist any instances yet
+
+### Bug Fixes
+
+- fixed the search in the learner and in the assessment select fields, to allow searching with the content
+- fixed the values shown on the evaluation detail page, depending on its status
+
 ## 1.1.8 (2022-10-09)
 
 ### Features
