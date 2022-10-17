@@ -2,7 +2,7 @@
 <template>
   <div>
     <div v-if="text" v-html="text" />
-    <div v-else>{{ $t('global.description.no') }}</div>
+    <div v-else>{{ $t(`${entity}.no`) }}</div>
   </div>
 </template>
 
@@ -10,6 +10,10 @@
 export default {
   name: 'DescriptionContent',
   props: {
+    entity: {
+      type: String,
+      default: 'global.description',
+    },
     text: {
       type: String,
       default: null,

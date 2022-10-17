@@ -43,12 +43,8 @@ export default {
     dataHeaders() {
       const headers = [
         {
-          text: this.$t('user.first_name'),
-          value: 'user.firstName',
-        },
-        {
-          text: this.$t('user.last_name'),
-          value: 'user.lastName',
+          text: this.$t('user.name'),
+          value: 'user.displayName',
         },
       ]
 
@@ -96,11 +92,7 @@ export default {
           teaching: r.group?.teaching ? r.group.teaching + 1 : '—',
           working: r.group?.working ? r.group.working + 1 : '—',
         },
-        user: {
-          ...r.user,
-          firstName: r.user.firstName || '—',
-          lastName: r.user.lastName || '—',
-        },
+        user: r.user,
       }))
     },
   },

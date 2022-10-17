@@ -12,6 +12,7 @@
               <learner-select-field
                 v-model="learner"
                 :course-code="courseCode"
+                :disabled="edit"
               />
             </v-col>
 
@@ -19,6 +20,7 @@
               <assessment-select-field
                 v-model="assessment"
                 :course-code="courseCode"
+                :disabled="edit"
                 @change="$emit('assessmentSelected', assessment)"
               />
             </v-col>
@@ -29,6 +31,7 @@
             v-model="instance"
             :assessment-id="assessment"
             :course-code="courseCode"
+            :edit="edit"
             :learner="learner"
             @change="updateForm"
           >
@@ -75,9 +78,10 @@
                 v-model="selectedCompetencies"
                 :assessment-id="assessment"
                 :course-code="courseCode"
+                :edit="edit"
                 form
                 hide-checklist
-                :selected="selected"
+                :selected="initialCompetencies ?? selected"
               />
 
               <h4>{{ $t('general.information.private') }}</h4>
@@ -99,7 +103,7 @@
         </v-card-text>
       </v-card>
 
-      <div v-if="showActions" class="text-right mt-5">
+      <div v-if="showActions || edit" class="text-right mt-5">
         <reset-btn :disabled="formBusy" @click="resetForm" />
         <submit-btn :action="action" :loading="formBusy" />
       </div>
@@ -142,6 +146,7 @@ export default {
       instance: null,
       formBusy: false,
       formError: null,
+      initialCompetencies: null,
       learner: null,
       note: '',
       selectedCompetencies: [],
@@ -163,8 +168,23 @@ export default {
     reset() {
       const evaluation = this.evaluation
 
+      const evalDate =
+        evaluation && evaluation.created !== evaluation.date
+          ? evaluation.date
+          : undefined
+
+      this.assessment = evaluation?.assessment?.id ?? null
       this.comment = evaluation?.comment ?? ''
-      this.evalDate = evaluation?.evalDate ?? ''
+      this.evalDate = evalDate ?? ''
+      this.initialCompetencies =
+        evaluation?.competencies?.map((c) => ({
+          checklist: c.checklist,
+          competency: c.competency.code,
+          learningOutcomes: c.learningOutcomes,
+          selected: c.selected,
+        })) ?? null
+      this.instance = evaluation?.instance?.id ?? null
+      this.learner = evaluation?.learner?.username ?? null
       this.note = evaluation?.note ?? ''
       this.selectedCompetencies = []
     },
@@ -177,7 +197,6 @@ export default {
       this.formBusy = true
 
       const data = {
-        assessment: this.assessment,
         comment: this.comment,
         competencies: this.selectedCompetencies
           .filter((c) => !c.disabled)
@@ -190,9 +209,15 @@ export default {
             selected: c.selected,
           })),
         evalDate: this.evalDate,
-        instance: this.instance,
-        learner: this.learner,
         note: this.note,
+      }
+
+      if (this.edit) {
+        data.id = this.evaluation.id
+      } else {
+        data.assessment = this.assessment
+        data.instance = this.instance
+        data.learner = this.learner
       }
       const mutation = require(`~/gql/teach/${this.action}Evaluation.gql`)
 

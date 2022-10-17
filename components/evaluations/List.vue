@@ -149,7 +149,7 @@ export default {
       this.evaluations = evaluations.map((e) => ({
         ...e,
         assessment: this.assessmentName(e.assessment),
-        data: this.formatDateTimeFull(e.date),
+        date: this.formatDateTimeFull(e.date),
         status: {
           color: this.statusColor(e.status),
           text: this.$t(`evaluation.status.${e.status.toLowerCase()}`),
