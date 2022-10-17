@@ -17,6 +17,7 @@ query GetCourseEvaluation($courseCode: ID!, $evaluationId: ID!) {
     }
     explanation
     id
+    rejectionReason
     status
   }
 

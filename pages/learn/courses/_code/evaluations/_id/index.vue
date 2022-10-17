@@ -20,16 +20,30 @@
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
                 <!-- Either show comment (published/unpublished) or explanation (requested) -->
-                <div v-if="data?.evaluation?.status !== 'REQUESTED'">
+                <div v-if="showComment(data)">
                   <h4>{{ $t('evaluation.comment._') }}</h4>
 
-                  <description-content :text="data?.evaluation?.comment" />
+                  <description-content
+                    entity="evaluation.comment"
+                    :text="data?.evaluation?.comment"
+                  />
                 </div>
 
-                <div v-else>
+                <div v-if="showRejectionReason(data)">
+                  <h4>{{ $t('evaluation.rejectionReason') }}</h4>
+
+                  <description-content
+                    :text="data?.evaluation?.rejectionReason"
+                  />
+                </div>
+
+                <div v-if="showExplanation(data)">
                   <h4>{{ $t('evaluation.explanation._') }}</h4>
 
-                  <description-content :text="data?.evaluation?.explanation" />
+                  <description-content
+                    entity="evaluation.explanation"
+                    :text="data?.evaluation?.explanation"
+                  />
                 </div>
 
                 <!-- Show list of competencies and checked items/learning outcomes -->
@@ -93,6 +107,19 @@ export default {
   methods: {
     setTitle({ data }) {
       this.title = data?.evaluation?.assessment.name ?? ''
+    },
+    showComment(data) {
+      return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
+        data?.evaluation?.status
+      )
+    },
+    showExplanation(data) {
+      return ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(
+        data?.evaluation?.status
+      )
+    },
+    showRejectionReason(data) {
+      return data?.evaluation?.status === 'REJECTED'
     },
   },
   meta: {

@@ -119,7 +119,7 @@ export default {
       const date = evaluation.date
       if (
         evaluation.status === 'PUBLISHED' ||
-        evaluator.username === this.$auth.user?.username
+        (evaluator && evaluator.username === this.$auth.user?.username)
       ) {
         items.push({
           icon: 'mdi-calendar-clock',
@@ -130,7 +130,7 @@ export default {
 
       // Creation date.
       const created = evaluation.created
-      if (evaluation.status !== 'PUBLISHED' || (created && created !== date)) {
+      if (created && (evaluation.status !== 'PUBLISHED' || created !== date)) {
         items.push({
           icon: 'mdi-calendar-clock',
           text: this.formatDateTimeFull(created),
