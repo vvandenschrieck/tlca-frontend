@@ -656,6 +656,7 @@
     "email": "E-mail",
     "first_name": "Prénom",
     "last_name": "Nom",
+    "name": "Nom",
     "password": "Mot de passe",
     "profile": "Profil",
     "role": {

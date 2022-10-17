@@ -1,0 +1,21 @@
+query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
+  course(code: $courseCode) {
+    code
+    isCoordinator
+    isTeacher
+  }
+
+  evaluation(id: $evaluationId) {
+    assessment {
+      id
+    }
+    id
+    instance {
+      id
+    }
+    learner {
+      username
+    }
+    status
+  }
+}
