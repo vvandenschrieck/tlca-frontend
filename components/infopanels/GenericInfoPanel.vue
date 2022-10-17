@@ -9,8 +9,8 @@
       <v-list v-if="items?.length" dense>
         <template v-for="(item, i) in items">
           <v-list-item v-if="!item.details" :key="i" class="item mb-1">
-            <v-list-item-icon class="ma-auto">
-              <v-tooltip left open-delay="500">
+            <v-list-item-icon class="align-self-baseline ma-auto">
+              <v-tooltip v-if="item.icon" left open-delay="500">
                 <template #activator="{ on, attrs }">
                   <v-icon size="16" v-bind="attrs" v-on="on">
                     {{ item.icon }}
@@ -23,7 +23,10 @@
 
             <v-list-item-content class="py-0">
               <v-list-item-title class="content">
-                {{ item.text }}
+                <span v-if="!item.status">{{ item.text }}</span>
+                <v-chip v-else :color="item.status" small>
+                  {{ item.text }}
+                </v-chip>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -31,7 +34,7 @@
           <v-list-group v-else :key="i" v-model="item.active" no-action>
             <v-list-item slot="activator" class="pl-0">
               <v-list-item-icon class="ma-auto">
-                <v-tooltip left open-delay="500">
+                <v-tooltip v-if="item.icon" left open-delay="500">
                   <template #activator="{ on, attrs }">
                     <v-icon size="16" v-bind="attrs" v-on="on">
                       {{ item.icon }}

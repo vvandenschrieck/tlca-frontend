@@ -63,6 +63,8 @@ export default {
           })
           break
 
+        case 'ACCEPTED':
+        case 'REJECTED':
         case 'REQUESTED':
           status.text = this.$t('evaluation.status.requested_on', {
             date: this.formatDateFull(evaluation.requested),
@@ -74,6 +76,16 @@ export default {
           break
       }
       items.push(status)
+
+      if (
+        evaluation.status === 'ACCEPTED' ||
+        evaluation.status === 'REJECTED'
+      ) {
+        items.push({
+          text: this.$t(`evaluation.status.${evaluation.status.toLowerCase()}`),
+          status: evaluation.status === 'ACCEPTED' ? 'success' : 'error',
+        })
+      }
 
       // Evaluated learner.
       if (!this.hideLearner) {

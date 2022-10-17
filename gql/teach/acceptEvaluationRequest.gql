@@ -1,0 +1,21 @@
+mutation AcceptEvaluationRequest($id: ID!) {
+  acceptEvaluationRequest(id: $id) {
+    competencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
+    evaluator {
+      displayName
+      username
+    }
+    id
+    isRequestPending
+    status
+  }
+}

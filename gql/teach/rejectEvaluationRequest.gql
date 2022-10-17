@@ -1,0 +1,11 @@
+mutation RejectEvaluationRequest($id: ID!, $reason: String!) {
+  rejectEvaluationRequest(id: $id, reason: $reason) {
+    evaluator {
+      displayName
+      username
+    }
+    id
+    isRequestPending
+    status
+  }
+}
