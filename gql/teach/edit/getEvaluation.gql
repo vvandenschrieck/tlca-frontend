@@ -9,6 +9,19 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
     assessment {
       id
     }
+    comment
+    competencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
+    created
+    date
     id
     instance {
       id
@@ -16,6 +29,7 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
     learner {
       username
     }
+    note
     status
   }
 }

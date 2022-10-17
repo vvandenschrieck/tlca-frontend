@@ -1,0 +1,17 @@
+mutation EditEvaluation(
+  $comment: String
+  $competencies: [EvaluationCompetencyInput!]
+  $evalDate: DateTime
+  $id: ID!
+  $note: String
+) {
+  editEvaluation(
+    comment: $comment
+    competencies: $competencies
+    evalDate: $evalDate
+    id: $id
+    note: $note
+  ) {
+    id
+  }
+}
