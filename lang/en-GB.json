@@ -373,14 +373,21 @@
       "no": "No note"
     },
     "publish": "@:global.publish",
+    "rejectionReason": "Rejection reason",
     "request": {
       "_": "Request an evaluation",
-      "too_old": "The oldest evaluation request was sent more than {days} days ago"
+      "too_old": "The oldest evaluation request was sent more than {days} days ago",
+      "reject": {
+        "_": "Evaluation request rejection",
+        "dialog_instructions": "Explain the reason for which you want to reject this evaluation request:"
+      }
     },
     "status": {
       "_": "@:global.status._",
+      "accepted": "Accepted",
       "published": "@:global.status.published",
       "published_on": "@:global.status.published_on",
+      "rejected": "Rejected",
       "requested": "Requested",
       "requested_on": "Requested on {date}",
       "unpublished": "@:global.status.unpublished"
@@ -394,6 +401,7 @@
     "upcoming": "Upcoming"
   },
   "general": {
+    "accept": "Accept",
     "action": "Action | Actions",
     "apply": "Apply",
     "ask": "Ask",
@@ -432,6 +440,7 @@
     "owner": "Owner",
     "plus_other": "(+ {n} other) | (+ {n} others)",
     "progress": "Progress",
+    "reject": "Reject",
     "reset": "Reset",
     "send": "Send",
     "statistics": {
@@ -625,6 +634,7 @@
     "EVALUATION_CREATE": "Evaluation successfully created",
     "EVALUATION_DELETE": "Evaluation successfully deleted",
     "EVALUATION_PUBLISH": "Evaluation successfully published",
+    "EVALUATION_REQUEST_ACCEPT": "Evaluation request successfully accepted",
     "INVITATION_REQUEST": "Successfully requested an invitation",
     "INVITATION_SEND": "Invitation successfully sent!",
     "PROGRAM_CREATED": "Program successfully created!",
@@ -646,6 +656,7 @@
     "email": "Email",
     "first_name": "First Name",
     "last_name": "Last Name",
+    "name": "Name",
     "password": "Password",
     "profile": "Profile",
     "role": {

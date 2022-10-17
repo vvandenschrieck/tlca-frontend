@@ -9,7 +9,7 @@
     <v-progress-linear v-if="!!isLoading" indeterminate />
 
     <div v-if="!error">
-      <v-row>
+      <v-row v-if="!edit">
         <v-col cols="12" md="4">
           <v-switch
             v-model="newInstance"
@@ -66,9 +66,9 @@
         </v-col>
       </v-row>
 
-      <div v-if="showDetail">
+      <div v-if="showDetail || edit">
         <v-alert
-          v-if="!canAddEvaluation"
+          v-if="!canAddEvaluation && !edit"
           class="mt-3"
           dense
           outlined
@@ -104,6 +104,10 @@ export default {
     courseCode: {
       type: String,
       required: true,
+    },
+    edit: {
+      type: Boolean,
+      default: false,
     },
     learner: {
       type: String,

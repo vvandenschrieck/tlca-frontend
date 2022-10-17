@@ -63,6 +63,8 @@ export default {
           })
           break
 
+        case 'ACCEPTED':
+        case 'REJECTED':
         case 'REQUESTED':
           status.text = this.$t('evaluation.status.requested_on', {
             date: this.formatDateFull(evaluation.requested),
@@ -74,6 +76,16 @@ export default {
           break
       }
       items.push(status)
+
+      if (
+        evaluation.status === 'ACCEPTED' ||
+        evaluation.status === 'REJECTED'
+      ) {
+        items.push({
+          text: this.$t(`evaluation.status.${evaluation.status.toLowerCase()}`),
+          status: evaluation.status === 'ACCEPTED' ? 'success' : 'error',
+        })
+      }
 
       // Evaluated learner.
       if (!this.hideLearner) {
@@ -105,7 +117,10 @@ export default {
 
       // Evaluation date.
       const date = evaluation.date
-      if (evaluation.status === 'PUBLISHED') {
+      if (
+        evaluation.status === 'PUBLISHED' ||
+        (evaluator && evaluator.username === this.$auth.user?.username)
+      ) {
         items.push({
           icon: 'mdi-calendar-clock',
           text: this.formatDateTimeFull(date),
@@ -115,7 +130,7 @@ export default {
 
       // Creation date.
       const created = evaluation.created
-      if (created && created !== date) {
+      if (created && (evaluation.status !== 'PUBLISHED' || created !== date)) {
         items.push({
           icon: 'mdi-calendar-clock',
           text: this.formatDateTimeFull(created),

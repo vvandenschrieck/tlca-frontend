@@ -38,6 +38,10 @@ export default {
       type: String,
       required: true,
     },
+    edit: {
+      type: Boolean,
+      default: false,
+    },
     form: {
       type: Boolean,
       default: false,
@@ -107,7 +111,7 @@ export default {
             competency.disabled = c.disabled
             competency.learningOutcomes =
               c.learningOutcomes?.map((lo) => ({
-                disabled: lo && this.form,
+                disabled: lo && this.form && !this.edit,
                 selected: lo,
               })) ?? []
             competency.selected = c.selected

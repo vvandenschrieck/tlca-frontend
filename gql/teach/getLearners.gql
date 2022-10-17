@@ -34,8 +34,7 @@ query GetLearners($code: ID!) {
       basic
     }
     user {
-      firstName
-      lastName
+      displayName
       username
     }
   }

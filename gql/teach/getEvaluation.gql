@@ -24,7 +24,9 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
     explanation
     id
     isPublished
+    isRequestPending
     note
+    rejectionReason
     status
   }
 }

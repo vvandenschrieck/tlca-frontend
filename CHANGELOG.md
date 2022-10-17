@@ -1,3 +1,14 @@
+## 1.1.10 (2022-10-17)
+
+- **evaluations:** accept an evaluation request (teacher)
+- **evaluations:** delete a published evaluation (teacher)
+- **evaluations:** edit a non-published or accepted evaluation (teacher)
+- **evaluations:** reject an evaluation request (teacher)
+
+### Improvements
+
+- replaced first and last names by display names in the learners list (teacher)
+
 ## 1.1.9 (2022-10-15)
 
 ### Features

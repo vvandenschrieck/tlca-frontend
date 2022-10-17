@@ -1,8 +1,13 @@
-query GetCourseEvaluation($courseCode: ID!, $evaluationId: ID!) {
+query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
+  course(code: $courseCode) {
+    code
+    isCoordinator
+    isTeacher
+  }
+
   evaluation(id: $evaluationId) {
     assessment {
       id
-      name
     }
     comment
     competencies {
@@ -15,14 +20,16 @@ query GetCourseEvaluation($courseCode: ID!, $evaluationId: ID!) {
       learningOutcomes
       selected
     }
-    explanation
+    created
+    date
     id
-    rejectionReason
+    instance {
+      id
+    }
+    learner {
+      username
+    }
+    note
     status
-  }
-
-  course(code: $courseCode) {
-    code
-    isRegistered
   }
 }

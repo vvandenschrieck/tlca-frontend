@@ -1,6 +1,6 @@
 {
   "name": "tlca-frontend",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Frontend of the TLCA platform",
   "repository": "https://github.com/TLCA-project/tlca-frontend.git",
   "author": "AEI Consulting <info@aei-consulting.be>",
