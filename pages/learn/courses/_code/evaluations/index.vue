@@ -1,14 +1,14 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data: course, error } }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/learn/getCourse.gql')"
     :update="(data) => data.course"
     :variables="{ code: courseCode }"
-    @result="setTitle"
+    @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error && course?.isRegistered">
+    <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
@@ -48,10 +48,11 @@
 import titles from '@/mixins/titles.js'
 
 export default {
-  name: 'LearnCourseEvaluationsPage',
+  name: 'LearnEvaluationsPage',
   mixins: [titles],
   data() {
     return {
+      course: null,
       currentTab: 0,
       title: '',
     }
@@ -62,12 +63,16 @@ export default {
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isRegistered
+    },
     courseCode() {
       return this.$route.params.code
     },
   },
   methods: {
-    setTitle({ data: course }) {
+    setResult({ data: course }) {
+      this.course = course
       this.title = course?.name ?? ''
     },
   },

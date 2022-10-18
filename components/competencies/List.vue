@@ -3,7 +3,7 @@
     <div v-if="hasCategories" align="right">
       <v-switch
         v-model="showByCategories"
-        class="d-inline-block"
+        class="d-inline-block mt-0 pt-0"
         dense
         hide-details
       >
