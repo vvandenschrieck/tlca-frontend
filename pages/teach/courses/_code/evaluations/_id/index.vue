@@ -18,7 +18,6 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <!-- Either show comment (published/unpublished) or explanation (requested) -->
                 <div v-if="showComment">
                   <h4>{{ $t('evaluation.comment._') }}</h4>
 
@@ -43,7 +42,6 @@
                   />
                 </div>
 
-                <!-- Show list of competencies and checked items/learning outcomes -->
                 <h4>{{ $tc('competency._', 2) }}</h4>
 
                 <assessment-competencies-list
@@ -53,7 +51,6 @@
                   :selected="evaluation.competencies"
                 />
 
-                <!-- Show note (published/unpublished) -->
                 <div v-if="showNote">
                   <h4>{{ $t('evaluation.note._') }}</h4>
 

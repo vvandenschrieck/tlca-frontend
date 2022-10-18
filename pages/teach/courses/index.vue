@@ -1,51 +1,47 @@
 <template>
   <ApolloQuery
+    v-slot="{ isLoading, result: { data: courses, error } }"
     :query="require('~/gql/teach/getCourses.gql')"
     :update="(data) => data.courses"
   >
-    <template #default="{ result: { error, data: courses }, isLoading }">
-      <div v-if="isLoading || courses">
-        <h2>{{ title }}</h2>
+    <page-title :loading="!!isLoading" :value="title" />
 
-        <generic-filter-bar
-          v-slot="{ filter: innerFilter, on }"
-          v-model="filter"
-        >
-          <courses-filter hide-unpublished :value="innerFilter" v-on="on" />
-        </generic-filter-bar>
+    <div v-if="!error">
+      <generic-filter-bar v-slot="{ filter: innerFilter, on }" v-model="filter">
+        <courses-filter hide-unpublished :value="innerFilter" v-on="on" />
+      </generic-filter-bar>
 
-        <card-list
-          class="mt-5"
-          :card-props="{ hidePublished: true, space: 'teach' }"
-          :component="component"
-          :items="filteredCourses(courses, filter)"
-          :items-per-page="8"
-          prop-name="course"
-        />
-      </div>
+      <card-list
+        class="mt-5"
+        :card-props="{ hidePublished: true, space: 'teach' }"
+        :component="component"
+        :items="filteredCourses(courses, filter)"
+        :items-per-page="8"
+        prop-name="course"
+      />
+    </div>
 
-      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
-    </template>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
 <script>
 import CourseCard from '~/components/cards/CourseCard.vue'
 import courses from '@/mixins/courses.js'
+import titles from '@/mixins/titles.js'
 
 export default {
   name: 'TeachCoursesPage',
-  mixins: [courses],
+  mixins: [courses, titles],
   data() {
     return {
       component: CourseCard,
       filter: {},
-      propName: 'course',
     }
   },
   head() {
     return {
-      title: this.title,
+      title: this.getTitle(this.title, null, 'learn'),
     }
   },
   computed: {
