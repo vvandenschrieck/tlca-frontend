@@ -1,3 +1,9 @@
+## 1.1.11 (2022-10-19)
+
+### Bug Fixes
+
+- **evaluations:** fixed issue in the evaluation creation form by clearing the selected instance when it has been cleared in the assessment instance selector component
+
 ## 1.1.10 (2022-10-17)
 
 - **evaluations:** accept an evaluation request (teacher)
