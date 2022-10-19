@@ -282,10 +282,13 @@ export default {
       return `${name}&nbsp;<small>(${date})</small>`
     },
     selectInstance(value) {
-      if (value !== null) {
-        this.newInstance = false
-        this.$emit('input', this.instances[value].id)
+      if (value === null) {
+        this.instance = null
+        return this.$emit('input', null)
       }
+
+      this.newInstance = false
+      this.$emit('input', this.instances[value].id)
     },
     setResult({ data }) {
       if (!data) {
