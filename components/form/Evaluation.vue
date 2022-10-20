@@ -13,6 +13,7 @@
                 v-model="learner"
                 :course-code="courseCode"
                 :disabled="edit"
+                @change="onSelectLearner"
               />
             </v-col>
 
@@ -21,7 +22,7 @@
                 v-model="assessment"
                 :course-code="courseCode"
                 :disabled="edit"
-                @change="$emit('assessmentSelected', assessment)"
+                @change="onSelectAssessment"
               />
             </v-col>
           </v-row>
@@ -165,6 +166,13 @@ export default {
     this.reset()
   },
   methods: {
+    onSelectAssessment() {
+      this.instance = null
+      this.$emit('assessmentSelected', this.assessment)
+    },
+    onSelectLearner() {
+      this.instance = null
+    },
     reset() {
       const evaluation = this.evaluation
 
