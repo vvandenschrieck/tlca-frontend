@@ -57,8 +57,9 @@ export const spaces = [
     to: { name: 'admin' },
     roles: ['admin'],
     sections: [
-      { title: 'course._', to: { name: 'admin-courses' } },
       { title: 'competency._', to: { name: 'admin-competencies' } },
+      { title: 'course._', to: { name: 'admin-courses' } },
+      { title: 'instance._', to: { name: 'admin-instances' } },
       { title: 'partner._', to: { name: 'admin-partners' } },
       { title: 'user._', to: { name: 'admin-users' } },
     ],
