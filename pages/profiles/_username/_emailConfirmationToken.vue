@@ -72,7 +72,7 @@ export default {
         this.$t('error.CONFIRM_EMAIL')
       )
     },
-    onConfirmationEmailSent({ data: { resendConfirmationEmail: result } }) {
+    onConfirmationEmailSent({ data: { sendConfirmationEmail: result } }) {
       if (result) {
         this.$notificationManager.displaySuccessMessage(
           this.$t('success.CONFIRMATION_EMAIL_RESEND')

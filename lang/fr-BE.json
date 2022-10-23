@@ -444,7 +444,9 @@
     "progress": "Progression",
     "reject": "Rejeter",
     "reset": "Réinitialiser",
+    "save": "Enregistrer",
     "send": "Envoyer",
+    "sign_in": "Se connecter",
     "size_units": {
       "B": "o",
       "KiB": "Kio",
@@ -455,6 +457,7 @@
       "_": "Statistiques"
     },
     "status": "Statut",
+    "submit": "Soumettre",
     "time": {
       "minutes": "{n} minute | {n} minutes"
     },
@@ -656,6 +659,8 @@
     "INSTANCE_DELETE": "Instance supprimée avec succès",
     "INVITATION_REQUEST": "Demande d'invitation envoyée avec succès",
     "INVITATION_SEND": "Invitation envoyée avec succès !",
+    "PASSWORD_RESET": "Mot de passe modifié avec succès",
+    "PASSWORD_RESET_EMAIL_RESEND": "E-mail de reset du mot de passe envoyé avec succès",
     "PROGRAM_CREATED": "Programme créé avec succès !",
     "PROGRAM_PUBLISHED": "Programme publié avec succès !",
     "REGISTER": "Inscrit(e) avec succès",
@@ -676,7 +681,13 @@
     "first_name": "Prénom",
     "last_name": "Nom",
     "name": "Nom",
+    "newPassword": "Nouveau @.lower:user.password",
     "password": "Mot de passe",
+    "passwordConfirmation": "Confirmation du @.lower:user.newPassword",
+    "reset_password": {
+      "_": "Modifier le @.lower:user.password",
+      "send_email": "Reset @.lower:user.password"
+    },
     "profile": "Profil",
     "role": {
       "_": "Rôle | Rôles",

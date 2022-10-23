@@ -38,7 +38,7 @@
             <ApolloMutation
               v-if="!item.isConfirmed"
               v-slot="{ mutate, loading }"
-              :mutation="require('~/gql/accounts/resendConfirmationEmail.gql')"
+              :mutation="require('~/gql/accounts/sendConfirmationEmail.gql')"
               tag="span"
               :variables="{ username: item.username }"
             >

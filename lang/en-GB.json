@@ -444,7 +444,9 @@
     "progress": "Progress",
     "reject": "Reject",
     "reset": "Reset",
+    "save": "Save",
     "send": "Send",
+    "sign_in": "Sign in",
     "size_units": {
       "B": "B",
       "KiB": "KiB",
@@ -455,6 +457,7 @@
       "_": "Statistics"
     },
     "status": "Status",
+    "submit": "Submit",
     "time": {
       "minutes": "{n} minute | {n} minutes"
     },
@@ -656,6 +659,8 @@
     "INSTANCE_DELETE": "Instance successfully deleted",
     "INVITATION_REQUEST": "Successfully requested an invitation",
     "INVITATION_SEND": "Invitation successfully sent!",
+    "PASSWORD_RESET": "Password successfully updated",
+    "PASSWORD_RESET_EMAIL_RESEND": "Password reset email successfully resent",
     "PROGRAM_CREATED": "Program successfully created!",
     "PROGRAM_PUBLISHED": "Program successfully published!",
     "REGISTER": "Successfully registered",
@@ -676,7 +681,13 @@
     "first_name": "First Name",
     "last_name": "Last Name",
     "name": "Name",
+    "newPassword": "New @.lower:user.password",
     "password": "Password",
+    "passwordConfirmation": "@:user.newPassword confirmation",
+    "reset_password": {
+      "_": "Update the @.lower:user.password",
+      "send_email": "Reset @.lower:user.password"
+    },
     "profile": "Profile",
     "role": {
       "_": "Role | Roles",
