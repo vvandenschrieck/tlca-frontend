@@ -2,19 +2,17 @@
   <ApolloMutation
     v-slot="{ loading, mutate }"
     :mutation="require('~/gql/accounts/sendConfirmationEmail.gql')"
+    :tag="tag"
     :variables="{ usernameOrEmail }"
     @done="done"
   >
-    <v-btn
-      color="primary"
+    <generic-btn
+      icon="mdi-email-fast"
+      :label="$t('user.confirm_email.resend')"
       :loading="loading"
-      small
       v-bind="$attrs"
       @click="mutate"
-    >
-      <v-icon left>mdi-email-fast</v-icon>
-      <span>{{ $t('user.confirm_email.resend') }}</span>
-    </v-btn>
+    />
   </ApolloMutation>
 </template>
 
@@ -22,6 +20,10 @@
 export default {
   name: 'SendConfirmationEmailBtn',
   props: {
+    tag: {
+      type: String,
+      default: 'div',
+    },
     usernameOrEmail: {
       type: String,
       required: true,
