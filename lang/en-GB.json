@@ -445,6 +445,12 @@
     "reject": "Reject",
     "reset": "Reset",
     "send": "Send",
+    "size_units": {
+      "B": "B",
+      "KiB": "KiB",
+      "MiB": "MiB",
+      "GiB": "GiB"
+    },
     "statistics": {
       "_": "Statistics"
     },
@@ -621,6 +627,10 @@
     "registered_on": "Registered on {date}",
     "status": "Registration @.lower:general.status",
     "upcoming": "Upcoming"
+  },
+  "resource": {
+    "_": "Resource | Resources",
+    "no": "There are no resources for now"
   },
   "student": {
     "not_registered_yet": "Not registered yet"

@@ -13,6 +13,7 @@
         <v-row>
           <v-col cols="12" md="6">
             <progress-info-card :course-code="courseCode" />
+            <resources-info-card class="mt-5" :course-code="courseCode" />
           </v-col>
 
           <v-col cols="12" md="6">

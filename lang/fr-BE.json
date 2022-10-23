@@ -445,6 +445,12 @@
     "reject": "Rejeter",
     "reset": "Réinitialiser",
     "send": "Envoyer",
+    "size_units": {
+      "B": "o",
+      "KiB": "Kio",
+      "MiB": "Mio",
+      "GiB": "Gio"
+    },
     "statistics": {
       "_": "Statistiques"
     },
@@ -621,6 +627,10 @@
     "registered_on": "Inscrit(e) le {date}",
     "status": "@:general.status de l'inscription",
     "upcoming": "À venir"
+  },
+  "resource": {
+    "_": "Ressource | Ressources",
+    "no": "Il n'y a pas de ressources pour le moment"
   },
   "student": {
     "not_registered_yet": "Pas encore inscrit"
