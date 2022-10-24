@@ -4,4 +4,10 @@ query GetAssessmentsInfo($courseCode: ID!, $teacherView: Boolean!) {
     id
     isHidden @include(if: $teacherView)
   }
+
+  course(code: $courseCode) {
+    code
+    isCoordinator
+    isTeacher
+  }
 }
