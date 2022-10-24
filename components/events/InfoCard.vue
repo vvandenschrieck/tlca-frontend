@@ -12,7 +12,7 @@
       :loading="!!isLoading"
       :title="$tc('event._', 2)"
     >
-      <stats-list v-if="!error" entity="event" :stats="stats" />
+      <stats-list v-if="!error" entity="event" :items="stats" />
       <span v-else>{{ $t('error.unexpected') }}</span>
     </generic-info-card>
   </ApolloQuery>
