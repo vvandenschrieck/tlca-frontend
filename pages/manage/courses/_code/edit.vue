@@ -3,29 +3,36 @@
     v-slot="{ isLoading, result: { data: course, error } }"
     :query="require('~/gql/manage/edit/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: courseCode }"
   >
-    <h2>{{ $t('course.edit') }}</h2>
+    <h2>{{ title }}</h2>
 
-    <div v-if="isLoading">{{ $t('global.loading') }}</div>
+    <div v-if="!error">
+      <v-progress-linear v-if="!!isLoading" indeterminate />
+      <form-course v-else-if="course" :course="course" edit />
+    </div>
 
-    <form-course v-else-if="course" :course="course" edit />
-
-    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'ManageEditCoursePage',
+  mixins: [titles],
   head() {
     return {
-      title: this.title,
+      title: this.getTitle(this.title, null, 'manage'),
     }
   },
   computed: {
+    courseCode() {
+      return this.$route.params.code
+    },
     title() {
-      return this.$t('course.edit')
+      return this.$t('course.edit._')
     },
   },
   meta: {

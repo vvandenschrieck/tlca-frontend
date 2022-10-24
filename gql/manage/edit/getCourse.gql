@@ -23,6 +23,7 @@ query GetCourse($code: ID!) {
         name
       }
     }
+    isPublished
     language
     load {
       ects

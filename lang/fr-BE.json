@@ -205,7 +205,10 @@
     "coordinator": "@:global.coordinator",
     "create": "@:general.create un cours",
     "description": "@:global.description._",
-    "edit": "@:general.edit un cours",
+    "edit": {
+      "_": "@:general.edit un cours",
+      "warning": "Étant donné que le cours est publié, tous les champs ne peuvent pas être modifiés"
+    },
     "field": "@:global.field",
     "filter": {
       "role": "Rôle",

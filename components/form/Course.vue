@@ -6,6 +6,16 @@
       </v-alert>
 
       <v-stepper non-linear vertical>
+        <v-alert
+          v-if="course?.isPublished"
+          class="ma-3"
+          dense
+          outlined
+          type="warning"
+        >
+          {{ $t('course.edit.warning') }}
+        </v-alert>
+
         <stepper-step step="1" :title="$t('general.information.general')">
           <v-row>
             <v-col cols="12" md="2">
