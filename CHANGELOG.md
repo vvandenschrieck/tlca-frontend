@@ -1,3 +1,10 @@
+## 1.1.13 (2022-10-24)
+
+### Bug Fixes
+
+- fixed display bug in info cards always mentioning that the entities are empty
+- fixed issue on the assessment info card with the stat line specific to teachers
+
 ## 1.1.12 (2022-10-24)
 
 ### Features
