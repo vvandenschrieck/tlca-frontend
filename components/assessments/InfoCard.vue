@@ -2,7 +2,6 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/cards/getAssessmentsInfo.gql')"
-    :update="(data) => data.assessments"
     :variables="{ courseCode, teacherView }"
     @result="setResult"
   >
@@ -42,6 +41,7 @@ export default {
   data() {
     return {
       assessments: null,
+      course: null,
     }
   },
   computed: {
@@ -63,6 +63,7 @@ export default {
         return null
       }
 
+      const isTeacher = this.isCoordinator || this.isTeacher
       const items = [
         {
           text: this.$t('general.available'),
@@ -74,7 +75,7 @@ export default {
         },
       ]
 
-      if (this.$auth.user?.hasAnyRoles('teacher') && !this.hideClosed) {
+      if (!this.hideClosed && isTeacher) {
         items.push({
           text: this.$t('assessment.hidden'),
           filter: (a) => a.isHidden,
@@ -88,11 +89,7 @@ export default {
       }))
 
       // Check if there is no available assessments.
-      if (
-        this.$auth.user.hasAnyRoles('teacher') &&
-        this.teacherView &&
-        stats[0].value === 0
-      ) {
+      if (isTeacher && this.teacherView && stats[0].value === 0) {
         stats[0].alert = this.$t('assessment.no_available')
       }
 
@@ -100,8 +97,13 @@ export default {
     },
   },
   methods: {
-    setResult({ data: assessments }) {
-      this.assessments = assessments
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.assessments = data.assessments
+      this.course = data.course
     },
   },
 }
