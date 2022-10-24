@@ -106,14 +106,22 @@ export default {
             ({ competency: code }) =>
               (c.competency.code ?? c.competency) === code
           )
+
           if (competency) {
             competency.checklist = c.checklist ?? {}
             competency.disabled = c.disabled
             competency.learningOutcomes =
-              c.learningOutcomes?.map((lo) => ({
-                disabled: lo && this.form && !this.edit,
-                selected: lo,
-              })) ?? []
+              c.learningOutcomes?.map((lo, i) => {
+                const past = c.pastLearningOutcomes
+                  ? c.pastLearningOutcomes[i]
+                  : false
+                return {
+                  disabled: lo && this.form && !this.edit,
+                  past,
+                  selected: lo || past,
+                }
+              }) ?? []
+            competency.past = c.past
             competency.selected = c.selected
           }
         })

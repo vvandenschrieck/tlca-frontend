@@ -8,6 +8,8 @@ query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
 
   course(code: $courseCode) {
     code
+    isCoordinator
+    isTeacher
     name
   }
 }

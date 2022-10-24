@@ -1,13 +1,23 @@
-query GetEvaluationsList($courseCode: ID!) {
-  evaluations(courseCode: $courseCode) {
-    assessment {
+query GetEvaluationsList(
+  $assessmentId: ID
+  $courseCode: ID!
+  $published: Boolean
+  $hideAssessment: Boolean!
+  $hideLearner: Boolean!
+) {
+  evaluations(
+    assessment: $assessmentId
+    courseCode: $courseCode
+    published: $published
+  ) {
+    assessment @skip(if: $hideAssessment) {
       id
       code
       name
     }
     date
     id
-    learner {
+    learner @skip(if: $hideLearner) {
       displayName
       username
     }

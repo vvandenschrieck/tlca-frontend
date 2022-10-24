@@ -26,6 +26,16 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
     isPublished
     isRequestPending
     note
+    pastCompetencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
     rejectionReason
     status
   }

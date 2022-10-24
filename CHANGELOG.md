@@ -1,3 +1,24 @@
+## 1.1.12 (2022-10-24)
+
+### Features
+
+- **assessments:** delete an instance (admin)
+- **assessments:** get the list of all instances (admin)
+
+- **evaluations:** display competencies acquired by past evaluations for incremental assessment (teacher and student)
+
+- **files:** get the list of files (resources) associated to a given course (student)
+
+- **users:** change the password with a password reset process (user)
+
+### Improvements
+
+- replaced the username column by an email column of users list page (admin)
+
+### Bug Fixes
+
+- fixed a bug on the evaluation creation page with the instance selection when changing the learner and/or the assessment in the assessment selector component
+
 ## 1.1.11 (2022-10-19)
 
 ### Bug Fixes

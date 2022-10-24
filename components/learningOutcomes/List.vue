@@ -10,6 +10,7 @@
               <v-checkbox
                 v-model="selected"
                 class="checkbox ml-1"
+                :color="past[i] ? 'gray' : 'primary'"
                 dense
                 :disabled="disabled[i]"
                 hide-details
@@ -78,6 +79,7 @@ export default {
   data() {
     return {
       disabled: [],
+      past: [],
       selected: [],
     }
   },
@@ -89,6 +91,7 @@ export default {
     value: {
       handler(value) {
         this.disabled = value.map((item) => item.disabled)
+        this.past = value.map((item) => item.past)
         this.selected = value.reduce(
           (acc, item, i) => (item.selected ? [...acc, i] : acc),
           []

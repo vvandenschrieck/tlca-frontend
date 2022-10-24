@@ -1,0 +1,16 @@
+query GetInstances {
+  assessmentInstances {
+    assessment {
+      code
+      id
+      name
+    }
+    datetime
+    id
+    learner {
+      displayName
+      username
+    }
+    nbEvaluations
+  }
+}

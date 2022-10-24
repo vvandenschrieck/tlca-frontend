@@ -1,6 +1,6 @@
 <template>
   <v-container class="d-flex" style="height: 85vh">
-    <sign-in-form
+    <form-sign-in
       class="align-self-center ma-auto"
       style="min-width: 30vw"
       @reset="redirectHome"

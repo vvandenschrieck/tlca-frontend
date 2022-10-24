@@ -29,22 +29,25 @@
         </v-card-text>
 
         <v-card-actions>
-          <resend-confirmation-email-btn
+          <send-confirmation-email-btn
             v-if="showResendBtn && !confirmationEmailSent"
             class="ml-2"
             outlined
             :username-or-email="usernameOrEmail"
             @done="onConfirmationEmailSent"
           />
+          <send-password-reset-email-btn
+            v-if="showPasswordResetBtn && !passwordResetEmailSent"
+            class="ml-2"
+            outlined
+            :username-or-email="usernameOrEmail"
+            @done="onPasswordResetEmailSent"
+          />
 
           <v-spacer />
 
-          <v-btn color="error" :disabled="formBusy" text @click="reset">
-            {{ $t('general.cancel') }}
-          </v-btn>
-          <v-btn color="primary" :loading="formBusy" text type="submit">
-            {{ $t('authentication.sign_in') }}
-          </v-btn>
+          <cancel-btn :disabled="formBusy" @click="reset" />
+          <submit-btn action="sign_in" :loading="formBusy" />
         </v-card-actions>
       </v-form>
     </ValidationObserver>
@@ -69,6 +72,8 @@ export default {
       formBusy: false,
       formError: null,
       password: '',
+      passwordResetEmailSent: false,
+      showPasswordResetBtn: false,
       showResendBtn: false,
       usernameOrEmail: '',
     }
@@ -110,6 +115,7 @@ export default {
       } catch (err) {
         if (err.graphQLErrors?.length) {
           const errKey = err.graphQLErrors[0].message
+          this.showPasswordResetBtn = errKey === 'INVALID_CREDENTIALS'
           this.showResendBtn = errKey === 'UNCONFIRMED_EMAIL_ADDRESS'
           this.formError = `error.${errKey}`
         }
@@ -120,12 +126,20 @@ export default {
       }
       this.formBusy = false
     },
-    onConfirmationEmailSent({ data: { resendConfirmationEmail: result } }) {
+    onConfirmationEmailSent({ data: { sendConfirmationEmail: result } }) {
       if (result) {
         this.$notificationManager.displaySuccessMessage(
-          this.$t('success.CONFIRMATION_EMAIL_RESEND')
+          this.$t('success.CONFIRMATION_EMAIL_SEND')
         )
         this.confirmationEmailSent = true
+      }
+    },
+    onPasswordResetEmailSent({ data: { sendPasswordResetEmail: result } }) {
+      if (result) {
+        this.$notificationManager.displaySuccessMessage(
+          this.$t('success.PASSWORD_RESET_EMAIL_RESEND')
+        )
+        this.passwordResetEmailSent = true
       }
     },
   },

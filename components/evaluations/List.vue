@@ -3,7 +3,13 @@
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getEvaluationsList.gql')"
     :update="(data) => data.evaluations"
-    :variables="{ courseCode }"
+    :variables="{
+      assessmentId,
+      courseCode,
+      published,
+      hideAssessment,
+      hideLearner,
+    }"
     @result="setEvaluations"
   >
     <generic-filter-bar
@@ -45,7 +51,7 @@
         </td>
       </template>
 
-      <template #footer.prepend>
+      <template v-if="!hideFooter" #footer.prepend>
         <v-switch v-model="groupByStatus" dense>
           <span slot="label" class="text-subtitle-2">
             {{ $t('evaluation.group_by_status') }}
@@ -73,6 +79,10 @@ export default {
   name: 'EvaluationsList',
   mixins: [assessments, datetime, evaluations],
   props: {
+    assessmentId: {
+      type: String,
+      default: null,
+    },
     courseCode: {
       type: String,
       required: true,
@@ -85,9 +95,17 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideFooter: {
+      type: Boolean,
+      default: false,
+    },
     hideLearner: {
       type: Boolean,
       default: false,
+    },
+    published: {
+      type: Boolean,
+      default: null,
     },
     space: {
       type: String,
