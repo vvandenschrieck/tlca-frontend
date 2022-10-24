@@ -12,7 +12,7 @@
       :loading="!!isLoading"
       :title="$tc('assessment._', 2)"
     >
-      <stats-list v-if="!error" entity="assessment" :stats="stats" />
+      <stats-list v-if="!error" entity="assessment" :items="stats" />
       <span v-else>{{ $t('error.unexpected') }}</span>
     </generic-info-card>
   </ApolloQuery>
@@ -74,7 +74,7 @@ export default {
         },
       ]
 
-      if (this.$auth.user.hasAnyRoles('teacher') && !this.hideClosed) {
+      if (this.$auth.user?.hasAnyRoles('teacher') && !this.hideClosed) {
         items.push({
           text: this.$t('assessment.hidden'),
           filter: (a) => a.isHidden,
