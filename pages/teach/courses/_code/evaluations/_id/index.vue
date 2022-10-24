@@ -18,7 +18,6 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <!-- Either show comment (published/unpublished) or explanation (requested) -->
                 <div v-if="showComment">
                   <h4>{{ $t('evaluation.comment._') }}</h4>
 
@@ -43,17 +42,17 @@
                   />
                 </div>
 
-                <!-- Show list of competencies and checked items/learning outcomes -->
                 <h4>{{ $tc('competency._', 2) }}</h4>
-
+                <!-- C: {{ evaluation?.competencies }}<br /><br />
+                PC: {{ evaluation?.pastCompetencies }}<br /><br />
+                S: {{ selectedCompetencies }} -->
                 <assessment-competencies-list
                   v-if="evaluation"
                   :assessment-id="evaluation.assessment.id"
                   :course-code="courseCode"
-                  :selected="evaluation.competencies"
+                  :selected="selectedCompetencies"
                 />
 
-                <!-- Show note (published/unpublished) -->
                 <div v-if="showNote">
                   <h4>{{ $t('evaluation.note._') }}</h4>
 
@@ -168,6 +167,25 @@ export default {
     },
     evaluationId() {
       return this.$route.params.id
+    },
+    selectedCompetencies() {
+      if (!this.evaluation) {
+        return []
+      }
+
+      const selected = [...this.evaluation.competencies]
+      for (const competency of this.evaluation.pastCompetencies) {
+        const c = selected.find(
+          (c) => c.competency.code === competency.competency.code
+        )
+        if (!c) {
+          selected.push({ ...competency, past: true })
+        } else {
+          c.pastLearningOutcomes = competency.learningOutcomes ?? undefined
+        }
+      }
+
+      return selected
     },
     showComment() {
       return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(

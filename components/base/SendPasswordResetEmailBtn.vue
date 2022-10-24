@@ -1,7 +1,7 @@
 <template>
   <ApolloMutation
     v-slot="{ loading, mutate }"
-    :mutation="require('~/gql/accounts/resendConfirmationEmail.gql')"
+    :mutation="require('~/gql/accounts/sendPasswordResetEmail.gql')"
     :variables="{ usernameOrEmail }"
     @done="done"
   >
@@ -13,14 +13,14 @@
       @click="mutate"
     >
       <v-icon left>mdi-email-fast</v-icon>
-      <span>{{ $t('user.confirm_email.resend') }}</span>
+      <span>{{ $t('user.reset_password.send_email') }}</span>
     </v-btn>
   </ApolloMutation>
 </template>
 
 <script>
 export default {
-  name: 'ResendConfirmationEmailBtn',
+  name: 'SendPasswordResetEmailBtn',
   props: {
     usernameOrEmail: {
       type: String,

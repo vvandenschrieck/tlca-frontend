@@ -74,9 +74,6 @@ export default {
     },
   },
   methods: {
-    setAssessment(value) {
-      this.assessmentId = value
-    },
     setResult({ data }) {
       if (!data) {
         return

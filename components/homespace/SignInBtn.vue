@@ -16,7 +16,7 @@
       </v-tooltip>
     </template>
 
-    <sign-in-form ref="form" v-model="formBusy" @reset="closeDialog" />
+    <form-sign-in ref="form" v-model="formBusy" @reset="closeDialog" />
   </v-dialog>
 </template>
 

@@ -267,9 +267,19 @@ export default {
     },
   },
   watch: {
+    assessmentId(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.reset()
+      }
+    },
     canAddEvaluation(newValue, oldValue) {
       if (newValue !== oldValue) {
         this.$emit('change', newValue)
+      }
+    },
+    learner(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.reset()
       }
     },
   },
@@ -280,6 +290,14 @@ export default {
       })
       const date = this.formatDateTimeCompact(item.datetime)
       return `${name}&nbsp;<small>(${date})</small>`
+    },
+    reset() {
+      this.instances = null
+      this.newInstance = false
+      this.selectedCompetencies = []
+      this.selectedInstance = null
+
+      this.$emit('input', null)
     },
     selectInstance(value) {
       if (value === null) {

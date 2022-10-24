@@ -1,5 +1,11 @@
 <template>
-  <v-list-item class="unselected" :class="{ selected: state.selected }">
+  <v-list-item
+    class="unselected"
+    :class="{
+      past: state.selected && state.past,
+      selected: state.selected && !state.past,
+    }"
+  >
     <v-list-item-content>
       <v-list-item-title>
         <v-checkbox
@@ -129,17 +135,13 @@ export default {
         if (!this.state.checklist) {
           this.state.checklist = {}
         }
-        // this.state.checklist = value.checklist
-        // this.state.disabled = value.disabled
-        // this.state.learningOutcomes = value.learningOutcomes
-        // this.state.selected = value.selected
       },
       immediate: true,
     },
   },
   methods: {
     color(state) {
-      return state.selected ? 'success' : 'primary'
+      return !state.selected ? 'primary' : state.past ? 'blue-grey' : 'success'
     },
     updateSelected() {
       this.state.selected = this.state.learningOutcomes?.every(
@@ -147,44 +149,22 @@ export default {
       )
     },
   },
-  // watch: {
-  //   value: {
-  //     handler(value) {
-  //       console.log('Changed : ', value)
-
-  //       if (!this.value || !value.checklist || !value.learningOutcomes) {
-  //         console.log('JE SUIS DANS LE IF')
-
-  //         this.state = {
-  //           checklist: {
-  //             private: value?.checklist?.private ?? [],
-  //             public: value?.checklist?.public ?? [],
-  //           },
-  //           disabled: false,
-  //           learningOutcomes: value?.learningOutcomes ?? [],
-  //           selected: false,
-  //         }
-
-  //         return this.$emit('input', this.state)
-  //       }
-
-  //       this.state = value
-  //     },
-  //     immediate: true,
-  //   },
-  // },
 }
 </script>
 
 <style scoped>
+.past {
+  border-left: 6px solid #607d8b;
+  padding-left: 9px !important;
+}
 .selected {
-  border-left: 3px solid green;
+  border-left: 6px solid green;
   padding-left: 9px !important;
 }
 .title {
   color: rgba(0, 0, 0, 0.87);
 }
 .unselected {
-  padding-left: 12px;
+  padding-left: 15px;
 }
 </style>

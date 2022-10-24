@@ -1,14 +1,13 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/teach/getCourseAssessment.gql')"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/teach/getAssessment.gql')"
     :variables="{ courseCode, assessmentId }"
-    @result="setTitle"
+    @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error">
+    <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
 
@@ -16,18 +15,33 @@
           <v-tabs v-model="currentTab" show-arrows>
             <v-tab>{{ $t('assessment.description') }}</v-tab>
             <v-tab>{{ $t('assessment.competencies._') }}</v-tab>
+            <v-tab>{{ $tc('evaluation._', 2) }}</v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <div v-html="data?.assessment.description" />
+                <description-content
+                  entity="assessment.description"
+                  :text="assessment?.description"
+                />
               </v-tab-item>
 
               <v-tab-item>
                 <assessment-competencies-list
                   :assessment-id="assessmentId"
                   :course-code="courseCode"
+                />
+              </v-tab-item>
+
+              <v-tab-item>
+                <evaluations-list
+                  :assessment-id="assessmentId"
+                  :course-code="courseCode"
+                  hide-filter-bar
+                  hide-footer
+                  published
+                  space="teach"
                 />
               </v-tab-item>
             </v-tabs-items>
@@ -57,6 +71,8 @@ export default {
   mixins: [titles],
   data() {
     return {
+      assessment: null,
+      course: null,
       currentTab: 0,
       title: '',
     }
@@ -70,13 +86,22 @@ export default {
     assessmentId() {
       return this.$route.params.id
     },
+    canShowContent() {
+      return !this.course || this.course.isCoordinator || this.course.isTeacher
+    },
     courseCode() {
       return this.$route.params.code
     },
   },
   methods: {
-    setTitle({ data }) {
-      this.title = data?.assessment?.name ?? ''
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.assessment = data.assessment
+      this.course = data.course
+      this.title = data.assessment?.name ?? ''
     },
   },
   meta: {

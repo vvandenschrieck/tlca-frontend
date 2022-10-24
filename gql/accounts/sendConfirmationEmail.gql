@@ -1,0 +1,5 @@
+mutation SendConfirmationEmail($usernameOrEmail: String!) {
+  sendConfirmationEmail(
+    usernameOrEmail: $usernameOrEmail
+  )
+}

@@ -1,0 +1,8 @@
+query GetResourcesInfo($courseCode: ID!) {
+  resources(courseCode: $courseCode) {
+    id
+    name
+    size
+    type
+  }
+}

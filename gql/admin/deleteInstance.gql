@@ -1,0 +1,3 @@
+mutation DeleteInstance($id: ID!) {
+  deleteInstance(id: $id)
+}

@@ -1,7 +1,7 @@
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
-    :query="require('~/gql/learn/getCourseAssessment.gql')"
+    :query="require('~/gql/learn/getAssessment.gql')"
     :variables="{ courseCode, assessmentId }"
     @result="setResult"
   >
@@ -118,9 +118,13 @@ export default {
   },
   methods: {
     setResult({ data }) {
-      this.assessment = data?.assessment
-      this.course = data?.course
-      this.title = data?.assessment?.name ?? ''
+      if (!data) {
+        return
+      }
+
+      this.assessment = data.assessment
+      this.course = data.course
+      this.title = data.assessment?.name ?? ''
     },
     async submit() {
       this.formBusy = true

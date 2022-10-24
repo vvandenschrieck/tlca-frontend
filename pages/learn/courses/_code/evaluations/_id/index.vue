@@ -1,14 +1,13 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/learn/getCourseEvaluation.gql')"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/learn/getEvaluation.gql')"
     :variables="{ courseCode, evaluationId }"
-    @result="setTitle"
+    @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error && data?.course?.isRegistered">
+    <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
@@ -19,41 +18,37 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <!-- Either show comment (published/unpublished) or explanation (requested) -->
-                <div v-if="showComment(data)">
+                <div v-if="showComment">
                   <h4>{{ $t('evaluation.comment._') }}</h4>
 
                   <description-content
                     entity="evaluation.comment"
-                    :text="data?.evaluation?.comment"
+                    :text="evaluation?.comment"
                   />
                 </div>
 
-                <div v-if="showRejectionReason(data)">
+                <div v-if="showRejectionReason">
                   <h4>{{ $t('evaluation.rejectionReason') }}</h4>
 
-                  <description-content
-                    :text="data?.evaluation?.rejectionReason"
-                  />
+                  <description-content :text="evaluation?.rejectionReason" />
                 </div>
 
-                <div v-if="showExplanation(data)">
+                <div v-if="showExplanation">
                   <h4>{{ $t('evaluation.explanation._') }}</h4>
 
                   <description-content
                     entity="evaluation.explanation"
-                    :text="data?.evaluation?.explanation"
+                    :text="evaluation?.explanation"
                   />
                 </div>
 
-                <!-- Show list of competencies and checked items/learning outcomes -->
                 <h4>{{ $tc('competency._', 2) }}</h4>
 
                 <assessment-competencies-list
-                  v-if="data?.evaluation"
-                  :assessment-id="data.evaluation.assessment.id"
+                  v-if="evaluation"
+                  :assessment-id="evaluation.assessment.id"
                   :course-code="courseCode"
-                  :selected="data?.evaluation.competencies"
+                  :selected="evaluation.competencies"
                   student-view
                 />
               </v-tab-item>
@@ -83,43 +78,54 @@
 import titles from '@/mixins/titles.js'
 
 export default {
-  name: 'LearnCourseEvaluationPage',
+  name: 'LearnEvaluationPage',
   mixins: [titles],
   data() {
     return {
+      course: null,
       currentTab: 0,
+      evaluation: null,
       title: '',
     }
   },
   head() {
     return {
-      title: this.getTitle(this.title, 'evaluation._', 'learn'),
+      title: this.getTitle(this.title, null, 'learn'),
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isRegistered
+    },
     courseCode() {
       return this.$route.params.code
     },
     evaluationId() {
       return this.$route.params.id
     },
+    showComment() {
+      return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
+        this.evaluation?.status
+      )
+    },
+    showExplanation() {
+      return ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(
+        this.evaluation?.status
+      )
+    },
+    showRejectionReason() {
+      return this.evaluation?.status === 'REJECTED'
+    },
   },
   methods: {
-    setTitle({ data }) {
-      this.title = data?.evaluation?.assessment.name ?? ''
-    },
-    showComment(data) {
-      return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
-        data?.evaluation?.status
-      )
-    },
-    showExplanation(data) {
-      return ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(
-        data?.evaluation?.status
-      )
-    },
-    showRejectionReason(data) {
-      return data?.evaluation?.status === 'REJECTED'
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.course = data.course
+      this.evaluation = data.evaluation
+      this.title = data.evaluation?.assessment.name ?? ''
     },
   },
   meta: {

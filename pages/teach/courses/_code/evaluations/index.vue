@@ -38,12 +38,7 @@
         <course-schedule-panel :course-code="courseCode" />
       </v-col>
 
-      <actions-menu
-        :create-link="{
-          name: 'teach-courses-code-evaluations-create',
-          params: { code: courseCode },
-        }"
-      />
+      <actions-menu :create-link="createLink" />
     </v-row>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
@@ -51,14 +46,14 @@
 </template>
 
 <script>
-import datetime from '@/mixins/datetime.js'
 import titles from '@/mixins/titles.js'
 
 export default {
   name: 'TeachEvaluationsPage',
-  mixins: [datetime, titles],
+  mixins: [titles],
   data() {
     return {
+      course: null,
       currentTab: 0,
       title: '',
     }
@@ -74,6 +69,12 @@ export default {
     },
     courseCode() {
       return this.$route.params.code
+    },
+    createLink() {
+      return {
+        name: 'teach-courses-code-evaluations-create',
+        params: { code: this.courseCode },
+      }
     },
   },
   methods: {

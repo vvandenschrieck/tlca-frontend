@@ -1,14 +1,13 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/learn/getCourseAssessment.gql')"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/learn/getAssessment.gql')"
     :variables="{ courseCode, assessmentId }"
-    @result="setTitle"
+    @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
 
-    <v-row v-if="!error && data?.course?.isRegistered">
+    <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-card :loading="!!isLoading">
           <v-tabs v-model="currentTab" show-arrows>
@@ -19,7 +18,10 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <div v-html="data?.assessment.description" />
+                <description-content
+                  entity="assessment.description"
+                  :text="assessment?.description"
+                />
               </v-tab-item>
 
               <v-tab-item>
@@ -43,12 +45,12 @@
         <assessment-schedule-panel :assessment-id="assessmentId" class="mt-5" />
 
         <v-btn
-          v-if="data?.assessment.provider"
+          v-if="assessment?.provider"
           class="mt-5"
           color="success"
           :loading="createEvaluation"
           small
-          @click="take(data?.assessment.id)"
+          @click="take(assessment?.id)"
         >
           Take
         </v-btn>
@@ -67,6 +69,8 @@ export default {
   mixins: [titles],
   data() {
     return {
+      assessment: null,
+      course: null,
       createEvaluation: false,
       currentTab: 0,
       title: '',
@@ -78,6 +82,9 @@ export default {
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isRegistered
+    },
     assessmentId() {
       return this.$route.params.id
     },
@@ -86,8 +93,14 @@ export default {
     },
   },
   methods: {
-    setTitle({ data }) {
-      this.title = data?.assessment?.name ?? ''
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.assessment = data.assessment
+      this.course = data.course
+      this.title = data.assessment?.name ?? ''
     },
     async take(id) {
       this.createEvaluation = true
