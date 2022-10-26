@@ -529,6 +529,9 @@
     },
     "workload": "Workload"
   },
+  "groups": {
+    "no": "There are no groups for now"
+  },
   "homepage": {
     "presentation": "<p>The <em>TLC Academy</em> is the best place where you can <b>learn anything</b> and gain competencies!</p><p>Whether for medium or long term trainings, or for a simple micro-course, learn at your <b>own pace</b> and accumulate <b>competency stars</b> to strenghten your personal profile.</p>",
     "see_all_courses": "See all courses",
