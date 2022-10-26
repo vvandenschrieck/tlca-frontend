@@ -219,6 +219,7 @@
       "add": "Add a group",
       "name": "Name",
       "no": "There are no groups for now",
+      "size": "Size",
       "supervisor": "Supervisor",
       "teaching": {
         "_": "Teaching group",

@@ -21,6 +21,7 @@ query GetCourse($code: ID!) {
       }
       working {
         name
+        size
       }
     }
     isPublished

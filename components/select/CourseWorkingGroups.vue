@@ -22,25 +22,23 @@
         </v-col>
 
         <v-col cols="12" md="5">
-          <v-select-with-validation
-            v-model="group.supervisor"
+          <v-text-field
+            v-model="group.size"
             dense
-            :items="teachers"
-            required
-            rules="required"
-            :vid="`group-${index}-supervisor`"
+            type="number"
+            :vid="`group-${index}-size`"
           />
         </v-col>
 
         <v-col class="text-center" cols="12" md="1">
-          <v-btn :disabled="disabled" icon @click="removeGroup(index)">
+          <v-btn :disabled="disabled" icon @click="() => removeGroup(index)">
             <v-icon small>mdi-delete</v-icon>
           </v-btn>
         </v-col>
       </v-row>
     </div>
 
-    <div v-else>{{ $t('course.groups.teaching.no') }}</div>
+    <div v-else>{{ $t('course.groups.working.no') }}</div>
 
     <div class="text-right mt-5">
       <v-row>
@@ -49,14 +47,9 @@
         </v-col>
 
         <v-col cols="12" md="6">
-          <v-btn
-            class="mb-1"
-            :disabled="!teachers.length || disabled"
-            small
-            @click="addGroup"
-          >
+          <v-btn class="mb-1" :disabled="disabled" small @click="addGroup">
             <v-icon left>mdi-plus</v-icon>
-            {{ $t('course.groups.teaching.add') }}
+            {{ $t('course.groups.working.add') }}
           </v-btn>
         </v-col>
       </v-row>
@@ -68,16 +61,12 @@
 import { ValidationProvider } from 'vee-validate'
 
 export default {
-  name: 'SelectCourseTeachingGroups',
+  name: 'SelectCourseWorkingGroups',
   components: { ValidationProvider },
   props: {
     disabled: {
       type: Boolean,
       default: false,
-    },
-    teachers: {
-      type: Array,
-      required: true,
     },
     value: {
       type: Array,
@@ -96,7 +85,7 @@ export default {
     headers() {
       return [
         { title: this.$t('course.groups.name'), size: 6 },
-        { title: this.$t('course.groups.supervisor'), size: 5 },
+        { title: this.$t('course.groups.size'), size: 5 },
         { title: this.$tc('general.action', 1), size: 1 },
       ]
     },
