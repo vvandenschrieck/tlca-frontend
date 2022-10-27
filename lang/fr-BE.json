@@ -205,7 +205,10 @@
     "coordinator": "@:global.coordinator",
     "create": "@:general.create un cours",
     "description": "@:global.description._",
-    "edit": "@:general.edit un cours",
+    "edit": {
+      "_": "@:general.edit un cours",
+      "warning": "Étant donné que le cours est publié, tous les champs ne peuvent pas être modifiés"
+    },
     "field": "@:global.field",
     "filter": {
       "role": "Rôle",
@@ -216,6 +219,7 @@
       "add": "Ajouter un groupe",
       "name": "Nom",
       "no": "Il n'y a pas de groupes pour le moment",
+      "size": "Taille",
       "supervisor": "Superviseur",
       "teaching": {
         "_": "Groupe d'enseignement",
@@ -439,10 +443,12 @@
     "list": "Liste",
     "max_n": "{n} max",
     "max_nb": "Nombre maximal",
+    "no": "Non",
     "owner": "Propriétaire",
     "plus_other": "(+ {n} autre) | (+ {n} autres)",
     "progress": "Progression",
     "reject": "Rejeter",
+    "request": "Demande",
     "reset": "Réinitialiser",
     "save": "Enregistrer",
     "send": "Envoyer",
@@ -524,6 +530,9 @@
       "public": "Public"
     },
     "workload": "Charge de travail"
+  },
+  "groups": {
+    "no": "Il n'y a pas de groupes pour le moment"
   },
   "homepage": {
     "presentation": "<p>La <em>TLC Academy</em> est le meilleur endroit où vous pouvez <b>tout apprendre</b> et acquérir des compétences !</p><p>Que ce soit pour des formations à moyen ou long terme, ou pour un simple micro-cours, apprenez à votre <b>propre rythme</b> et accumulez des <b>étoiles de compétence</b> pour renforcer votre profil personnel.</p>",

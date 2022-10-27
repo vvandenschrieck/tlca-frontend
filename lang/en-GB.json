@@ -205,7 +205,10 @@
     "coordinator": "@:global.coordinator",
     "create": "@:general.create a course",
     "description": "@:global.description._",
-    "edit": "@:general.edit a course",
+    "edit": {
+      "_": "@:general.edit a course",
+      "warning": "Since the course is published, not all the fields can be edited"
+    },
     "field": "@:global.field",
     "filter": {
       "role": "Role",
@@ -216,6 +219,7 @@
       "add": "Add a group",
       "name": "Name",
       "no": "There are no groups for now",
+      "size": "Size",
       "supervisor": "Supervisor",
       "teaching": {
         "_": "Teaching group",
@@ -439,10 +443,12 @@
     "list": "List",
     "max_n": "Max {n}",
     "max_nb": "Max number",
+    "no": "No",
     "owner": "Owner",
     "plus_other": "(+ {n} other) | (+ {n} others)",
     "progress": "Progress",
     "reject": "Reject",
+    "request": "Request",
     "reset": "Reset",
     "save": "Save",
     "send": "Send",
@@ -524,6 +530,9 @@
       "public": "Public"
     },
     "workload": "Workload"
+  },
+  "groups": {
+    "no": "There are no groups for now"
   },
   "homepage": {
     "presentation": "<p>The <em>TLC Academy</em> is the best place where you can <b>learn anything</b> and gain competencies!</p><p>Whether for medium or long term trainings, or for a simple micro-course, learn at your <b>own pace</b> and accumulate <b>competency stars</b> to strenghten your personal profile.</p>",

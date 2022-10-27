@@ -1,0 +1,17 @@
+query GetAssessmentsInfo($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    groups {
+      teaching {
+        name
+      }
+      working {
+        name
+      }
+    }
+    teachers {
+      displayName
+      username
+    }
+  }
+}

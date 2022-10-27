@@ -1,5 +1,4 @@
 mutation CreateAssessment(
-  $canRequestEvaluation: Boolean
   $category: AssessmentCategory!
   $code: String
   $competencies: [AssessmentCompetencyInput!]
@@ -7,6 +6,7 @@ mutation CreateAssessment(
   $createEvent: Boolean
   $description: String!
   $end: DateTime
+  $evaluationRequest: Boolean
   $incremental: Boolean
   $instances: Int
   $load: AssessmentLoadInput
@@ -18,7 +18,6 @@ mutation CreateAssessment(
   $takes: Int
 ) {
   createAssessment(
-    canRequestEvaluation: $canRequestEvaluation
     category: $category
     code: $code
     competencies: $competencies
@@ -26,6 +25,7 @@ mutation CreateAssessment(
     createEvent: $createEvent
     description: $description
     end: $end
+    evaluationRequest: $evaluationRequest
     incremental: $incremental
     instances: $instances
     load: $load

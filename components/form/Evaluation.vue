@@ -209,7 +209,10 @@ export default {
         competencies: this.selectedCompetencies
           .filter((c) => !c.disabled)
           .map((c) => ({
-            checklist: c.checklist,
+            checklist: {
+              ...c.checklist,
+              __typename: undefined,
+            },
             competency: c.competency,
             learningOutcomes: c.learningOutcomes?.map(
               (lo) => lo.selected && !lo.disabled

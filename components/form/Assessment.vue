@@ -177,7 +177,7 @@
 
             <v-col cols="12" md="6">
               <v-switch
-                v-model="canRequestEvaluation"
+                v-model="evaluationRequest"
                 class="ml-3"
                 dense
                 :label="$t('assessment.evaluation_request')"
@@ -268,13 +268,13 @@ export default {
   },
   data() {
     return {
-      canRequestEvaluation: false,
       category: '',
       code: '',
       competencies: [{}],
       createEvent: false,
       description: '',
       end: '',
+      evaluationRequest: false,
       formBusy: false,
       formError: null,
       hasOralDefense: false,
@@ -332,7 +332,6 @@ export default {
       const assessment = this.assessment
       const load = assessment?.load
 
-      this.canRequestEvaluation = assessment?.canRequestEvaluation ?? false
       this.category = assessment?.category ?? ''
       this.code = assessment?.code ?? ''
       this.competencies = assessment?.competencies.map((c) => ({
@@ -350,6 +349,7 @@ export default {
       //   this.createEvent = false
       this.description = assessment?.description ?? ''
       this.end = assessment?.end ?? ''
+      this.evaluationRequest = assessment?.evaluationRequest ?? false
       this.hasOralDefense = assessment?.hasOralDefense ?? false
       this.instances = assessment?.instances ?? ''
       this.isIncremental = assessment?.isIncremental ?? false
@@ -394,13 +394,13 @@ export default {
         : undefined
 
       const data = {
-        canRequestEvaluation: this.canRequestEvaluation,
         category: this.category,
         code: this.code,
         competencies,
         createEvent: this.createEvent,
         description: this.description,
         end: this.end,
+        evaluationRequest: this.evaluationRequest,
         incremental: this.isIncremental,
         instances: parseInt(this.instances, 10),
         load,

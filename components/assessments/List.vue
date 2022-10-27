@@ -86,7 +86,7 @@ export default {
   },
   data() {
     return {
-      groupByCategory: false,
+      groupByCategory: true,
     }
   },
   computed: {

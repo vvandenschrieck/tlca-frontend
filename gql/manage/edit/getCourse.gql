@@ -21,8 +21,10 @@ query GetCourse($code: ID!) {
       }
       working {
         name
+        size
       }
     }
+    isPublished
     language
     load {
       ects

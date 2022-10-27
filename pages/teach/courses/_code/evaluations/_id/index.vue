@@ -12,6 +12,7 @@
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
             <v-tab>{{ $tc('evaluation._', 1) }}</v-tab>
+            <v-tab v-if="showRequest">{{ $t('general.request') }}</v-tab>
             <v-tab>{{ $t('general.history') }}</v-tab>
           </v-tabs>
 
@@ -43,9 +44,11 @@
                 </div>
 
                 <h4>{{ $tc('competency._', 2) }}</h4>
+
                 <!-- C: {{ evaluation?.competencies }}<br /><br />
                 PC: {{ evaluation?.pastCompetencies }}<br /><br />
                 S: {{ selectedCompetencies }} -->
+
                 <assessment-competencies-list
                   v-if="evaluation"
                   :assessment-id="evaluation.assessment.id"
@@ -61,6 +64,24 @@
                     :text="evaluation?.note"
                   />
                 </div>
+              </v-tab-item>
+
+              <v-tab-item v-if="showRequest">
+                <h4>{{ $t('evaluation.explanation._') }}</h4>
+
+                <description-content
+                  entity="evaluation.explanation"
+                  :text="evaluation?.explanation"
+                />
+
+                <h4>{{ $tc('competency._', 2) }}</h4>
+
+                <assessment-competencies-list
+                  v-if="evaluation"
+                  :assessment-id="evaluation.assessment.id"
+                  :course-code="courseCode"
+                  :selected="evaluation.requestedCompetencies"
+                />
               </v-tab-item>
 
               <v-tab-item>
@@ -173,15 +194,24 @@ export default {
         return []
       }
 
-      const selected = [...this.evaluation.competencies]
-      for (const competency of this.evaluation.pastCompetencies) {
-        const c = selected.find(
-          (c) => c.competency.code === competency.competency.code
-        )
-        if (!c) {
-          selected.push({ ...competency, past: true })
-        } else {
-          c.pastLearningOutcomes = competency.learningOutcomes ?? undefined
+      const selected = []
+
+      // If there are competencies, add them to 'selected', as selected ones.
+      if (this.evaluation.competencies?.length) {
+        selected.push(...this.evaluation.competencies)
+      }
+
+      // If there are past competencies, add them to 'selected', as past ones.
+      if (this.evaluation.pastCompetencies?.length) {
+        for (const competency of this.evaluation.pastCompetencies) {
+          const c = selected.find(
+            (c) => c.competency.code === competency.competency.code
+          )
+          if (!c) {
+            selected.push({ ...competency, past: true })
+          } else {
+            c.pastLearningOutcomes = competency.learningOutcomes ?? undefined
+          }
         }
       }
 
@@ -193,9 +223,7 @@ export default {
       )
     },
     showExplanation() {
-      return ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(
-        this.evaluation?.status
-      )
+      return ['REJECTED', 'REQUESTED'].includes(this.evaluation?.status)
     },
     showNote() {
       return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
@@ -204,6 +232,9 @@ export default {
     },
     showRejectionReason() {
       return this.evaluation?.status === 'REJECTED'
+    },
+    showRequest() {
+      return this.evaluation?.status === 'ACCEPTED'
     },
   },
   methods: {
@@ -225,7 +256,8 @@ export default {
 
         if (response) {
           // TODO: replace with cache update.
-          this.evaluation.competencies = null
+          this.evaluation.requestedCompetencies = this.evaluation.competencies
+          this.evaluation.competencies = []
           this.evaluation.isRequestPending = false
           this.evaluation.status = 'ACCEPTED'
           this.$notificationManager.displaySuccessMessage(

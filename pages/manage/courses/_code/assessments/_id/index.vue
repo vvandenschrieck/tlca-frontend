@@ -47,7 +47,7 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <assessment-info-panel :assessment-id="assessmentId" />
+          <assessment-info-panel :assessment-id="assessmentId" teacher-view />
         </v-col>
       </v-row>
 

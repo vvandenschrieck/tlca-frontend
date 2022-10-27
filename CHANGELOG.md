@@ -1,3 +1,22 @@
+## 1.1.14 (2022-10-27)
+
+### Features
+
+- **courses:** define working groups for a course (coordinator)
+- **courses:** get the list of working groups for a course (coordinator)
+
+### Improvements
+
+- added a warning to the course page when editing a published one
+- added checks for the evaluation request against the assessement dates
+- grouped assessments by categories by default
+- grouped evaluations by status by default
+
+### Bug Fixes
+
+- **evaluations:** hid the evaluation request button on assessments list when the current date is not within the assessment schedule
+- **evaluations:** fixed issue in the evaluation detail and edit pages
+
 ## 1.1.13 (2022-10-24)
 
 ### Bug Fixes

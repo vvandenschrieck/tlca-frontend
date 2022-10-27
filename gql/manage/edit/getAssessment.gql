@@ -18,6 +18,7 @@ query GetAssessment($assessmentId: ID!) {
     }
     description
     end
+    evaluationRequest
     hasOralDefense
     id
     instances
