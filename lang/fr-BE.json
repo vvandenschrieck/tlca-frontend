@@ -355,7 +355,8 @@
       "no": "Pas de commentaire"
     },
     "competencies": {
-      "_": "@:global.competencies._"
+      "_": "@:global.competencies._",
+      "in_progress": "@:global.competencies._ en progrès"
     },
     "create": "@:general.create un passage d'évaluation",
     "created": "Date de création",
