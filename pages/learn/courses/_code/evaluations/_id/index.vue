@@ -104,9 +104,7 @@ export default {
       return this.$route.params.id
     },
     showComment() {
-      return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
-        this.evaluation?.status
-      )
+      return this.evaluation?.status === 'PUBLISHED'
     },
     showExplanation() {
       return ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(

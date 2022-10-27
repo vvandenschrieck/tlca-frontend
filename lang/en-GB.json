@@ -448,6 +448,7 @@
     "plus_other": "(+ {n} other) | (+ {n} others)",
     "progress": "Progress",
     "reject": "Reject",
+    "request": "Request",
     "reset": "Reset",
     "save": "Save",
     "send": "Send",
