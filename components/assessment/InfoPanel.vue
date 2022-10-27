@@ -3,7 +3,7 @@
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/infopanels/getAssessmentInfo.gql')"
     :update="(data) => data.assessment"
-    :variables="{ id: assessmentId }"
+    :variables="{ id: assessmentId, teacherView }"
     @result="setItems"
   >
     <generic-info-panel
@@ -28,6 +28,10 @@ export default {
       type: String,
       required: true,
     },
+    teacherView: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -39,7 +43,7 @@ export default {
       const items = []
 
       if (assessment) {
-        // Assessment instances.
+        // Instances.
         const instances = assessment.instances
         items.push({
           icon: 'mdi-layers-triple',
@@ -49,7 +53,7 @@ export default {
           tooltip: this.$t('assessment.instance.max_nb'),
         })
 
-        // Assessment type.
+        // Type.
         const type = assessment.type
         items.push({
           icon: 'mdi-multiplication-box',
@@ -57,7 +61,7 @@ export default {
           tooltip: this.$t('assessment.type._'),
         })
 
-        // Assessment max takes.
+        // Max takes.
         const takes = assessment.takes
         if (takes && type === 'INCREMENTAL') {
           items.push({
@@ -67,7 +71,7 @@ export default {
           })
         }
 
-        // Assessment work load.
+        // Work load.
         const workload = assessment.load?.work
         if (workload) {
           items.push({
@@ -78,7 +82,7 @@ export default {
           })
         }
 
-        // Assessment oral defense.
+        // Oral defense.
         if (assessment.hasOralDefense) {
           const defenseDuration = assessment.load?.defense
           items.push({
@@ -93,15 +97,17 @@ export default {
           })
         }
 
-        // Assessment evaluation request.
-        const evaluationRequest = assessment.evaluationRequest
-        items.push({
-          icon: 'mdi-clipboard-edit',
-          text: evaluationRequest
-            ? this.$t('general.yes')
-            : this.$t('general.no'),
-          tooltip: this.$t('assessment.evaluation_request'),
-        })
+        // Evaluation request.
+        if (this.teacherView) {
+          const evaluationRequest = assessment.evaluationRequest
+          items.push({
+            icon: 'mdi-clipboard-edit',
+            text: evaluationRequest
+              ? this.$t('general.yes')
+              : this.$t('general.no'),
+            tooltip: this.$t('assessment.evaluation_request'),
+          })
+        }
       }
 
       this.items = items
