@@ -37,6 +37,16 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       selected
     }
     rejectionReason
+    requestedCompetencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
     status
   }
 }

@@ -21,7 +21,7 @@
               <groups-info-card
                 v-if="showGroupsInfo(course)"
                 class="mt-5"
-                :course="course"
+                :course-code="courseCode"
               />
             </v-col>
 

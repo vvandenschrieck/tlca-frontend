@@ -6,6 +6,16 @@
       </v-alert>
 
       <v-stepper non-linear vertical>
+        <v-alert
+          v-if="course?.isPublished"
+          class="ma-3"
+          dense
+          outlined
+          type="warning"
+        >
+          {{ $t('course.edit.warning') }}
+        </v-alert>
+
         <stepper-step step="1" :title="$t('general.information.general')">
           <v-row>
             <v-col cols="12" md="2">
@@ -283,7 +293,6 @@
 
               <select-course-teaching-groups
                 v-model="groups.teaching"
-                class="mt-5"
                 :disabled="formBusy"
                 :teachers="teachers"
                 vid="groups-teaching"
@@ -291,7 +300,11 @@
 
               <h3>{{ $t('course.groups.working._') }}</h3>
 
-              <v-alert type="info" dense outlined>Upcoming feature</v-alert>
+              <select-course-working-groups
+                v-model="groups.working"
+                :disabled="formBusy"
+                vid="groups-working"
+              />
             </v-col>
           </v-row>
         </stepper-step>
@@ -427,6 +440,12 @@ export default {
             __typename: undefined,
           }))
         }
+        if (course.groups.working) {
+          groups.working = course.groups.working.map((g) => ({
+            ...g,
+            __typename: undefined,
+          }))
+        }
       }
 
       // Initialise the schedule.
@@ -479,6 +498,14 @@ export default {
     async submit() {
       this.formBusy = true
 
+      const groups = {
+        teaching: this.groups.teaching,
+        working: this.groups.working.map((g) => ({
+          ...g,
+          size: parseInt(g.size, 10),
+        })),
+      }
+
       const load = {}
       if (this.loadType) {
         load.type = this.loadType
@@ -502,7 +529,7 @@ export default {
         competencies: this.competencies,
         description: this.description,
         field: this.field,
-        groups: this.groups,
+        groups,
         language: this.language,
         load,
         name: this.name,

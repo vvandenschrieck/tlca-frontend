@@ -1,4 +1,4 @@
-query GetCourseEvaluation($courseCode: ID!, $evaluationId: ID!) {
+query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
   evaluation(id: $evaluationId) {
     assessment {
       id

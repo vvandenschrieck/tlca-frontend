@@ -116,7 +116,7 @@ export default {
     return {
       evaluations: null,
       filter: {},
-      groupByStatus: false,
+      groupByStatus: true,
     }
   },
   computed: {

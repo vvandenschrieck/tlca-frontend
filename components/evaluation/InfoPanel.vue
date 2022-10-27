@@ -129,13 +129,18 @@ export default {
       }
 
       // Creation date.
-      const created = evaluation.created
-      if (created && (evaluation.status !== 'PUBLISHED' || created !== date)) {
-        items.push({
-          icon: 'mdi-calendar-clock',
-          text: this.formatDateTimeFull(created),
-          tooltip: this.$t('evaluation.created'),
-        })
+      if (this.teacherView) {
+        const created = evaluation.created
+        if (
+          created &&
+          (evaluation.status !== 'PUBLISHED' || created !== date)
+        ) {
+          items.push({
+            icon: 'mdi-calendar-clock',
+            text: this.formatDateTimeFull(created),
+            tooltip: this.$t('evaluation.created'),
+          })
+        }
       }
 
       this.items = items
