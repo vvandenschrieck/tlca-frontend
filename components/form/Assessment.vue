@@ -68,7 +68,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="2">
+            <v-col cols="12" md="4">
               <v-switch
                 v-model="isIncremental"
                 class="ml-3"
@@ -84,7 +84,7 @@
                 clearable
                 :hint="$t('general.max_nb')"
                 :label="$t('assessment.takes._')"
-                rules="positive"
+                rules="min_value:2"
                 type="number"
                 vid="takes"
               />
@@ -94,7 +94,7 @@
           <v-row>
             <v-col cols="12" md="4" />
 
-            <v-col cols="12" md="2">
+            <v-col cols="12" md="4">
               <v-switch
                 v-model="isPhased"
                 class="ml-3"
