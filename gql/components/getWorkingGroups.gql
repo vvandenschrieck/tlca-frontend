@@ -1,0 +1,18 @@
+query GetWorkingGroups($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    groups {
+      working {
+        name
+        size
+      }
+    }
+  }
+
+  registrations(courseCode: $courseCode) {
+    id
+    group {
+      working
+    }
+  }
+}
