@@ -443,6 +443,7 @@
     "list": "List",
     "max_n": "Max {n}",
     "max_nb": "Max number",
+    "no": "No",
     "owner": "Owner",
     "plus_other": "(+ {n} other) | (+ {n} others)",
     "progress": "Progress",

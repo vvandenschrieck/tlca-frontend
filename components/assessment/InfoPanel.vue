@@ -92,6 +92,16 @@ export default {
             tooltip: this.$t('assessment.load.defense'),
           })
         }
+
+        // Assessment evaluation request.
+        const evaluationRequest = assessment.evaluationRequest
+        items.push({
+          icon: 'mdi-clipboard-edit',
+          text: evaluationRequest
+            ? this.$t('general.yes')
+            : this.$t('general.no'),
+          tooltip: this.$t('assessment.evaluation_request'),
+        })
       }
 
       this.items = items

@@ -1,5 +1,6 @@
 query GetAssessmentInfo($id: ID!) {
   assessment(id: $id) {
+    evaluationRequest
     hasOralDefense
     id
     instances
