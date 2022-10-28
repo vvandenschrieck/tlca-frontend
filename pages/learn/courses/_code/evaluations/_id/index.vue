@@ -55,9 +55,48 @@
                 </div>
 
                 <div v-if="showData">
-                  <h4>{{ $t('evaluation.answer') }}</h4>
+                  <h4>{{ $t('evaluation.answer.mine') }}</h4>
 
-                  {{ evaluation?.data }}
+                  <template v-if="assessment?.provider === 'tfq'">
+                    <template v-for="(block, i) of instance?.content.questions">
+                      <div :key="i">
+                        <h4 class="mt-5">Question {{ i + 1 }}</h4>
+
+                        <i>Compétence visée : {{ block.targetedCompetency }}</i>
+
+                        <v-list class="pa-0" dense>
+                          <template v-for="(question, j) of block.items">
+                            <v-list-item :key="2 * j" class="line" dense>
+                              <v-list-item-content class="pa-0">
+                                <v-list-item-title>
+                                  <v-checkbox
+                                    class="checkbox ml-1"
+                                    dense
+                                    hide-details
+                                    readonly
+                                    :ripple="false"
+                                    :input-value="evaluation?.data.answer[i][j]"
+                                  >
+                                    <span
+                                      slot="label"
+                                      class="checkbox-label text-body-2"
+                                    >
+                                      {{ question }}
+                                    </span>
+                                  </v-checkbox>
+                                </v-list-item-title>
+                              </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider
+                              v-if="j < block.length - 1"
+                              :key="2 * j + 1"
+                            />
+                          </template>
+                        </v-list>
+                      </div>
+                    </template>
+                  </template>
                 </div>
               </v-tab-item>
 
@@ -90,9 +129,11 @@ export default {
   mixins: [titles],
   data() {
     return {
+      assessment: null,
       course: null,
       currentTab: 0,
       evaluation: null,
+      instance: null,
       title: '',
     }
   },
@@ -102,9 +143,6 @@ export default {
     }
   },
   computed: {
-    assessment() {
-      return this.evaluation?.assessment
-    },
     canShowContent() {
       return !this.course || this.course.isRegistered
     },
@@ -142,8 +180,10 @@ export default {
         return
       }
 
+      this.assessment = data.evaluation?.assessment
       this.course = data.course
       this.evaluation = data.evaluation
+      this.instance = data.evaluation?.instance
       this.title = data.evaluation?.assessment.name ?? ''
     },
   },
@@ -152,3 +192,16 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.checkbox:deep(.v-input--selection-controls__input) {
+  align-self: baseline;
+}
+.checkbox-label {
+  text-align: justify;
+  white-space: normal;
+}
+.line {
+  min-height: 30px;
+}
+</style>

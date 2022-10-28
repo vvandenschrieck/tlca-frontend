@@ -359,7 +359,10 @@
   },
   "evaluation": {
     "_": "Evaluation | Evaluations",
-    "answer": "Answer",
+    "answer": {
+      "_": "Answer",
+      "mine": "My answer"
+    },
     "assessment": "Assessment",
     "comment": {
       "_": "Comment",

@@ -4,6 +4,7 @@ query GetEvaluationInfo($id: ID!, $teacherView: Boolean!) {
       code
       id
       name
+      provider
     }
     created @include(if: $teacherView)
     date

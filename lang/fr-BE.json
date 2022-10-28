@@ -359,7 +359,10 @@
   },
   "evaluation": {
     "_": "Passage d'évaluation | Passages d'évaluations",
-    "answer": "Réponse",
+    "answer": {
+      "_": "Réponse",
+      "mine": "Ma réponse"
+    },
     "assessment": "Évaluation",
     "comment": {
       "_": "Commentaire",
