@@ -328,6 +328,7 @@
     "ALREADY_REGISTERED": "L'utilisateur est déjà inscrit au cours",
     "ALREADY_REGISTERED_OR_INVITED": "L'utilisateur est déjà inscrit ou invité au cours",
     "ASSESSMENT_DELETE": "Une erreur inattendue s'est produite lors de la suppression de l'évaluation.",
+    "ASSESSMENT_TAKE": "Une erreur inattendue s'est produite lors de la prise de l'évaluation.",
     "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
     "COMPETENCY_ALREADY_ARCHIVED": "Cette compétence est déjà archivée",
     "COMPETENCY_ARCHIVE": "Une erreur inattendue s'est produite lors de l'archivage de la compétence",

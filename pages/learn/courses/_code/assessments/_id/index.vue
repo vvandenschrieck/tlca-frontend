@@ -116,7 +116,12 @@ export default {
       this.title = data.assessment?.name ?? ''
     },
     async take(id) {
+      if (this.createEvaluation) {
+        return
+      }
+
       this.createEvaluation = true
+
       try {
         const mutation = require(`~/gql/learn/createAssessmentInstance.gql`)
         const response = await this.$apollo
@@ -136,9 +141,7 @@ export default {
             },
           })
         }
-      } catch (err) {
-        this.$notificationManager.displayErrorMessage('ERROR')
-      }
+      } catch (err) {}
 
       this.createEvaluation = false
     },

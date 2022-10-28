@@ -328,6 +328,7 @@
     "ALREADY_REGISTERED": "The user is already registered to the course",
     "ALREADY_REGISTERED_OR_INVITED": "The user is already registered or invited to the course",
     "ASSESSMENT_DELETE": "An unexpected error occurred while deleting the assessment",
+    "ASSESSMENT_TAKE": "An unexpected error occurred while taking the assessment",
     "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
     "COMPETENCY_ALREADY_ARCHIVED": "This competency is already archived",
     "COMPETENCY_ARCHIVE": "An unexpected error occurred while archiving the competency",

@@ -50,7 +50,9 @@ export default {
   watch: {
     remaining(value) {
       if (value !== null) {
-        this.hideTimer = value <= 31
+        if (value <= 31) {
+          this.hideTimer = false
+        }
         if (value <= 0 && !this.isTimeUp) {
           this.isTimeUp = true
           this.$emit('timeup')
