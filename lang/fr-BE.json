@@ -423,6 +423,7 @@
     "deadline": "Échéance",
     "delete": "Supprimer",
     "edit": "Modifier",
+    "export": "Export",
     "filter": {
       "_": "Filtre"
     },

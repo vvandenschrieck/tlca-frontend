@@ -9,9 +9,7 @@
 
     <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
-        <v-progress-linear v-if="!!isLoading" :indeterminate="true" />
-
-        <v-card>
+        <v-card :loading="!!isLoading">
           <v-tabs v-model="currentTab" show-arrows>
             <v-tab>{{ $t('assessment.description') }}</v-tab>
             <v-tab>{{ $t('assessment.competencies._') }}</v-tab>
@@ -54,9 +52,14 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <assessment-info-panel :assessment-id="assessmentId" />
+        <assessment-info-panel :assessment-id="assessmentId" teacher-view />
         <assessment-schedule-panel :assessment-id="assessmentId" class="mt-5" />
       </v-col>
+
+      <actions-menu
+        :custom-actions="customActions"
+        @customActionClicked="onCustomActionClicked"
+      />
     </v-row>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
@@ -65,10 +68,13 @@
 
 <script>
 import titles from '@/mixins/titles.js'
+import utils from '@/mixins/utils.js'
+
+import exportAssessment from '@/gql/teach/exportAssessment.gql'
 
 export default {
-  name: 'TeachCourseAssessmentPage',
-  mixins: [titles],
+  name: 'TeachAssessmentPage',
+  mixins: [titles, utils],
   data() {
     return {
       assessment: null,
@@ -92,8 +98,29 @@ export default {
     courseCode() {
       return this.$route.params.code
     },
+    customActions() {
+      return [
+        {
+          icon: 'mdi-file-export',
+          key: 'export',
+          tooltip: this.$t('general.export'),
+        },
+      ]
+    },
   },
   methods: {
+    async onCustomActionClicked(key) {
+      if (key === 'export') {
+        const result = await this.$apollo
+          .query({
+            query: exportAssessment,
+            variables: { id: this.assessmentId },
+          })
+          .then(({ data }) => data.exportAssessment)
+
+        this.downloadFile(result)
+      }
+    },
     setResult({ data }) {
       if (!data) {
         return
