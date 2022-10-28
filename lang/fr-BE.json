@@ -76,6 +76,10 @@
       "phase_nb": "Phase {nb}"
     },
     "progress_measure": "Mesure du progrès",
+    "provider": {
+      "_": "Fournisseur",
+      "tfq": "Vrai ou faux"
+    },
     "schedule": {
       "_": "@:global.schedule._ de l'évaluation",
       "end": "Date de fin",

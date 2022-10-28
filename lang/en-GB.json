@@ -76,6 +76,10 @@
       "phase_nb": "Phase {nb}"
     },
     "progress_measure": "Progress measure",
+    "provider": {
+      "_": "Provider",
+      "tfq": "True or false"
+    },
     "schedule": {
       "_": "Assessment @.lower:global.schedule._",
       "end": "End date",
