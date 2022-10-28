@@ -354,6 +354,7 @@
   },
   "evaluation": {
     "_": "Passage d'évaluation | Passages d'évaluations",
+    "answer": "Réponse",
     "assessment": "Évaluation",
     "comment": {
       "_": "Commentaire",

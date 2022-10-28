@@ -354,6 +354,7 @@
   },
   "evaluation": {
     "_": "Evaluation | Evaluations",
+    "answer": "Answer",
     "assessment": "Assessment",
     "comment": {
       "_": "Comment",

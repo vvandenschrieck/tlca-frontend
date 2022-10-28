@@ -18,6 +18,18 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
+                <div v-if="showCompetencies">
+                  <h4>{{ $tc('competency._', 2) }}</h4>
+
+                  <assessment-competencies-list
+                    v-if="evaluation"
+                    :assessment-id="evaluation.assessment.id"
+                    :course-code="courseCode"
+                    :selected="evaluation.competencies"
+                    student-view
+                  />
+                </div>
+
                 <div v-if="showComment">
                   <h4>{{ $t('evaluation.comment._') }}</h4>
 
@@ -42,15 +54,11 @@
                   />
                 </div>
 
-                <h4>{{ $tc('competency._', 2) }}</h4>
+                <div v-if="showData">
+                  <h4>{{ $t('evaluation.answer') }}</h4>
 
-                <assessment-competencies-list
-                  v-if="evaluation"
-                  :assessment-id="evaluation.assessment.id"
-                  :course-code="courseCode"
-                  :selected="evaluation.competencies"
-                  student-view
-                />
+                  {{ evaluation?.data }}
+                </div>
               </v-tab-item>
 
               <v-tab-item>
@@ -94,6 +102,9 @@ export default {
     }
   },
   computed: {
+    assessment() {
+      return this.evaluation?.assessment
+    },
     canShowContent() {
       return !this.course || this.course.isRegistered
     },
@@ -103,12 +114,22 @@ export default {
     evaluationId() {
       return this.$route.params.id
     },
+    hasProvider() {
+      return this.assessment?.provider
+    },
     showComment() {
       return this.evaluation?.status === 'PUBLISHED'
     },
+    showCompetencies() {
+      return !this.hasProvider || this.evaluation?.status === 'PUBLISHED'
+    },
+    showData() {
+      return this.hasProvider
+    },
     showExplanation() {
-      return ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(
-        this.evaluation?.status
+      return (
+        !this.hasProvider &&
+        ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(this.evaluation?.status)
       )
     },
     showRejectionReason() {
