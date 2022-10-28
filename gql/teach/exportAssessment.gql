@@ -1,0 +1,3 @@
+query ExportAssessment($id: ID!) {
+  exportAssessment(id: $id)
+}

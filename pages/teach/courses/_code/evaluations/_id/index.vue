@@ -106,10 +106,10 @@
       </v-col>
 
       <actions-menu
-        :custom-action="customAction"
+        :custom-actions="customActions"
         :delete-action="deleteAction"
         :edit-link="editLink"
-        @customActionClicked="publish"
+        @customActionClicked="onCustomActionClicked"
       />
     </v-row>
 
@@ -140,7 +140,7 @@ export default {
     courseCode() {
       return this.$route.params.code
     },
-    customAction() {
+    customActions() {
       if (
         !this.evaluation ||
         !['ACCEPTED', 'UNPUBLISHED'].includes(this.evaluation.status)
@@ -148,10 +148,13 @@ export default {
         return null
       }
 
-      return {
-        icon: 'mdi-cloud-upload',
-        tooltip: this.$t('global.publish'),
-      }
+      return [
+        {
+          icon: 'mdi-cloud-upload',
+          key: 'publish',
+          tooltip: this.$t('global.publish'),
+        },
+      ]
     },
     deleteAction() {
       if (
@@ -267,6 +270,11 @@ export default {
       } catch (err) {}
 
       this.requestHandling = false
+    },
+    async onCustomActionClicked(key) {
+      if (key === 'publish') {
+        await this.publish()
+      }
     },
     async publish() {
       const data = { id: this.evaluationId }

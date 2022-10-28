@@ -25,6 +25,8 @@
                   @change="updateForm"
                 >
                   <template #body="{ selected }">
+                    <v-divider />
+
                     <h4>{{ $t('evaluation.competencies._') }}</h4>
 
                     <assessment-competencies-list
@@ -36,8 +38,6 @@
                       student-view
                     />
 
-                    <h4>{{ $t('evaluation.comment._') }}</h4>
-
                     <v-row>
                       <v-col cols="12" md="12">
                         <v-textarea
@@ -46,7 +46,7 @@
                           clear-icon="mdi-close-circle"
                           clearable
                           filled
-                          :label="$t('evaluation.explanation._')"
+                          :label="$t('evaluation.comment._')"
                         />
                       </v-col>
                     </v-row>

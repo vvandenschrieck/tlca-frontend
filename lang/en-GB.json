@@ -76,6 +76,10 @@
       "phase_nb": "Phase {nb}"
     },
     "progress_measure": "Progress measure",
+    "provider": {
+      "_": "Provider",
+      "tfq": "True or false"
+    },
     "schedule": {
       "_": "Assessment @.lower:global.schedule._",
       "end": "End date",
@@ -86,6 +90,12 @@
     "start": {
       "_": "Opening",
       "date": "Opens on : {start}"
+    },
+    "take": {
+      "_": "Take",
+      "send": {
+        "dialog_instructions": "Are you sure you want to send and finalise this take?"
+      }
     },
     "takes": {
       "_": "Takes",
@@ -318,6 +328,7 @@
     "ALREADY_REGISTERED": "The user is already registered to the course",
     "ALREADY_REGISTERED_OR_INVITED": "The user is already registered or invited to the course",
     "ASSESSMENT_DELETE": "An unexpected error occurred while deleting the assessment",
+    "ASSESSMENT_TAKE": "An unexpected error occurred while taking the assessment",
     "BANNER_UPDATE_ERROR": "An unexpected error occurred while updating the banner.",
     "COMPETENCY_ALREADY_ARCHIVED": "This competency is already archived",
     "COMPETENCY_ARCHIVE": "An unexpected error occurred while archiving the competency",
@@ -349,13 +360,18 @@
   },
   "evaluation": {
     "_": "Evaluation | Evaluations",
+    "answer": {
+      "_": "Answer",
+      "mine": "My answer"
+    },
     "assessment": "Assessment",
     "comment": {
       "_": "Comment",
       "no": "No comment"
     },
     "competencies": {
-      "_": "@:global.competencies._"
+      "_": "@:global.competencies._",
+      "in_progress": "@:global.competencies._ in progress"
     },
     "create": "@:general.create an evaluation",
     "created": "Created date",
@@ -422,6 +438,7 @@
     "deadline": "Deadline",
     "delete": "Delete",
     "edit": "Edit",
+    "export": "Export",
     "filter": {
       "_": "Filter"
     },
@@ -676,6 +693,7 @@
     "REGISTRATION_DELETE": "Registration successfully deleted",
     "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
     "SIGN_UP_SUCCESSFUL": "Successfully signed up!",
+    "TAKE_SEND": "Take successfully sent",
     "USER_EDIT": "User successfully updated"
   },
   "user": {

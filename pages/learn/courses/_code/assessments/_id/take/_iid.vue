@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-v-html -->
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
@@ -61,14 +60,44 @@
             </template>
           </v-card>
 
-          <div class="text-right mt-5">
-            <submit-btn
-              action="send"
-              :disabled="isTimeUp"
-              :loading="formBusy"
-            />
+          <div v-if="!isTimeUp" class="text-right mt-5">
+            <submit-btn action="send" :loading="formBusy" />
           </div>
         </v-form>
+
+        <v-dialog
+          v-model="dialog"
+          :fullscreen="$vuetify.breakpoint.xsOnly"
+          max-width="290"
+          :persistent="formBusy"
+        >
+          <v-card>
+            <v-card-title class="text-h5">
+              {{ $t('general.confirmation') }}
+            </v-card-title>
+
+            <v-card-text>
+              {{ $t('assessment.take.send.dialog_instructions') }}
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer />
+
+              <v-btn :disabled="formBusy" text @click="cancelSubmit">
+                {{ $t('general.cancel') }}
+              </v-btn>
+
+              <v-btn
+                :disabled="formBusy"
+                :loading="formBusy"
+                text
+                @click="finish"
+              >
+                {{ $t('general.send') }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-col>
 
       <v-col
@@ -109,6 +138,7 @@ export default {
       assessment: null,
       autoSaving: false,
       course: null,
+      dialog: false,
       evaluations: null,
       formBusy: false,
       instance: null,
@@ -144,6 +174,27 @@ export default {
       this.autoSaving = true
       await this.save()
       this.autoSaving = false
+    },
+    cancelSubmit() {
+      this.dialog = false
+    },
+    async finish() {
+      this.formBusy = true
+
+      try {
+        const response = await this.save(true)
+        if (response) {
+          this.$router.push({
+            name: 'learn-courses-code-evaluations-id',
+            params: { code: this.courseCode, id: response.id },
+          })
+          this.$notificationManager.displaySuccessMessage(
+            this.$t('success.TAKE_SEND')
+          )
+        }
+      } catch (err) {}
+
+      this.formBusy = false
     },
     initialiseTfq() {
       const content = this.instance.content
@@ -185,14 +236,15 @@ export default {
         }
       }
     },
-    async save() {
+    async save(finalise = false) {
       if (this.isTimeUp) {
         return
       }
 
       const data = {
-        id: this.instanceId,
         answer: this.answer,
+        finalise,
+        id: this.instanceId,
       }
       const mutation = require(`~/gql/learn/saveAssessmentTake.gql`)
       const response = await this.$apollo
@@ -204,19 +256,8 @@ export default {
 
       return response
     },
-    async submit() {
-      this.formBusy = true
-
-      try {
-        const response = await this.save()
-        if (response) {
-          console.log(response)
-        }
-      } catch (err) {
-        console.log(err)
-      }
-
-      this.formBusy = false
+    submit() {
+      this.dialog = true
     },
   },
   meta: {

@@ -1,3 +1,9 @@
-mutation SaveAssessmentTake($id: ID!, $answer: [[Boolean!]!]!) {
-  saveAssessmentTake(id: $id, answer: $answer)
+mutation SaveAssessmentTake(
+  $id: ID!
+  $answer: [[Boolean!]!]!
+  $finalise: Boolean
+) {
+  saveAssessmentTake(id: $id, answer: $answer, finalise: $finalise) {
+    id
+  }
 }

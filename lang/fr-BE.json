@@ -76,6 +76,10 @@
       "phase_nb": "Phase {nb}"
     },
     "progress_measure": "Mesure du progrès",
+    "provider": {
+      "_": "Fournisseur",
+      "tfq": "Vrai ou faux"
+    },
     "schedule": {
       "_": "@:global.schedule._ de l'évaluation",
       "end": "Date de fin",
@@ -86,6 +90,12 @@
     "start": {
       "_": "Date d'ouverture",
       "date": "Ouverture : {start}"
+    },
+    "take": {
+      "_": "Passer",
+      "send": {
+        "dialog_instructions": "Êtes-vous sûr de vouloir envoyer et finaliser ce passage ?"
+      }
     },
     "takes": {
       "_": "Passages",
@@ -318,6 +328,7 @@
     "ALREADY_REGISTERED": "L'utilisateur est déjà inscrit au cours",
     "ALREADY_REGISTERED_OR_INVITED": "L'utilisateur est déjà inscrit ou invité au cours",
     "ASSESSMENT_DELETE": "Une erreur inattendue s'est produite lors de la suppression de l'évaluation.",
+    "ASSESSMENT_TAKE": "Une erreur inattendue s'est produite lors de la prise de l'évaluation.",
     "BANNER_UPDATE_ERROR": "Une erreur inattendue s'est produite lors de la mise à jour de la bannière.",
     "COMPETENCY_ALREADY_ARCHIVED": "Cette compétence est déjà archivée",
     "COMPETENCY_ARCHIVE": "Une erreur inattendue s'est produite lors de l'archivage de la compétence",
@@ -349,13 +360,18 @@
   },
   "evaluation": {
     "_": "Passage d'évaluation | Passages d'évaluations",
+    "answer": {
+      "_": "Réponse",
+      "mine": "Ma réponse"
+    },
     "assessment": "Évaluation",
     "comment": {
       "_": "Commentaire",
       "no": "Pas de commentaire"
     },
     "competencies": {
-      "_": "@:global.competencies._"
+      "_": "@:global.competencies._",
+      "in_progress": "@:global.competencies._ en progrès"
     },
     "create": "@:general.create un passage d'évaluation",
     "created": "Date de création",
@@ -422,6 +438,7 @@
     "deadline": "Échéance",
     "delete": "Supprimer",
     "edit": "Modifier",
+    "export": "Export",
     "filter": {
       "_": "Filtre"
     },
@@ -676,6 +693,7 @@
     "REGISTRATION_DELETE": "Inscription supprimée avec succès",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
     "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
+    "TAKE_SEND": "Passage envoyé avec succès",
     "USER_EDIT": "Utilisateur modifié avec succès"
   },
   "user": {
