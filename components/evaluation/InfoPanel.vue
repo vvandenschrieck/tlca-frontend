@@ -97,13 +97,23 @@ export default {
         })
       }
 
-      // Assessment.
+      // Assessment name.
       const assessment = evaluation.assessment
       items.push({
         icon: 'mdi-clipboard-text',
         text: this.shortName(assessment),
         tooltip: this.$t('evaluation.assessment'),
       })
+
+      // Assessment provider.
+      const provider = assessment.provider
+      if (provider) {
+        items.push({
+          icon: 'mdi-database-cog',
+          text: this.$t(`assessment.provider.${provider}`),
+          tooltip: this.$t('assessment.provider._'),
+        })
+      }
 
       // Evaluator.
       const evaluator = evaluation.evaluator

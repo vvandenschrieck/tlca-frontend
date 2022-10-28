@@ -1,3 +1,24 @@
+## 1.1.15 (2022-10-28)
+
+### Features
+
+- **assessments:** export evaluation form for a given assessment (teacher)
+- **assessments:** show/hide the timer when taking an assessment with a provider (student)
+
+### Improvements
+
+- added information about provider in the assessment and evaluation info panels
+- changed the order of evaluation fields in creation/edit/request form and on detail page
+- displayed the provider specific answers on the evaluation detail page
+
+### Bug Fixes
+
+- **assessments:** fix issue with validation rule for the number of takes
+
+### Code Refactoring
+
+- made it possible to have more than one custom action in the actions menu
+
 ## 1.1.14 (2022-10-27)
 
 ### Features

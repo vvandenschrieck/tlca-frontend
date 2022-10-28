@@ -27,80 +27,83 @@
             </v-col>
           </v-row>
 
-          <assessment-instance-selector
-            v-if="showInstanceSelector"
-            v-model="instance"
-            :assessment-id="assessment"
-            :course-code="courseCode"
-            :edit="edit"
-            :learner="learner"
-            @change="updateForm"
-          >
-            <template #body="{ hasUnpublishedEvaluations, selected }">
-              <v-alert
-                v-if="hasUnpublishedEvaluations"
-                class="mx-4"
-                dense
-                outlined
-                type="warning"
-              >
-                There are unpublished evaluations for this instance
-              </v-alert>
+          <div v-if="showInstanceSelector">
+            <h4>{{ $tc('assessment.instance._', 1) }}</h4>
 
-              <h4>{{ $t('general.information.general') }}</h4>
+            <assessment-instance-selector
+              v-model="instance"
+              :assessment-id="assessment"
+              :course-code="courseCode"
+              :edit="edit"
+              :learner="learner"
+              @change="updateForm"
+            >
+              <template #body="{ hasUnpublishedEvaluations, selected }">
+                <v-alert
+                  v-if="hasUnpublishedEvaluations"
+                  class="mx-4"
+                  dense
+                  outlined
+                  type="warning"
+                >
+                  There are unpublished evaluations for this instance
+                </v-alert>
 
-              <v-row>
-                <v-col cols="12" md="6">
-                  <date-time-picker-with-validation
-                    v-model="evalDate"
-                    :label="$t('evaluation.date')"
-                    vid="evalDate"
-                  />
-                </v-col>
-              </v-row>
+                <v-divider />
 
-              <v-row>
-                <v-col cols="12" md="12">
-                  <v-textarea
-                    v-model="comment"
-                    auto-grow
-                    clear-icon="mdi-close-circle"
-                    clearable
-                    filled
-                    :label="$t('evaluation.comment._')"
-                  />
-                </v-col>
-              </v-row>
+                <v-row>
+                  <v-col cols="12" md="6">
+                    <date-time-picker-with-validation
+                      v-model="evalDate"
+                      :label="$t('evaluation.date')"
+                      vid="evalDate"
+                    />
+                  </v-col>
+                </v-row>
 
-              <h4>{{ $t('evaluation.competencies._') }}</h4>
+                <h4>{{ $t('evaluation.competencies.in_progress') }}</h4>
 
-              <assessment-competencies-list
-                v-if="assessment"
-                v-model="selectedCompetencies"
-                :assessment-id="assessment"
-                :course-code="courseCode"
-                :edit="edit"
-                form
-                hide-checklist
-                :selected="initialCompetencies ?? selected"
-              />
+                <assessment-competencies-list
+                  v-if="assessment"
+                  v-model="selectedCompetencies"
+                  :assessment-id="assessment"
+                  :course-code="courseCode"
+                  :edit="edit"
+                  form
+                  hide-checklist
+                  :selected="initialCompetencies ?? selected"
+                />
 
-              <h4>{{ $t('general.information.private') }}</h4>
+                <v-row>
+                  <v-col cols="12" md="12">
+                    <v-textarea
+                      v-model="comment"
+                      auto-grow
+                      clear-icon="mdi-close-circle"
+                      clearable
+                      filled
+                      :label="$t('evaluation.comment._')"
+                    />
+                  </v-col>
+                </v-row>
 
-              <v-row>
-                <v-col cols="12" md="12">
-                  <v-textarea
-                    v-model="note"
-                    auto-grow
-                    clear-icon="mdi-close-circle"
-                    clearable
-                    filled
-                    :label="$t('evaluation.note._')"
-                  />
-                </v-col>
-              </v-row>
-            </template>
-          </assessment-instance-selector>
+                <h4>{{ $t('general.information.private') }}</h4>
+
+                <v-row>
+                  <v-col cols="12" md="12">
+                    <v-textarea
+                      v-model="note"
+                      auto-grow
+                      clear-icon="mdi-close-circle"
+                      clearable
+                      filled
+                      :label="$t('evaluation.note._')"
+                    />
+                  </v-col>
+                </v-row>
+              </template>
+            </assessment-instance-selector>
+          </div>
         </v-card-text>
       </v-card>
 

@@ -18,6 +18,18 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
+                <div v-if="showCompetencies">
+                  <h4>{{ $tc('competency._', 2) }}</h4>
+
+                  <assessment-competencies-list
+                    v-if="evaluation"
+                    :assessment-id="evaluation.assessment.id"
+                    :course-code="courseCode"
+                    :selected="evaluation.competencies"
+                    student-view
+                  />
+                </div>
+
                 <div v-if="showComment">
                   <h4>{{ $t('evaluation.comment._') }}</h4>
 
@@ -42,15 +54,50 @@
                   />
                 </div>
 
-                <h4>{{ $tc('competency._', 2) }}</h4>
+                <div v-if="showData">
+                  <h4>{{ $t('evaluation.answer.mine') }}</h4>
 
-                <assessment-competencies-list
-                  v-if="evaluation"
-                  :assessment-id="evaluation.assessment.id"
-                  :course-code="courseCode"
-                  :selected="evaluation.competencies"
-                  student-view
-                />
+                  <template v-if="assessment?.provider === 'tfq'">
+                    <template v-for="(block, i) of instance?.content.questions">
+                      <div :key="i">
+                        <h4 class="mt-5">Question {{ i + 1 }}</h4>
+
+                        <i>Compétence visée : {{ block.targetedCompetency }}</i>
+
+                        <v-list class="pa-0" dense>
+                          <template v-for="(question, j) of block.items">
+                            <v-list-item :key="2 * j" class="line" dense>
+                              <v-list-item-content class="pa-0">
+                                <v-list-item-title>
+                                  <v-checkbox
+                                    class="checkbox ml-1"
+                                    dense
+                                    hide-details
+                                    readonly
+                                    :ripple="false"
+                                    :input-value="evaluation?.data.answer[i][j]"
+                                  >
+                                    <span
+                                      slot="label"
+                                      class="checkbox-label text-body-2"
+                                    >
+                                      {{ question }}
+                                    </span>
+                                  </v-checkbox>
+                                </v-list-item-title>
+                              </v-list-item-content>
+                            </v-list-item>
+
+                            <v-divider
+                              v-if="j < block.length - 1"
+                              :key="2 * j + 1"
+                            />
+                          </template>
+                        </v-list>
+                      </div>
+                    </template>
+                  </template>
+                </div>
               </v-tab-item>
 
               <v-tab-item>
@@ -82,9 +129,11 @@ export default {
   mixins: [titles],
   data() {
     return {
+      assessment: null,
       course: null,
       currentTab: 0,
       evaluation: null,
+      instance: null,
       title: '',
     }
   },
@@ -103,12 +152,22 @@ export default {
     evaluationId() {
       return this.$route.params.id
     },
+    hasProvider() {
+      return this.assessment?.provider
+    },
     showComment() {
       return this.evaluation?.status === 'PUBLISHED'
     },
+    showCompetencies() {
+      return !this.hasProvider || this.evaluation?.status === 'PUBLISHED'
+    },
+    showData() {
+      return this.hasProvider
+    },
     showExplanation() {
-      return ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(
-        this.evaluation?.status
+      return (
+        !this.hasProvider &&
+        ['ACCEPTED', 'REJECTED', 'REQUESTED'].includes(this.evaluation?.status)
       )
     },
     showRejectionReason() {
@@ -121,8 +180,10 @@ export default {
         return
       }
 
+      this.assessment = data.evaluation?.assessment
       this.course = data.course
       this.evaluation = data.evaluation
+      this.instance = data.evaluation?.instance
       this.title = data.evaluation?.assessment.name ?? ''
     },
   },
@@ -131,3 +192,16 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.checkbox:deep(.v-input--selection-controls__input) {
+  align-self: baseline;
+}
+.checkbox-label {
+  text-align: justify;
+  white-space: normal;
+}
+.line {
+  min-height: 30px;
+}
+</style>
