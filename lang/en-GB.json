@@ -87,6 +87,11 @@
       "_": "Opening",
       "date": "Opens on : {start}"
     },
+    "take": {
+      "send": {
+        "dialog_instructions": "Are you sure you want to send and finalise this take?"
+      }
+    },
     "takes": {
       "_": "Takes",
       "max_nb": "Maximal number of takes"
@@ -678,6 +683,7 @@
     "REGISTRATION_DELETE": "Registration successfully deleted",
     "SIGN_IN_SUCCESSFUL": "Successfully signed in!",
     "SIGN_UP_SUCCESSFUL": "Successfully signed up!",
+    "TAKE_SEND": "Take successfully sent",
     "USER_EDIT": "User successfully updated"
   },
   "user": {

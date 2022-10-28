@@ -87,6 +87,11 @@
       "_": "Date d'ouverture",
       "date": "Ouverture : {start}"
     },
+    "take": {
+      "send": {
+        "dialog_instructions": "Êtes-vous sûr de vouloir envoyer et finaliser ce passage ?"
+      }
+    },
     "takes": {
       "_": "Passages",
       "max_nb": "Nombre de passages max"
@@ -678,6 +683,7 @@
     "REGISTRATION_DELETE": "Inscription supprimée avec succès",
     "SIGN_IN_SUCCESSFUL": "Connecté(e) avec succès !",
     "SIGN_UP_SUCCESSFUL": "Inscrit(e) avec succès !",
+    "TAKE_SEND": "Passage envoyé avec succès",
     "USER_EDIT": "Utilisateur modifié avec succès"
   },
   "user": {
