@@ -92,6 +92,7 @@
       "date": "Opens on : {start}"
     },
     "take": {
+      "_": "Take",
       "send": {
         "dialog_instructions": "Are you sure you want to send and finalise this take?"
       }

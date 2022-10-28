@@ -44,16 +44,10 @@
         <assessment-info-panel :assessment-id="assessmentId" />
         <assessment-schedule-panel :assessment-id="assessmentId" class="mt-5" />
 
-        <v-btn
-          v-if="assessment?.provider"
-          class="mt-5"
-          color="success"
-          :loading="createEvaluation"
-          small
-          @click="take(assessment?.id)"
-        >
-          Take
-        </v-btn>
+        <actions-menu
+          :custom-actions="customActions"
+          @customActionClicked="onCustomActionClicked"
+        />
       </v-col>
     </v-row>
 
@@ -91,8 +85,27 @@ export default {
     courseCode() {
       return this.$route.params.code
     },
+    customActions() {
+      if (!this.assessment || !this.assessment.provider) {
+        return null
+      }
+
+      return [
+        {
+          icon: 'mdi-clipboard-edit',
+          key: 'take',
+          tooltip: this.$t('assessment.take._'),
+        },
+      ]
+    },
   },
   methods: {
+    async onCustomActionClicked(key) {
+      switch (key) {
+        case 'take':
+          return await this.take(this.assessmentId)
+      }
+    },
     setResult({ data }) {
       if (!data) {
         return
@@ -114,7 +127,6 @@ export default {
           .then(({ data }) => data && data.createAssessmentInstance)
 
         if (response) {
-          this.$notificationManager.displaySuccessMessage('SUCCESS')
           this.$router.push({
             name: 'learn-courses-code-assessments-id-take-iid',
             params: {

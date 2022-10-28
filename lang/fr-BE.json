@@ -92,6 +92,7 @@
       "date": "Ouverture : {start}"
     },
     "take": {
+      "_": "Passer",
       "send": {
         "dialog_instructions": "Êtes-vous sûr de vouloir envoyer et finaliser ce passage ?"
       }
