@@ -60,12 +60,8 @@
             </template>
           </v-card>
 
-          <div class="text-right mt-5">
-            <submit-btn
-              action="send"
-              :disabled="isTimeUp"
-              :loading="formBusy"
-            />
+          <div v-if="!isTimeUp" class="text-right mt-5">
+            <submit-btn action="send" :loading="formBusy" />
           </div>
         </v-form>
 
