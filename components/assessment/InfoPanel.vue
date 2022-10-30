@@ -48,8 +48,8 @@ export default {
         if (provider) {
           items.push({
             icon: 'mdi-database-cog',
-            text: this.$t(`assessment.provider.${provider}`),
-            tooltip: this.$t('assessment.provider._'),
+            text: this.$t(`provider.${provider}._`),
+            tooltip: this.$t('provider._'),
           })
         }
 

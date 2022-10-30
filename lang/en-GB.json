@@ -76,10 +76,6 @@
       "phase_nb": "Phase {nb}"
     },
     "progress_measure": "Progress measure",
-    "provider": {
-      "_": "Provider",
-      "tfq": "True or false"
-    },
     "schedule": {
       "_": "Assessment @.lower:global.schedule._",
       "end": "End date",
@@ -619,6 +615,14 @@
       "invite_only": "@:global.visibility.invite_only",
       "private": "@:global.visibility.private",
       "public": "@:global.visibility.public"
+    }
+  },
+  "provider": {
+    "_": "Provider",
+    "tfq": {
+      "_": "True or false",
+      "question": "Question {i}",
+      "targeted_competency": "Targeted competency: {name}"
     }
   },
   "registration": {

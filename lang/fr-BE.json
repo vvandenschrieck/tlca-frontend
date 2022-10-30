@@ -76,10 +76,6 @@
       "phase_nb": "Phase {nb}"
     },
     "progress_measure": "Mesure du progrès",
-    "provider": {
-      "_": "Fournisseur",
-      "tfq": "Vrai ou faux"
-    },
     "schedule": {
       "_": "@:global.schedule._ de l'évaluation",
       "end": "Date de fin",
@@ -619,6 +615,14 @@
       "invite_only": "@:global.visibility.invite_only",
       "private": "@:global.visibility.private",
       "public": "@:global.visibility.public"
+    }
+  },
+  "provider": {
+    "_": "Fournisseur",
+    "tfq": {
+      "_": "Vrai ou faux",
+      "question": "Question {i}",
+      "targeted_competency": "Compétence visée : {name}"
     }
   },
   "registration": {

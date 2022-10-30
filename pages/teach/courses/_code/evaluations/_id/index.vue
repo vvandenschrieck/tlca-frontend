@@ -19,6 +19,17 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
+                <div v-if="showCompetencies">
+                  <h4>{{ $tc('competency._', 2) }}</h4>
+
+                  <assessment-competencies-list
+                    v-if="evaluation"
+                    :assessment-id="evaluation.assessment.id"
+                    :course-code="courseCode"
+                    :selected="selectedCompetencies"
+                  />
+                </div>
+
                 <div v-if="showComment">
                   <h4>{{ $t('evaluation.comment._') }}</h4>
 
@@ -43,25 +54,23 @@
                   />
                 </div>
 
-                <h4>{{ $tc('competency._', 2) }}</h4>
-
-                <!-- C: {{ evaluation?.competencies }}<br /><br />
-                PC: {{ evaluation?.pastCompetencies }}<br /><br />
-                S: {{ selectedCompetencies }} -->
-
-                <assessment-competencies-list
-                  v-if="evaluation"
-                  :assessment-id="evaluation.assessment.id"
-                  :course-code="courseCode"
-                  :selected="selectedCompetencies"
-                />
-
                 <div v-if="showNote">
                   <h4>{{ $t('evaluation.note._') }}</h4>
 
                   <description-content
                     entity="evaluation.note"
                     :text="evaluation?.note"
+                  />
+                </div>
+
+                <div v-if="showData">
+                  <h4>{{ $t('evaluation.answer._') }}</h4>
+
+                  <tfq-view
+                    v-if="assessment?.provider === 'tfq'"
+                    :evaluation-id="evaluationId"
+                    hide-title
+                    teacher-view
                   />
                 </div>
               </v-tab-item>
@@ -92,8 +101,8 @@
         </v-card>
 
         <div v-if="evaluation?.isRequestPending" class="text-right mt-3">
-          <evaluation-request-reject-btn @reject="reject" />
-          <accept-btn @accept="accept" />
+          <evaluation-request-reject-btn v-if="!hasProvider" @reject="reject" />
+          <accept-btn v-if="!hasProvider" @accept="accept" />
         </div>
       </v-col>
 
@@ -126,9 +135,11 @@ export default {
   name: 'TeachEvaluationPage',
   data() {
     return {
+      assessment: null,
       course: null,
       currentTab: 0,
       evaluation: null,
+      instance: null,
       requestHandling: false,
       title: '',
     }
@@ -192,6 +203,9 @@ export default {
     evaluationId() {
       return this.$route.params.id
     },
+    hasProvider() {
+      return this.assessment?.provider
+    },
     selectedCompetencies() {
       if (!this.evaluation) {
         return []
@@ -225,8 +239,17 @@ export default {
         this.evaluation?.status
       )
     },
+    showCompetencies() {
+      return !this.hasProvider || this.evaluation?.status === 'PUBLISHED'
+    },
+    showData() {
+      return this.hasProvider
+    },
     showExplanation() {
-      return ['REJECTED', 'REQUESTED'].includes(this.evaluation?.status)
+      return (
+        !this.hasProvider &&
+        ['REJECTED', 'REQUESTED'].includes(this.evaluation?.status)
+      )
     },
     showNote() {
       return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
@@ -330,8 +353,10 @@ export default {
         return
       }
 
+      this.assessment = data.evaluation?.assessment
       this.course = data.course
       this.evaluation = data.evaluation
+      this.instance = data.evaluation?.instance
       this.title = data.evaluation?.assessment?.name ?? ''
     },
   },
