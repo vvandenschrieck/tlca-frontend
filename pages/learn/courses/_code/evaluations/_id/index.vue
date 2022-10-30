@@ -122,7 +122,7 @@ export default {
       return this.assessment?.provider
     },
     showComment() {
-      return this.evaluation?.status === 'PUBLISHED'
+      return !this.hasProvider && this.evaluation?.status === 'PUBLISHED'
     },
     showCompetencies() {
       return !this.hasProvider || this.evaluation?.status === 'PUBLISHED'

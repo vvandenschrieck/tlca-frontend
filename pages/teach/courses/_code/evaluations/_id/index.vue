@@ -103,6 +103,11 @@
         <div v-if="evaluation?.isRequestPending" class="text-right mt-3">
           <evaluation-request-reject-btn v-if="!hasProvider" @reject="reject" />
           <accept-btn v-if="!hasProvider" @accept="accept" />
+          <evaluation-correct-btn
+            v-if="showCorrectBtn || true"
+            :loading="correcting"
+            @click="correct"
+          />
         </div>
       </v-col>
 
@@ -133,6 +138,7 @@
 
 <script>
 import acceptEvaluationRequest from '~/gql/teach/acceptEvaluationRequest.gql'
+import correctEvaluation from '~/gql/teach/correctEvaluation.gql'
 import publishEvaluation from '~/gql/teach/publishEvaluation.gql'
 import rejectEvaluationRequest from '~/gql/teach/rejectEvaluationRequest.gql'
 
@@ -141,6 +147,7 @@ export default {
   data() {
     return {
       assessment: null,
+      correcting: false,
       course: null,
       currentTab: 0,
       evaluation: null,
@@ -240,12 +247,18 @@ export default {
       return selected
     },
     showComment() {
-      return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
-        this.evaluation?.status
+      return (
+        !this.hasProvider &&
+        ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
+          this.evaluation?.status
+        )
       )
     },
     showCompetencies() {
       return !this.hasProvider || this.evaluation?.status === 'PUBLISHED'
+    },
+    showCorrectBtn() {
+      return this.hasProvider && this.evaluation?.status === 'REQUESTED'
     },
     showData() {
       return this.hasProvider
@@ -257,8 +270,11 @@ export default {
       )
     },
     showNote() {
-      return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
-        this.evaluation?.status
+      return (
+        !this.hasProvider &&
+        ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
+          this.evaluation?.status
+        )
       )
     },
     showRejectionReason() {
@@ -295,9 +311,38 @@ export default {
             this.$t('success.EVALUATION_REQUEST_ACCEPT')
           )
         }
-      } catch (err) {}
+      } catch {}
 
       this.requestHandling = false
+    },
+    async correct() {
+      if (this.correcting) {
+        return
+      }
+
+      this.correcting = true
+      const data = { id: this.evaluationId }
+
+      try {
+        const response = await this.$apollo
+          .mutate({
+            mutation: correctEvaluation,
+            variables: data,
+          })
+          .then(({ data }) => data && data.correctEvaluation)
+
+        if (response) {
+          // TODO: replace with cache update.
+          this.evaluation.competencies = response.competencies
+          this.evaluation.isRequestPending = false
+          this.evaluation.status = 'PUBLISHED'
+          this.$notificationManager.displaySuccessMessage(
+            this.$t('success.EVALUATION_CORRECT')
+          )
+        }
+      } catch {}
+
+      this.correcting = false
     },
     async onCustomActionClicked(key) {
       if (key === 'publish') {

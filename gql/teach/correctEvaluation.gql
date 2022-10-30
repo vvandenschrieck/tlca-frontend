@@ -1,0 +1,22 @@
+mutation CorrectEvaluation($id: ID!) {
+  correctEvaluation(id: $id) {
+    competencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
+    evaluator {
+      displayName
+      username
+    }
+    id
+    isRequestPending
+    published
+    status
+  }
+}
