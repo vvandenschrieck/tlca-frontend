@@ -10,6 +10,7 @@ mutation CorrectEvaluation($id: ID!) {
       learningOutcomes
       selected
     }
+    data
     evaluator {
       displayName
       username

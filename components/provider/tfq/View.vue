@@ -29,13 +29,38 @@
                         :ripple="false"
                         :input-value="question.selected"
                       >
-                        <span slot="label" class="checkbox-label text-body-2">
+                        <div
+                          slot="label"
+                          class="checkbox-label text-body-2"
+                          style="width: 100%"
+                        >
                           {{ question.question }}
-                        </span>
 
-                        <span v-if="teacherView" slot="append">
+                          <v-alert
+                            v-if="!hideFeedback && question.feedback"
+                            class="mt-2 text-body-2"
+                            dense
+                            outlined
+                            :type="question.correct ? 'success' : 'error'"
+                          >
+                            {{
+                              question.correct
+                                ? question.feedback.correct
+                                : question.feedback.wrong
+                            }}
+                          </v-alert>
+                        </div>
+
+                        <span
+                          v-if="'correct' in question || teacherView"
+                          slot="append"
+                        >
                           <v-icon
-                            v-if="question.selected === question.answer"
+                            v-if="
+                              question.correct ||
+                              (teacherView &&
+                                question.selected === question.answer)
+                            "
                             color="success"
                           >
                             mdi-check-bold
@@ -69,6 +94,10 @@ export default {
       type: String,
       required: true,
     },
+    hideFeedback: {
+      type: Boolean,
+      default: false,
+    },
     hideTitle: {
       type: Boolean,
       default: false,
@@ -80,6 +109,8 @@ export default {
   },
   data() {
     return {
+      evaluation: null,
+
       config: null,
       content: null,
       title: null,
@@ -93,9 +124,9 @@ export default {
       const content = !this.config
         ? {
             ...instance.content,
-            questions: instance.content.questions.map((q, i) => ({
+            questions: instance.content.questions.map((q) => ({
               ...q,
-              items: q.items.map((item, j) => ({
+              items: q.items.map((item) => ({
                 question: item,
               })),
             })),
@@ -117,6 +148,7 @@ export default {
           ...q,
           items: q.items.map((item, j) => ({
             ...item,
+            ...(data.answers ? data.answers[i][j] : {}),
             selected: data?.answer ? data.answer[i][j] : undefined,
           })),
           competency: this.competencyName(
@@ -134,6 +166,8 @@ export default {
       if (!evaluation) {
         return
       }
+
+      this.evaluation = evaluation
 
       this.config = evaluation.assessment.providerConfig
       this.content = this.buildContent(evaluation)

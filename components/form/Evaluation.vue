@@ -49,7 +49,7 @@
                   There are unpublished evaluations for this instance
                 </v-alert>
 
-                <v-divider />
+                <v-divider class="mb-3 mt-3" />
 
                 <v-row>
                   <v-col cols="12" md="6">

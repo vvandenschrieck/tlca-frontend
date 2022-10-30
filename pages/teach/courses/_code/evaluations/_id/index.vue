@@ -137,6 +137,8 @@
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 import acceptEvaluationRequest from '~/gql/teach/acceptEvaluationRequest.gql'
 import correctEvaluation from '~/gql/teach/correctEvaluation.gql'
 import publishEvaluation from '~/gql/teach/publishEvaluation.gql'
@@ -144,6 +146,7 @@ import rejectEvaluationRequest from '~/gql/teach/rejectEvaluationRequest.gql'
 
 export default {
   name: 'TeachEvaluationPage',
+  mixins: [titles],
   data() {
     return {
       assessment: null,
@@ -154,6 +157,11 @@ export default {
       instance: null,
       requestHandling: false,
       title: '',
+    }
+  },
+  head() {
+    return {
+      title: this.getTitle(this.title, null, 'teach'),
     }
   },
   computed: {
