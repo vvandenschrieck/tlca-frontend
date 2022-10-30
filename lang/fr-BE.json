@@ -619,6 +619,10 @@
   },
   "provider": {
     "_": "Fournisseur",
+    "general": {
+      "max_time": "Temps maximum",
+      "max_time_seconds": "{time} secondes"
+    },
     "tfq": {
       "_": "Vrai ou faux",
       "question": "Question {i}",

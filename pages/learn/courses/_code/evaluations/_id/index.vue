@@ -79,6 +79,7 @@
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
         <evaluation-info-panel :evaluation-id="evaluationId" hide-learner />
+        <provider-info-panel class="mt-5" :evaluation-id="evaluationId" />
       </v-col>
     </v-row>
 

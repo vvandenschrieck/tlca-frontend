@@ -112,6 +112,11 @@
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
         <evaluation-info-panel :evaluation-id="evaluationId" teacher-view />
+        <provider-info-panel
+          class="mt-5"
+          :evaluation-id="evaluationId"
+          teacher-view
+        />
       </v-col>
 
       <actions-menu

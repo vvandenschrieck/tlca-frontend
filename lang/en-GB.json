@@ -619,6 +619,10 @@
   },
   "provider": {
     "_": "Provider",
+    "general": {
+      "max_time": "Max time",
+      "max_time_seconds": "{time} seconds"
+    },
     "tfq": {
       "_": "True or false",
       "question": "Question {i}",
