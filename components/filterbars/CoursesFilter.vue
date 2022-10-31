@@ -1,16 +1,14 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="3">{{ $t('course.filter.status') }}</v-col>
+      <v-col cols="3">{{ $t('course.status.archived') }}</v-col>
       <v-col cols="9">
-        <v-select
-          clearable
+        <v-switch
+          class="mt-0 pt-0"
           dense
           hide-details
-          :items="statusList"
-          multiple
-          :value="value.status"
-          @input="update('status', $event)"
+          :value="value.includeArchived"
+          @change="update('includeArchived', $event)"
         />
       </v-col>
     </v-row>
@@ -48,29 +46,13 @@ export default {
       type: Object,
       default: () => {
         return {
-          status: null,
+          includeArchived: false,
           roles: null,
         }
       },
     },
   },
   computed: {
-    statusList() {
-      const status = []
-
-      if (!this.hideUnpublished) {
-        status.push({
-          text: this.$t('course.status.unpublished'),
-          value: 'UNPUBLISHED',
-        })
-      }
-      status.push(
-        { text: this.$t('course.status.published'), value: 'PUBLISHED' },
-        { text: this.$t('course.status.archived'), value: 'ARCHIVED' }
-      )
-
-      return status
-    },
     rolesList() {
       return [
         { text: this.$t('course.coordinator'), value: 'COORDINATOR' },
