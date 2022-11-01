@@ -105,16 +105,6 @@ export default {
         tooltip: this.$t('evaluation.assessment'),
       })
 
-      // Assessment provider.
-      const provider = assessment.provider
-      if (provider) {
-        items.push({
-          icon: 'mdi-database-cog',
-          text: this.$t(`assessment.provider.${provider}`),
-          tooltip: this.$t('assessment.provider._'),
-        })
-      }
-
       // Evaluator.
       const evaluator = evaluation.evaluator
       if (evaluator) {

@@ -1,0 +1,28 @@
+query GetEvaluation($evaluationId: ID!, $teacherView: Boolean!) {
+  evaluation(id: $evaluationId) {
+    assessment {
+      competencies {
+        competency {
+          code
+          name
+        }
+      }
+      id
+      provider
+      providerConfig @include(if: $teacherView)
+    }
+    competencies {
+      competency {
+        code
+        name
+      }
+    }
+    data
+    id
+    instance {
+      content
+      data @include(if: $teacherView)
+      id
+    }
+  }
+}

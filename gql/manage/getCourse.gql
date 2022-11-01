@@ -1,61 +1,8 @@
 query GetCourse($code: ID!) {
   course(code: $code) {
-    archived
-    assessments {
-      id
-    }
     code
-    coordinator {
-      displayName
-      username
-    }
-    description
-    groups {
-      teaching {
-        name
-        supervisor {
-          displayName
-          username
-        }
-      }
-      working {
-        name
-      }
-    }
-    isArchived
+    hasGroups
     isCoordinator
-    isPublished
     name
-    partners {
-      abbreviation
-      code
-      name
-    }
-    published
-    registrations {
-      datetime
-      email
-      group {
-        teaching
-        working
-      }
-      id
-      invitation
-      user {
-        displayName
-        email
-        username
-      }
-    }
-    schedule {
-      name
-      datetime
-    }
-    status
-    teachers {
-      displayName
-      username
-    }
-    visibility
   }
 }

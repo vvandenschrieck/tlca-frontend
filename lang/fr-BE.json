@@ -76,10 +76,6 @@
       "phase_nb": "Phase {nb}"
     },
     "progress_measure": "Mesure du progrès",
-    "provider": {
-      "_": "Fournisseur",
-      "tfq": "Vrai ou faux"
-    },
     "schedule": {
       "_": "@:global.schedule._ de l'évaluation",
       "end": "Date de fin",
@@ -432,6 +428,7 @@
     "confirm": "Confirmer",
     "confirmation": "Confirmation",
     "confirmed": "Confirmé",
+    "correct": "Corriger",
     "create": "Créer",
     "creator": "Créateur",
     "dashboard": "Tableau de bord",
@@ -621,6 +618,18 @@
       "public": "@:global.visibility.public"
     }
   },
+  "provider": {
+    "_": "Fournisseur",
+    "general": {
+      "max_time": "Temps maximum",
+      "max_time_seconds": "{time} secondes"
+    },
+    "tfq": {
+      "_": "Vrai ou faux",
+      "question": "Question {i}",
+      "targeted_competency": "Compétence visée : {name}"
+    }
+  },
   "registration": {
     "_": "Inscription | Inscriptions",
     "closed": "Fermées",
@@ -678,6 +687,7 @@
     "COURSE_ARCHIVED": "Cours archivé avec succès !",
     "COURSE_CREATED": "Cours créé avec succès !",
     "COURSE_PUBLISHED": "Cours publié avec succès !",
+    "EVALUATION_CORRECT": "Passage d'évaluation corrigé avec succès",
     "EVALUATION_CREATE": "Passage d'évaluation créé avec succès",
     "EVALUATION_DELETE": "Passage d'évaluation supprimé avec succès",
     "EVALUATION_PUBLISH": "Passage d'évaluation publié avec succès",
