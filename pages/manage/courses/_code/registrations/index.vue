@@ -43,8 +43,7 @@
           md="3"
           :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
         >
-          <course-status-info-panel :course="course" />
-
+          <course-status-info-panel :course-code="courseCode" />
           <course-schedule-panel class="mt-5" :course-code="courseCode" />
         </v-col>
       </v-row>

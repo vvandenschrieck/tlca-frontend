@@ -1,0 +1,9 @@
+query GetCourseStatusInfo($code: ID!) {
+  course(code: $code) {
+    archived
+    code
+    published
+    status
+    visibility
+  }
+}
