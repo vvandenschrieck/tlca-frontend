@@ -8,6 +8,7 @@ query GetRegistrationsInfo($courseCode: ID!) {
   }
 
   registrations(courseCode: $courseCode) {
+    datetime
     id
     invitation
   }
