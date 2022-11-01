@@ -1,0 +1,7 @@
+query GetAssessmentProviderInfo($assessmentId: ID!, $teacherView: Boolean!) {
+  assessment(id: $assessmentId) {
+    id
+    provider
+    providerConfig @include(if: $teacherView)
+  }
+}

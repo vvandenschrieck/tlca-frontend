@@ -76,10 +76,6 @@
       "phase_nb": "Phase {nb}"
     },
     "progress_measure": "Progress measure",
-    "provider": {
-      "_": "Provider",
-      "tfq": "True or false"
-    },
     "schedule": {
       "_": "Assessment @.lower:global.schedule._",
       "end": "End date",
@@ -432,6 +428,7 @@
     "confirm": "Confirm",
     "confirmation": "Confirmation",
     "confirmed": "Confirmed",
+    "correct": "Correct",
     "create": "Create",
     "creator": "Creator",
     "dashboard": "Dashboard",
@@ -621,6 +618,18 @@
       "public": "@:global.visibility.public"
     }
   },
+  "provider": {
+    "_": "Provider",
+    "general": {
+      "max_time": "Max time",
+      "max_time_seconds": "{time} seconds"
+    },
+    "tfq": {
+      "_": "True or false",
+      "question": "Question {i}",
+      "targeted_competency": "Targeted competency: {name}"
+    }
+  },
   "registration": {
     "_": "Registration | Registrations",
     "closed": "Closed",
@@ -678,6 +687,7 @@
     "COURSE_ARCHIVED": "Course successfully archived!",
     "COURSE_CREATED": "Course successfully created!",
     "COURSE_PUBLISHED": "Course successfully published!",
+    "EVALUATION_CORRECT": "Evaluation successfully corrected",
     "EVALUATION_CREATE": "Evaluation successfully created",
     "EVALUATION_DELETE": "Evaluation successfully deleted",
     "EVALUATION_PUBLISH": "Evaluation successfully published",

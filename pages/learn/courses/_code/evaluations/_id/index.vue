@@ -57,46 +57,11 @@
                 <div v-if="showData">
                   <h4>{{ $t('evaluation.answer.mine') }}</h4>
 
-                  <template v-if="assessment?.provider === 'tfq'">
-                    <template v-for="(block, i) of instance?.content.questions">
-                      <div :key="i">
-                        <h4 class="mt-5">Question {{ i + 1 }}</h4>
-
-                        <i>Compétence visée : {{ block.targetedCompetency }}</i>
-
-                        <v-list class="pa-0" dense>
-                          <template v-for="(question, j) of block.items">
-                            <v-list-item :key="2 * j" class="line" dense>
-                              <v-list-item-content class="pa-0">
-                                <v-list-item-title>
-                                  <v-checkbox
-                                    class="checkbox ml-1"
-                                    dense
-                                    hide-details
-                                    readonly
-                                    :ripple="false"
-                                    :input-value="evaluation?.data.answer[i][j]"
-                                  >
-                                    <span
-                                      slot="label"
-                                      class="checkbox-label text-body-2"
-                                    >
-                                      {{ question }}
-                                    </span>
-                                  </v-checkbox>
-                                </v-list-item-title>
-                              </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider
-                              v-if="j < block.length - 1"
-                              :key="2 * j + 1"
-                            />
-                          </template>
-                        </v-list>
-                      </div>
-                    </template>
-                  </template>
+                  <tfq-view
+                    v-if="assessment?.provider === 'tfq'"
+                    :evaluation-id="evaluationId"
+                    hide-title
+                  />
                 </div>
               </v-tab-item>
 
@@ -114,6 +79,7 @@
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
         <evaluation-info-panel :evaluation-id="evaluationId" hide-learner />
+        <provider-info-panel class="mt-5" :evaluation-id="evaluationId" />
       </v-col>
     </v-row>
 
@@ -156,7 +122,7 @@ export default {
       return this.assessment?.provider
     },
     showComment() {
-      return this.evaluation?.status === 'PUBLISHED'
+      return !this.hasProvider && this.evaluation?.status === 'PUBLISHED'
     },
     showCompetencies() {
       return !this.hasProvider || this.evaluation?.status === 'PUBLISHED'

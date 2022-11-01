@@ -1,4 +1,9 @@
 query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
+  course(code: $courseCode) {
+    code
+    isRegistered
+  }
+
   evaluation(id: $evaluationId) {
     assessment {
       id
@@ -25,10 +30,5 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
     }
     rejectionReason
     status
-  }
-
-  course(code: $courseCode) {
-    code
-    isRegistered
   }
 }

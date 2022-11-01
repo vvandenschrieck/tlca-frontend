@@ -43,16 +43,6 @@ export default {
       const items = []
 
       if (assessment) {
-        // Provider.
-        const provider = assessment.provider
-        if (provider) {
-          items.push({
-            icon: 'mdi-database-cog',
-            text: this.$t(`assessment.provider.${provider}`),
-            tooltip: this.$t('assessment.provider._'),
-          })
-        }
-
         // Instances.
         const instances = assessment.instances
         items.push({

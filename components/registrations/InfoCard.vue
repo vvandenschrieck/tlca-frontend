@@ -1,74 +1,59 @@
 <template>
-  <generic-info-card
-    icon="mdi-account-school"
-    :link="{
-      icon: 'mdi-view-list',
-      text: $t('general.list'),
-      to: {
-        name: 'manage-courses-code-registrations',
-        params: { code: course.code },
-      },
-    }"
-    :title="$tc('registration._', 2)"
+  <ApolloQuery
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/cards/getRegistrationsInfo.gql')"
+    :variables="{ courseCode }"
+    @result="setResult"
   >
-    <div v-if="course.registrations?.length">
-      <v-simple-table dense>
-        <tbody>
-          <tr>
-            <td class="pa-0 text-center"></td>
-            <td class="pl-2">{{ $t('general.status') }}</td>
-            <td class="text-center">
-              <v-chip :color="status.color" small>{{ status.value }}</v-chip>
-            </td>
-          </tr>
-
-          <tr v-for="(stat, i) in stats" :key="i">
-            <td class="pl-1 pr-0 text-center">
-              <v-tooltip v-if="stat.alert" bottom open-delay="500">
-                <template #activator="{ on, attrs }">
-                  <v-icon color="red" small v-bind="attrs" v-on="on">
-                    mdi-alert
-                  </v-icon>
-                </template>
-
-                <span>{{ stat.alert }}</span>
-              </v-tooltip>
-            </td>
-            <td class="pl-2">{{ stat.text }}</td>
-            <td class="text-center">{{ stat.value }}</td>
-          </tr>
-        </tbody>
-      </v-simple-table>
-    </div>
-
-    <span v-else>{{ $t('registration.no') }}</span>
-  </generic-info-card>
+    <generic-info-card
+      icon="mdi-account-school"
+      :link="link"
+      :loading="!!isLoading"
+      :title="$tc('registration._', 2)"
+    >
+      <stats-list v-if="!error" entity="registration" :items="stats" />
+      <span v-else>{{ $t('error.unexpected') }}</span>
+    </generic-info-card>
+  </ApolloQuery>
 </template>
 
 <script>
 import { DateTime } from 'luxon'
+
+import courses from '@/mixins/courses.js'
 import datetime from '@/mixins/datetime.js'
 
 export default {
   name: 'RegistrationsInfoCard',
-  mixins: [datetime],
+  mixins: [courses, datetime],
   props: {
-    course: {
-      type: Object,
+    courseCode: {
+      type: String,
       required: true,
     },
   },
+  data() {
+    return {
+      course: null,
+      registrations: null,
+    }
+  },
   computed: {
-    schedule() {
-      const schedule = {}
-      if (this.course.schedule?.length) {
-        this.course.schedule.forEach((e) => {
-          schedule[e.name] = DateTime.fromISO(e.datetime)
-        })
+    link() {
+      return {
+        icon: 'mdi-view-list',
+        text: this.$t('general.list'),
+        to: {
+          name: 'manage-courses-code-registrations',
+          params: { code: this.courseCode },
+        },
       }
-      return schedule
     },
     stats() {
+      if (!this.course || !this.registrations) {
+        return null
+      }
+
       const items = [
         {
           text: this.$tc('registration._', 2),
@@ -87,18 +72,15 @@ export default {
       // Compute the registrations stats.
       const stats = items.map((i) => ({
         ...i,
-        value: this.course.registrations.filter(i.filter)?.length,
+        value: this.registrations.filter(i.filter).length,
       }))
 
       // Check the oldest invitation request, if any.
-      const types = {
-        1: 'request',
-        2: 'sent',
-      }
-      for (const i of [1, 2]) {
-        if (stats[i].value) {
-          const oldest = this.course.registrations
-            .filter(stats[i].filter)
+      const types = ['request', 'sent']
+      for (const [i, type] of types.entries()) {
+        if (stats[i + 1].value > 0) {
+          const oldest = this.registrations
+            .filter(stats[i + 1].filter)
             .map((r) => DateTime.fromISO(r.datetime))
             .sort((a, b) => a - b)[0]
 
@@ -106,13 +88,20 @@ export default {
             DateTime.now().diff(oldest, 'days').values.days
           )
           if (days > 10) {
-            stats[i].alert = this.$t(
-              `registration.invitation.${types[i]}.too_old`,
+            stats[i + 1].alert = this.$t(
+              `registration.invitation.${type}.too_old`,
               { days }
             )
           }
         }
       }
+
+      // Insert the status of registrations.
+      stats.unshift({
+        chip: true,
+        text: this.$t('general.status'),
+        ...this.status,
+      })
 
       return stats
     },
@@ -123,7 +112,7 @@ export default {
         start,
         end,
         evaluationsEnd,
-      } = this.schedule
+      } = this.schedule(this.course)
 
       // Cannot yet register for now, registrations are upcoming.
       if (
@@ -153,6 +142,16 @@ export default {
         color: 'success',
         value: this.$t('registration.open'),
       }
+    },
+  },
+  methods: {
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.course = data.course
+      this.registrations = data.registrations
     },
   },
 }

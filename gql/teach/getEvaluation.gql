@@ -9,6 +9,7 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
     assessment {
       id
       name
+      provider
     }
     comment
     competencies {
@@ -21,8 +22,13 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       learningOutcomes
       selected
     }
+    data
     explanation
     id
+    instance {
+      content
+      id
+    }
     isPublished
     isRequestPending
     note

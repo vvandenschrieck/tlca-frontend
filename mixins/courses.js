@@ -1,35 +1,42 @@
+import { DateTime } from 'luxon'
+
 export default {
   methods: {
     filteredCourses(courses, filter) {
-      const roles = filter.options?.roles || []
-      const status = filter.options?.status || []
-      const text = filter.text?.trim().toLowerCase()
+      const options = filter.options ?? {}
 
-      if (
-        (!status || !status.length) &&
-        (!roles || !roles.length) &&
-        (!text || !text.length)
-      ) {
+      // Get the values of the different filter options.
+      const includeArchived = options.includeArchived ?? false
+      const roles = options?.roles || []
+      const text = filter.text?.trim().toLowerCase() ?? ''
+
+      if (!courses || (includeArchived && !roles.length && !text.length)) {
         return courses
       }
 
+      // Filter the list of courses.
       return courses.filter((c) => {
         return (
-          (!text ||
-            !text.length ||
+          (includeArchived || !c.isArchived) &&
+          (!text.length ||
             c.code.toLowerCase().includes(text) ||
             c.name.toLowerCase().includes(text)) &&
-          (!roles ||
-            !roles.length ||
+          (!roles.length ||
             (c.isCoordinator && roles.includes('COORDINATOR')) ||
-            (c.isTeacher && roles.includes('TEACHER'))) &&
-          (!status ||
-            !status.length ||
-            (!c.isPublished && status.includes('UNPUBLISHED')) ||
-            (c.isPublished && !c.isArchived && status.includes('PUBLISHED')) ||
-            (c.isArchived && status.includes('ARCHIVED')))
+            (c.isTeacher && roles.includes('TEACHER')))
         )
       })
+    },
+    schedule(course) {
+      const schedule = {}
+
+      if (course.schedule?.length > 0) {
+        course.schedule.forEach(({ datetime, name }) => {
+          schedule[name] = DateTime.fromISO(datetime)
+        })
+      }
+
+      return schedule
     },
   },
 }

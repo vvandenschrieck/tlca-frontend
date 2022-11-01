@@ -1,0 +1,15 @@
+query GetRegistrationsInfo($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    schedule {
+      datetime
+      name
+    }
+  }
+
+  registrations(courseCode: $courseCode) {
+    datetime
+    id
+    invitation
+  }
+}

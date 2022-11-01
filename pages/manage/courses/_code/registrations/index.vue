@@ -1,76 +1,75 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data: course }, isLoading }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/manage/getCourse.gql')"
     :update="(data) => data.course"
     :variables="{ code: courseCode }"
-    @result="setTitle"
+    @result="setResult"
   >
-    <div v-if="isLoading">{{ $t('global.loading') }}</div>
+    <page-title :loading="!!isLoading" :value="title" />
 
-    <div v-else-if="course && course.isCoordinator">
-      <h2>{{ title }}</h2>
+    <v-row v-if="!error && canShowContent">
+      <v-col cols="12" md="9">
+        <v-card>
+          <v-tabs v-model="currentTab" show-arrows>
+            <v-tab>{{ $tc('course.registrations._', 2) }}</v-tab>
+          </v-tabs>
 
-      <v-row>
-        <v-col cols="12" md="9">
-          <v-card>
-            <v-tabs v-model="currentTab" show-arrows>
-              <v-tab>{{ $tc('course.registrations._', 2) }}</v-tab>
-            </v-tabs>
-
-            <v-card-text class="text--primary">
-              <v-tabs-items v-model="currentTab">
-                <v-tab-item>
-                  <div class="text-right">
-                    <course-send-invitation-btn
-                      :course-code="courseCode"
-                      @error="invitationSendError"
-                      @success="(r) => invitationSendSuccess(course, r)"
-                    />
-                  </div>
-                  <registrations-list
-                    :code="courseCode"
-                    entity="course"
-                    :teaching-groups="course.groups?.teaching"
+          <v-card-text class="text--primary">
+            <v-tabs-items v-model="currentTab">
+              <v-tab-item>
+                <div class="text-right">
+                  <course-send-invitation-btn
+                    :course-code="courseCode"
+                    @error="invitationSendError"
+                    @success="(r) => invitationSendSuccess(course, r)"
                   />
-                </v-tab-item>
-              </v-tabs-items>
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col
-          cols="12"
-          md="3"
-          :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-        >
-          <course-status-info-panel :course="course" />
+                </div>
 
-          <course-schedule-panel class="mt-5" :course-code="courseCode" />
-        </v-col>
-      </v-row>
-    </div>
+                <registrations-list :course-code="courseCode" />
+              </v-tab-item>
+            </v-tabs-items>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col
+        cols="12"
+        md="3"
+        :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+      >
+        <course-status-info-panel :course-code="courseCode" />
+        <course-schedule-panel class="mt-5" :course-code="courseCode" />
+      </v-col>
+    </v-row>
 
-    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
 <script>
 import { gql } from 'graphql-tag'
 
+import titles from '@/mixins/titles.js'
+
 export default {
-  name: 'ManageCourseRegistrationsPage',
+  name: 'ManageRegistrationsPage',
+  mixins: [titles],
   data() {
     return {
-      currentTab: 'registrations',
+      course: null,
+      currentTab: 0,
       title: '',
     }
   },
   head() {
     return {
-      title: this.title + ' : ' + this.$tc('registration._', 2),
+      title: this.getTitle(this.title, 'registration._', 'manage'),
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isCoordinator
+    },
     courseCode() {
       return this.$route.params.code
     },
@@ -109,7 +108,8 @@ export default {
         this.$t('success.INVITATION_SEND')
       )
     },
-    setTitle({ data: course }) {
+    setResult({ data: course }) {
+      this.course = course
       this.title = course?.name ?? ''
     },
   },

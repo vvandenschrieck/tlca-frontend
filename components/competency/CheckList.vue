@@ -60,10 +60,11 @@ export default {
     },
     value: {
       handler(value) {
-        this.checked = value.reduce(
-          (acc, checked, i) => (checked ? [...acc, i] : acc),
-          []
-        )
+        this.checked =
+          value?.reduce(
+            (acc, checked, i) => (checked ? [...acc, i] : acc),
+            []
+          ) ?? false
       },
       immediate: true,
     },

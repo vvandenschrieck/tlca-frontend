@@ -1,5 +1,5 @@
-query GetRegistrations($courseCode: ID, $programCode: ID) {
-  registrations(courseCode: $courseCode, programCode: $programCode) {
+query GetProgramRegistrations($programCode: ID) {
+  registrations(programCode: $programCode) {
     datetime
     email
     group {

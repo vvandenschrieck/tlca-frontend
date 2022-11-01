@@ -1,49 +1,45 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data: course }, isLoading }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/manage/getCourse.gql')"
     :update="(data) => data.course"
     :variables="{ code: courseCode }"
-    @result="setTitle"
+    @result="setResult"
   >
+    <page-title :loading="!!isLoading" :spaces="spaces" :value="title" />
+
     <div v-if="!!isLoading">{{ $t('global.loading') }}</div>
 
-    <div v-else-if="course && course.isCoordinator">
-      <space-switcher :items="spaces(course)" />
+    <v-row v-if="!error && canShowContent">
+      <v-col cols="12" md="9">
+        <v-row>
+          <v-col cols="12" md="6">
+            <registrations-info-card :course-code="courseCode" />
+            <groups-info-card
+              v-if="course?.hasGroups"
+              class="mt-5"
+              :course-code="courseCode"
+            />
+          </v-col>
 
-      <h2>{{ title }}</h2>
+          <v-col cols="12" md="6">
+            <assessments-info-card
+              :course-code="courseCode"
+              space="manage"
+              :teacher-view="true"
+            />
+          </v-col>
+        </v-row>
+      </v-col>
 
-      <v-row>
-        <v-col cols="12" md="9">
-          <v-row>
-            <v-col cols="12" md="6">
-              <registrations-info-card :course="course" />
-              <groups-info-card
-                v-if="showGroupsInfo(course)"
-                class="mt-5"
-                :course-code="courseCode"
-              />
-            </v-col>
-
-            <v-col cols="12" md="6">
-              <assessments-info-card
-                :course-code="courseCode"
-                space="manage"
-                :teacher-view="true"
-              />
-            </v-col>
-          </v-row>
-        </v-col>
-
-        <v-col
-          cols="12"
-          md="3"
-          :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
-        >
-          <course-status-info-panel :course="course" />
-          <course-schedule-panel class="mt-5" :course-code="courseCode" />
-        </v-col>
-      </v-row>
+      <v-col
+        cols="12"
+        md="3"
+        :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
+      >
+        <course-status-info-panel :course-code="courseCode" />
+        <course-schedule-panel class="mt-5" :course-code="courseCode" />
+      </v-col>
 
       <actions-menu
         :edit-link="{
@@ -51,45 +47,44 @@
           params: { code: courseCode },
         }"
       />
-    </div>
+    </v-row>
 
-    <div v-else-if="error">{{ $t('error.unexpected') }}</div>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
 <script>
+import titles from '@/mixins/titles.js'
+
 export default {
   name: 'ManageCoursePage',
+  mixins: [titles],
   data() {
     return {
+      course: null,
       title: '',
     }
   },
   head() {
     return {
-      title: this.title,
+      title: this.getTitle(this.title, null, 'manage'),
     }
   },
   computed: {
+    canShowContent() {
+      return !this.course || this.course.isCoordinator
+    },
     courseCode() {
       return this.$route.params.code
     },
-  },
-  methods: {
-    setTitle({ data: course }) {
-      this.title = course?.name || ''
-    },
-    showGroupsInfo(course) {
-      return (
-        course.teachers?.length ||
-        course.groups?.teaching?.length ||
-        course.groups?.working?.length
-      )
-    },
-    spaces(course) {
+    spaces() {
+      if (!this.course) {
+        return null
+      }
+
       const items = {}
 
-      if (course.isPublished || course.isArchived) {
+      if (this.course.isPublished || this.course.isArchived) {
         items.home = {
           name: 'courses-code',
           params: { code: this.courseCode },
@@ -101,6 +96,12 @@ export default {
       }
 
       return items
+    },
+  },
+  methods: {
+    setResult({ data: course }) {
+      this.course = course
+      this.title = course?.name ?? ''
     },
   },
   meta: {

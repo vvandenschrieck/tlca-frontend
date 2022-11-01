@@ -15,7 +15,12 @@
             </v-tooltip>
           </td>
           <td class="pl-2">{{ item.text }}</td>
-          <td class="text-center">{{ item.value }}</td>
+          <td class="text-center">
+            <v-chip v-if="item.chip" :color="item.color" small>
+              {{ item.value }}
+            </v-chip>
+            <span v-else>{{ item.value }}</span>
+          </td>
         </tr>
 
         <slot name="rows" />
