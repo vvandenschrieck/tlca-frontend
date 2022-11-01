@@ -1,10 +1,9 @@
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
-    :query="require('~/gql/components/getRegistrations.gql')"
-    :update="(data) => data.registrations"
-    :variables="{ [`${entity}Code`]: code }"
-    @result="setRegistrations"
+    :query="query.query"
+    :variables="query.variables"
+    @result="setData"
   >
     <v-data-table
       v-if="!error"
@@ -12,7 +11,7 @@
       :group-desc="true"
       :headers="dataHeaders"
       :items="registrations"
-      :items-per-page="5"
+      :items-per-page="15"
       :loading="!!isLoading"
     >
       <template #group.header="{ group, headers, isOpen, toggle }">
@@ -40,26 +39,69 @@
           v-if="item.status === 'registered'"
           v-slot="{ mutate, loading }"
           :mutation="
-            item.innerGroup !== null
+            item.innerGroup.teaching !== null
               ? require('~/gql/updateGroup.gql')
               : require('~/gql/removeGroup.gql')
           "
-          :variables="{ group: item.innerGroup, id: item.id, type: 'TEACHING' }"
+          :variables="{
+            group: item.innerGroup.teaching,
+            id: item.id,
+            type: 'TEACHING',
+          }"
         >
           <v-edit-dialog large @save="mutate">
             {{
               item.group && item.group.teaching !== null
-                ? item.group.teaching + 1
+                ? groupName('teaching', item.group.teaching)
                 : $t('course.registrations.no_group')
             }}
 
             <v-select
               slot="input"
-              v-model="item.innerGroup"
+              v-model="item.innerGroup.teaching"
               clearable
               :disabled="loading"
-              :items="groups"
-              :label="$t('course.registrations.group')"
+              :items="teachingGroups"
+              item-text="name"
+              item-value="i"
+              :label="$t('course.groups.teaching._')"
+            />
+          </v-edit-dialog>
+        </ApolloMutation>
+
+        <span v-else>—</span>
+      </template>
+
+      <template #item.group.working="{ item }">
+        <ApolloMutation
+          v-if="item.status === 'registered'"
+          v-slot="{ mutate, loading }"
+          :mutation="
+            item.innerGroup.working !== null
+              ? require('~/gql/updateGroup.gql')
+              : require('~/gql/removeGroup.gql')
+          "
+          :variables="{
+            group: item.innerGroup.working,
+            id: item.id,
+            type: 'WORKING',
+          }"
+        >
+          <v-edit-dialog large @save="mutate">
+            {{
+              item.group && item.group.working !== null
+                ? groupName('working', item.group.working)
+                : $t('course.registrations.no_group')
+            }}
+            <v-select
+              slot="input"
+              v-model="item.innerGroup.working"
+              clearable
+              :disabled="loading"
+              :items="workingGroups"
+              item-text="name"
+              item-value="i"
+              :label="$t('course.groups.working._')"
             />
           </v-edit-dialog>
         </ApolloMutation>
@@ -99,29 +141,25 @@
 </template>
 
 <script>
-import getRegistrations from '@/gql/components/getRegistrations.gql'
-
 import datetime from '@/mixins/datetime.js'
+import utils from '@/mixins/utils.js'
 
 export default {
   name: 'RegistrationsList',
-  mixins: [datetime],
+  mixins: [datetime, utils],
   props: {
-    code: {
+    courseCode: {
       type: String,
-      required: true,
+      default: null,
     },
-    entity: {
+    programCode: {
       type: String,
-      required: true,
-    },
-    teachingGroups: {
-      type: Array,
-      default: () => [],
+      default: null,
     },
   },
   data() {
     return {
+      course: null,
       registrations: [],
     }
   },
@@ -140,10 +178,17 @@ export default {
         },
       ]
 
-      if (this.teachingGroups?.length) {
+      if (this.course?.hasTeachingGroups) {
         headers.push({
-          text: this.$t('course.registrations.group'),
+          text: this.$t('course.groups.teaching._'),
           value: 'group.teaching',
+        })
+      }
+
+      if (this.course?.hasWorkingGroups) {
+        headers.push({
+          text: this.$t('course.groups.working._'),
+          value: 'group.working',
         })
       }
 
@@ -157,19 +202,39 @@ export default {
 
       return headers
     },
-    groups() {
-      const n = this.teachingGroups?.length
-      if (n) {
-        return [...Array(n).keys()].map((i) => ({
-          text: i + 1,
-          value: i,
-        }))
-      }
+    query() {
+      const path = this.courseCode ? 'Course' : 'Program'
+      const variables = this.courseCode
+        ? { courseCode: this.courseCode }
+        : { programCode: this.programCode }
 
-      return null
+      return {
+        query: require(`~/gql/components/get${path}Registrations.gql`),
+        variables,
+      }
+    },
+    teachingGroups() {
+      return this.course.groups.teaching?.map((g, i) => ({
+        ...g,
+        name: this.groupName('teaching', i),
+        i,
+      }))
+    },
+    workingGroups() {
+      return this.course.groups.working?.map((g, i) => ({
+        ...g,
+        name: this.groupName('working', i),
+        i,
+      }))
     },
   },
   methods: {
+    groupName(type, i) {
+      return (
+        this.course.groups[type][i].name ??
+        this.$t('course.registrations.group_name', { nb: i })
+      )
+    },
     nameOrEmail(registration) {
       const user = registration.user
       const email = user?.email ?? registration.email
@@ -184,30 +249,34 @@ export default {
 
       // Update local cache.
       const { defaultClient: apolloClient } = this.$apolloProvider
-      const data = apolloClient.readQuery({
-        query: getRegistrations,
-        variables: { [`${this.entity}Code`]: this.code },
-      })
+      const data = apolloClient.readQuery(this.query)
       const i = data.registrations.findIndex((r) => r.id === id)
       apolloClient.writeQuery({
-        query: getRegistrations,
+        ...this.query,
         data: {
           registrations: [
             ...data.registrations.slice(0, i),
             ...data.registrations.slice(i + 1),
           ],
         },
-        variables: { [`${this.entity}Code`]: this.code },
       })
 
       this.$notificationManager.displaySuccessMessage(
         this.$t('success.REGISTRATION_DELETE')
       )
     },
-    setRegistrations({ data: registrations }) {
-      this.registrations = registrations?.map((item) => ({
+    setData({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.course = data.course
+      this.registrations = data.registrations?.map((item) => ({
         ...item,
-        innerGroup: item.group?.teaching,
+        innerGroup: {
+          teaching: item.group?.teaching,
+          working: item.group?.working,
+        },
         nameOrEmail: this.nameOrEmail(item),
         status: item.invitation ? 'invites' : 'registered',
       }))

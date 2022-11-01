@@ -3,7 +3,7 @@
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/manage/getCourse.gql')"
     :update="(data) => data.course"
-    :variables="{ code: $route.params.code }"
+    :variables="{ code: courseCode }"
     @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
@@ -47,12 +47,12 @@
 import titles from '@/mixins/titles.js'
 
 export default {
-  name: 'ManageCourseGroupsPage',
+  name: 'ManageGroupsPage',
   mixins: [titles],
   data() {
     return {
       course: null,
-      currentTab: 1,
+      currentTab: 0,
       title: '',
     }
   },
