@@ -13,23 +13,26 @@
       :title="$t('course.team')"
     >
       <div v-if="!error">
-        <h3 class="mt-0">
-          {{ $tc('course.teacher', course?.teachers.length) }}
-        </h3>
+        <div v-if="hasTeachers">
+          <h3 class="mt-0">
+            {{ $tc('course.teacher', course.teachers.length) }}
+          </h3>
 
-        <v-chip
-          v-for="teacher in course?.teachers ?? []"
-          :key="teacher.username"
-          class="ma-2"
-          small
-        >
-          {{ teacher.displayName }}
-        </v-chip>
+          <v-chip
+            v-for="teacher in course.teachers"
+            :key="teacher.username"
+            class="ma-2"
+            small
+          >
+            {{ teacher.displayName }}
+          </v-chip>
+        </div>
 
         <h3>{{ $t('course.groups._') }}</h3>
 
         <stats-list entity="groups" :items="stats" />
       </div>
+
       <span v-else>{{ $t('error.unexpected') }}</span>
     </generic-info-card>
   </ApolloQuery>
@@ -50,6 +53,12 @@ export default {
     }
   },
   computed: {
+    hasGroups() {
+      return this.course?.groups
+    },
+    hasTeachers() {
+      return this.course?.teachers && this.course?.teachers.length > 0
+    },
     link() {
       return {
         icon: 'mdi-view-list',
@@ -61,7 +70,7 @@ export default {
       }
     },
     stats() {
-      if (!this.course) {
+      if (!this.course || !this.hasGroups) {
         return null
       }
 
