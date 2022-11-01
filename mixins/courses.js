@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 export default {
   methods: {
     filteredCourses(courses, filter) {
@@ -24,6 +26,17 @@ export default {
             (c.isTeacher && roles.includes('TEACHER')))
         )
       })
+    },
+    schedule(course) {
+      const schedule = {}
+
+      if (course.schedule?.length > 0) {
+        course.schedule.forEach(({ datetime, name }) => {
+          schedule[name] = DateTime.fromISO(datetime)
+        })
+      }
+
+      return schedule
     },
   },
 }

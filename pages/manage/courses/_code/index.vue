@@ -14,9 +14,9 @@
       <v-col cols="12" md="9">
         <v-row>
           <v-col cols="12" md="6">
-            <registrations-info-card v-if="course" :course="course" />
+            <registrations-info-card :course-code="courseCode" />
             <groups-info-card
-              v-if="course?.groups"
+              v-if="course?.hasGroups"
               class="mt-5"
               :course-code="courseCode"
             />
