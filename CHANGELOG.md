@@ -1,3 +1,21 @@
+## 1.1.16 (2022-11-01)
+
+### Features
+
+- **evaluations:** correct evaluations from assessment with the 'tfq' provider (teacher)
+- **evaluations:** display selected answers, solution and feedback for evaluations from assessment with the 'tfq' provider (student and teacher)
+
+- **registrations:** assign students to a working group (coordinator)
+
+### Improvements
+
+- hid archived courses by default in teach space (and updated the courses filter)
+- moved information about assessment with a provider to a specific panel
+
+### Code Refactoring
+
+- refactored several pieces of code in the course section of manage space (cleaning up the code structure and moving GraphQL queries inside components)
+
 ## 1.1.15 (2022-10-28)
 
 ### Features
