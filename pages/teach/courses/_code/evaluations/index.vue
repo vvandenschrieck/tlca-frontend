@@ -21,8 +21,13 @@
               <v-tab-item>
                 <evaluations-list :course-code="courseCode" space="teach">
                   <template #actions="{ item: { id, status } }">
+                    <evaluation-publish-btn
+                      v-show="['ACCEPTED', 'UNPUBLISHED'].includes(status._)"
+                      :evaluation-id="id"
+                      @success="onEvaluationPublished"
+                    />
                     <evaluation-delete-btn
-                      v-if="['UNPUBLISHED'].includes(status._)"
+                      v-if="['PUBLISHED', 'UNPUBLISHED'].includes(status._)"
                       :evaluation-id="id"
                       @success="() => onEvaluationDeleted(id)"
                     />
@@ -114,6 +119,11 @@ export default {
 
       this.$notificationManager.displaySuccessMessage(
         this.$t('success.EVALUATION_DELETE')
+      )
+    },
+    onEvaluationPublished() {
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.EVALUATION_PUBLISH')
       )
     },
     setResult({ data: course }) {
