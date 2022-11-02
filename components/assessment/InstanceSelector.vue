@@ -3,13 +3,17 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getAssessmentInstancesEvaluations.gql')"
-    :variables="{ assessmentId, courseCode, learner }"
+    :variables="{
+      assessmentId,
+      courseCode,
+      learner: !massCreation ? learner : null,
+    }"
     @result="setResult"
   >
     <v-progress-linear v-if="!!isLoading" indeterminate />
 
     <div v-if="!error">
-      <v-row v-if="!edit">
+      <v-row v-if="!edit && !massCreation">
         <v-col cols="12" md="4">
           <v-switch
             v-model="newInstance"
@@ -110,7 +114,7 @@ export default {
       default: false,
     },
     learner: {
-      type: String,
+      type: [Array, String],
       default: null,
     },
     value: {
@@ -132,6 +136,11 @@ export default {
     canAddEvaluation() {
       if (!this.showDetail || !this.assessment || !this.instances) {
         return false
+      }
+
+      // Can always add evaluations for mass encoding.
+      if (this.massCreation) {
+        return true
       }
 
       // It is not possible to create a new instance if the limit has been reached.
@@ -244,6 +253,9 @@ export default {
         (this.instances.length * 100) /
         (this.assessment.instances ?? this.instances.length + 1)
       )
+    },
+    massCreation() {
+      return Array.isArray(this.learner)
     },
     showDetail() {
       return this.newInstance || this.selectedInstance !== null
