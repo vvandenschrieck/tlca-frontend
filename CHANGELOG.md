@@ -1,3 +1,13 @@
+## 1.1.17 (2022-11-02)
+
+### Features
+
+- **evaluations:** create multiple evaluations at once for several learners (teacher)
+
+### Improvements
+
+- added buttons to delete and publish an evaluation from the evaluations list page (teacher)
+
 ## 1.1.16 (2022-11-01)
 
 ### Features

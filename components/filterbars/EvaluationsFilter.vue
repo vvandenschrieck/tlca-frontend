@@ -14,7 +14,7 @@
     <v-row>
       <v-col cols="3">{{ $t('evaluation.learner') }}</v-col>
       <v-col cols="9">
-        <learner-select-field
+        <learner-select
           :course-code="courseCode"
           :value="value.learner"
           @input="update('learner', $event)"
