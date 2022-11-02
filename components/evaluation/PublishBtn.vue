@@ -1,14 +1,13 @@
 <template>
   <ApolloMutation
-    v-if="canPublish"
-    v-slot="{ mutate, loading }"
+    v-slot="{ loading, mutate }"
     :mutation="require('../../gql/teach/publishEvaluation.gql')"
-    :variables="{ id: evaluation.id }"
-    @done="success"
+    tag="span"
+    :variables="{ id: evaluationId }"
+    @done="done"
   >
-    <v-btn color="primary" :loading="loading" small @click="mutate">
-      <v-icon left>mdi-cloud-upload</v-icon>
-      <span>{{ $t('evaluation.publish') }}</span>
+    <v-btn icon :loading="loading" small @click.stop="mutate">
+      <v-icon small>mdi-cloud-upload</v-icon>
     </v-btn>
   </ApolloMutation>
 </template>
@@ -17,19 +16,14 @@
 export default {
   name: 'EvaluationPublishBtn',
   props: {
-    evaluation: {
-      type: Object,
+    evaluationId: {
+      type: String,
       required: true,
     },
   },
-  computed: {
-    canPublish() {
-      return this.evaluation.status === 'UNPUBLISHED'
-    },
-  },
   methods: {
-    success({ data: { publishEvaluation: evaluation } }) {
-      this.$emit('success', evaluation)
+    done({ data: { publishEvaluation } }) {
+      this.$emit(publishEvaluation ? 'success' : 'error')
     },
   },
 }

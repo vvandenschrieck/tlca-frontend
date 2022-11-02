@@ -9,11 +9,20 @@
         <v-card-text>
           <v-row class="mt-1">
             <v-col cols="12" md="6">
-              <learner-select-field
+              <learner-select
                 v-model="learner"
                 :course-code="courseCode"
                 :disabled="edit"
+                :multiple="massCreation"
                 @change="onSelectLearner"
+              />
+              <v-switch
+                v-if="!edit"
+                v-model="massCreation"
+                dense
+                hide-details
+                label="Mass creation"
+                @change="learner = null"
               />
             </v-col>
 
@@ -28,7 +37,11 @@
           </v-row>
 
           <div v-if="showInstanceSelector">
-            <h4>{{ $tc('assessment.instance._', 1) }}</h4>
+            <v-divider v-if="!(edit || massCreation)" class="mb-3 mt-3" />
+
+            <h4 v-if="!(edit || massCreation)">
+              {{ $tc('assessment.instance._', 1) }}
+            </h4>
 
             <assessment-instance-selector
               v-model="instance"
@@ -152,6 +165,7 @@ export default {
       formError: null,
       initialCompetencies: null,
       learner: null,
+      massCreation: false,
       note: '',
       selectedCompetencies: [],
       showActions: false,
@@ -169,6 +183,38 @@ export default {
     this.reset()
   },
   methods: {
+    async createEvaluation(mutation, data, learner) {
+      if (learner) {
+        data.learner = learner
+      }
+
+      try {
+        const response = await this.$apollo
+          .mutate({
+            mutation,
+            variables: data,
+          })
+          .then(({ data }) => data && data[`${this.action}Evaluation`])
+
+        if (response) {
+          return response.id
+        }
+      } catch (err) {
+        if (err.graphQLErrors?.length) {
+          const gqlError = err.graphQLErrors[0]
+          if (gqlError.extensions?.formErrors) {
+            this.$refs.form.setErrors(gqlError.extensions.formErrors)
+          } else {
+            this.formError = `error.${gqlError.message}`
+          }
+        }
+      }
+
+      if (!this.formError) {
+        this.formError = 'error._'
+      }
+      return null
+    },
     onSelectAssessment() {
       this.instance = null
       this.$emit('assessmentSelected', this.assessment)
@@ -231,44 +277,38 @@ export default {
       } else {
         data.assessment = this.assessment
         data.instance = this.instance
-        data.learner = this.learner
       }
       const mutation = require(`~/gql/teach/${this.action}Evaluation.gql`)
 
-      try {
-        const response = await this.$apollo
-          .mutate({
-            mutation,
-            variables: data,
-          })
-          .then(({ data }) => data && data[`${this.action}Evaluation`])
-
-        if (response) {
-          const id = response.id
-          // this.reset()
-          this.$notificationManager.displaySuccessMessage(
-            this.$t('success.EVALUATION_CREATE')
+      if (this.edit) {
+        await this.createEvaluation(mutation, data, null)
+      } else {
+        const learners = this.massCreation ? this.learner : [this.learner]
+        const result = await Promise.all(
+          learners.map(
+            async (l) => await this.createEvaluation(mutation, data, l)
           )
-          this.$router.push({
-            name: 'teach-courses-code-evaluations-id',
-            params: { code: this.courseCode, id },
-          })
-          return
-        }
-      } catch (err) {
-        if (err.graphQLErrors?.length) {
-          const gqlError = err.graphQLErrors[0]
-          if (gqlError.extensions?.formErrors) {
-            this.$refs.form.setErrors(gqlError.extensions.formErrors)
+        )
+
+        if (result.every((r) => !!r)) {
+          this.$notificationManager.displaySuccessMessage(
+            this.$t(`success.EVALUATION_${this.action.toUpperCase()}`)
+          )
+
+          if (this.massCreation) {
+            this.$router.push({
+              name: 'teach-courses-code-evaluations',
+              params: { code: this.courseCode },
+            })
           } else {
-            this.formError = `error.${gqlError.message}`
+            this.$router.push({
+              name: 'teach-courses-code-evaluations-id',
+              params: { code: this.courseCode, id: result[0] },
+            })
           }
         }
       }
 
-      if (!this.formError) {
-        this.formError = 'error._'
-      }
       this.formBusy = false
     },
     updateForm(canAddEvaluation) {

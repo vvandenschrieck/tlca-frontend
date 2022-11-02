@@ -19,7 +19,20 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <evaluations-list :course-code="courseCode" space="teach" />
+                <evaluations-list :course-code="courseCode" space="teach">
+                  <template #actions="{ item: { id, status } }">
+                    <evaluation-publish-btn
+                      v-show="['ACCEPTED', 'UNPUBLISHED'].includes(status._)"
+                      :evaluation-id="id"
+                      @success="onEvaluationPublished"
+                    />
+                    <evaluation-delete-btn
+                      v-if="['PUBLISHED', 'UNPUBLISHED'].includes(status._)"
+                      :evaluation-id="id"
+                      @success="() => onEvaluationDeleted(id)"
+                    />
+                  </template>
+                </evaluations-list>
               </v-tab-item>
 
               <v-tab-item>
@@ -46,6 +59,8 @@
 </template>
 
 <script>
+import getEvaluationsList from '@/gql/components/getEvaluationsList.gql'
+
 import titles from '@/mixins/titles.js'
 
 export default {
@@ -78,6 +93,39 @@ export default {
     },
   },
   methods: {
+    onEvaluationDeleted(id) {
+      const { defaultClient: apolloClient } = this.$apolloProvider
+      const query = {
+        query: getEvaluationsList,
+        variables: {
+          assessmentId: null,
+          courseCode: this.courseCode,
+          published: null,
+          hideAssessment: false,
+          hideLearner: false,
+        },
+      }
+      const data = apolloClient.readQuery(query)
+      const i = data.evaluations.findIndex((i) => i.id === id)
+      apolloClient.writeQuery({
+        ...query,
+        data: {
+          evaluations: [
+            ...data.evaluations.slice(0, i),
+            ...data.evaluations.slice(i + 1),
+          ],
+        },
+      })
+
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.EVALUATION_DELETE')
+      )
+    },
+    onEvaluationPublished() {
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.EVALUATION_PUBLISH')
+      )
+    },
     setResult({ data: course }) {
       this.course = course
       this.title = course?.name ?? ''

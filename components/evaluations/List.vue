@@ -29,7 +29,7 @@
       v-if="!error"
       :group-by="groupByStatus ? 'status.text' : null"
       :group-desc="false"
-      :headers="dataHeaders"
+      :headers="headers"
       :items="filteredEvaluations(evaluations, filter)"
       :items-per-page="15"
       :loading="!!isLoading"
@@ -64,6 +64,10 @@
           {{ status.text }}
         </v-chip>
       </template>
+
+      <template v-if="!hideActions" #item.actions="{ item }">
+        <slot name="actions" :item="item" />
+      </template>
     </v-data-table>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
@@ -86,6 +90,10 @@ export default {
     courseCode: {
       type: String,
       required: true,
+    },
+    hideActions: {
+      type: Boolean,
+      default: false,
     },
     hideAssessment: {
       type: Boolean,
@@ -120,7 +128,7 @@ export default {
     }
   },
   computed: {
-    dataHeaders() {
+    headers() {
       const items = []
 
       if (!this.hideAssessment) {
@@ -149,6 +157,16 @@ export default {
         })
       }
 
+      if (!this.hideActions) {
+        items.push({
+          cellClass: 'text-right',
+          class: 'text-right',
+          sortable: false,
+          text: this.$tc('general.action', 2),
+          value: 'actions',
+        })
+      }
+
       return items
     },
   },
@@ -169,6 +187,7 @@ export default {
         assessment: this.assessmentName(e.assessment),
         date: this.formatDateTimeFull(e.date),
         status: {
+          _: e.status,
           color: this.statusColor(e.status),
           text: this.$t(`evaluation.status.${e.status.toLowerCase()}`),
         },
