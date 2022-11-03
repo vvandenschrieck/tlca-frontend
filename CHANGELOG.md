@@ -1,3 +1,9 @@
+## 1.1.17 (2022-11-03)
+
+### Bug Fixes
+
+- fixed form display issues for mass creation of evaluations (teacher)
+
 ## 1.1.17 (2022-11-02)
 
 ### Features
