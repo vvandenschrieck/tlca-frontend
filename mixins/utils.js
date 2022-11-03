@@ -24,5 +24,8 @@ export default {
         size /= 1024
       }
     },
+    newArray(length, value) {
+      return Array.from({ length: length ?? 0 }, () => value)
+    },
   },
 }

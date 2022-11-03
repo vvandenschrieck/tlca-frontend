@@ -1,4 +1,9 @@
-query GetAssessmentInstancesEvaluations($assessmentId: ID!, $courseCode: ID!, $learner: ID) {
+query GetPastEvaluations(
+  $assessmentId: ID!
+  $courseCode: ID!
+  $learner: ID
+  $massCreation: Boolean!
+) {
   assessment(id: $assessmentId) {
     competencies {
       checklist {
@@ -15,15 +20,14 @@ query GetAssessmentInstancesEvaluations($assessmentId: ID!, $courseCode: ID!, $l
     takes
   }
 
-  assessmentInstances(assessment: $assessmentId, learner: $learner) {
+  assessmentInstances(assessment: $assessmentId, learner: $learner)
+    @skip(if: $massCreation) {
     datetime
     id
   }
 
-  evaluations(
-    assessment: $assessmentId
-    courseCode: $courseCode
-  ) {
+  evaluations(assessment: $assessmentId, courseCode: $courseCode)
+    @skip(if: $massCreation) {
     competencies {
       competency {
         code

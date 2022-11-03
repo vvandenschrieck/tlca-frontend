@@ -120,7 +120,10 @@
         </v-card-text>
       </v-card>
 
-      <div v-if="showActions || edit" class="text-right mt-5">
+      <div
+        v-if="showActions || edit || (massCreation && showInstanceSelector)"
+        class="text-right mt-5"
+      >
         <reset-btn :disabled="formBusy" @click="resetForm" />
         <submit-btn :action="action" :loading="formBusy" />
       </div>
