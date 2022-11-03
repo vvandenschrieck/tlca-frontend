@@ -2,11 +2,12 @@
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
-    :query="require('~/gql/components/getAssessmentInstancesEvaluations.gql')"
+    :query="require('~/gql/components/getPastEvaluations.gql')"
     :variables="{
       assessmentId,
       courseCode,
       learner: !massCreation ? learner : null,
+      massCreation,
     }"
     @result="setResult"
   >
@@ -19,7 +20,7 @@
             v-model="newInstance"
             class="ml-2"
             dense
-            :disabled="selectedInstance !== null"
+            :disabled="!canCreateInstance || selectedInstance !== null"
             :label="$t('assessment.instance.new')"
             @change="switchNewInstance"
           />
@@ -29,7 +30,12 @@
           <v-select
             v-model="selectedInstance"
             clearable
-            :disabled="newInstance || !instances?.length"
+            :disabled="
+              !canSelectInstance ||
+              newInstance ||
+              !instances ||
+              !instances.length
+            "
             :items="instances"
             item-value="i"
             :label="$tc('assessment.instance._', 1)"
@@ -96,10 +102,11 @@
 
 <script>
 import datetime from '@/mixins/datetime.js'
+import utils from '@/mixins/utils.js'
 
 export default {
   name: 'AssessmentInstanceSelector',
-  mixins: [datetime],
+  mixins: [datetime, utils],
   props: {
     assessmentId: {
       type: String,
@@ -125,6 +132,8 @@ export default {
   data() {
     return {
       assessment: null,
+      canCreateInstance: true,
+      canSelectInstance: true,
       evaluations: null,
       instances: null,
       newInstance: false,
@@ -134,13 +143,13 @@ export default {
   },
   computed: {
     canAddEvaluation() {
-      if (!this.showDetail || !this.assessment || !this.instances) {
-        return false
-      }
-
       // Can always add evaluations for mass encoding.
       if (this.massCreation) {
         return true
+      }
+
+      if (!this.showDetail || !this.assessment || !this.instances) {
+        return false
       }
 
       // It is not possible to create a new instance if the limit has been reached.
@@ -258,7 +267,11 @@ export default {
       return Array.isArray(this.learner)
     },
     showDetail() {
-      return this.newInstance || this.selectedInstance !== null
+      return (
+        this.newInstance ||
+        this.selectedInstance !== null ||
+        (this.massCreation && this.learner?.length > 0)
+      )
     },
     showLimit() {
       return (
@@ -326,36 +339,45 @@ export default {
       }
 
       this.assessment = data.assessment
-      this.evaluations = data.evaluations
-      this.instances = data.assessmentInstances
-        .sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
-        .map((ai, i) => ({ ...ai, i }))
+
+      // Initialise the instances and evaluations, if any.
+      if (!this.massCreation) {
+        this.evaluations = data.evaluations
+        this.instances = data.assessmentInstances
+          .sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
+          .map((ai, i) => ({ ...ai, i }))
+      } else {
+        this.evaluations = null
+        this.instances = null
+      }
+
+      // Initialise the variable to store the selected competencies.
       this.selectedCompetencies =
         this.assessment.competencies.map(
           ({ checklist, competency, learningOutcomes }) => {
             return {
               checklist: {
-                private: Array.from(
-                  { length: checklist?.private?.length ?? 0 },
-                  () => false
-                ),
-                public: Array.from(
-                  { length: checklist?.public?.length ?? 0 },
-                  () => false
-                ),
+                private: this.newArray(checklist?.private?.length, false),
+                public: this.newArray(checklist?.public?.length, false),
               },
               competency: competency.code,
               disabled: false,
-              learningOutcomes: Array.from(
-                { length: learningOutcomes?.length ?? 0 },
-                () => false
-              ),
+              learningOutcomes: this.newArray(learningOutcomes?.length, false),
               selected: false,
             }
           }
         ) ?? []
 
-      this.newInstance = !this.instances.length
+      // Automatically initialise instance selection options.
+      this.newInstance = !this.instances || !this.instances.length
+      this.canCreateInstance =
+        !this.assessment.instances ||
+        (this.instances && this.instances.length < this.assessment.instances)
+      if (!this.canCreateInstance && this.instances?.length === 1) {
+        this.canSelectInstance = false
+        this.selectedInstance = 0
+        this.$emit('input', this.instances[0].id)
+      }
     },
     switchNewInstance(value) {
       if (value) {
