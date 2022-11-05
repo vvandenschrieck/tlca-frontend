@@ -197,7 +197,7 @@ export default {
             mutation,
             variables: data,
           })
-          .then(({ data }) => data && data[`${this.action}Evaluation`])
+          .then(({ data }) => data && data.createEvaluation)
 
         if (response) {
           return response.id
@@ -298,18 +298,18 @@ export default {
             this.$t(`success.EVALUATION_${this.action.toUpperCase()}`)
           )
 
-          if (this.massCreation) {
-            this.$router.push({
-              name: 'teach-courses-code-evaluations',
-              params: { code: this.courseCode },
-            })
-          } else {
+          if (!this.massCreation) {
             this.$router.push({
               name: 'teach-courses-code-evaluations-id',
               params: { code: this.courseCode, id: result[0] },
             })
           }
         }
+
+        this.$router.push({
+          name: 'teach-courses-code-evaluations',
+          params: { code: this.courseCode },
+        })
       }
 
       this.formBusy = false
