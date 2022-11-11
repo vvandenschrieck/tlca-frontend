@@ -109,7 +109,7 @@
           <evaluation-request-reject-btn v-if="!hasProvider" @reject="reject" />
           <accept-btn v-if="!hasProvider" @accept="accept" />
           <evaluation-correct-btn
-            v-if="showCorrectBtn || true"
+            v-if="showCorrectBtn"
             :loading="correcting"
             @click="correct"
           />
@@ -123,6 +123,7 @@
       >
         <evaluation-info-panel :evaluation-id="evaluationId" teacher-view />
         <provider-info-panel
+          v-if="evaluation?.assessment.hasProvider"
           class="mt-5"
           :evaluation-id="evaluationId"
           teacher-view

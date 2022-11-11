@@ -6,6 +6,7 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
 
   evaluation(id: $evaluationId) {
     assessment {
+      hasProvider
       id
       name
       provider
