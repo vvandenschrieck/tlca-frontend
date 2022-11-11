@@ -17,7 +17,7 @@ query GetCourseCompetenciesProgress($courseCode: ID!) {
     isRegistered
   }
 
-  registration(courseCode: $courseCode) {
+  registration(code: $courseCode) {
     id
     progress {
       competencies {

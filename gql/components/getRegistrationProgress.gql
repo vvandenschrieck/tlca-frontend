@@ -1,5 +1,5 @@
-query GetRegistrationProgress($courseCode: ID) {
-  registration(courseCode: $courseCode) {
+query GetRegistrationProgress($courseCode: ID!) {
+  registration(code: $courseCode) {
     id
     progress {
       advanced
