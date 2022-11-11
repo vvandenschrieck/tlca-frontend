@@ -94,7 +94,12 @@
               </v-tab-item>
 
               <v-tab-item>
-                <v-alert type="info" dense outlined>Upcoming feature</v-alert>
+                <h4>{{ $t('evaluation.status._') }}</h4>
+
+                <evaluation-status-history
+                  :evaluation-id="evaluationId"
+                  teacher-view
+                />
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>

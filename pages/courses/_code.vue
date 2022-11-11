@@ -37,7 +37,10 @@
                 </v-tab-item>
 
                 <v-tab-item v-if="course?.schedule">
-                  <schedule-timeline :items="course.schedule" />
+                  <schedule-timeline
+                    :items="course.schedule"
+                    name-prefix="course.schedule"
+                  />
                 </v-tab-item>
               </v-tabs-items>
             </v-card-text>

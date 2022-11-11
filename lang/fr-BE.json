@@ -402,10 +402,11 @@
     },
     "status": {
       "_": "@:global.status._",
-      "accepted": "Acceptée",
+      "accepted": "Accepté",
+      "created": "Créé",
       "published": "@:global.status.published",
       "published_on": "@:global.status.published_on",
-      "rejected": "Rejetée",
+      "rejected": "Rejeté",
       "requested": "Demandé",
       "requested_on": "Demandé le {date}",
       "unpublished": "@:global.status.unpublished"

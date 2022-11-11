@@ -21,6 +21,7 @@
             <evaluations-info-card
               class="mt-5"
               :course-code="courseCode"
+              hide-unpublished
               space="learn"
             />
           </v-col>

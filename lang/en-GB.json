@@ -403,6 +403,7 @@
     "status": {
       "_": "@:global.status._",
       "accepted": "Accepted",
+      "created": "Created",
       "published": "@:global.status.published",
       "published_on": "@:global.status.published_on",
       "rejected": "Rejected",

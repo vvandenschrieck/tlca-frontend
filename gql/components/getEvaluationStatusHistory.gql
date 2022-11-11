@@ -1,0 +1,10 @@
+query GetEvaluationStatusHistory($id: ID!, $teacherView: Boolean!) {
+  evaluation(id: $id) {
+    accepted @include(if: $teacherView)
+    created @include(if: $teacherView)
+    id
+    published
+    rejected @include(if: $teacherView)
+    requested
+  }
+}
