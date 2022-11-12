@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <div>
+  <div class="mb-3">
     <div v-if="text" v-html="text" />
     <div v-else>{{ $t(`${entity}.no`) }}</div>
   </div>

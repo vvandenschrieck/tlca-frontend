@@ -86,6 +86,7 @@
         >
           Cannot add evaluation
         </v-alert>
+
         <slot
           v-else
           name="body"
@@ -119,6 +120,10 @@ export default {
     edit: {
       type: Boolean,
       default: false,
+    },
+    evaluationId: {
+      type: String,
+      default: null,
     },
     learner: {
       type: [Array, String],
@@ -242,7 +247,9 @@ export default {
       return true
     },
     hasUnpublishedEvaluations() {
-      return this.instanceEvaluations.filter((e) => !e.isPublished).length > 0
+      return !!this.instanceEvaluations.find(
+        (e) => e.id !== this.evaluationId && !e.isPublished
+      )
     },
     instanceEvaluations() {
       if (this.selectedInstance === null || !this.evaluations) {

@@ -24,12 +24,13 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <assessment-info-panel
-          v-if="assessmentId"
-          class="mb-5"
-          :assessment-id="assessmentId"
+        <evaluation-info-panel
+          :evaluation-id="evaluationId"
+          hide-assessment
+          hide-learner
+          teacher-view
         />
-        <course-schedule-panel :course-code="courseCode" />
+        <course-schedule-panel class="mt-5" :course-code="courseCode" />
       </v-col>
     </v-row>
 

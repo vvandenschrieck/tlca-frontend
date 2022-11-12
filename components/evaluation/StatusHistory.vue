@@ -44,9 +44,9 @@ export default {
 
       const items = []
 
-      // Add accepted, created and rejected dates, events only visible to the teacher.
+      // Add accepted and rejected dates, events only visible to the teacher.
       if (this.teacherView) {
-        for (const name of ['accepted', 'created', 'rejected']) {
+        for (const name of ['accepted', 'rejected']) {
           if (this.evaluation[name]) {
             items.push({
               name,

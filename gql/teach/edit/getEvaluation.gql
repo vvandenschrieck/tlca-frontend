@@ -6,12 +6,14 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
   }
 
   evaluation(id: $evaluationId) {
+    accepted
     assessment {
       id
     }
     comment
     competencies {
       checklist {
+        private
         public
       }
       competency {

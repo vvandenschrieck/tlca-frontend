@@ -12,6 +12,20 @@ mutation EditEvaluation(
     id: $id
     note: $note
   ) {
+    comment
+    competencies {
+      checklist {
+        private
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
+    date
     id
+    note
   }
 }
