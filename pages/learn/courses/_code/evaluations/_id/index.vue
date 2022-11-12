@@ -11,7 +11,7 @@
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>{{ $tc('evaluation._', 1) }}</v-tab>
+            <v-tab>{{ tabTitle }}</v-tab>
             <v-tab>{{ $t('general.history') }}</v-tab>
           </v-tabs>
 
@@ -39,12 +39,6 @@
                   />
                 </div>
 
-                <div v-if="showRejectionReason">
-                  <h4>{{ $t('evaluation.rejectionReason') }}</h4>
-
-                  <description-content :text="evaluation?.rejectionReason" />
-                </div>
-
                 <div v-if="showExplanation">
                   <h4>{{ $t('evaluation.explanation._') }}</h4>
 
@@ -52,6 +46,12 @@
                     entity="evaluation.explanation"
                     :text="evaluation?.explanation"
                   />
+                </div>
+
+                <div v-if="showRejectionReason">
+                  <h4>{{ $t('evaluation.rejectionReason') }}</h4>
+
+                  <description-content :text="evaluation?.rejectionReason" />
                 </div>
 
                 <div v-if="showData">
@@ -79,7 +79,11 @@
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
         <evaluation-info-panel :evaluation-id="evaluationId" hide-learner />
-        <provider-info-panel class="mt-5" :evaluation-id="evaluationId" />
+        <provider-info-panel
+          v-if="evaluation?.assessment.hasProvider"
+          class="mt-5"
+          :evaluation-id="evaluationId"
+        />
       </v-col>
     </v-row>
 
@@ -138,6 +142,11 @@ export default {
     },
     showRejectionReason() {
       return this.evaluation?.status === 'REJECTED'
+    },
+    tabTitle() {
+      return this.evaluation?.status === 'PUBLISHED'
+        ? this.$tc('evaluation._', 1)
+        : this.$t('general.request')
     },
   },
   methods: {

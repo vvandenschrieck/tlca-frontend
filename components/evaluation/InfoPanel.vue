@@ -29,6 +29,10 @@ export default {
       type: String,
       required: true,
     },
+    hideAssessment: {
+      type: Boolean,
+      default: false,
+    },
     hideLearner: {
       type: Boolean,
       default: false,
@@ -50,6 +54,36 @@ export default {
       }
 
       const items = []
+
+      // Assessment name.
+      if (!this.hideAssessment) {
+        const assessment = evaluation.assessment
+        items.push({
+          icon: 'mdi-clipboard-text',
+          text: this.shortName(assessment),
+          tooltip: this.$t('evaluation.assessment'),
+        })
+      }
+
+      // Evaluated learner.
+      if (!this.hideLearner) {
+        const learner = evaluation.learner
+        items.push({
+          icon: 'mdi-account-school',
+          text: learner.displayName,
+          tooltip: this.$t('evaluation.learner'),
+        })
+      }
+
+      // Evaluator.
+      const evaluator = evaluation.evaluator
+      if (evaluator) {
+        items.push({
+          icon: 'mdi-account-school',
+          text: evaluator.displayName,
+          tooltip: this.$t('evaluation.evaluator'),
+        })
+      }
 
       // Status.
       const status = {
@@ -87,39 +121,11 @@ export default {
         })
       }
 
-      // Evaluated learner.
-      if (!this.hideLearner) {
-        const learner = evaluation.learner
-        items.push({
-          icon: 'mdi-account-school',
-          text: learner.displayName,
-          tooltip: this.$t('evaluation.learner'),
-        })
-      }
-
-      // Assessment name.
-      const assessment = evaluation.assessment
-      items.push({
-        icon: 'mdi-clipboard-text',
-        text: this.shortName(assessment),
-        tooltip: this.$t('evaluation.assessment'),
-      })
-
-      // Evaluator.
-      const evaluator = evaluation.evaluator
-      if (evaluator) {
-        items.push({
-          icon: 'mdi-account-school',
-          text: evaluator.displayName,
-          tooltip: this.$t('evaluation.evaluator'),
-        })
-      }
-
       // Evaluation date.
       const date = evaluation.date
       if (
-        evaluation.status === 'PUBLISHED' ||
-        (evaluator && evaluator.username === this.$auth.user?.username)
+        ['PUBLISHED', 'UNPUBLISHED'].includes(evaluation.status) ||
+        (this.teacherView && evaluation.status === 'ACCEPTED')
       ) {
         items.push({
           icon: 'mdi-calendar-clock',
@@ -129,19 +135,19 @@ export default {
       }
 
       // Creation date.
-      if (this.teacherView) {
-        const created = evaluation.created
-        if (
-          created &&
-          (evaluation.status !== 'PUBLISHED' || created !== date)
-        ) {
-          items.push({
-            icon: 'mdi-calendar-clock',
-            text: this.formatDateTimeFull(created),
-            tooltip: this.$t('evaluation.created'),
-          })
-        }
-      }
+      // if (this.teacherView) {
+      //   const created = evaluation.created
+      //   if (
+      //     created &&
+      //     (evaluation.status !== 'PUBLISHED' || created !== date)
+      //   ) {
+      //     items.push({
+      //       icon: 'mdi-calendar-clock',
+      //       text: this.formatDateTimeFull(created),
+      //       tooltip: this.$t('evaluation.created'),
+      //     })
+      //   }
+      // }
 
       this.items = items
     },

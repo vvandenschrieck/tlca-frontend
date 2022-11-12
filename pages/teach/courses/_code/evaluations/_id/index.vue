@@ -1,8 +1,8 @@
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
-    :query="require('~/gql/teach/getEvaluation.gql')"
-    :variables="{ courseCode, evaluationId }"
+    :query="query.query"
+    :variables="query.variables"
     @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
@@ -11,7 +11,7 @@
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>{{ $tc('evaluation._', 1) }}</v-tab>
+            <v-tab>{{ tabTitle }}</v-tab>
             <v-tab v-if="showRequest">{{ $t('general.request') }}</v-tab>
             <v-tab>{{ $t('general.history') }}</v-tab>
           </v-tabs>
@@ -27,6 +27,7 @@
                     :assessment-id="evaluation.assessment.id"
                     :course-code="courseCode"
                     :selected="selectedCompetencies"
+                    :student-view="hidePrivateChecklist"
                   />
                 </div>
 
@@ -39,12 +40,6 @@
                   />
                 </div>
 
-                <div v-if="showRejectionReason">
-                  <h4>{{ $t('evaluation.rejectionReason') }}</h4>
-
-                  <description-content :text="evaluation?.rejectionReason" />
-                </div>
-
                 <div v-if="showExplanation">
                   <h4>{{ $t('evaluation.explanation._') }}</h4>
 
@@ -52,6 +47,12 @@
                     entity="evaluation.explanation"
                     :text="evaluation?.explanation"
                   />
+                </div>
+
+                <div v-if="showRejectionReason">
+                  <h4>{{ $t('evaluation.rejectionReason') }}</h4>
+
+                  <description-content :text="evaluation?.rejectionReason" />
                 </div>
 
                 <div v-if="showNote">
@@ -76,13 +77,6 @@
               </v-tab-item>
 
               <v-tab-item v-if="showRequest">
-                <h4>{{ $t('evaluation.explanation._') }}</h4>
-
-                <description-content
-                  entity="evaluation.explanation"
-                  :text="evaluation?.explanation"
-                />
-
                 <h4>{{ $tc('competency._', 2) }}</h4>
 
                 <assessment-competencies-list
@@ -90,11 +84,24 @@
                   :assessment-id="evaluation.assessment.id"
                   :course-code="courseCode"
                   :selected="evaluation.requestedCompetencies"
+                  student-view
+                />
+
+                <h4>{{ $t('evaluation.explanation._') }}</h4>
+
+                <description-content
+                  entity="evaluation.explanation"
+                  :text="evaluation?.explanation"
                 />
               </v-tab-item>
 
               <v-tab-item>
-                <v-alert type="info" dense outlined>Upcoming feature</v-alert>
+                <h4>{{ $t('evaluation.status._') }}</h4>
+
+                <evaluation-status-history
+                  :evaluation-id="evaluationId"
+                  teacher-view
+                />
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>
@@ -104,7 +111,7 @@
           <evaluation-request-reject-btn v-if="!hasProvider" @reject="reject" />
           <accept-btn v-if="!hasProvider" @accept="accept" />
           <evaluation-correct-btn
-            v-if="showCorrectBtn || true"
+            v-if="showCorrectBtn"
             :loading="correcting"
             @click="correct"
           />
@@ -118,6 +125,7 @@
       >
         <evaluation-info-panel :evaluation-id="evaluationId" teacher-view />
         <provider-info-panel
+          v-if="evaluation?.assessment.hasProvider"
           class="mt-5"
           :evaluation-id="evaluationId"
           teacher-view
@@ -139,10 +147,7 @@
 <script>
 import titles from '@/mixins/titles.js'
 
-import acceptEvaluationRequest from '~/gql/teach/acceptEvaluationRequest.gql'
 import correctEvaluation from '~/gql/teach/correctEvaluation.gql'
-import publishEvaluation from '~/gql/teach/publishEvaluation.gql'
-import rejectEvaluationRequest from '~/gql/teach/rejectEvaluationRequest.gql'
 
 export default {
   name: 'TeachEvaluationPage',
@@ -154,8 +159,8 @@ export default {
       course: null,
       currentTab: 0,
       evaluation: null,
+      executing: false,
       instance: null,
-      requestHandling: false,
       title: '',
     }
   },
@@ -226,6 +231,18 @@ export default {
     hasProvider() {
       return this.assessment?.provider
     },
+    hidePrivateChecklist() {
+      return ['REJECTED', 'REQUESTED'].includes(this.evaluation?.status)
+    },
+    query() {
+      return {
+        query: require('~/gql/teach/getEvaluation.gql'),
+        variables: {
+          courseCode: this.courseCode,
+          evaluationId: this.evaluationId,
+        },
+      }
+    },
     selectedCompetencies() {
       if (!this.evaluation) {
         return []
@@ -291,37 +308,22 @@ export default {
     showRequest() {
       return this.evaluation?.status === 'ACCEPTED'
     },
+    tabTitle() {
+      return ['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
+        this.evaluation?.status
+      )
+        ? this.$tc('evaluation._', 1)
+        : this.$t('general.request')
+    },
   },
   methods: {
     async accept() {
-      if (this.requestHandling) {
-        return
-      }
-
-      this.requestHandling = true
-      const data = { id: this.evaluationId }
-
-      try {
-        const response = await this.$apollo
-          .mutate({
-            mutation: acceptEvaluationRequest,
-            variables: data,
-          })
-          .then(({ data }) => data && data.acceptEvaluationRequest)
-
-        if (response) {
-          // TODO: replace with cache update.
-          this.evaluation.requestedCompetencies = this.evaluation.competencies
-          this.evaluation.competencies = []
-          this.evaluation.isRequestPending = false
-          this.evaluation.status = 'ACCEPTED'
-          this.$notificationManager.displaySuccessMessage(
-            this.$t('success.EVALUATION_REQUEST_ACCEPT')
-          )
-        }
-      } catch {}
-
-      this.requestHandling = false
+      await this.execute({
+        key: 'EVALUATION_REQUEST_ACCEPT',
+        mutation: require('~/gql/teach/acceptEvaluationRequest.gql'),
+        name: 'acceptEvaluationRequest',
+        variables: { id: this.evaluationId },
+      })
     },
     async correct() {
       if (this.correcting) {
@@ -352,59 +354,48 @@ export default {
 
       this.correcting = false
     },
+    async execute(action) {
+      if (this.executing) {
+        return
+      }
+
+      this.executing = true
+      const { key, mutation, name, variables } = action
+
+      try {
+        const response = await this.$apollo
+          .mutate({ mutation, variables })
+          .then(({ data }) => data && data[name])
+
+        if (response) {
+          this.$notificationManager.displaySuccessMessage(
+            this.$t(`success.${key}`)
+          )
+        }
+      } finally {
+        this.executing = false
+      }
+    },
     async onCustomActionClicked(key) {
       if (key === 'publish') {
         await this.publish()
       }
     },
     async publish() {
-      const data = { id: this.evaluationId }
-
-      try {
-        const response = await this.$apollo
-          .mutate({
-            mutation: publishEvaluation,
-            variables: data,
-          })
-          .then(({ data }) => data && data.publishEvaluation)
-
-        if (response) {
-          // TODO: replace with cache update.
-          this.evaluation.isPublished = response.isPublished
-          this.$notificationManager.displaySuccessMessage(
-            this.$t('success.EVALUATION_PUBLISH')
-          )
-        }
-      } catch (err) {}
+      await this.execute({
+        key: 'EVALUATION_PUBLISH',
+        mutation: require('~/gql/teach/publishEvaluation.gql'),
+        name: 'publishEvaluation',
+        variables: { id: this.evaluationId },
+      })
     },
     async reject(reason) {
-      if (this.requestHandling) {
-        return
-      }
-
-      this.requestHandling = true
-      const data = { id: this.evaluationId, reason }
-
-      try {
-        const response = await this.$apollo
-          .mutate({
-            mutation: rejectEvaluationRequest,
-            variables: data,
-          })
-          .then(({ data }) => data && data.rejectEvaluationRequest)
-
-        if (response) {
-          // TODO: replace with cache update.
-          this.evaluation.competencies = null
-          this.evaluation.isRequestPending = false
-          this.evaluation.status = 'REJECTED'
-          this.$notificationManager.displaySuccessMessage(
-            this.$t('success.EVALUATION_REQUEST_REJECT')
-          )
-        }
-      } catch (err) {}
-
-      this.requestHandling = false
+      await this.execute({
+        key: 'EVALUATION_REQUEST_REJECT',
+        mutation: require('~/gql/teach/rejectEvaluationRequest.gql'),
+        name: 'rejectEvaluationRequest',
+        variables: { id: this.evaluationId, reason },
+      })
     },
     setResult({ data }) {
       if (!data) {

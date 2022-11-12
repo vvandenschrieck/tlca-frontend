@@ -64,7 +64,7 @@ export default {
           value?.reduce(
             (acc, checked, i) => (checked ? [...acc, i] : acc),
             []
-          ) ?? false
+          ) ?? []
       },
       immediate: true,
     },

@@ -48,6 +48,7 @@
               :assessment-id="assessment"
               :course-code="courseCode"
               :edit="edit"
+              :evaluation-id="evaluation?.id"
               :learner="learner"
               @change="updateForm"
             >
@@ -197,7 +198,9 @@ export default {
             mutation,
             variables: data,
           })
-          .then(({ data }) => data && data[`${this.action}Evaluation`])
+          .then(
+            ({ data }) => data && (data.createEvaluation ?? data.editEvaluation)
+          )
 
         if (response) {
           return response.id
@@ -229,7 +232,11 @@ export default {
       const evaluation = this.evaluation
 
       const evalDate =
-        evaluation && evaluation.created !== evaluation.date
+        evaluation &&
+        ((evaluation.status === 'UNPUBLISHED' &&
+          evaluation.created !== evaluation.date) ||
+          (evaluation.status === 'ACCEPTED' &&
+            evaluation.accepted !== evaluation.date))
           ? evaluation.date
           : undefined
 
@@ -284,7 +291,14 @@ export default {
       const mutation = require(`~/gql/teach/${this.action}Evaluation.gql`)
 
       if (this.edit) {
-        await this.createEvaluation(mutation, data, null)
+        const result = await this.createEvaluation(mutation, data, null)
+
+        if (result) {
+          this.$router.push({
+            name: 'teach-courses-code-evaluations-id',
+            params: { code: this.courseCode, id: result },
+          })
+        }
       } else {
         const learners = this.massCreation ? this.learner : [this.learner]
         const result = await Promise.all(
@@ -298,17 +312,17 @@ export default {
             this.$t(`success.EVALUATION_${this.action.toUpperCase()}`)
           )
 
-          if (this.massCreation) {
-            this.$router.push({
-              name: 'teach-courses-code-evaluations',
-              params: { code: this.courseCode },
-            })
-          } else {
+          if (!this.massCreation) {
             this.$router.push({
               name: 'teach-courses-code-evaluations-id',
               params: { code: this.courseCode, id: result[0] },
             })
           }
+        } else {
+          this.$router.push({
+            name: 'teach-courses-code-evaluations',
+            params: { code: this.courseCode },
+          })
         }
       }
 

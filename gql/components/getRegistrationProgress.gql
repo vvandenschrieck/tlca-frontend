@@ -1,9 +1,0 @@
-query GetRegistrationProgress($courseCode: ID) {
-  registration(courseCode: $courseCode) {
-    id
-    progress {
-      advanced
-      basic
-    }
-  }
-}

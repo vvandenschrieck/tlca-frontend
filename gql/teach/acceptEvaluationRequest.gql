@@ -16,6 +16,16 @@ mutation AcceptEvaluationRequest($id: ID!) {
     }
     id
     isRequestPending
+    requestedCompetencies {
+      checklist {
+        public
+      }
+      competency {
+        code
+      }
+      learningOutcomes
+      selected
+    }
     status
   }
 }

@@ -19,6 +19,7 @@ query GetAssessmentCompetencies($assessmentId: ID!, $courseCode: ID!, $teacherVi
   }
 
   course(code: $courseCode) {
+    code
     competencies {
       competency {
         code

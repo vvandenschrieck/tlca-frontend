@@ -1,4 +1,18 @@
-## 1.1.17 (2022-11-03)
+## 1.1.19 (2022-11-12)
+
+### Features
+
+- **courses:** consult the details of the progress competencies for a learner (teacher)
+
+- **evaluations:** consult the history of status updated for a given evaluation (teacher)
+
+### Bug Fixes
+
+- **evaluations:** fix issue with evaluation detail page not showing the correct information depending on the status or when updating the status (teacher)
+- **evaluations:** fix issue with provider specific panel not hidden when the associated assessment has no provider
+- **evaluations:** fix issue with redirection when using the mass creation option
+
+## 1.1.18 (2022-11-03)
 
 ### Bug Fixes
 
