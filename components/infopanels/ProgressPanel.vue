@@ -1,9 +1,10 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data: registration, error } }"
-    :query="require('~/gql/components/getRegistrationProgress.gql')"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/infopanels/getProgress.gql')"
     :update="(data) => data.registration"
-    :variables="{ courseCode: $route.params.code }"
+    :variables="{ courseCode, learner }"
+    @result="setResult"
   >
     <generic-info-panel
       :title="$t('registration.progress')"
@@ -29,5 +30,25 @@
 <script>
 export default {
   name: 'ProgressPanel',
+  props: {
+    courseCode: {
+      type: String,
+      required: true,
+    },
+    learner: {
+      type: String,
+      default: null,
+    },
+  },
+  data() {
+    return {
+      registration: null,
+    }
+  },
+  methods: {
+    setResult({ data: registration }) {
+      this.registration = registration
+    },
+  },
 }
 </script>
