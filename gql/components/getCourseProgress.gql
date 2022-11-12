@@ -1,4 +1,4 @@
-query GetCourseCompetenciesProgress($courseCode: ID!) {
+query GetCourseProgress($courseCode: ID!, $learner: ID) {
   course(code: $courseCode) {
     code
     competencies {
@@ -14,10 +14,12 @@ query GetCourseCompetenciesProgress($courseCode: ID!) {
       subcategory
       useLearningOutcomes
     }
+    isCoordinator
     isRegistered
+    isTeacher
   }
 
-  registration(courseCode: $courseCode) {
+  registration(code: $courseCode, learner: $learner) {
     id
     progress {
       competencies {

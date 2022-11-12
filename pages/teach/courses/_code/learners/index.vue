@@ -44,6 +44,7 @@
             <v-tabs-items v-model="currentTab">
               <v-tab-item v-if="data.course.isCoordinator">
                 <learners-list
+                  :course-code="courseCode"
                   :hide-advanced="!data.course.hasAdvancedCompetencies"
                   :hide-teaching-group="!data.course.hasTeachingGroups"
                   :hide-working-group="!data.course.hasWorkingGroups"
@@ -56,6 +57,7 @@
               >
                 <v-tab-item v-if="group.isSupervisor" :key="i">
                   <learners-list
+                    :course-code="courseCode"
                     :hide-advanced="!data.course.hasAdvancedCompetencies"
                     :hide-teaching-group="true"
                     :hide-working-group="true"
@@ -66,6 +68,7 @@
 
               <v-tab-item>
                 <learners-list
+                  :course-code="courseCode"
                   :hide-advanced="!data.course.hasAdvancedCompetencies"
                   :hide-teaching-group="true"
                   :hide-working-group="true"
@@ -96,7 +99,7 @@
 
 <script>
 export default {
-  name: 'TeachRegistrationsPage',
+  name: 'TeachLearnersPage',
   data() {
     return {
       currentTab: 0,

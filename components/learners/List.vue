@@ -5,6 +5,7 @@
     :headers="dataHeaders"
     hide-default-footer
     :items="learners"
+    @click:row="goToLearner"
   >
     <template #item.progress.basic="{ item: { progress } }">
       <competencies-progress dense :value="progress.basic" />
@@ -22,6 +23,10 @@
 export default {
   name: 'LearnersList',
   props: {
+    courseCode: {
+      type: String,
+      required: true,
+    },
     hideAdvanced: {
       type: Boolean,
       default: false,
@@ -94,6 +99,14 @@ export default {
         },
         user: r.user,
       }))
+    },
+  },
+  methods: {
+    goToLearner({ user: { username } }) {
+      this.$router.push({
+        name: 'teach-courses-code-learners-username',
+        params: { code: this.courseCode, username },
+      })
     },
   },
 }

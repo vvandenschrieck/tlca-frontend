@@ -1,16 +1,16 @@
 <template>
   <ApolloQuery
     v-if="$auth.user"
-    v-slot="{ isLoading, result: { data, error } }"
-    :query="require('~/gql/components/getCourseCompetenciesProgress.gql')"
-    :variables="{ courseCode }"
-    @result="setCompetencies"
+    v-slot="{ isLoading, result: { error } }"
+    :query="require('~/gql/components/getCourseProgress.gql')"
+    :variables="{ courseCode, learner }"
+    @result="setResult"
   >
     <v-progress-linear v-if="!!isLoading" indeterminate />
 
     <div v-if="!error">
       <competencies-list
-        v-if="data?.course?.isRegistered"
+        v-if="canShowContent"
         v-slot="{ category }"
         :items="competencies"
       >
@@ -63,16 +63,36 @@ export default {
       type: String,
       required: true,
     },
+    learner: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
       competencies: [],
+      course: null,
     }
   },
+  computed: {
+    canShowContent() {
+      if (!this.course) {
+        return false
+      }
+      return (
+        this.course.isRegistered ||
+        (this.learner && (this.course.isCoordinator || this.course.isTeacher))
+      )
+    },
+  },
   methods: {
-    setCompetencies({ data }) {
-      const items = data?.course?.competencies
-      const progress = data?.registration?.progress
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      const items = data.course?.competencies
+      const progress = data.registration?.progress
 
       if (items && progress) {
         for (const competency of items) {
@@ -87,6 +107,7 @@ export default {
       }
 
       this.competencies = items
+      this.course = data.course
     },
   },
 }

@@ -6,6 +6,8 @@ mutation RejectEvaluationRequest($id: ID!, $reason: String!) {
     }
     id
     isRequestPending
+    rejected
+    rejectionReason
     status
   }
 }

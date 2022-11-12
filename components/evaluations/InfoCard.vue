@@ -3,7 +3,7 @@
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/cards/getEvaluationsInfo.gql')"
     :update="(data) => data.evaluations"
-    :variables="{ courseCode, learner }"
+    :variables="{ courseCode }"
     @result="setResult"
   >
     <generic-info-card
@@ -46,9 +46,6 @@ export default {
     hasEvaluations() {
       return this.evaluations?.length > 0
     },
-    learner() {
-      return this.$auth.user.username
-    },
     link() {
       return {
         icon: 'mdi-view-list',
@@ -70,14 +67,17 @@ export default {
           filter: (e) => e.status === 'PUBLISHED',
         },
         {
-          text: this.$t('evaluation.status.unpublished'),
-          filter: (e) => e.status === 'UNPUBLISHED',
-        },
-        {
           text: this.$t('evaluation.status.requested'),
           filter: (e) => e.status === 'REQUESTED',
         },
       ]
+
+      if (this.teacherView) {
+        items.push({
+          text: this.$t('evaluation.status.unpublished'),
+          filter: (e) => e.status === 'UNPUBLISHED',
+        })
+      }
 
       // Compute the evaluations stats.
       const stats = items.map((i) => ({
@@ -86,15 +86,16 @@ export default {
       }))
 
       // Check the oldest evaluation request, if any.
-      if (stats[2].value) {
+      const requested = stats[1]
+      if (this.teacherView && requested.value) {
         const oldest = this.evaluations
-          .filter(stats[2].filter)
+          .filter(requested.filter)
           .map((e) => DateTime.fromISO(e.requested))
           .sort((a, b) => a - b)[0]
 
         const days = Math.trunc(DateTime.now().diff(oldest, 'days').values.days)
         if (days > 5) {
-          stats[2].alert = this.$t(`evaluation.request.too_old`, { days })
+          requested.alert = this.$t(`evaluation.request.too_old`, { days })
         }
       }
 

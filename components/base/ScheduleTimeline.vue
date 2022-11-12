@@ -37,6 +37,10 @@ export default {
       type: Array,
       required: true,
     },
+    namePrefix: {
+      type: String,
+      required: true,
+    },
   },
   computed: {
     schedule() {
@@ -59,7 +63,7 @@ export default {
       return this.formatDateTimeFull(event.datetime)
     },
     eventName(event) {
-      return this.$t(`course.schedule.${event.name}`)
+      return this.$t(`${this.namePrefix}.${event.name}`)
     },
   },
 }

@@ -7,6 +7,7 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
 
   evaluation(id: $evaluationId) {
     assessment {
+      hasProvider
       id
       name
       provider
@@ -14,6 +15,7 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
     comment
     competencies {
       checklist {
+        private
         public
       }
       competency {

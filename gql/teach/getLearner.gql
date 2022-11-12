@@ -1,0 +1,12 @@
+query GetLearner($courseCode: ID!, $learner: ID!) {
+  course(code: $courseCode) {
+    code
+    isCoordinator
+    isTeacher
+    name
+  }
+
+  registration(code: $courseCode, learner: $learner) {
+    id
+  }
+}

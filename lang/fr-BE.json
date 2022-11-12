@@ -403,6 +403,7 @@
     "status": {
       "_": "@:global.status._",
       "accepted": "Acceptée",
+      "created": "Créé",
       "published": "@:global.status.published",
       "published_on": "@:global.status.published_on",
       "rejected": "Rejetée",
@@ -692,6 +693,7 @@
     "EVALUATION_DELETE": "Passage d'évaluation supprimé avec succès",
     "EVALUATION_PUBLISH": "Passage d'évaluation publié avec succès",
     "EVALUATION_REQUEST_ACCEPT": "Demande de passage d'évaluation acceptée avec succès",
+    "EVALUATION_REQUEST_REJECT": "Demande de passage d'évaluation rejetée avec succès",
     "INSTANCE_DELETE": "Instance supprimée avec succès",
     "INVITATION_REQUEST": "Demande d'invitation envoyée avec succès",
     "INVITATION_SEND": "Invitation envoyée avec succès !",

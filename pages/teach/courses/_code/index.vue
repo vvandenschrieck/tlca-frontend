@@ -22,6 +22,7 @@
               class="mt-5"
               :course-code="courseCode"
               space="teach"
+              teacher-view
             />
           </v-col>
         </v-row>

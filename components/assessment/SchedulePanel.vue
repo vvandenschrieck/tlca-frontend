@@ -12,7 +12,12 @@
       :loading="!!isLoading"
     >
       <div v-if="!error" class="mt-3 text-center">
-        <schedule-timeline v-if="schedule" dense :items="schedule" />
+        <schedule-timeline
+          v-if="schedule"
+          dense
+          :items="schedule"
+          name-prefix="course.schedule"
+        />
 
         <v-card-text v-else>{{ $t('assessment.schedule.no') }}</v-card-text>
       </div>
