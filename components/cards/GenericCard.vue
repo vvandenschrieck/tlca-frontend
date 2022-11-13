@@ -1,15 +1,13 @@
 <template>
-  <v-hover v-slot="{ hover: isHoverCard }">
-    <v-card :elevation="isHoverCard ? 12 : 2" :to="to">
-      <banner-image :src="banner" :options="bannerEditOptions">
-        <div v-if="label" id="label">
-          <span class="label-default">{{ label }}</span>
-        </div>
-      </banner-image>
+  <v-card hover :to="to">
+    <banner-image :src="banner" :options="bannerEditOptions">
+      <div v-if="label" id="label">
+        <span class="label-default">{{ label }}</span>
+      </div>
+    </banner-image>
 
-      <slot />
-    </v-card>
-  </v-hover>
+    <slot />
+  </v-card>
 </template>
 
 <script>
