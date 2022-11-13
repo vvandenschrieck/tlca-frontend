@@ -7,7 +7,7 @@ query GetCourseRegistration($courseCode: ID!) {
     visibility
   }
 
-  registration(courseCode: $courseCode) {
+  registration(code: $courseCode) {
     datetime
     id
     invitation

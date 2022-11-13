@@ -62,7 +62,7 @@ export default {
   },
   head() {
     return {
-      title: this.getTitle(this.title, 'learner._', 'teach'),
+      title: this.getTitle(this.title, null, 'teach'),
     }
   },
   computed: {
