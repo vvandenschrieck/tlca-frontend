@@ -230,6 +230,7 @@
       "teaching": {
         "_": "Teaching group",
         "add": "Add a teaching group",
+        "mine": "My teaching groups",
         "no": "There are no teaching groups for now"
       },
       "working": {
@@ -565,6 +566,7 @@
   "learner": {
     "_": "Learner | Learners",
     "all": "All learners",
+    "mine": "My learners",
     "no": "There are no learners for now"
   },
   "partner": {

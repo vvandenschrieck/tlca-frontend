@@ -230,6 +230,7 @@
       "teaching": {
         "_": "Groupe d'enseignement",
         "add": "Ajouter un groupe d'enseignement",
+        "mine": "Mes groupes d'enseignement",
         "no": "Il n'y a pas de groupes d'enseignement pour le moment"
       },
       "working": {
@@ -565,6 +566,7 @@
   "learner": {
     "_": "Apprenant | Apprenants",
     "all": "Tous les apprenants",
+    "mine": "Mes apprenants",
     "no": "Il n'y a pas d'apprenants pour le moment"
   },
   "partner": {
