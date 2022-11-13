@@ -53,15 +53,15 @@
 
       <actions-menu
         :delete-action="{
-          query: {
-            mutation: require('~/gql/manage/deleteAssessment.gql'),
-            variables: { id: data.assessment.id },
-          },
+          entity: 'assessment',
           link: {
             name: 'manage-courses-code-assessments',
             params: { code: courseCode },
           },
-          object: 'assessment',
+          query: {
+            mutation: require('~/gql/manage/deleteAssessment.gql'),
+            variables: { id: data.assessment.id },
+          },
         }"
         :edit-link="{
           name: 'manage-courses-code-assessments-id-edit',

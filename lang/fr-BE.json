@@ -395,6 +395,9 @@
     "rejectionReason": "Raison du rejet",
     "request": {
       "_": "Demander un passage d'évaluation",
+      "delete": {
+        "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette demande de passage d'évaluation ?"
+      },
       "too_old": "La demande de passage d'évaluation la plus ancienne date d'il y a plus de {days} jours",
       "reject": {
         "_": "Rejet d'une demande d'évaluation",
@@ -695,6 +698,7 @@
     "EVALUATION_DELETE": "Passage d'évaluation supprimé avec succès",
     "EVALUATION_PUBLISH": "Passage d'évaluation publié avec succès",
     "EVALUATION_REQUEST_ACCEPT": "Demande de passage d'évaluation acceptée avec succès",
+    "EVALUATION_REQUEST_DELETE": "Demande de passage d'évaluation supprimé avec succès",
     "EVALUATION_REQUEST_REJECT": "Demande de passage d'évaluation rejetée avec succès",
     "INSTANCE_DELETE": "Instance supprimée avec succès",
     "INVITATION_REQUEST": "Demande d'invitation envoyée avec succès",

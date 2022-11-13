@@ -92,7 +92,7 @@
         </v-card-title>
 
         <v-card-text>
-          {{ $t(`${deleteAction.object}.delete.dialog_instructions`) }}
+          {{ $t(`${deleteAction.entity}.delete.dialog_instructions`) }}
         </v-card-text>
 
         <v-card-actions>
@@ -161,9 +161,13 @@ export default {
     async deleteEntity() {
       this.loading = true
 
-      const { object } = this.deleteAction
+      const { entity } = this.deleteAction
       const { mutation, variables } = this.deleteAction.query
-      const query = object.charAt(0).toUpperCase() + object.slice(1)
+      const name = entity
+        .split('.')
+        .map((o) => o.charAt(0).toUpperCase() + o.slice(1))
+        .join('')
+      const notifName = entity.replace('.', '_').toUpperCase()
 
       try {
         const response = await this.$apollo
@@ -171,23 +175,23 @@ export default {
             mutation,
             variables,
           })
-          .then(({ data }) => data && data[`delete${query}`])
+          .then(({ data }) => data && data[`delete${name}`])
 
         if (response) {
           this.dialog = false
           this.$router.push(this.deleteAction.link)
 
           this.$notificationManager.displaySuccessMessage(
-            this.$t(`success.${query.toUpperCase()}_DELETE`)
+            this.$t(`success.${notifName}_DELETE`)
           )
         }
       } catch (err) {
         this.$notificationManager.displayErrorMessage(
-          this.$t(`error.${query.toUpperCase()}_DELETE`)
+          this.$t(`error.${notifName}_DELETE`)
         )
+      } finally {
+        this.loading = false
       }
-
-      this.loading = false
     },
     goToCreatePage() {
       this.$router.push(this.createLink)

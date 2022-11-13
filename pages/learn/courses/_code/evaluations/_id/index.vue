@@ -85,6 +85,8 @@
           :evaluation-id="evaluationId"
         />
       </v-col>
+
+      <actions-menu :delete-action="deleteAction" />
     </v-row>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
@@ -118,6 +120,23 @@ export default {
     },
     courseCode() {
       return this.$route.params.code
+    },
+    deleteAction() {
+      if (!this.evaluation || !this.evaluation.status === 'REQUESTED') {
+        return null
+      }
+
+      return {
+        entity: 'evaluation.request',
+        link: {
+          name: 'learn-courses-code-evaluations',
+          params: { code: this.courseCode },
+        },
+        query: {
+          mutation: require('~/gql/learn/deleteEvaluationRequest.gql'),
+          variables: { id: this.evaluationId },
+        },
+      }
     },
     evaluationId() {
       return this.$route.params.id

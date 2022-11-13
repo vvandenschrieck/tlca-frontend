@@ -201,15 +201,15 @@ export default {
       }
 
       return {
-        query: {
-          mutation: require('~/gql/teach/deleteEvaluation.gql'),
-          variables: { id: this.evaluationId },
-        },
+        entity: 'evaluation',
         link: {
           name: 'teach-courses-code-evaluations',
           params: { code: this.courseCode },
         },
-        object: 'evaluation',
+        query: {
+          mutation: require('~/gql/teach/deleteEvaluation.gql'),
+          variables: { id: this.evaluationId },
+        },
       }
     },
     editLink() {
