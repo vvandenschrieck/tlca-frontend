@@ -1,3 +1,9 @@
+## 1.1.20 (2022-11-14)
+
+### Bug Fixes
+
+- fixed display issue with the course invitation request button (user)
+
 ## 1.1.19 (2022-11-12)
 
 ### Features
