@@ -1,9 +1,9 @@
 <template>
   <v-navigation-drawer
-    absolute
+    app
+    clipped
     disable-resize-watcher
     expand-on-hover
-    fixed
     :mini-variant.sync="miniVariant"
     permanent
     @mouseleave.native="hoveredItem = undefined"

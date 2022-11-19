@@ -16,10 +16,11 @@
       </template>
     </v-app-bar>
 
+    <space-navigator v-if="$auth.user" />
+
     <v-main>
-      <v-container style="padding-left: 56px">
+      <v-container>
         <notification-displayer />
-        <space-navigator v-if="$auth.user" />
         <bread-crumb v-if="showBreadCrumb" />
         <Nuxt />
       </v-container>
