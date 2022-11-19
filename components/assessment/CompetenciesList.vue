@@ -3,11 +3,11 @@
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getAssessmentCompetencies.gql')"
     :variables="{ assessmentId, courseCode, teacherView: !studentView }"
-    @result="setCompetencies"
+    @result="setResult"
   >
     <v-progress-linear v-if="isLoading" indeterminate />
 
-    <v-list v-if="!error" class="pa-0">
+    <v-list v-if="!error && assessment?.type !== 'PHASED'" class="pa-0">
       <template v-for="(competency, i) in competencies">
         <competency-list-item
           :key="i * 2"
@@ -21,6 +21,28 @@
         <v-divider v-if="i < competencies.length - 1" :key="i * 2 + 1" />
       </template>
     </v-list>
+
+    <assessment-phases
+      v-else-if="!error && assessment?.type === 'PHASED'"
+      v-slot="{ phase }"
+      :assessment="assessment"
+    >
+      <v-list class="pa-0">
+        <template v-for="(competency, i) in phase.competencies">
+          <competency-list-item
+            :key="i * 2"
+            :competency="competency"
+            :hide-checklist="hideChecklist"
+            :student-view="studentView"
+          />
+
+          <v-divider
+            v-if="i < phase.competencies.length - 1"
+            :key="i * 2 + 1"
+          />
+        </template>
+      </v-list>
+    </assessment-phases>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
@@ -61,13 +83,40 @@ export default {
   },
   data() {
     return {
-      competencies: [],
+      assessment: null,
+      course: null,
       selectedCompetencies: [],
     }
   },
-  watch: {
+  computed: {
+    // assessment() {
+    //   if (!this.data) {
+    //     return null
+    //   }
+
+    //   const assessment = this.data.assessment
+    //   return {
+    //     ...assessment,
+    //     competencies: assessment.competencies?.map((item) =>
+    //       this.getCompetency(item)
+    //     ),
+    //     phases: assessment.phases?.map((phase) => ({
+    //       ...phase,
+    //       competencies: phase.competencies?.map((item) =>
+    //         this.getCompetency(item)
+    //       ),
+    //     })),
+    //   }
+    // },
     competencies() {
-      this.updateSelectedCompetencies()
+      return this.assessment?.competencies ?? []
+    },
+  },
+  watch: {
+    assessment() {
+      if (this.assessment.competencies) {
+        this.updateSelectedCompetencies()
+      }
     },
     selected() {
       this.updateSelectedCompetencies()
@@ -78,26 +127,50 @@ export default {
     },
   },
   methods: {
-    setCompetencies({ data }) {
-      this.competencies =
-        data?.assessment.competencies.map((item) => {
-          const courseCompetency = data.course.competencies.find(
-            (c) => c.competency.code === item.competency.code
-          )
-          const learningOutcomes = courseCompetency.competency.learningOutcomes
+    getCompetency(item) {
+      if (!this.course) {
+        return null
+      }
 
-          return {
-            ...item,
-            useLearningOutcomes: courseCompetency?.useLearningOutcomes,
-            learningOutcomes: item.learningOutcomes?.map(
-              (lo) => learningOutcomes[lo]
+      const competencies = this.course.competencies
+      const courseCompetency = competencies.find(
+        (c) => c.competency.code === item.competency.code
+      )
+      const learningOutcomes = courseCompetency.competency.learningOutcomes
+
+      return {
+        ...item,
+        useLearningOutcomes: courseCompetency?.useLearningOutcomes,
+        learningOutcomes: item.learningOutcomes?.map(
+          (lo) => learningOutcomes[lo]
+        ),
+      }
+    },
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.course = data.course
+
+      if (data.assessment) {
+        this.assessment = {
+          ...data.assessment,
+          competencies: data.assessment.competencies?.map((item) =>
+            this.getCompetency(item)
+          ),
+          phases: data.assessment.phases?.map((phase) => ({
+            ...phase,
+            competencies: phase.competencies?.map((item) =>
+              this.getCompetency(item)
             ),
-          }
-        }) ?? []
+          })),
+        }
+      }
     },
     updateSelectedCompetencies() {
       if (
-        this.competencies &&
+        this.assessment.competencies &&
         this.selected?.length &&
         this.selectedCompetencies
       ) {
@@ -128,5 +201,18 @@ export default {
       }
     },
   },
+  // apollo: {
+  //   data: {
+  //     query: require('~/gql/components/getAssessmentCompetencies.gql'),
+  //     update: (data) => data,
+  //     variables() {
+  //       return {
+  //         assessmentId: this.assessmentId,
+  //         courseCode: this.courseCode,
+  //         teacherView: !this.studentView,
+  //       }
+  //     },
+  //   },
+  // },
 }
 </script>

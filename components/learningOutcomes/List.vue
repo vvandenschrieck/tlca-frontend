@@ -20,7 +20,7 @@
                 @change="update"
               >
                 <span slot="label" class="checkbox-label text-body-2">
-                  {{ item.name }}
+                  {{ item?.name }}
                 </span>
               </v-checkbox>
             </v-list-item-title>

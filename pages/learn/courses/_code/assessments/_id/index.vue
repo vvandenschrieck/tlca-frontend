@@ -11,20 +11,30 @@
       <v-col cols="12" md="9">
         <v-card :loading="!!isLoading">
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>{{ $t('assessment.description') }}</v-tab>
-            <v-tab>{{ $t('assessment.competencies._') }}</v-tab>
+            <v-tab href="#description">
+              {{ $t('assessment.description') }}
+            </v-tab>
+            <v-tab v-if="assessment?.phases" href="#phases">
+              {{ $tc('assessment.phase._', 2) }}
+            </v-tab>
+            <v-tab href="#competencies">
+              {{ $t('assessment.competencies._') }}
+            </v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
-              <v-tab-item>
-                <description-content
-                  entity="assessment.description"
-                  :text="assessment?.description"
-                />
+              <v-tab-item value="description">
+                <description-content :text="assessment?.description" />
               </v-tab-item>
 
-              <v-tab-item>
+              <v-tab-item value="phases">
+                <assessment-phases v-slot="{ phase }" :assessment="assessment">
+                  <description-content :text="phase.description" />
+                </assessment-phases>
+              </v-tab-item>
+
+              <v-tab-item value="competencies">
                 <assessment-competencies-list
                   :assessment-id="assessmentId"
                   :course-code="courseCode"
@@ -59,7 +69,7 @@
 import titles from '@/mixins/titles.js'
 
 export default {
-  name: 'LearnCourseAssessmentPage',
+  name: 'LearnAssessmentPage',
   mixins: [titles],
   data() {
     return {

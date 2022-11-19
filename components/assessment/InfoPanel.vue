@@ -4,7 +4,7 @@
     :query="require('~/gql/infopanels/getAssessmentInfo.gql')"
     :update="(data) => data.assessment"
     :variables="{ id: assessmentId, teacherView }"
-    @result="setItems"
+    @result="setResult"
   >
     <generic-info-panel
       icon="mdi-information"
@@ -35,79 +35,86 @@ export default {
   },
   data() {
     return {
-      items: [],
+      items: null,
     }
   },
   methods: {
-    setItems({ data: assessment }) {
+    setResult({ data: assessment }) {
+      if (!assessment) {
+        return
+      }
+
       const items = []
 
-      if (assessment) {
-        // Instances.
-        const instances = assessment.instances
+      // Instances.
+      const instances = assessment.instances
+      items.push({
+        icon: 'mdi-layers-triple',
+        text: instances
+          ? this.$tc('assessment.instance.nb', instances, { n: instances })
+          : this.$t('assessment.instance.infinite'),
+        tooltip: this.$t('assessment.instance.max_nb'),
+      })
+
+      // Type.
+      const type = assessment.type
+      const nbPhases = assessment.nbPhases ?? 0
+      const typeText =
+        type !== 'PHASED'
+          ? this.$t(`assessment.type.${type.toLowerCase()}`)
+          : this.$t('assessment.type.phased', { nb: nbPhases })
+      items.push({
+        icon: 'mdi-multiplication-box',
+        text: typeText,
+        tooltip: this.$t('assessment.type._'),
+      })
+
+      // Max takes.
+      const takes = assessment.takes
+      if (takes && type === 'INCREMENTAL') {
         items.push({
-          icon: 'mdi-layers-triple',
-          text: instances
-            ? this.$tc('assessment.instance.nb', instances, { n: instances })
-            : this.$t('assessment.instance.infinite'),
-          tooltip: this.$t('assessment.instance.max_nb'),
+          icon: 'mdi-format-list-numbered',
+          text: this.$t('general.max_n', { n: takes }),
+          tooltip: this.$t('assessment.takes.max_nb'),
         })
+      }
 
-        // Type.
-        const type = assessment.type
+      // Work load.
+      const workload = assessment.load?.work
+      if (workload) {
         items.push({
-          icon: 'mdi-multiplication-box',
-          text: this.$t(`assessment.type.${type.toLowerCase()}`),
-          tooltip: this.$t('assessment.type._'),
+          icon: 'mdi-clock-outline',
+          text:
+            '~' + this.$tc('general.time.minutes', workload, { n: workload }),
+          tooltip: this.$t('assessment.load.work'),
         })
+      }
 
-        // Max takes.
-        const takes = assessment.takes
-        if (takes && type === 'INCREMENTAL') {
-          items.push({
-            icon: 'mdi-format-list-numbered',
-            text: this.$t('general.max_n', { n: takes }),
-            tooltip: this.$t('assessment.takes.max_nb'),
-          })
-        }
+      // Oral defense.
+      if (assessment.hasOralDefense) {
+        const defenseDuration = assessment.load?.defense
+        items.push({
+          icon: 'mdi-account-voice',
+          text: defenseDuration
+            ? '~' +
+              this.$tc('general.time.minutes', defenseDuration, {
+                n: defenseDuration,
+              })
+            : this.$t('general.yes'),
+          tooltip: this.$t('assessment.load.defense'),
+        })
+      }
 
-        // Work load.
-        const workload = assessment.load?.work
-        if (workload) {
-          items.push({
-            icon: 'mdi-clock-outline',
-            text:
-              '~' + this.$tc('general.time.minutes', workload, { n: workload }),
-            tooltip: this.$t('assessment.load.work'),
-          })
-        }
-
-        // Oral defense.
-        if (assessment.hasOralDefense) {
-          const defenseDuration = assessment.load?.defense
-          items.push({
-            icon: 'mdi-account-voice',
-            text: defenseDuration
-              ? '~' +
-                this.$tc('general.time.minutes', defenseDuration, {
-                  n: defenseDuration,
-                })
-              : this.$t('general.yes'),
-            tooltip: this.$t('assessment.load.defense'),
-          })
-        }
-
-        // Evaluation request.
-        if (this.teacherView) {
-          const evaluationRequest = assessment.evaluationRequest
-          items.push({
-            icon: 'mdi-clipboard-edit',
-            text: evaluationRequest
-              ? this.$t('general.yes')
-              : this.$t('general.no'),
-            tooltip: this.$t('assessment.evaluation_request'),
-          })
-        }
+      // Evaluation request.
+      if (this.teacherView) {
+        const evaluationRequest = assessment.evaluationRequest
+        items.push({
+          icon: 'mdi-clipboard-edit',
+          text: evaluationRequest
+            ? this.$t('general.yes')
+            : this.$t('general.no'),
+          tooltip: this.$t('assessment.evaluation_request'),
+        })
       }
 
       this.items = items

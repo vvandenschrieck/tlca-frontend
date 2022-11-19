@@ -73,6 +73,7 @@
                 v-model="isIncremental"
                 class="ml-3"
                 dense
+                :disabled="isPhased"
                 :label="$t('assessment.type.incremental')"
               />
             </v-col>
@@ -99,6 +100,7 @@
                 v-model="isPhased"
                 class="ml-3"
                 dense
+                :disabled="isIncremental"
                 :label="$t('assessment.type.phased')"
               />
             </v-col>
@@ -322,6 +324,20 @@ export default {
     },
     courseCode() {
       return this.$route.params.code
+    },
+  },
+  watch: {
+    isIncremental(value) {
+      if (value) {
+        this.isPhased = false
+        this.nbPhases = ''
+      }
+    },
+    isPhased(value) {
+      if (value) {
+        this.isIncremental = false
+        this.takes = ''
+      }
     },
   },
   mounted() {
