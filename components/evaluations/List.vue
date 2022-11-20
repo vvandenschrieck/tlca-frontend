@@ -10,7 +10,7 @@
       hideAssessment,
       hideLearner,
     }"
-    @result="setEvaluations"
+    @result="setResult"
   >
     <generic-filter-bar
       v-if="!hideFilterBar"
@@ -134,7 +134,7 @@ export default {
       if (!this.hideAssessment) {
         items.push({
           text: this.$t('evaluation.assessment'),
-          value: 'assessment',
+          value: 'assessment.name',
         })
       }
 
@@ -177,14 +177,17 @@ export default {
         params: { code: this.$route.params.code, id },
       })
     },
-    setEvaluations({ data: evaluations }) {
+    setResult({ data: evaluations }) {
       if (!evaluations) {
         return
       }
 
       this.evaluations = evaluations.map((e) => ({
         ...e,
-        assessment: this.assessmentName(e.assessment),
+        assessment: {
+          ...e.assessment,
+          name: this.assessmentName(e.assessment),
+        },
         date: this.formatDateTimeFull(e.date),
         status: {
           _: e.status,
