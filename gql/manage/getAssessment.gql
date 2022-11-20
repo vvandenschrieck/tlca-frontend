@@ -1,7 +1,9 @@
 query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
   course(code: $courseCode) {
     code
+    isArchived
     isCoordinator
+    isPublished
     name
   }
 

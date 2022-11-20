@@ -6,7 +6,7 @@
     :variables="{ code: courseCode }"
     @result="setResult"
   >
-    <page-title :loading="!!isLoading" :value="title" />
+    <page-title :loading="!!isLoading" :spaces="spaces" :value="title" />
 
     <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
@@ -72,6 +72,22 @@ export default {
     },
     courseCode() {
       return this.$route.params.code
+    },
+    spaces() {
+      if (!this.course) {
+        return null
+      }
+
+      const items = {}
+
+      if (this.course.isPublished || this.course.isArchived) {
+        items.teach = {
+          name: 'teach-courses-code-learners',
+          params: { code: this.courseCode },
+        }
+      }
+
+      return items
     },
   },
   methods: {

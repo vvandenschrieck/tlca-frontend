@@ -5,7 +5,7 @@
     :variables="{ courseCode, assessmentId }"
     @result="setResult"
   >
-    <page-title :spaces="spaces" :loading="!!isLoading" :value="title" />
+    <page-title :loading="!!isLoading" :spaces="spaces" :value="title" />
 
     <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
@@ -120,19 +120,17 @@ export default {
       ]
     },
     spaces() {
-      if (
-        !this.course ||
-        !this.course.isCoordinator ||
-        !this.course.isTeacher
-      ) {
+      if (!this.course) {
         return null
       }
 
-      const items = {
-        manage: {
+      const items = {}
+
+      if (this.course.isCoordinator) {
+        items.manage = {
           name: 'manage-courses-code-assessments-id',
           params: { code: this.courseCode, id: this.assessmentId },
-        },
+        }
       }
 
       return items

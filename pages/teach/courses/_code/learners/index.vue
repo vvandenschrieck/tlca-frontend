@@ -5,7 +5,7 @@
     :variables="{ code: $route.params.code }"
     @result="setResult"
   >
-    <page-title :spaces="spaces" :loading="!!isLoading" :value="title" />
+    <page-title :loading="!!isLoading" :spaces="spaces" :value="title" />
 
     <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
@@ -136,12 +136,7 @@ export default {
         return null
       }
 
-      const items = {
-        home: {
-          name: 'courses-code',
-          params: { code: this.courseCode },
-        },
-      }
+      const items = {}
 
       if (this.course.isCoordinator) {
         items.manage = {
