@@ -7,7 +7,26 @@
 
       <v-card>
         <v-card-text>
-          <v-row class="mt-1">
+          <v-row>
+            <v-col cols="12" md="6">
+              <assessment-select
+                v-model="assessment"
+                :course-code="courseCode"
+                :disabled="edit"
+                @change="onSelectAssessment"
+              />
+            </v-col>
+
+            <v-col cols="12" md="6">
+              <assessment-phase-select
+                v-if="assessment"
+                v-model="phase"
+                :assessment-id="assessment"
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
             <v-col cols="12" md="6">
               <learner-select
                 v-model="learner"
@@ -16,22 +35,17 @@
                 :multiple="massCreation"
                 @change="onSelectLearner"
               />
+            </v-col>
+
+            <v-col cols="12" md="6">
               <v-switch
                 v-if="!edit"
                 v-model="massCreation"
+                class="mt-0"
                 dense
                 hide-details
                 label="Mass creation"
                 @change="learner = null"
-              />
-            </v-col>
-
-            <v-col cols="12" md="6">
-              <assessment-select-field
-                v-model="assessment"
-                :course-code="courseCode"
-                :disabled="edit"
-                @change="onSelectAssessment"
               />
             </v-col>
           </v-row>
@@ -171,6 +185,7 @@ export default {
       learner: null,
       massCreation: false,
       note: '',
+      phase: null,
       selectedCompetencies: [],
       showActions: false,
     }
@@ -179,8 +194,19 @@ export default {
     action() {
       return !this.edit ? 'create' : 'edit'
     },
+    phases() {
+      if (!this.assessment || !this.assessment.type === 'PHASED') {
+        return null
+      }
+
+      return this.assessment.phases
+    },
     showInstanceSelector() {
-      return this.assessment && this.learner
+      return (
+        this.assessment &&
+        this.learner &&
+        (this.assessment?.type !== 'PHASED' || this.phase !== null)
+      )
     },
   },
   mounted() {
@@ -227,6 +253,7 @@ export default {
     },
     onSelectLearner() {
       this.instance = null
+      this.$emit('learnerSelected', this.learner)
     },
     reset() {
       const evaluation = this.evaluation
