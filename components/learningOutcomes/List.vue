@@ -107,7 +107,7 @@ export default {
       }
 
       const maxTakes = this.items[i]?.takes ?? 1
-      return this.takes[i] === maxTakes ? 'success' : 'default'
+      return this.takes[i] >= maxTakes ? 'success' : 'default'
     },
     takesProgress(i) {
       const maxTakes = this.items[i]?.takes ?? 1
