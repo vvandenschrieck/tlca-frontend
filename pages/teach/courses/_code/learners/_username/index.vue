@@ -37,7 +37,15 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <progress-panel :course-code="courseCode" :learner="learnerUsername" />
+        <learner-info-panel
+          :course-code="courseCode"
+          :learner="learnerUsername"
+        />
+        <progress-panel
+          class="mt-5"
+          :course-code="courseCode"
+          :learner="learnerUsername"
+        />
         <course-schedule-panel class="mt-5" :course-code="courseCode" />
       </v-col>
     </v-row>
