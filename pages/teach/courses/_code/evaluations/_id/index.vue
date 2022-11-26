@@ -26,6 +26,8 @@
                     v-if="evaluation"
                     :assessment-id="evaluation.assessment.id"
                     :course-code="courseCode"
+                    form
+                    readonly
                     :selected="selectedCompetencies"
                     :student-view="hidePrivateChecklist"
                   />

@@ -11,8 +11,10 @@
               class="checkbox ml-1"
               dense
               hide-details
-              :readonly="!form"
-              :ripple="form"
+              :off-icon="offIcon"
+              :on-icon="onIcon"
+              :readonly="!form || readonly"
+              :ripple="form && !readonly"
               :value="i"
               @change="update"
             >
@@ -43,6 +45,10 @@ export default {
       type: String,
       default: '',
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
     value: {
       type: Array,
       default: () => [],
@@ -52,6 +58,14 @@ export default {
     return {
       checked: [],
     }
+  },
+  computed: {
+    offIcon() {
+      return this.form ? 'mdi-checkbox-blank-outline' : 'mdi-square-medium'
+    },
+    onIcon() {
+      return this.form ? 'mdi-checkbox-marked' : 'mdi-square-medium'
+    },
   },
   watch: {
     items: {

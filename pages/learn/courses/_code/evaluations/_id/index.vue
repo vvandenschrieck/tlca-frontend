@@ -25,6 +25,8 @@
                     v-if="evaluation"
                     :assessment-id="evaluation.assessment.id"
                     :course-code="courseCode"
+                    form
+                    readonly
                     :selected="evaluation.competencies"
                     student-view
                   />

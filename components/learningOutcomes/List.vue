@@ -14,8 +14,10 @@
                 dense
                 :disabled="disabled[i]"
                 hide-details
-                :readonly="!form"
-                :ripple="form"
+                :off-icon="offIcon"
+                :on-icon="onIcon"
+                :readonly="!form || readonly"
+                :ripple="form && !readonly"
                 :value="i"
                 @change="update"
               >
@@ -63,6 +65,10 @@ export default {
       type: Array,
       default: null,
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
     takes: {
       type: Array,
       default: null,
@@ -82,6 +88,14 @@ export default {
       past: [],
       selected: [],
     }
+  },
+  computed: {
+    offIcon() {
+      return this.form ? 'mdi-checkbox-blank-outline' : 'mdi-square-medium'
+    },
+    onIcon() {
+      return this.form ? 'mdi-checkbox-marked' : 'mdi-square-medium'
+    },
   },
   watch: {
     items: {

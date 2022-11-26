@@ -15,6 +15,7 @@
           :competency="competency"
           :form="form"
           :hide-checklist="hideChecklist"
+          :readonly="readonly"
           :student-view="studentView"
         />
 
@@ -33,6 +34,7 @@
             :key="i * 2"
             :competency="competency"
             :hide-checklist="hideChecklist"
+            :readonly="readonly"
             :student-view="studentView"
           />
 
@@ -69,6 +71,10 @@ export default {
       default: false,
     },
     hideChecklist: {
+      type: Boolean,
+      default: false,
+    },
+    readonly: {
       type: Boolean,
       default: false,
     },
