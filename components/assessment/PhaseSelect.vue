@@ -18,6 +18,7 @@
         item-value="i"
         :label="$tc('assessment.phase._', 1)"
         :loading="!!isLoading"
+        @change="$emit('change', $event)"
       />
     </div>
 
@@ -55,6 +56,13 @@ export default {
       set(value) {
         this.$emit('input', value)
       },
+    },
+  },
+  watch: {
+    assessmentId(oldValue, newValue) {
+      if (oldValue !== newValue) {
+        this.phases = null
+      }
     },
   },
   methods: {

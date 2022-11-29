@@ -7,7 +7,8 @@
   >
     <v-progress-linear v-if="isLoading" indeterminate />
 
-    <v-list v-if="!error && assessment?.type !== 'PHASED'" class="pa-0">
+    <!-- Only show one set of competencies (for the assessment or one of its phases) -->
+    <v-list v-if="!error && !showPhases" class="pa-0">
       <template v-for="(competency, i) in competencies">
         <competency-list-item
           :key="i * 2"
@@ -23,13 +24,14 @@
       </template>
     </v-list>
 
+    <!-- Show the set of competencies for each phase of the  assessment -->
     <assessment-phases
-      v-else-if="!error && assessment?.type === 'PHASED'"
-      v-slot="{ phase }"
+      v-else-if="!error && showPhases"
+      v-slot="{ phase: phaseConfig }"
       :assessment="assessment"
     >
       <v-list class="pa-0">
-        <template v-for="(competency, i) in phase.competencies">
+        <template v-for="(competency, i) in phaseConfig.competencies">
           <competency-list-item
             :key="i * 2"
             :competency="competency"
@@ -39,7 +41,7 @@
           />
 
           <v-divider
-            v-if="i < phase.competencies.length - 1"
+            v-if="i < phaseConfig.competencies.length - 1"
             :key="i * 2 + 1"
           />
         </template>
@@ -74,6 +76,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    phase: {
+      type: Number,
+      default: null,
+    },
     readonly: {
       type: Boolean,
       default: false,
@@ -95,32 +101,24 @@ export default {
     }
   },
   computed: {
-    // assessment() {
-    //   if (!this.data) {
-    //     return null
-    //   }
-
-    //   const assessment = this.data.assessment
-    //   return {
-    //     ...assessment,
-    //     competencies: assessment.competencies?.map((item) =>
-    //       this.getCompetency(item)
-    //     ),
-    //     phases: assessment.phases?.map((phase) => ({
-    //       ...phase,
-    //       competencies: phase.competencies?.map((item) =>
-    //         this.getCompetency(item)
-    //       ),
-    //     })),
-    //   }
-    // },
     competencies() {
-      return this.assessment?.competencies ?? []
+      return this.assessment?.type === 'PHASED' && this.phase !== null
+        ? this.assessment?.phases[this.phase].competencies
+        : this.assessment?.competencies ?? []
+    },
+    competenciesLoaded() {
+      return (
+        (this.assessment?.type !== 'PHASED' && this.assessment?.competencies) ||
+        (this.phase !== null && this.assessment?.phases?.length)
+      )
+    },
+    showPhases() {
+      return this.assessment?.type === 'PHASED' && this.phase === null
     },
   },
   watch: {
     assessment() {
-      if (this.assessment.competencies) {
+      if (this.competenciesLoaded) {
         this.updateSelectedCompetencies()
       }
     },
@@ -152,6 +150,9 @@ export default {
         ),
       }
     },
+    initialiseCompetencies(competencies) {
+      return competencies?.map((item) => this.getCompetency(item))
+    },
     setResult({ data }) {
       if (!data) {
         return
@@ -159,24 +160,24 @@ export default {
 
       this.course = data.course
 
-      if (data.assessment) {
-        this.assessment = {
-          ...data.assessment,
-          competencies: data.assessment.competencies?.map((item) =>
-            this.getCompetency(item)
-          ),
-          phases: data.assessment.phases?.map((phase) => ({
-            ...phase,
-            competencies: phase.competencies?.map((item) =>
-              this.getCompetency(item)
-            ),
-          })),
-        }
+      // Set up the assessment and initialise the competencies.
+      const assessment = data.assessment
+      if (!assessment) {
+        return
+      }
+
+      this.assessment = {
+        ...assessment,
+        competencies: this.initialiseCompetencies(assessment.competencies),
+        phases: assessment.phases?.map((phase) => ({
+          ...phase,
+          competencies: this.initialiseCompetencies(phase.competencies),
+        })),
       }
     },
     updateSelectedCompetencies() {
       if (
-        this.assessment.competencies &&
+        this.competenciesLoaded &&
         this.selected?.length &&
         this.selectedCompetencies
       ) {
@@ -207,18 +208,5 @@ export default {
       }
     },
   },
-  // apollo: {
-  //   data: {
-  //     query: require('~/gql/components/getAssessmentCompetencies.gql'),
-  //     update: (data) => data,
-  //     variables() {
-  //       return {
-  //         assessmentId: this.assessmentId,
-  //         courseCode: this.courseCode,
-  //         teacherView: !this.studentView,
-  //       }
-  //     },
-  //   },
-  // },
 }
 </script>

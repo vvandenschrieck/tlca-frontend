@@ -362,6 +362,7 @@
       "mine": "Ma réponse"
     },
     "assessment": "Évaluation",
+    "cannot_add": "Impossible d'ajouter un nouveau passage d'évaluation",
     "comment": {
       "_": "Commentaire",
       "no": "Pas de commentaire"

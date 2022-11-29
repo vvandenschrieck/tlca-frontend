@@ -13,7 +13,7 @@
           v-model="state.selected"
           class="ml-1"
           dense
-          :disabled="state.disabled"
+          :disabled="state.disabled || state.past"
           hide-details
           :readonly="readonly"
           :ripple="form && !readonly"

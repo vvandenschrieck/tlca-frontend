@@ -8,7 +8,7 @@
       <v-card>
         <v-card-text>
           <v-row>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="5">
               <assessment-select
                 v-model="assessment"
                 :course-code="courseCode"
@@ -17,17 +17,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="6">
-              <assessment-phase-select
-                v-if="assessment"
-                v-model="phase"
-                :assessment-id="assessment"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="5">
               <learner-select
                 v-model="learner"
                 :course-code="courseCode"
@@ -37,7 +27,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="2">
               <v-switch
                 v-if="!edit"
                 v-model="massCreation"
@@ -51,14 +41,14 @@
           </v-row>
 
           <div v-if="showInstanceSelector">
-            <v-divider v-if="!(edit || massCreation)" class="mb-3 mt-3" />
+            <!-- <v-divider v-if="!(edit || massCreation)" class="mb-3 mt-3" /> -->
 
-            <h4 v-if="!(edit || massCreation)">
+            <!-- <h4 v-if="!(edit || massCreation)">
               {{ $tc('assessment.instance._', 1) }}
-            </h4>
+            </h4> -->
 
             <assessment-instance-selector
-              v-model="instance"
+              v-model="config"
               :assessment-id="assessment"
               :course-code="courseCode"
               :edit="edit"
@@ -74,7 +64,9 @@
                   outlined
                   type="warning"
                 >
-                  There are unpublished evaluations for this instance
+                  There are unpublished evaluations for this instance and these
+                  latter are not taken into account for the history shown
+                  hereafter.
                 </v-alert>
 
                 <v-divider class="mb-3 mt-3" />
@@ -99,6 +91,7 @@
                   :edit="edit"
                   form
                   hide-checklist
+                  :phase="config?.phase"
                   :selected="initialCompetencies ?? selected"
                 />
 
@@ -177,15 +170,14 @@ export default {
     return {
       assessment: null,
       comment: '',
+      config: null,
       evalDate: '',
-      instance: null,
       formBusy: false,
       formError: null,
       initialCompetencies: null,
       learner: null,
       massCreation: false,
       note: '',
-      phase: null,
       selectedCompetencies: [],
       showActions: false,
     }
@@ -194,19 +186,8 @@ export default {
     action() {
       return !this.edit ? 'create' : 'edit'
     },
-    phases() {
-      if (!this.assessment || !this.assessment.type === 'PHASED') {
-        return null
-      }
-
-      return this.assessment.phases
-    },
     showInstanceSelector() {
-      return (
-        this.assessment &&
-        this.learner &&
-        (this.assessment?.type !== 'PHASED' || this.phase !== null)
-      )
+      return this.assessment && this.learner
     },
   },
   mounted() {
@@ -248,11 +229,11 @@ export default {
       return null
     },
     onSelectAssessment() {
-      this.instance = null
+      this.config = null
       this.$emit('assessmentSelected', this.assessment)
     },
     onSelectLearner() {
-      this.instance = null
+      this.config = null
       this.$emit('learnerSelected', this.learner)
     },
     reset() {
@@ -269,6 +250,10 @@ export default {
 
       this.assessment = evaluation?.assessment?.id ?? null
       this.comment = evaluation?.comment ?? ''
+      this.config = {
+        instance: evaluation?.instance?.id ?? null,
+        phase: evaluation?.phase ?? null,
+      }
       this.evalDate = evalDate ?? ''
       this.initialCompetencies =
         evaluation?.competencies?.map((c) => ({
@@ -277,7 +262,6 @@ export default {
           learningOutcomes: c.learningOutcomes,
           selected: c.selected,
         })) ?? null
-      this.instance = evaluation?.instance?.id ?? null
       this.learner = evaluation?.learner?.username ?? null
       this.note = evaluation?.note ?? ''
       this.selectedCompetencies = []
@@ -313,7 +297,8 @@ export default {
         data.id = this.evaluation.id
       } else {
         data.assessment = this.assessment
-        data.instance = this.instance
+        data.instance = this.config?.instance
+        data.phase = this.config?.phase
       }
       const mutation = require(`~/gql/teach/${this.action}Evaluation.gql`)
 

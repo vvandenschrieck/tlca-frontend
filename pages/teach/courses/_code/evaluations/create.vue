@@ -22,7 +22,7 @@
           :assessment-id="assessment"
         />
         <learner-info-panel
-          v-if="learner"
+          v-if="showLearnerInfo"
           class="mb-5"
           :course-code="courseCode"
           :learner="learner"
@@ -53,6 +53,9 @@ export default {
   computed: {
     courseCode() {
       return this.$route.params.code
+    },
+    showLearnerInfo() {
+      return this.learner && !Array.isArray(this.learner)
     },
     title() {
       return this.$t('evaluation.create')

@@ -1,0 +1,10 @@
+fragment EvaluationCompetencyParts on EvaluationCompetency {
+  checklist {
+    public
+  }
+  competency {
+    code
+  }
+  learningOutcomes
+  selected
+}

@@ -362,6 +362,7 @@
       "mine": "My answer"
     },
     "assessment": "Assessment",
+    "cannot_add": "Cannot add a new evaluation",
     "comment": {
       "_": "Comment",
       "no": "No comment"
