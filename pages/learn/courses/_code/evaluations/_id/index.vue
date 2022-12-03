@@ -124,7 +124,7 @@ export default {
       return this.$route.params.code
     },
     deleteAction() {
-      if (!this.evaluation || !this.evaluation.status === 'REQUESTED') {
+      if (!this.evaluation || this.evaluation.status !== 'REQUESTED') {
         return null
       }
 
