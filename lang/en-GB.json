@@ -101,7 +101,8 @@
     "type": {
       "_": "@:global.type._",
       "incremental": "Incremental",
-      "phased": "Phased ({nb} phases)",
+      "phased": "Phased",
+      "phased_nb": "Phased ({nb} phases)",
       "single_take": "Single take"
     },
     "visibility": "@:global.visibility._",

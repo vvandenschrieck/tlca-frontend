@@ -62,7 +62,7 @@ export default {
       const typeText =
         type !== 'PHASED'
           ? this.$t(`assessment.type.${type.toLowerCase()}`)
-          : this.$t('assessment.type.phased', { nb: nbPhases })
+          : this.$t('assessment.type.phased_nb', { nb: nbPhases })
       items.push({
         icon: 'mdi-multiplication-box',
         text: typeText,
