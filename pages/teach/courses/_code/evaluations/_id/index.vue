@@ -1,8 +1,8 @@
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
-    :query="query.query"
-    :variables="query.variables"
+    :query="require('~/gql/teach/getEvaluation.gql')"
+    :variables="{ courseCode, evaluationId }"
     @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
@@ -26,6 +26,9 @@
                     v-if="evaluation"
                     :assessment-id="evaluation.assessment.id"
                     :course-code="courseCode"
+                    form
+                    :phase="evaluation.phase"
+                    readonly
                     :selected="selectedCompetencies"
                     :student-view="hidePrivateChecklist"
                   />
@@ -201,15 +204,15 @@ export default {
       }
 
       return {
-        query: {
-          mutation: require('~/gql/teach/deleteEvaluation.gql'),
-          variables: { id: this.evaluationId },
-        },
+        entity: 'evaluation',
         link: {
           name: 'teach-courses-code-evaluations',
           params: { code: this.courseCode },
         },
-        object: 'evaluation',
+        query: {
+          mutation: require('~/gql/teach/deleteEvaluation.gql'),
+          variables: { id: this.evaluationId },
+        },
       }
     },
     editLink() {
@@ -233,15 +236,6 @@ export default {
     },
     hidePrivateChecklist() {
       return ['REJECTED', 'REQUESTED'].includes(this.evaluation?.status)
-    },
-    query() {
-      return {
-        query: require('~/gql/teach/getEvaluation.gql'),
-        variables: {
-          courseCode: this.courseCode,
-          evaluationId: this.evaluationId,
-        },
-      }
     },
     selectedCompetencies() {
       if (!this.evaluation) {
@@ -402,11 +396,13 @@ export default {
         return
       }
 
-      this.assessment = data.evaluation?.assessment
+      const evaluation = data.evaluation
+
+      this.assessment = evaluation?.assessment
       this.course = data.course
-      this.evaluation = data.evaluation
-      this.instance = data.evaluation?.instance
-      this.title = data.evaluation?.assessment?.name ?? ''
+      this.evaluation = evaluation
+      this.instance = evaluation?.instance
+      this.title = this.assessment?.name ?? ''
     },
   },
   meta: {

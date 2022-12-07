@@ -73,6 +73,7 @@
                 v-model="isIncremental"
                 class="ml-3"
                 dense
+                :disabled="isPhased"
                 :label="$t('assessment.type.incremental')"
               />
             </v-col>
@@ -99,6 +100,7 @@
                 v-model="isPhased"
                 class="ml-3"
                 dense
+                :disabled="isIncremental"
                 :label="$t('assessment.type.phased')"
               />
             </v-col>
@@ -324,6 +326,20 @@ export default {
       return this.$route.params.code
     },
   },
+  watch: {
+    isIncremental(value) {
+      if (value) {
+        this.isPhased = false
+        this.nbPhases = ''
+      }
+    },
+    isPhased(value) {
+      if (value) {
+        this.isIncremental = false
+        this.takes = ''
+      }
+    },
+  },
   mounted() {
     this.reset()
   },
@@ -334,7 +350,7 @@ export default {
 
       this.category = assessment?.category ?? ''
       this.code = assessment?.code ?? ''
-      this.competencies = assessment?.competencies.map((c) => ({
+      this.competencies = assessment?.competencies?.map((c) => ({
         ...c,
         checklist: c.checklist
           ? {
@@ -353,14 +369,31 @@ export default {
       this.hasOralDefense = assessment?.hasOralDefense ?? false
       this.instances = assessment?.instances ?? ''
       this.isIncremental = assessment?.isIncremental ?? false
-      this.isPhased = false
+      this.isPhased = assessment?.isPhased ?? false
       this.name = assessment?.name ?? ''
-      this.nbPhases = ''
+      this.nbPhases = assessment?.phases?.length ?? ''
       this.load = {
         defense: load?.defense ?? '',
         grading: load?.grading ?? '',
         work: load?.work ?? '',
       }
+      this.phases =
+        assessment?.phases?.map((p) => ({
+          ...p,
+          competencies: p.competencies.map((c) => ({
+            ...c,
+            checklist: c.checklist
+              ? {
+                  private: c.checklist.private ?? undefined,
+                  public: c.checklist.public ?? undefined,
+                  __typename: undefined,
+                }
+              : undefined,
+            competency: c.competency.code,
+            __typename: undefined,
+          })),
+          __typename: undefined,
+        })) ?? []
       this.start = assessment?.start ?? ''
       this.takes = assessment?.takes ?? ''
     },

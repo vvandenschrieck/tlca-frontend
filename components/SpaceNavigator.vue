@@ -1,52 +1,54 @@
 <template>
-  <v-navigation-drawer
-    absolute
-    disable-resize-watcher
-    expand-on-hover
-    fixed
-    :mini-variant.sync="miniVariant"
-    permanent
-    @mouseleave.native="hoveredItem = undefined"
-  >
-    <v-row class="fill-height" no-gutters>
-      <v-navigation-drawer dark mini-variant permanent>
-        <v-list>
-          <v-list-item-group :value="selectedSpace">
-            <v-list-item
-              v-for="(item, i) in filteredSpaces"
-              :key="i"
-              @change="selectItem(i)"
-              @mouseenter="hoveredItem = item"
-            >
-              <v-list-item-action>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-action>
+  <v-hover v-slot="{ hover }">
+    <v-navigation-drawer
+      app
+      clipped
+      disable-resize-watcher
+      expand-on-hover
+      mini-variant
+      permanent
+      @mouseleave.native="hoveredItem = undefined"
+    >
+      <v-row class="fill-height" no-gutters>
+        <v-navigation-drawer dark mini-variant permanent>
+          <v-list>
+            <v-list-item-group :value="selectedSpace">
+              <v-list-item
+                v-for="(item, i) in filteredSpaces"
+                :key="i"
+                @change="selectItem(i)"
+                @mouseenter="hoveredItem = item"
+              >
+                <v-list-item-action>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-action>
 
-              <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-navigation-drawer>
+
+        <v-list v-show="hover" width="calc(100% - 56px)">
+          <v-subheader inset>{{ $t(hoveredSpace.title) }}</v-subheader>
+
+          <v-divider />
+
+          <v-list-item
+            v-for="(item, i) in hoveredSpace.sections"
+            :key="i"
+            :to="item.to"
+          >
+            <v-list-item-content>
+              <v-list-item-title>{{ $tc(item.title, 2) }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list>
-      </v-navigation-drawer>
-
-      <v-list v-show="!miniVariant" width="calc(100% - 56px)">
-        <v-subheader inset>{{ $t(hoveredSpace.title) }}</v-subheader>
-
-        <v-divider />
-
-        <v-list-item
-          v-for="(item, i) in hoveredSpace.sections"
-          :key="i"
-          :to="item.to"
-        >
-          <v-list-item-content>
-            <v-list-item-title>{{ $tc(item.title, 2) }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-row>
-  </v-navigation-drawer>
+      </v-row>
+    </v-navigation-drawer>
+  </v-hover>
 </template>
 
 <script>

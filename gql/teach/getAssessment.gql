@@ -1,15 +1,18 @@
-query GetCourseAssessment($courseCode: ID!, $assessmentId: ID!) {
+query GetAssessment($courseCode: ID!, $assessmentId: ID!) {
   assessment(id: $assessmentId) {
     code
     description
     id
     name
+    phases {
+      description
+      name
+    }
   }
 
   course(code: $courseCode) {
     code
     isCoordinator
     isTeacher
-    name
   }
 }

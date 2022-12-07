@@ -1,8 +1,7 @@
 <template>
   <v-data-table
-    v-if="items"
     disable-pagination
-    :headers="dataHeaders"
+    :headers="headers"
     hide-default-footer
     :items="learners"
     @click:row="goToLearner"
@@ -15,8 +14,6 @@
       <competencies-progress dense :value="progress.advanced" />
     </template>
   </v-data-table>
-
-  <v-skeleton-loader v-else type="table" />
 </template>
 
 <script>
@@ -45,8 +42,8 @@ export default {
     },
   },
   computed: {
-    dataHeaders() {
-      const headers = [
+    headers() {
+      const items = [
         {
           text: this.$t('user.name'),
           value: 'user.displayName',
@@ -54,32 +51,32 @@ export default {
       ]
 
       if (!this.hideTeachingGroup) {
-        headers.push({
+        items.push({
           text: this.$t('course.groups.teaching._'),
           value: 'group.teaching',
         })
       }
 
       if (!this.hideWorkingGroup) {
-        headers.push({
+        items.push({
           text: this.$t('course.groups.working._'),
           value: 'group.working',
         })
       }
 
-      headers.push({
+      items.push({
         text: this.$t('competency.category.basic'),
         value: 'progress.basic',
       })
 
       if (!this.hideAdvanced) {
-        headers.push({
+        items.push({
           text: this.$t('competency.category.advanced'),
           value: 'progress.advanced',
         })
       }
 
-      headers.push({
+      items.push({
         cellClass: 'text-right',
         class: 'text-right',
         sortable: false,
@@ -87,7 +84,7 @@ export default {
         value: 'actions',
       })
 
-      return headers
+      return items
     },
     learners() {
       return this.items.map((r) => ({

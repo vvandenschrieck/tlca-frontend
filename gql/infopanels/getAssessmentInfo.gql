@@ -8,6 +8,7 @@ query GetAssessmentInfo($id: ID!, $teacherView: Boolean!) {
       defense
       work
     }
+    nbPhases
     takes
     type
   }

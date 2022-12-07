@@ -18,6 +18,7 @@ query GetPastEvaluations(
     instances
     isIncremental
     takes
+    type
   }
 
   assessmentInstances(assessment: $assessmentId, learner: $learner)

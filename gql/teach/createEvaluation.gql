@@ -6,6 +6,7 @@ mutation CreateEvaluation(
   $instance: ID
   $learner: ID!
   $note: String
+  $phase: Int
 ) {
   createEvaluation(
     assessment: $assessment
@@ -15,6 +16,7 @@ mutation CreateEvaluation(
     instance: $instance
     learner: $learner
     note: $note
+    phase: $phase
   ) {
     id
   }

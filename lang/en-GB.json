@@ -102,6 +102,7 @@
       "_": "@:global.type._",
       "incremental": "Incremental",
       "phased": "Phased",
+      "phased_nb": "Phased ({nb} phases)",
       "single_take": "Single take"
     },
     "visibility": "@:global.visibility._",
@@ -230,6 +231,7 @@
       "teaching": {
         "_": "Teaching group",
         "add": "Add a teaching group",
+        "mine": "My teaching groups",
         "no": "There are no teaching groups for now"
       },
       "working": {
@@ -361,6 +363,7 @@
       "mine": "My answer"
     },
     "assessment": "Assessment",
+    "cannot_add": "Cannot add a new evaluation",
     "comment": {
       "_": "Comment",
       "no": "No comment"
@@ -384,6 +387,7 @@
     },
     "group_by_status": "Group by status",
     "learner": "Learner",
+    "mass_creation": "Mass creation",
     "nb_of": "Number of evaluations",
     "no": "There are no evaluations for now",
     "note": {
@@ -394,6 +398,9 @@
     "rejectionReason": "Rejection reason",
     "request": {
       "_": "Request an evaluation",
+      "delete": {
+        "dialog_instructions": "Are you sure you want to delete this evaluation request?"
+      },
       "too_old": "The oldest evaluation request was sent more than {days} days ago",
       "reject": {
         "_": "Evaluation request rejection",
@@ -410,7 +417,8 @@
       "requested": "Requested",
       "requested_on": "Requested on {date}",
       "unpublished": "@:global.status.unpublished"
-    }
+    },
+    "unpublished_warning": "There are unpublished evaluations for this instance and these latter are not taken into account for the history shown below."
   },
   "event": {
     "_": "Event | Events",
@@ -565,6 +573,7 @@
   "learner": {
     "_": "Learner | Learners",
     "all": "All learners",
+    "mine": "My learners",
     "no": "There are no learners for now"
   },
   "partner": {
@@ -693,6 +702,7 @@
     "EVALUATION_DELETE": "Evaluation successfully deleted",
     "EVALUATION_PUBLISH": "Evaluation successfully published",
     "EVALUATION_REQUEST_ACCEPT": "Evaluation request successfully accepted",
+    "EVALUATION_REQUEST_DELETE": "Evaluation request successfully deleted",
     "EVALUATION_REQUEST_REJECT": "Evaluation request successfully rejected",
     "INSTANCE_DELETE": "Instance successfully deleted",
     "INVITATION_REQUEST": "Successfully requested an invitation",

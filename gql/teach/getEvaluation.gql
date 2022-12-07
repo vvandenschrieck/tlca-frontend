@@ -1,3 +1,5 @@
+#import "../fragments/evaluationCompetencyParts.graphql"
+
 query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
   course(code: $courseCode) {
     code
@@ -35,25 +37,12 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
     isRequestPending
     note
     pastCompetencies {
-      checklist {
-        public
-      }
-      competency {
-        code
-      }
-      learningOutcomes
-      selected
+      ...EvaluationCompetencyParts
     }
+    phase
     rejectionReason
     requestedCompetencies {
-      checklist {
-        public
-      }
-      competency {
-        code
-      }
-      learningOutcomes
-      selected
+      ...EvaluationCompetencyParts
     }
     status
   }

@@ -1,0 +1,9 @@
+query GetAssessmentPhases($assessmentId: ID!) {
+  assessment(id: $assessmentId) {
+    id
+    phases {
+      name
+    }
+    type
+  }
+}

@@ -1,0 +1,10 @@
+query GetLearnerInfo($courseCode: ID!, $learner: ID!) {
+  registration(code: $courseCode, learner: $learner) {
+    datetime
+    id
+    user {
+      displayName
+      username
+    }
+  }
+}

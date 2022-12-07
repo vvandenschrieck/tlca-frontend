@@ -2,6 +2,7 @@
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
+    fetch-policy="no-cache"
     :query="require('~/gql/components/getPastEvaluations.gql')"
     :variables="{
       assessmentId,
@@ -14,65 +15,77 @@
     <v-progress-linear v-if="!!isLoading" indeterminate />
 
     <div v-if="!error">
-      <v-row v-if="!edit && !massCreation">
-        <v-col cols="12" md="4">
-          <v-switch
-            v-model="newInstance"
-            class="ml-2"
-            dense
-            :disabled="!canCreateInstance || selectedInstance !== null"
-            :label="$t('assessment.instance.new')"
-            @change="switchNewInstance"
-          />
-        </v-col>
+      <div v-if="showInstanceSelector">
+        <v-row v-if="!edit && !massCreation">
+          <v-col cols="12" md="5">
+            <v-select
+              v-model="selectedInstance"
+              clearable
+              :disabled="
+                !canSelectInstance ||
+                newInstance ||
+                !instances ||
+                !instances.length
+              "
+              :items="instances"
+              item-value="i"
+              :label="$tc('assessment.instance._', 1)"
+              @change="selectInstance"
+            >
+              <template #item="{ item }">
+                <span v-html="instanceName(item)" />
+              </template>
 
+              <template #selection="{ item }">
+                <span v-html="instanceName(item)" />
+              </template>
+            </v-select>
+          </v-col>
+
+          <v-col cols="12" md="3">
+            <v-switch
+              v-model="newInstance"
+              class="ml-2"
+              dense
+              :disabled="!canCreateInstance || selectedInstance !== null"
+              :label="$t('assessment.instance.new')"
+              @change="switchNewInstance"
+            />
+          </v-col>
+
+          <v-col cols="12" md="4">
+            <span v-if="showLimit">{{ $t('general.limit') }}</span>
+
+            <v-progress-linear
+              v-if="newInstance"
+              height="20"
+              :value="instancesPercentage"
+            >
+              <span class="font-weight-black text-caption">
+                {{ instancesNb }}
+              </span>
+            </v-progress-linear>
+
+            <v-progress-linear
+              v-if="selectedInstance !== null && assessment.isIncremental"
+              height="20"
+              :value="takesPercentage"
+            >
+              <span class="font-weight-black text-caption">
+                {{ takesNb }}
+              </span>
+            </v-progress-linear>
+          </v-col>
+        </v-row>
+      </div>
+
+      <v-row v-if="showPhaseSelector">
         <v-col cols="12" md="5">
-          <v-select
-            v-model="selectedInstance"
-            clearable
-            :disabled="
-              !canSelectInstance ||
-              newInstance ||
-              !instances ||
-              !instances.length
-            "
-            :items="instances"
-            item-value="i"
-            :label="$tc('assessment.instance._', 1)"
-            @change="selectInstance"
-          >
-            <template #item="{ item }">
-              <span v-html="instanceName(item)" />
-            </template>
-
-            <template #selection="{ item }">
-              <span v-html="instanceName(item)" />
-            </template>
-          </v-select>
-        </v-col>
-
-        <v-col cols="12" md="3">
-          <span v-if="showLimit">{{ $t('general.limit') }}</span>
-
-          <v-progress-linear
-            v-if="newInstance"
-            height="20"
-            :value="instancesPercentage"
-          >
-            <span class="font-weight-black text-caption">
-              {{ instancesNb }}
-            </span>
-          </v-progress-linear>
-
-          <v-progress-linear
-            v-if="selectedInstance !== null && assessment.isIncremental"
-            height="20"
-            :value="takesPercentage"
-          >
-            <span class="font-weight-black text-caption">
-              {{ takesNb }}
-            </span>
-          </v-progress-linear>
+          <assessment-phase-select
+            v-model="phase"
+            :assessment-id="assessment.id"
+            @change="selectPhase"
+          />
         </v-col>
       </v-row>
 
@@ -84,7 +97,7 @@
           outlined
           type="info"
         >
-          Cannot add evaluation
+          {{ $t('evaluation.cannot_add') }}
         </v-alert>
 
         <slot
@@ -130,7 +143,7 @@ export default {
       default: null,
     },
     value: {
-      type: String,
+      type: Object,
       default: null,
     },
   },
@@ -142,6 +155,7 @@ export default {
       evaluations: null,
       instances: null,
       newInstance: false,
+      phase: null,
       selectedCompetencies: [],
       selectedInstance: null,
     }
@@ -194,21 +208,23 @@ export default {
           //   mandatoryCompetencies[competency.code] = false
           // }
         })
-        evaluations.forEach((e) => {
-          e.competencies.forEach(
-            ({ competency, learningOutcomes, selected }) => {
-              allCompetencies[competency.code].selected ||= selected
-              if (learningOutcomes) {
-                learningOutcomes.forEach((lo, i) => {
-                  allCompetencies[competency.code].learningOutcomes[i] ||= lo
-                })
+        evaluations
+          .filter((e) => !!e.competencies)
+          .forEach((e) => {
+            e.competencies.forEach(
+              ({ competency, learningOutcomes, selected }) => {
+                allCompetencies[competency.code].selected ||= selected
+                if (learningOutcomes) {
+                  learningOutcomes.forEach((lo, i) => {
+                    allCompetencies[competency.code].learningOutcomes[i] ||= lo
+                  })
+                }
+                // if (competency.code in mandatoryCompetencies) {
+                //   mandatoryCompetencies[competency.code] ||= selected
+                // }
               }
-              // if (competency.code in mandatoryCompetencies) {
-              //   mandatoryCompetencies[competency.code] ||= selected
-              // }
-            }
-          )
-        })
+            )
+          })
 
         if (
           Object.keys(allCompetencies).every((c) => allCompetencies[c].selected)
@@ -251,6 +267,11 @@ export default {
         (e) => e.id !== this.evaluationId && !e.isPublished
       )
     },
+    instance() {
+      return this.instances && this.selectedInstance !== null
+        ? this.instances[this.selectedInstance].id
+        : null
+    },
     instanceEvaluations() {
       if (this.selectedInstance === null || !this.evaluations) {
         return []
@@ -275,9 +296,21 @@ export default {
     },
     showDetail() {
       return (
-        this.newInstance ||
-        this.selectedInstance !== null ||
-        (this.massCreation && this.learner?.length > 0)
+        (this.newInstance ||
+          this.selectedInstance !== null ||
+          (this.massCreation && this.learner?.length > 0)) &&
+        (this.assessment?.type !== 'PHASED' || this.phase !== null)
+      )
+    },
+    showInstanceSelector() {
+      return (
+        this.assessment &&
+        !(
+          !this.instances ||
+          this.instances.length === 0 ||
+          !this.assessment.isIncremental ||
+          this.assessment.instances === 1
+        )
       )
     },
     showLimit() {
@@ -285,6 +318,9 @@ export default {
         this.newInstance ||
         (this.selectedInstance !== null && this.assessment.isIncremental)
       )
+    },
+    showPhaseSelector() {
+      return this.assessment?.type === 'PHASED'
     },
     takesNb() {
       const nb = this.instanceEvaluations.length
@@ -326,6 +362,7 @@ export default {
     reset() {
       this.instances = null
       this.newInstance = false
+      this.phase = null
       this.selectedCompetencies = []
       this.selectedInstance = null
 
@@ -333,58 +370,87 @@ export default {
     },
     selectInstance(value) {
       if (value === null) {
-        this.instance = null
-        return this.$emit('input', null)
+        this.selectedInstance = null
       }
 
-      this.newInstance = false
-      this.$emit('input', this.instances[value].id)
+      this.$emit('input', {
+        instance: this.instance,
+        phase: this.phase,
+      })
+    },
+    selectPhase(value) {
+      if (value === null) {
+        this.phase = null
+      }
+
+      this.$emit('input', {
+        instance: this.instance,
+        phase: this.phase,
+      })
     },
     setResult({ data }) {
       if (!data) {
         return
       }
 
+      this.reset()
       this.assessment = data.assessment
+      this.evaluations = data.evaluations
+      this.instances =
+        data.assessmentInstances
+          ?.sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
+          .map((ai, i) => ({ ...ai, i })) ?? null
 
-      // Initialise the instances and evaluations, if any.
-      if (!this.massCreation) {
-        this.evaluations = data.evaluations
-        this.instances = data.assessmentInstances
-          .sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
-          .map((ai, i) => ({ ...ai, i }))
-      } else {
+      // Manage mass creation.
+      if (this.massCreation) {
         this.evaluations = null
         this.instances = null
       }
 
       // Initialise the variable to store the selected competencies.
+      const competencies =
+        this.assessment.type === 'PHASED' && this.phase
+          ? this.assessment.phases[this.phase].competencies
+          : this.assessment.competencies
+
       this.selectedCompetencies =
-        this.assessment.competencies.map(
-          ({ checklist, competency, learningOutcomes }) => {
-            return {
-              checklist: {
-                private: this.newArray(checklist?.private?.length, false),
-                public: this.newArray(checklist?.public?.length, false),
-              },
-              competency: competency.code,
-              disabled: false,
-              learningOutcomes: this.newArray(learningOutcomes?.length, false),
-              selected: false,
-            }
+        competencies?.map(({ checklist, competency, learningOutcomes }) => {
+          return {
+            checklist: {
+              private: this.newArray(checklist?.private?.length, false),
+              public: this.newArray(checklist?.public?.length, false),
+            },
+            competency: competency.code,
+            disabled: false,
+            learningOutcomes: this.newArray(learningOutcomes?.length, false),
+            selected: false,
           }
-        ) ?? []
+        }) ?? []
 
       // Automatically initialise instance selection options.
-      this.newInstance = !this.instances || !this.instances.length
-      this.canCreateInstance =
-        !this.assessment.instances ||
-        (this.instances && this.instances.length < this.assessment.instances)
-      if (!this.canCreateInstance && this.instances?.length === 1) {
-        this.canSelectInstance = false
+      if (
+        !this.instances ||
+        this.instances.length === 0 ||
+        (this.assessment && !this.assessment.isIncremental)
+      ) {
+        this.newInstance = true
+      } else if (
+        this.assessment?.instances === 1 &&
+        this.instances?.length === 1
+      ) {
         this.selectedInstance = 0
-        this.$emit('input', this.instances[0].id)
+        this.selectInstance(0)
       }
+
+      // this.newInstance = !this.instances || !this.instances.length
+      // this.canCreateInstance =
+      //   !this.assessment.instances ||
+      //   (this.instances && this.instances.length < this.assessment.instances)
+      // if (!this.canCreateInstance && this.instances?.length === 1) {
+      //   this.canSelectInstance = false
+      //   this.selectedInstance = 0
+      //   this.$emit('input', this.instances[0].id)
+      // }
     },
     switchNewInstance(value) {
       if (value) {
