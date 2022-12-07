@@ -16,10 +16,11 @@
       </template>
     </v-app-bar>
 
+    <space-navigator v-if="$auth.user" />
+
     <v-main>
-      <v-container style="padding-left: 56px">
+      <v-container>
         <notification-displayer />
-        <space-navigator v-if="$auth.user" />
         <bread-crumb v-if="showBreadCrumb" />
         <Nuxt />
       </v-container>
@@ -27,7 +28,7 @@
 
     <v-footer app>
       <span class="text-caption">
-        {{ $t('global.powered_by') }} AEI Consulting – v1.1.20.
+        {{ $t('global.powered_by') }} AEI Consulting – v1.1.21.
       </span>
 
       <v-spacer />

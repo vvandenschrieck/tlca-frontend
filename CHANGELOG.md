@@ -1,3 +1,26 @@
+## 1.1.21 (2022-12-07)
+
+### Features
+
+- **assessments:** create phased assessments (manager)
+- **assessments:** edit phased assessments (manager)
+- **assessments:** consult phased assessments information on the corresponding details pages (teacher and student)
+
+- **evaluations:** create evaluation for phased assessments (teacher)
+
+### Improvements
+
+- added learner info panel on the learner progress page (teacher)
+- added space navigation menus on several pages between manage and teach spaces
+- improved evaluation creation/request pages by hiding unnecessary form fields (instance selector)
+- improved view mode of checklist and learning outcomes lists (replaced checkboxes by square bullets in view mode)
+
+### Bug Fixes
+
+- fixed issue with evaluations list filter
+- fixed issue with learning outcome badges color (when objective achieved)
+- fixed space navigator layout issue
+
 ## 1.1.20 (2022-11-14)
 
 ### Bug Fixes

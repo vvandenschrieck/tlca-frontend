@@ -1,9 +1,10 @@
 <template>
   <ApolloQuery
-    v-slot="{ result: { error, data }, isLoading }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getAssessments.gql')"
     :update="(data) => data.assessments"
     :variables="{ courseCode, open: true }"
+    @result="setResult"
   >
     <v-autocomplete
       v-if="!error"
@@ -11,7 +12,7 @@
       dense
       :disabled="!!isLoading || disabled"
       :filter="filter"
-      :items="assessments(data)"
+      :items="assessments"
       item-value="id"
       :label="$t('evaluation.assessment')"
       :loading="!!isLoading"
@@ -20,11 +21,11 @@
       @input="$emit('input', $event)"
     >
       <template #selection="{ item }">
-        <span v-if="item.id">{{ assessmentName(item) }}</span>
+        <span v-if="item.id">{{ item.fullName }}</span>
       </template>
 
       <template #item="{ item }">
-        <span v-if="item.id">{{ assessmentName(item) }}</span>
+        <span v-if="item.id">{{ item.fullName }}</span>
       </template>
     </v-autocomplete>
 
@@ -36,7 +37,7 @@
 import assessments from '@/mixins/assessments.js'
 
 export default {
-  name: 'AssessmentSelectField',
+  name: 'AssessmentSelect',
   mixins: [assessments],
   props: {
     courseCode: {
@@ -52,11 +53,29 @@ export default {
       default: null,
     },
   },
+  data() {
+    return {
+      assessments: null,
+    }
+  },
   methods: {
-    assessments(data) {
-      const assessments = []
+    filter(item, q) {
+      const query = q.trim().toLowerCase()
 
-      if (data?.length) {
+      return (
+        item.header ||
+        item.code?.toLowerCase().includes(query) ||
+        item.name?.toLowerCase().includes(query)
+      )
+    },
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      const items = []
+
+      if (data.length) {
         const categories = [
           ...new Set(data.map((a) => a.category)).map((c) => ({
             category: c,
@@ -65,20 +84,19 @@ export default {
         ].sort((a, b) => (a.text < b.text ? -1 : 1))
 
         categories.forEach((c) => {
-          assessments.push({ header: c.text })
-          assessments.push(...data.filter((a) => a.category === c.category))
+          items.push({ header: c.text })
+          items.push(
+            ...data
+              .filter((a) => a.category === c.category)
+              .map((a) => ({
+                ...a,
+                fullName: this.assessmentName(a),
+              }))
+          )
         })
       }
 
-      return assessments
-    },
-    filter(item, query) {
-      query = query.trim().toLowerCase()
-      return (
-        item.header ||
-        (item.code && item.code.toLowerCase().includes(query)) ||
-        (item.name && item.name.toLowerCase().includes(query))
-      )
+      this.assessments = items
     },
   },
 }

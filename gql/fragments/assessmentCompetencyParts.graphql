@@ -1,0 +1,14 @@
+fragment AssessmentCompetencyParts on AssessmentCompetency {
+  checklist {
+    private @include(if: $teacherView)
+    public
+  }
+  competency {
+    code
+    name
+  }
+  isOptional
+  learningOutcomes
+  maxStars
+  stars
+}

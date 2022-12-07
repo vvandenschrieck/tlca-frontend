@@ -102,6 +102,7 @@
       "_": "@:global.type._",
       "incremental": "Incrémental",
       "phased": "Phasé",
+      "phased_nb": "Phasé ({nb} phases)",
       "single_take": "Passage unique"
     },
     "visibility": "@:global.visibility._",
@@ -230,6 +231,7 @@
       "teaching": {
         "_": "Groupe d'enseignement",
         "add": "Ajouter un groupe d'enseignement",
+        "mine": "Mes groupes d'enseignement",
         "no": "Il n'y a pas de groupes d'enseignement pour le moment"
       },
       "working": {
@@ -361,6 +363,7 @@
       "mine": "Ma réponse"
     },
     "assessment": "Évaluation",
+    "cannot_add": "Impossible d'ajouter un nouveau passage d'évaluation",
     "comment": {
       "_": "Commentaire",
       "no": "Pas de commentaire"
@@ -384,6 +387,7 @@
     },
     "group_by_status": "Grouper par statut",
     "learner": "Apprenant",
+    "mass_creation": "Création en masse",
     "nb_of": "Nombre de passages d'évaluation",
     "no": "Il n'y a pas de passages d'évaluation pour le moment",
     "note": {
@@ -394,6 +398,9 @@
     "rejectionReason": "Raison du rejet",
     "request": {
       "_": "Demander un passage d'évaluation",
+      "delete": {
+        "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette demande de passage d'évaluation ?"
+      },
       "too_old": "La demande de passage d'évaluation la plus ancienne date d'il y a plus de {days} jours",
       "reject": {
         "_": "Rejet d'une demande d'évaluation",
@@ -410,7 +417,8 @@
       "requested": "Demandé",
       "requested_on": "Demandé le {date}",
       "unpublished": "@:global.status.unpublished"
-    }
+    },
+    "unpublished_warning": "Il y a des passages d'évaluation non publiés pour cette instance et ces derniers ne sont pas pris en compte dans l'historique montré ci-dessous."
   },
   "event": {
     "_": "Évènement | Évènements",
@@ -565,6 +573,7 @@
   "learner": {
     "_": "Apprenant | Apprenants",
     "all": "Tous les apprenants",
+    "mine": "Mes apprenants",
     "no": "Il n'y a pas d'apprenants pour le moment"
   },
   "partner": {
@@ -693,6 +702,7 @@
     "EVALUATION_DELETE": "Passage d'évaluation supprimé avec succès",
     "EVALUATION_PUBLISH": "Passage d'évaluation publié avec succès",
     "EVALUATION_REQUEST_ACCEPT": "Demande de passage d'évaluation acceptée avec succès",
+    "EVALUATION_REQUEST_DELETE": "Demande de passage d'évaluation supprimé avec succès",
     "EVALUATION_REQUEST_REJECT": "Demande de passage d'évaluation rejetée avec succès",
     "INSTANCE_DELETE": "Instance supprimée avec succès",
     "INVITATION_REQUEST": "Demande d'invitation envoyée avec succès",

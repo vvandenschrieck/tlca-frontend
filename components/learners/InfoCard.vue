@@ -55,22 +55,27 @@ export default {
         return null
       }
 
-      // Compute the learners and teaching groups stats.
-      const stats = [
-        {
-          text: this.$tc('learner._', 2),
-          value: this.learners.length,
-        },
-      ]
+      const items = []
 
+      // Compute the number managed learners.
+      items.push({
+        text: this.$tc('learner.mine', 2),
+        value: this.learners.length,
+      })
+
+      // Compute the number of supervised  teaching groups.
       if (this.teachingGroups?.length) {
-        stats.push({
-          text: this.$t('course.groups._'),
-          value: this.teachingGroups.length,
+        const myTeachingGroups = this.teachingGroups.filter(
+          (g) => g.isSupervisor
+        ).length
+
+        items.push({
+          text: this.$t('course.groups.teaching.mine'),
+          value: `${myTeachingGroups} / ${this.teachingGroups.length}`,
         })
       }
 
-      return stats
+      return items
     },
   },
   methods: {

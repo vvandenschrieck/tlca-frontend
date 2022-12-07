@@ -23,7 +23,15 @@
                   hide-filter-bar
                   hide-learner
                   space="learn"
-                />
+                >
+                  <template #actions="{ item: { id, status } }">
+                    <evaluation-request-delete-btn
+                      v-if="status._ === 'REQUESTED'"
+                      :evaluation-id="id"
+                      @success="() => onEvaluationRequestDeleted(id)"
+                    />
+                  </template>
+                </evaluations-list>
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>
@@ -45,6 +53,8 @@
 </template>
 
 <script>
+import getEvaluationsList from '@/gql/components/getEvaluationsList.gql'
+
 import titles from '@/mixins/titles.js'
 
 export default {
@@ -71,6 +81,34 @@ export default {
     },
   },
   methods: {
+    onEvaluationRequestDeleted(id) {
+      const { defaultClient: apolloClient } = this.$apolloProvider
+      const query = {
+        query: getEvaluationsList,
+        variables: {
+          assessmentId: null,
+          courseCode: this.courseCode,
+          published: null,
+          hideAssessment: false,
+          hideLearner: false,
+        },
+      }
+      const data = apolloClient.readQuery(query)
+      const i = data.evaluations.findIndex((i) => i.id === id)
+      apolloClient.writeQuery({
+        ...query,
+        data: {
+          evaluations: [
+            ...data.evaluations.slice(0, i),
+            ...data.evaluations.slice(i + 1),
+          ],
+        },
+      })
+
+      this.$notificationManager.displaySuccessMessage(
+        this.$t('success.EVALUATION_REQUEST_DELETE')
+      )
+    },
     setResult({ data: course }) {
       this.course = course
       this.title = course?.name ?? ''

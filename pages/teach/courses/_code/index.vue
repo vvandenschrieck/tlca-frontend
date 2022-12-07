@@ -6,7 +6,7 @@
     :variables="{ code: courseCode }"
     @result="setResult"
   >
-    <page-title :spaces="spaces" :loading="!!isLoading" :value="title" />
+    <page-title :loading="!!isLoading" :spaces="spaces" :value="title" />
 
     <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">

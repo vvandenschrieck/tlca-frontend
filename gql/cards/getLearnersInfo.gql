@@ -3,9 +3,7 @@ query GetLearnersInfo($courseCode: ID!) {
     code
     groups {
       teaching {
-        supervisor {
-          username
-        }
+        isSupervisor
       }
     }
   }

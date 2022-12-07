@@ -1,20 +1,11 @@
-query GetAssessment($assessmentId: ID!) {
+#import "../../fragments/assessmentCompetencyParts.graphql"
+
+query GetAssessment($assessmentId: ID!, $teacherView: Boolean! = true) {
   assessment(id: $assessmentId) {
     category
     code
     competencies {
-      checklist {
-        private
-        public
-      }
-      competency {
-        code
-        name
-      }
-      isOptional
-      learningOutcomes
-      maxStars
-      stars
+      ...AssessmentCompetencyParts
     }
     description
     end
@@ -23,12 +14,20 @@ query GetAssessment($assessmentId: ID!) {
     id
     instances
     isIncremental
+    isPhased
     load {
       defense
       grading
       work
     }
     name
+    phases {
+      competencies {
+        ...AssessmentCompetencyParts
+      }
+      description
+      name
+    }
     provider
     providerConfig
     start

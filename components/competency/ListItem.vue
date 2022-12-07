@@ -13,9 +13,10 @@
           v-model="state.selected"
           class="ml-1"
           dense
-          :disabled="state.disabled"
+          :disabled="state.disabled || state.past"
           hide-details
           :readonly="readonly"
+          :ripple="form && !readonly"
         >
           <span slot="label" class="text-body-1 title">
             {{ competencyName(competency.competency) }}
@@ -32,6 +33,7 @@
           hide-divider
           hide-takes
           :items="competency.learningOutcomes"
+          :readonly="readonly"
           :title="$t('assessment.learning_outcomes.targeted')"
           @input="updateSelected"
         />
@@ -40,18 +42,20 @@
           v-if="!hideChecklist || !state.disabled"
           v-model="state.checklist.public"
           class="ml-3 mt-3"
-          :form="form && !state.selected"
+          :form="form"
           :items="competency.checklist?.public"
           :name="$t(`assessment.checklist.${studentView ? '_' : 'public'}`)"
+          :readonly="readonly"
         />
 
         <competency-check-list
-          v-if="!hideChecklist || !state.selected"
+          v-if="!hideChecklist || !state.disabled"
           v-model="state.checklist.private"
           class="ml-3 mt-3"
           :form="form"
           :items="competency.checklist?.private"
           :name="$t('assessment.checklist.private')"
+          :readonly="readonly"
         />
       </v-list-item-subtitle>
     </v-list-item-content>

@@ -6,7 +6,8 @@
       <v-col cols="12" md="9">
         <form-evaluation
           :course-code="courseCode"
-          @assessmentSelected="(value) => (assessmentId = value)"
+          @assessmentSelected="onAssessmentSelected"
+          @learnerSelected="onLearnerSelected"
         />
       </v-col>
 
@@ -16,9 +17,17 @@
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
         <assessment-info-panel
-          v-if="assessmentId"
+          v-if="assessment"
           class="mb-5"
-          :assessment-id="assessmentId"
+          :assessment-id="assessment"
+          non-info-panel
+        />
+        <learner-info-panel
+          v-if="showLearnerInfo"
+          class="mb-5"
+          :course-code="courseCode"
+          :learner="learner"
+          non-info-panel
         />
         <course-schedule-panel :course-code="courseCode" />
       </v-col>
@@ -34,7 +43,8 @@ export default {
   mixins: [titles],
   data() {
     return {
-      assessmentId: null,
+      assessment: null,
+      learner: null,
     }
   },
   head() {
@@ -46,8 +56,19 @@ export default {
     courseCode() {
       return this.$route.params.code
     },
+    showLearnerInfo() {
+      return this.learner && !Array.isArray(this.learner)
+    },
     title() {
       return this.$t('evaluation.create')
+    },
+  },
+  methods: {
+    onAssessmentSelected(assessment) {
+      this.assessment = assessment
+    },
+    onLearnerSelected(learner) {
+      this.learner = learner
     },
   },
   meta: {

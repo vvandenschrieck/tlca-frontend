@@ -1,55 +1,66 @@
 <template>
   <ApolloQuery
+    v-slot="{ isLoading, result: { data: courses, error } }"
     :query="require('~/gql/manage/getCourses.gql')"
     :update="(data) => data.courses"
   >
-    <template #default="{ result: { error, data: courses }, isLoading }">
-      <div v-if="isLoading || courses">
-        <h2>{{ title }}</h2>
+    <page-title :loading="!!isLoading" :spaces="spaces" :value="title" />
 
-        <generic-filter-bar
-          v-slot="{ filter: innerFilter, on }"
-          v-model="filter"
-          :create-link="{ name: 'manage-courses-create' }"
-        >
-          <courses-filter hide-roles :value="innerFilter" v-on="on" />
-        </generic-filter-bar>
+    <div v-if="!error">
+      <generic-filter-bar
+        v-slot="{ filter: innerFilter, on }"
+        v-model="filter"
+        :create-link="{ name: 'manage-courses-create' }"
+      >
+        <courses-filter hide-roles :value="innerFilter" v-on="on" />
+      </generic-filter-bar>
 
-        <card-list
-          class="mt-5"
-          :card-props="{ space: 'manage' }"
-          :component="component"
-          :items="filteredCourses(courses, filter)"
-          :items-per-page="8"
-          prop-name="course"
-        />
-      </div>
+      <card-list
+        class="mt-5"
+        :card-props="{ space: 'manage' }"
+        :component="component"
+        :items="filteredCourses(courses, filter)"
+        :items-per-page="8"
+        prop-name="course"
+      />
+    </div>
 
-      <div v-else-if="error">{{ $t('error.unexpected') }}</div>
-    </template>
+    <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
 
 <script>
 import CourseCard from '~/components/cards/CourseCard.vue'
 import courses from '@/mixins/courses.js'
+import titles from '@/mixins/titles.js'
 
 export default {
   name: 'ManageCoursesPage',
-  mixins: [courses],
+  mixins: [courses, titles],
   data() {
     return {
-      filter: {},
       component: CourseCard,
-      propName: 'course',
+      filter: {},
     }
   },
   head() {
     return {
-      title: this.title,
+      title: this.getTitle(this.title, null, 'manage'),
     }
   },
   computed: {
+    spaces() {
+      const items = {
+        home: {
+          name: 'courses',
+        },
+        teach: {
+          name: 'teach-courses',
+        },
+      }
+
+      return items
+    },
     title() {
       return this.$tc('course._', 2)
     },

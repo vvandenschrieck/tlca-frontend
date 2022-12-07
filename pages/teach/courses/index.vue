@@ -4,7 +4,7 @@
     :query="require('~/gql/teach/getCourses.gql')"
     :update="(data) => data.courses"
   >
-    <page-title :loading="!!isLoading" :value="title" />
+    <page-title :loading="!!isLoading" :spaces="spaces" :value="title" />
 
     <div v-if="!error">
       <generic-filter-bar v-slot="{ filter: innerFilter, on }" v-model="filter">
@@ -45,6 +45,18 @@ export default {
     }
   },
   computed: {
+    spaces() {
+      const items = {
+        home: {
+          name: 'courses',
+        },
+        manage: {
+          name: 'manage-courses',
+        },
+      }
+
+      return items
+    },
     title() {
       return this.$tc('course._', 2)
     },

@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="3">{{ $t('evaluation.assessment') }}</v-col>
       <v-col cols="9">
-        <assessment-select-field
+        <assessment-select
           :course-code="courseCode"
           :value="value.assessment"
           @input="update('assessment', $event)"
