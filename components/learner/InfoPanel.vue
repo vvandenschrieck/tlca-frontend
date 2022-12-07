@@ -10,7 +10,7 @@
       icon="mdi-account-school"
       :items="items"
       :loading="!!isLoading"
-      :title="$tc('learner._', 1)"
+      :title="title"
     >
       <v-card-text v-if="error">{{ $t('error.unexpected') }}</v-card-text>
     </generic-info-panel>
@@ -32,11 +32,22 @@ export default {
       type: String,
       required: true,
     },
+    nonInfoPanel: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       items: null,
     }
+  },
+  computed: {
+    title() {
+      return this.nonInfoPanel
+        ? this.$tc('learner._', 1)
+        : this.$t('general.information._')
+    },
   },
   methods: {
     setResult({ data: registration }) {

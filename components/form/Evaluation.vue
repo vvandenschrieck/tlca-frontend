@@ -34,19 +34,13 @@
                 class="mt-0"
                 dense
                 hide-details
-                label="Mass creation"
+                :label="$t('evaluation.mass_creation')"
                 @change="learner = null"
               />
             </v-col>
           </v-row>
 
           <div v-if="showInstanceSelector">
-            <!-- <v-divider v-if="!(edit || massCreation)" class="mb-3 mt-3" /> -->
-
-            <!-- <h4 v-if="!(edit || massCreation)">
-              {{ $tc('assessment.instance._', 1) }}
-            </h4> -->
-
             <assessment-instance-selector
               v-model="config"
               :assessment-id="assessment"
@@ -64,9 +58,7 @@
                   outlined
                   type="warning"
                 >
-                  There are unpublished evaluations for this instance and these
-                  latter are not taken into account for the history shown
-                  hereafter.
+                  {{ $t('evaluation.unpublished_warning') }}
                 </v-alert>
 
                 <v-divider class="mb-3 mt-3" />

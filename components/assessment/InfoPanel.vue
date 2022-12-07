@@ -10,7 +10,7 @@
       icon="mdi-information"
       :items="items"
       :loading="!!isLoading"
-      :title="$t('general.information._')"
+      :title="title"
     >
       <v-card-text v-if="error">{{ $t('error.unexpected') }}</v-card-text>
     </generic-info-panel>
@@ -28,6 +28,10 @@ export default {
       type: String,
       required: true,
     },
+    nonInfoPanel: {
+      type: Boolean,
+      default: false,
+    },
     teacherView: {
       type: Boolean,
       default: false,
@@ -37,6 +41,13 @@ export default {
     return {
       items: null,
     }
+  },
+  computed: {
+    title() {
+      return this.nonInfoPanel
+        ? this.$tc('assessment._', 1)
+        : this.$t('general.information._')
+    },
   },
   methods: {
     setResult({ data: assessment }) {

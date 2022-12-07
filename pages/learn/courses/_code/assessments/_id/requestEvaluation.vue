@@ -17,8 +17,6 @@
 
             <v-card>
               <v-card-text class="text--primary">
-                <h4>{{ $tc('assessment.instance._', 1) }}</h4>
-
                 <assessment-instance-selector
                   :assessment-id="assessmentId"
                   :course-code="courseCode"

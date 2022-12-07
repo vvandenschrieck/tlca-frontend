@@ -16,22 +16,7 @@
 
     <div v-if="!error">
       <div v-if="showInstanceSelector">
-        <h4 v-if="!(edit || massCreation)">
-          {{ $tc('assessment.instance._', 1) }}
-        </h4>
-
         <v-row v-if="!edit && !massCreation">
-          <v-col cols="12" md="3">
-            <v-switch
-              v-model="newInstance"
-              class="ml-2"
-              dense
-              :disabled="!canCreateInstance || selectedInstance !== null"
-              :label="$t('assessment.instance.new')"
-              @change="switchNewInstance"
-            />
-          </v-col>
-
           <v-col cols="12" md="5">
             <v-select
               v-model="selectedInstance"
@@ -55,6 +40,17 @@
                 <span v-html="instanceName(item)" />
               </template>
             </v-select>
+          </v-col>
+
+          <v-col cols="12" md="3">
+            <v-switch
+              v-model="newInstance"
+              class="ml-2"
+              dense
+              :disabled="!canCreateInstance || selectedInstance !== null"
+              :label="$t('assessment.instance.new')"
+              @change="switchNewInstance"
+            />
           </v-col>
 
           <v-col cols="12" md="4">
@@ -307,11 +303,15 @@ export default {
       )
     },
     showInstanceSelector() {
-      if (this.assessment?.instances === 1) {
-        return false
-      }
-
-      return true
+      return (
+        this.assessment &&
+        !(
+          !this.instances ||
+          this.instances.length === 0 ||
+          !this.assessment.isIncremental ||
+          this.assessment.instances === 1
+        )
+      )
     },
     showLimit() {
       return (
@@ -373,7 +373,6 @@ export default {
         this.selectedInstance = null
       }
 
-      this.newInstance = !this.selectedInstance
       this.$emit('input', {
         instance: this.instance,
         phase: this.phase,
@@ -397,18 +396,16 @@ export default {
       this.reset()
       this.assessment = data.assessment
       this.evaluations = data.evaluations
-      this.instances = data.assessmentInstances
+      this.instances =
+        data.assessmentInstances
+          ?.sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
+          .map((ai, i) => ({ ...ai, i })) ?? null
 
-      // Initialise the instances and evaluations, if any.
-      // if (!this.massCreation) {
-      //   this.evaluations = data.evaluations
-      //   this.instances = data.assessmentInstances
-      //     .sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
-      //     .map((ai, i) => ({ ...ai, i }))
-      // } else {
-      //   this.evaluations = null
-      //   this.instances = null
-      // }
+      // Manage mass creation.
+      if (this.massCreation) {
+        this.evaluations = null
+        this.instances = null
+      }
 
       // Initialise the variable to store the selected competencies.
       const competencies =
@@ -431,14 +428,20 @@ export default {
         }) ?? []
 
       // Automatically initialise instance selection options.
-      if (this.assessment?.instances === 1) {
-        if (this.instances?.length === 1) {
-          this.selectedInstance = 0
-          this.selectInstance(0)
-        } else {
-          this.newInstance = true
-        }
+      if (
+        !this.instances ||
+        this.instances.length === 0 ||
+        (this.assessment && !this.assessment.isIncremental)
+      ) {
+        this.newInstance = true
+      } else if (
+        this.assessment?.instances === 1 &&
+        this.instances?.length === 1
+      ) {
+        this.selectedInstance = 0
+        this.selectInstance(0)
       }
+
       // this.newInstance = !this.instances || !this.instances.length
       // this.canCreateInstance =
       //   !this.assessment.instances ||

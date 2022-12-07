@@ -387,6 +387,7 @@
     },
     "group_by_status": "Grouper par statut",
     "learner": "Apprenant",
+    "mass_creation": "Création en masse",
     "nb_of": "Nombre de passages d'évaluation",
     "no": "Il n'y a pas de passages d'évaluation pour le moment",
     "note": {
@@ -416,7 +417,8 @@
       "requested": "Demandé",
       "requested_on": "Demandé le {date}",
       "unpublished": "@:global.status.unpublished"
-    }
+    },
+    "unpublished_warning": "Il y a des passages d'évaluation non publiés pour cette instance et ces derniers ne sont pas pris en compte dans l'historique montré ci-dessous."
   },
   "event": {
     "_": "Évènement | Évènements",

@@ -20,12 +20,14 @@
           v-if="assessment"
           class="mb-5"
           :assessment-id="assessment"
+          non-info-panel
         />
         <learner-info-panel
           v-if="showLearnerInfo"
           class="mb-5"
           :course-code="courseCode"
           :learner="learner"
+          non-info-panel
         />
         <course-schedule-panel :course-code="courseCode" />
       </v-col>
