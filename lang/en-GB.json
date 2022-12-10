@@ -23,6 +23,7 @@
     "competencies": {
       "_": "@:global.competencies._",
       "add": "Add a competency",
+      "mandatory": "Mandatory",
       "max_stars": "Max stars",
       "optional": "Optional",
       "stars": "Stars"

@@ -23,6 +23,7 @@
     "competencies": {
       "_": "@:global.competencies._",
       "add": "Ajouter une compétence",
+      "mandatory": "Obligatoire",
       "max_stars": "Étoiles max",
       "optional": "Optionnelle",
       "stars": "Étoiles"
