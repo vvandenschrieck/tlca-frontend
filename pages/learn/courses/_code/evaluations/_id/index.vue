@@ -26,6 +26,7 @@
                     :assessment-id="evaluation.assessment.id"
                     :course-code="courseCode"
                     form
+                    :phase="evaluation.phase"
                     readonly
                     :selected="evaluation.competencies"
                     student-view

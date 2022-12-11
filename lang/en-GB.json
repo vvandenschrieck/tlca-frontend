@@ -23,9 +23,9 @@
     "competencies": {
       "_": "@:global.competencies._",
       "add": "Add a competency",
-      "mandatory": "Mandatory",
+      "mandatory": "Mandatory | Mandatory",
       "max_stars": "Max stars",
-      "optional": "Optional",
+      "optional": "Optional | Optional",
       "stars": "Stars"
     },
     "coverage": "Coverage",
@@ -367,7 +367,8 @@
     "cannot_add": "Cannot add a new evaluation",
     "comment": {
       "_": "Comment",
-      "no": "No comment"
+      "no": "No comment",
+      "public": "Public @.lower:evaluation.comment._"
     },
     "competencies": {
       "_": "@:global.competencies._",
@@ -393,7 +394,8 @@
     "no": "There are no evaluations for now",
     "note": {
       "_": "Note",
-      "no": "No note"
+      "no": "No note",
+      "private": "Private @.lower:evaluation.note._"
     },
     "publish": "@:global.publish",
     "rejectionReason": "Rejection reason",

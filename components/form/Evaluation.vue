@@ -8,7 +8,7 @@
       <v-card>
         <v-card-text>
           <v-row>
-            <v-col cols="12" md="5">
+            <v-col cols="12" :md="edit ? 6 : 5">
               <assessment-select
                 v-model="assessment"
                 :course-code="courseCode"
@@ -17,7 +17,7 @@
               />
             </v-col>
 
-            <v-col cols="12" md="5">
+            <v-col cols="12" :md="edit ? 6 : 5">
               <learner-select
                 v-model="learner"
                 :course-code="courseCode"
@@ -27,9 +27,8 @@
               />
             </v-col>
 
-            <v-col cols="12" md="2">
+            <v-col v-if="!edit" cols="12" md="2">
               <v-switch
-                v-if="!edit"
                 v-model="massCreation"
                 class="mt-0"
                 dense
@@ -87,6 +86,8 @@
                   :selected="initialCompetencies ?? selected"
                 />
 
+                <h4>{{ $t('evaluation.comment._') }}</h4>
+
                 <v-row>
                   <v-col cols="12" md="12">
                     <v-textarea
@@ -95,12 +96,11 @@
                       clear-icon="mdi-close-circle"
                       clearable
                       filled
-                      :label="$t('evaluation.comment._')"
+                      hide-details
+                      :label="$t('evaluation.comment.public')"
                     />
                   </v-col>
                 </v-row>
-
-                <h4>{{ $t('general.information.private') }}</h4>
 
                 <v-row>
                   <v-col cols="12" md="12">
@@ -110,7 +110,8 @@
                       clear-icon="mdi-close-circle"
                       clearable
                       filled
-                      :label="$t('evaluation.note._')"
+                      hide-details
+                      :label="$t('evaluation.note.private')"
                     />
                   </v-col>
                 </v-row>

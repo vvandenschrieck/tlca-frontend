@@ -18,6 +18,7 @@
             <v-card>
               <v-card-text class="text--primary">
                 <assessment-instance-selector
+                  v-model="config"
                   :assessment-id="assessmentId"
                   :course-code="courseCode"
                   @change="updateForm"
@@ -32,6 +33,7 @@
                       :assessment-id="assessmentId"
                       :course-code="courseCode"
                       form
+                      :phase="config?.phase"
                       :selected="selected"
                       student-view
                     />
@@ -85,6 +87,7 @@ export default {
   data() {
     return {
       assessment: null,
+      config: null,
       course: null,
       explanation: '',
       formBusy: false,
@@ -141,7 +144,8 @@ export default {
         assessment: this.assessmentId,
         competencies: selectedCompetencies,
         explanation: this.explanation,
-        instance: this.instance,
+        instance: this.config?.instance,
+        phase: this.config?.phase,
       }
       const mutation = require(`~/gql/learn/requestEvaluation.gql`)
 

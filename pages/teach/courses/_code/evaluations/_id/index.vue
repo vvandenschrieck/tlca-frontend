@@ -20,7 +20,7 @@
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
                 <div v-if="showCompetencies">
-                  <h4>{{ $tc('competency._', 2) }}</h4>
+                  <h4>{{ $t('evaluation.competencies.in_progress') }}</h4>
 
                   <assessment-competencies-list
                     v-if="evaluation"
@@ -35,7 +35,7 @@
                 </div>
 
                 <div v-if="showComment">
-                  <h4>{{ $t('evaluation.comment._') }}</h4>
+                  <h4>{{ $t('evaluation.comment.public') }}</h4>
 
                   <description-content
                     entity="evaluation.comment"
@@ -59,7 +59,7 @@
                 </div>
 
                 <div v-if="showNote">
-                  <h4>{{ $t('evaluation.note._') }}</h4>
+                  <h4>{{ $t('evaluation.note.private') }}</h4>
 
                   <description-content
                     entity="evaluation.note"

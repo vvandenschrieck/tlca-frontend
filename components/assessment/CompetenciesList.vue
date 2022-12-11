@@ -25,8 +25,6 @@
       :assessment="assessment"
     >
       <assessment-competencies-list-block
-        v-if="!error && !showPhases"
-        v-model="selectedCompetencies"
         :competencies="phaseConfig.competencies"
         :hide-checklist="hideChecklist"
         :readonly="readonly"

@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-if="!!mandatory.length">
-      <h4>{{ $t('assessment.competencies.mandatory') }}</h4>
+      <h5>{{ mandatoryTitle }}</h5>
 
       <v-list class="pa-0">
         <template v-for="(competency, i) in mandatory">
@@ -21,7 +21,7 @@
     </template>
 
     <template v-if="!!optional.length">
-      <h4>{{ $t('assessment.competencies.optional') }}</h4>
+      <h5>{{ optionalTitle }}</h5>
 
       <v-list class="pa-0">
         <template v-for="(competency, i) in optional">
@@ -75,8 +75,17 @@ export default {
     mandatory() {
       return this.competencies.filter((c) => !c.isOptional)
     },
+    mandatoryTitle() {
+      return this.$tc(
+        'assessment.competencies.mandatory',
+        this.mandatory.length
+      )
+    },
     optional() {
       return this.competencies.filter((c) => c.isOptional)
+    },
+    optionalTitle() {
+      return this.$tc('assessment.competencies.optional', this.optional.length)
     },
     selectedCompetencies: {
       get() {

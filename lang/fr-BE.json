@@ -23,9 +23,9 @@
     "competencies": {
       "_": "@:global.competencies._",
       "add": "Ajouter une compétence",
-      "mandatory": "Obligatoire",
+      "mandatory": "Obligatoire | Obligatoires",
       "max_stars": "Étoiles max",
-      "optional": "Optionnelle",
+      "optional": "Optionnelle | Optionnelles",
       "stars": "Étoiles"
     },
     "coverage": "Couverture",
@@ -367,7 +367,8 @@
     "cannot_add": "Impossible d'ajouter un nouveau passage d'évaluation",
     "comment": {
       "_": "Commentaire",
-      "no": "Pas de commentaire"
+      "no": "Pas de commentaire",
+      "public": "@:evaluation.comment._ public"
     },
     "competencies": {
       "_": "@:global.competencies._",
@@ -393,7 +394,8 @@
     "no": "Il n'y a pas de passages d'évaluation pour le moment",
     "note": {
       "_": "Note",
-      "no": "Pas de note"
+      "no": "Pas de note",
+      "private": "@:evaluation.note._ privée"
     },
     "publish": "@:global.publish",
     "rejectionReason": "Raison du rejet",

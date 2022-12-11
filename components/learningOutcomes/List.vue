@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  name: 'LearningOutcomesAssessmentList',
+  name: 'LearningOutcomesList',
   props: {
     form: {
       type: Boolean,
