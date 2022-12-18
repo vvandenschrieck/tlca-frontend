@@ -1,3 +1,9 @@
+## 1.1.22 (2022-12-18)
+
+### Bug Fixes
+
+- fixed issue with the select learners component for courses without teaching groups
+
 ## 1.1.21 (2022-12-07)
 
 ### Features
