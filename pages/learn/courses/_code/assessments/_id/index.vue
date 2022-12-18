@@ -41,6 +41,8 @@
                   student-view
                 />
               </v-tab-item>
+
+              <v-tab-item value="evaluations"> TODO </v-tab-item>
             </v-tabs-items>
           </v-card-text>
         </v-card>
@@ -52,7 +54,11 @@
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
         <assessment-info-panel :assessment-id="assessmentId" />
-        <assessment-schedule-panel :assessment-id="assessmentId" class="mt-5" />
+        <assessment-schedule-panel
+          v-if="assessment?.hasSchedule"
+          :assessment-id="assessmentId"
+          class="mt-5"
+        />
 
         <actions-menu
           :custom-actions="customActions"

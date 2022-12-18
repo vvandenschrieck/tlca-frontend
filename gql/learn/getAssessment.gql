@@ -2,6 +2,7 @@ query GetAssessment($courseCode: ID!, $assessmentId: ID!) {
   assessment(id: $assessmentId) {
     canRequestEvaluation
     description
+    hasSchedule
     id
     name
     phases {
