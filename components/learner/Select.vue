@@ -80,9 +80,11 @@ export default {
 
       // If no teaching groups or no learners at all.
       if (!course.hasTeachingGroups && registrations.length) {
-        learners.push({ header: this.$t('learner.all') })
+        // learners.push({ header: this.$t('learner.all') })
         learners.push(...registrations)
-        return learners
+
+        this.learners = learners
+        return
       }
 
       // Otherwise, organise the learners by teaching groups.
