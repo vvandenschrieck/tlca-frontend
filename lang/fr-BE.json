@@ -383,6 +383,7 @@
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer ce passage d'évaluation ?"
     },
     "edit": "@:general.edit un passage d'évaluation",
+    "evaluation_nb": "Passage d'évaluation {nb}",
     "evaluator": "Évaluateur",
     "explanation": {
       "_": "Explication",
@@ -573,7 +574,8 @@
     "_": "Instance | Instances",
     "delete": {
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette instance ?"
-    }
+    },
+    "instance_nb": "Instance {nb}"
   },
   "learner": {
     "_": "Apprenant | Apprenants",

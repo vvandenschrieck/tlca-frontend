@@ -1,0 +1,14 @@
+query GetAssessmentEvaluations($assessmentId: ID!) {
+  evaluations(assessment: $assessmentId) {
+    date
+    id
+    instance {
+      id
+    }
+  }
+
+  instances(assessment: $assessmentId) {
+    datetime
+    id
+  }
+}

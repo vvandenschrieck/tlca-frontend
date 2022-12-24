@@ -20,6 +20,9 @@
             <v-tab href="#competencies">
               {{ $t('assessment.competencies._') }}
             </v-tab>
+            <v-tab v-if="assessment?.hasEvaluations" href="#evaluations">
+              {{ $tc('evaluation._', 2) }}
+            </v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
@@ -42,7 +45,13 @@
                 />
               </v-tab-item>
 
-              <v-tab-item value="evaluations"> TODO </v-tab-item>
+              <v-tab-item v-if="assessment?.hasEvaluations" value="evaluations">
+                <assessment-evaluations-list
+                  :assessment-id="assessmentId"
+                  :course-code="courseCode"
+                  student-view
+                />
+              </v-tab-item>
             </v-tabs-items>
           </v-card-text>
         </v-card>
