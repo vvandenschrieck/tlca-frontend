@@ -5,6 +5,7 @@ query GetAssessmentEvaluations($assessmentId: ID!) {
     instance {
       id
     }
+    status
   }
 
   instances(assessment: $assessmentId) {

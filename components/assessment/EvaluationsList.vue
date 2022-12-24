@@ -7,7 +7,14 @@
   >
     <v-progress-linear v-if="isLoading" indeterminate />
 
-    <v-expansion-panels v-if="!error" accordion focusable multiple tile>
+    <v-expansion-panels
+      v-if="!error"
+      accordion
+      focusable
+      multiple
+      tile
+      :value="instances?.length === 1 ? [0] : undefined"
+    >
       <v-expansion-panel v-for="(instance, i) in instances" :key="i">
         <v-expansion-panel-header class="pl-3">
           <h4>{{ instance.name }}</h4>
@@ -21,27 +28,22 @@
                 <v-list-item-content>
                   <v-list-item-title>
                     {{ evaluation.name }}
-                    <div class="float-right">
-                      {{ evaluation.date }}
 
-                      <v-btn
-                        class="ml-5"
-                        exact
-                        icon
-                        :to="{
-                          name: 'learn-courses-code-evaluations-id',
-                          params: {
-                            code: courseCode,
-                            id: evaluation.id,
-                          },
-                        }"
-                        small
-                      >
-                        <v-icon small>mdi-information</v-icon>
-                      </v-btn>
-                    </div>
+                    <evaluation-status-chip
+                      v-if="evaluation.status !== 'PUBLISHED'"
+                      class="ml-3"
+                      :evaluation="evaluation"
+                    />
                   </v-list-item-title>
                 </v-list-item-content>
+
+                <v-list-item-action>
+                  {{ evaluation.date }}
+                </v-list-item-action>
+
+                <v-list-item-icon>
+                  <detail-link-btn :to="evaluationLink(evaluation)" />
+                </v-list-item-icon>
               </v-list-item>
 
               <v-divider
@@ -80,6 +82,15 @@ export default {
     }
   },
   methods: {
+    evaluationLink(evaluation) {
+      return {
+        name: 'learn-courses-code-evaluations-id',
+        params: {
+          code: this.courseCode,
+          id: evaluation.id,
+        },
+      }
+    },
     setResult({ data }) {
       if (!data) {
         return
