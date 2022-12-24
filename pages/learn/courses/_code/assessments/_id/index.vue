@@ -148,13 +148,13 @@ export default {
       this.createEvaluation = true
 
       try {
-        const mutation = require(`~/gql/learn/createAssessmentInstance.gql`)
+        const mutation = require(`~/gql/learn/createInstance.gql`)
         const response = await this.$apollo
           .mutate({
             mutation,
             variables: { id },
           })
-          .then(({ data }) => data && data.createAssessmentInstance)
+          .then(({ data }) => data && data.createInstance)
 
         if (response) {
           this.$router.push({

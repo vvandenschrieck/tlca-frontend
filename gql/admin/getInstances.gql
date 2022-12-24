@@ -1,5 +1,5 @@
 query GetInstances {
-  assessmentInstances {
+  instances {
     assessment {
       code
       id

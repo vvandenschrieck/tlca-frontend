@@ -13,7 +13,7 @@ query GetTake($courseCode: ID!, $assessmentId: ID!, $instanceId: ID!) {
     start
   }
 
-  assessmentInstance(id: $instanceId) {
+  instance(id: $instanceId) {
     content
     id
   }
