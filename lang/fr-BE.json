@@ -285,6 +285,7 @@
     "schedule": {
       "_": "@:global.schedule._ du cours",
       "end": "Date de fin",
+      "evaluationRequestsEnd": "Fin des demandes de passage d'évaluation",
       "evaluationsEnd": "Fin des évaluations",
       "no": "@:global.schedule.no",
       "registrationsEnd": "Fin des inscriptions",

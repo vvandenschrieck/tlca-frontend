@@ -285,6 +285,7 @@
     "schedule": {
       "_": "Course @.lower:global.schedule._",
       "end": "End date",
+      "evaluationRequestsEnd": "End of evaluation requests",
       "evaluationsEnd": "End of evaluations",
       "no": "@:global.schedule.no",
       "registrationsEnd": "End of registrations",
