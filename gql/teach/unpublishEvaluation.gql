@@ -1,0 +1,8 @@
+mutation UnpublishEvaluation($id: ID!) {
+  unpublishEvaluation(id: $id) {
+    id
+    isPublished
+    published
+    status
+  }
+}
