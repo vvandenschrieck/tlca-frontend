@@ -118,13 +118,17 @@ export default {
 
       // Evaluation request.
       if (this.teacherView) {
+        const details = []
+        if (assessment.requireEvaluationRequestURL) {
+          details.push('– ' + this.$t('general.URL'))
+        }
+
         const evaluationRequest = assessment.evaluationRequest
         items.push({
           icon: 'mdi-clipboard-edit',
-          text: evaluationRequest
-            ? this.$t('general.yes')
-            : this.$t('general.no'),
-          tooltip: this.$t('assessment.evaluation_request'),
+          text: this.$t(evaluationRequest ? 'general.yes' : 'general.no'),
+          tooltip: this.$t('assessment.evaluation_request._'),
+          details: details.length ? details : undefined,
         })
       }
 

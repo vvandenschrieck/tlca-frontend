@@ -41,7 +41,11 @@
     },
     "description": "@:global.description._",
     "edit": "@:general.edit une évaluation",
-    "evaluation_request": "Demande de passage d'évaluation",
+    "evaluation_request": {
+      "_": "Demande de passage d'évaluation",
+      "allow": "Autoriser les demandes",
+      "require_url": "Demander une URL"
+    },
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
     "hidden": "@:global.hidden",
@@ -425,7 +429,8 @@
       "requested_on": "Demandé le {date}",
       "unpublished": "@:global.status.unpublished"
     },
-    "unpublished_warning": "Il y a des passages d'évaluation non publiés pour cette instance et ces derniers ne sont pas pris en compte dans l'historique montré ci-dessous."
+    "unpublished_warning": "Il y a des passages d'évaluation non publiés pour cette instance et ces derniers ne sont pas pris en compte dans l'historique montré ci-dessous.",
+    "with_oral_defense": "Avec défense orale"
   },
   "event": {
     "_": "Évènement | Évènements",
@@ -502,6 +507,7 @@
     "update": "Mettre à jour",
     "upload": "Téléverser",
     "upload_click_drag": "Cliquez ou faites glisser le fichier ici pour le téléverser",
+    "URL": "URL",
     "yes": "Oui"
   },
   "global": {
