@@ -13,6 +13,7 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       id
       name
       provider
+      requireEvaluationRequestURL
     }
     comment
     competencies {
@@ -45,5 +46,6 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       ...EvaluationCompetencyParts
     }
     status
+    url
   }
 }

@@ -11,6 +11,7 @@ query GetAssessment($courseCode: ID!, $assessmentId: ID!) {
       name
     }
     provider
+    requireEvaluationRequestURL
   }
 
   course(code: $courseCode) {

@@ -418,6 +418,7 @@
         "dialog_instructions": "Expliquez la raison pour laquelle vous voulez rejeter cette demande d'évaluation :"
       }
     },
+    "resources": "Ressources",
     "status": {
       "_": "@:global.status._",
       "accepted": "Acceptée",
@@ -430,6 +431,7 @@
       "unpublished": "@:global.status.unpublished"
     },
     "unpublished_warning": "Il y a des passages d'évaluation non publiés pour cette instance et ces derniers ne sont pas pris en compte dans l'historique montré ci-dessous.",
+    "URL": "@:general.URL",
     "with_oral_defense": "Avec défense orale"
   },
   "event": {

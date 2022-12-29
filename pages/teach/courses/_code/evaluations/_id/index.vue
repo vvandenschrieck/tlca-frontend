@@ -34,6 +34,14 @@
                   />
                 </div>
 
+                <div v-if="assessment?.requireEvaluationRequestURL">
+                  <h4>{{ $t('evaluation.resources') }}</h4>
+
+                  <a :href="evaluation.url" target="_blank">
+                    {{ evaluation.url }}
+                  </a>
+                </div>
+
                 <div v-if="showComment">
                   <h4>{{ $t('evaluation.comment.public') }}</h4>
 

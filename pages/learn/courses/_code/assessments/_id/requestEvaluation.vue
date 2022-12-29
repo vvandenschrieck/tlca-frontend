@@ -38,6 +38,24 @@
                       student-view
                     />
 
+                    <div v-if="assessment.requireEvaluationRequestURL">
+                      <h4>{{ $t('evaluation.resources') }}</h4>
+
+                      <v-row>
+                        <v-col cols="12" md="12">
+                          <v-text-field-with-validation
+                            v-model="url"
+                            clearable
+                            :label="$t('evaluation.URL')"
+                            required
+                            rules="required|url"
+                            type="url"
+                            vid="url"
+                          />
+                        </v-col>
+                      </v-row>
+                    </div>
+
                     <h4>{{ $t('evaluation.comment._') }}</h4>
 
                     <v-row>
@@ -99,6 +117,7 @@ export default {
       selectedCompetencies: [],
       showActions: false,
       title: '',
+      url: '',
     }
   },
   head() {
@@ -152,6 +171,7 @@ export default {
         explanation: this.explanation,
         instance: this.config?.instance,
         phase: this.config?.phase,
+        url: this.url,
       }
       const mutation = require(`~/gql/learn/requestEvaluation.gql`)
 

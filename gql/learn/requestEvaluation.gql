@@ -4,6 +4,7 @@ mutation RequestEvaluation(
   $explanation: String
   $instance: ID
   $phase: Int
+  $url: String
 ) {
   requestEvaluation(
     assessment: $assessment
@@ -11,6 +12,7 @@ mutation RequestEvaluation(
     explanation: $explanation
     instance: $instance
     phase: $phase
+    url: $url
   ) {
     id
   }

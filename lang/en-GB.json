@@ -418,6 +418,7 @@
         "dialog_instructions": "Explain the reason for which you want to reject this evaluation request:"
       }
     },
+    "resources": "Resources",
     "status": {
       "_": "@:global.status._",
       "accepted": "Accepted",
@@ -430,6 +431,7 @@
       "unpublished": "@:global.status.unpublished"
     },
     "unpublished_warning": "There are unpublished evaluations for this instance and these latter are not taken into account for the history shown below.",
+    "URL": "@:general.URL",
     "with_oral_defense": "With oral defense"
   },
   "event": {
