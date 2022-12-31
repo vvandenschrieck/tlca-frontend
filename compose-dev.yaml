@@ -1,0 +1,13 @@
+services:
+  app:
+    entrypoint:
+      - sleep
+      - infinity
+    image: node:16
+    init: true
+    environment:
+      - BUGSNAG_BROWSER_API_KEY=00000000000000000000000000000000
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
