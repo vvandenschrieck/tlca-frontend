@@ -224,7 +224,7 @@ export default {
       this.assessment = data.assessment
       this.course = data.course
       this.evaluations = data.evaluations
-      this.instance = data.assessmentInstance
+      this.instance = data.instance
       this.title = data.assessment?.name ?? ''
 
       // Initialise answers according to provider type.

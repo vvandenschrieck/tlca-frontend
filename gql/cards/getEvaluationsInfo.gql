@@ -1,4 +1,10 @@
 query GetEvaluationsInfo($courseCode: ID!) {
+  course(code: $courseCode) {
+    code
+    isCoordinator
+    isTeacher
+  }
+
   evaluations(courseCode: $courseCode) {
     id
     requested

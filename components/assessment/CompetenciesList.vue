@@ -8,21 +8,15 @@
     <v-progress-linear v-if="isLoading" indeterminate />
 
     <!-- Only show one set of competencies (for the assessment or one of its phases) -->
-    <v-list v-if="!error && !showPhases" class="pa-0">
-      <template v-for="(competency, i) in competencies">
-        <competency-list-item
-          :key="i * 2"
-          v-model="selectedCompetencies[i]"
-          :competency="competency"
-          :form="form"
-          :hide-checklist="hideChecklist"
-          :readonly="readonly"
-          :student-view="studentView"
-        />
-
-        <v-divider v-if="i < competencies.length - 1" :key="i * 2 + 1" />
-      </template>
-    </v-list>
+    <assessment-competencies-list-block
+      v-if="!error && !showPhases"
+      v-model="selectedCompetencies"
+      :competencies="competencies"
+      :form="form"
+      :hide-checklist="hideChecklist"
+      :readonly="readonly"
+      :student-view="studentView"
+    />
 
     <!-- Show the set of competencies for each phase of the  assessment -->
     <assessment-phases
@@ -30,22 +24,12 @@
       v-slot="{ phase: phaseConfig }"
       :assessment="assessment"
     >
-      <v-list class="pa-0">
-        <template v-for="(competency, i) in phaseConfig.competencies">
-          <competency-list-item
-            :key="i * 2"
-            :competency="competency"
-            :hide-checklist="hideChecklist"
-            :readonly="readonly"
-            :student-view="studentView"
-          />
-
-          <v-divider
-            v-if="i < phaseConfig.competencies.length - 1"
-            :key="i * 2 + 1"
-          />
-        </template>
-      </v-list>
+      <assessment-competencies-list-block
+        :competencies="phaseConfig.competencies"
+        :hide-checklist="hideChecklist"
+        :readonly="readonly"
+        :student-view="studentView"
+      />
     </assessment-phases>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
@@ -196,7 +180,7 @@ export default {
                   ? c.pastLearningOutcomes[i]
                   : false
                 return {
-                  disabled: lo && this.form && !this.edit,
+                  disabled: lo && this.form && !this.edit && !this.readonly,
                   past,
                   selected: lo || past,
                 }

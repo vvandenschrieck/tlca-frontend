@@ -9,6 +9,7 @@ query GetAssessmentInfo($id: ID!, $teacherView: Boolean!) {
       work
     }
     nbPhases
+    requireEvaluationRequestURL
     takes
     type
   }

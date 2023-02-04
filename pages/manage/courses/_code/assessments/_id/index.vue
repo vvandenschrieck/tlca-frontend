@@ -14,13 +14,13 @@
             <v-tab href="#description">
               {{ $t('assessment.description') }}
             </v-tab>
-            <v-tab v-if="assessment?.phases" href="#phases">
+            <v-tab v-if="showPhases" href="#phases">
               {{ $tc('assessment.phase._', 2) }}
             </v-tab>
             <v-tab href="#competencies">
-              {{ $t('assessment.competencies._') }}
+              {{ $tc('competency._', 2) }}
             </v-tab>
-            <v-tab v-if="assessment?.hasProvider" href="#provider">
+            <v-tab v-if="showProvider" href="#provider">
               {{ $t('provider._') }}
             </v-tab>
           </v-tabs>
@@ -31,7 +31,7 @@
                 <description-content :text="assessment?.description" />
               </v-tab-item>
 
-              <v-tab-item value="phases">
+              <v-tab-item v-if="showPhases" value="phases">
                 <assessment-phases v-slot="{ phase }" :assessment="assessment">
                   <description-content :text="phase.description" />
                 </assessment-phases>
@@ -44,7 +44,7 @@
                 />
               </v-tab-item>
 
-              <v-tab-item v-if="assessment?.hasProvider" value="provider">
+              <v-tab-item v-if="showProvider" value="provider">
                 {{ assessment?.providerConfig }}
               </v-tab-item>
             </v-tabs-items>
@@ -59,23 +59,7 @@
         <assessment-info-panel :assessment-id="assessmentId" teacher-view />
       </v-col>
 
-      <actions-menu
-        :delete-action="{
-          entity: 'assessment',
-          link: {
-            name: 'manage-courses-code-assessments',
-            params: { code: courseCode },
-          },
-          query: {
-            mutation: require('~/gql/manage/deleteAssessment.gql'),
-            variables: { id: assessmentId },
-          },
-        }"
-        :edit-link="{
-          name: 'manage-courses-code-assessments-id-edit',
-          params: { code: courseCode, id: assessmentId },
-        }"
-      />
+      <actions-menu :delete-action="deleteAction" :edit-link="editLink" />
     </v-row>
 
     <div v-else>{{ $t('error.unexpected') }}</div>
@@ -110,6 +94,31 @@ export default {
     },
     courseCode() {
       return this.$route.params.code
+    },
+    deleteAction() {
+      return {
+        entity: 'assessment',
+        link: {
+          name: 'manage-courses-code-assessments',
+          params: { code: this.courseCode },
+        },
+        query: {
+          mutation: require('~/gql/manage/deleteAssessment.gql'),
+          variables: { id: this.assessmentId },
+        },
+      }
+    },
+    editLink() {
+      return {
+        name: 'manage-courses-code-assessments-id-edit',
+        params: { code: this.courseCode, id: this.assessmentId },
+      }
+    },
+    showPhases() {
+      return !!this.assessment?.phases?.length
+    },
+    showProvider() {
+      return !!this.assessment?.hasProvider
     },
     spaces() {
       if (!this.course) {

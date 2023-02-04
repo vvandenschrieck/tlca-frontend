@@ -397,7 +397,7 @@ export default {
       this.assessment = data.assessment
       this.evaluations = data.evaluations
       this.instances =
-        data.assessmentInstances
+        data.instances
           ?.sort((a, b) => (a.datetime > b.datetime ? 1 : -1))
           .map((ai, i) => ({ ...ai, i })) ?? null
 

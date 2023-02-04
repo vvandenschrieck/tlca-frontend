@@ -23,8 +23,9 @@
     "competencies": {
       "_": "@:global.competencies._",
       "add": "Ajouter une compétence",
+      "mandatory": "Obligatoire | Obligatoires",
       "max_stars": "Étoiles max",
-      "optional": "Optionnelle",
+      "optional": "Optionnelle | Optionnelles",
       "stars": "Étoiles"
     },
     "coverage": "Couverture",
@@ -40,7 +41,11 @@
     },
     "description": "@:global.description._",
     "edit": "@:general.edit une évaluation",
-    "evaluation_request": "Demande de passage d'évaluation",
+    "evaluation_request": {
+      "_": "Demande de passage d'évaluation",
+      "allow": "Autoriser les demandes",
+      "require_url": "Demander une URL"
+    },
     "filter_by_competency": "Filtrer par compétence",
     "group_by_category": "Grouper par catégorie",
     "hidden": "@:global.hidden",
@@ -284,6 +289,7 @@
     "schedule": {
       "_": "@:global.schedule._ du cours",
       "end": "Date de fin",
+      "evaluationRequestsEnd": "Fin des demandes de passage d'évaluation",
       "evaluationsEnd": "Fin des évaluations",
       "no": "@:global.schedule.no",
       "registrationsEnd": "Fin des inscriptions",
@@ -345,6 +351,7 @@
     "INVITATION_SEND": "Une erreur inattendue s'est produite lors de l'envoi d'une invitation",
     "INVITATION_SENDING_FAILED": "Impossible d'envoyer une invitation à cette e-mail",
     "MISSING_BASIC_COMPETENCY": "Il doit y avoir au moins une compétence basique",
+    "MISSING_CHECKED_MANDATORY_COMPETENCIES_CHECKLISTS_ITEMS": "Tous les éléments des checklists des compétences obligatoires n'ont pas été vérifiés",
     "MISSING_FIELDS": "Certains champs obligatoires sont manquants",
     "MISSING_MANDATORY_COURSE": "Il doit y avoir au moins un cours obligatoire",
     "MISSING_PHASES": "Les phases ne sont pas définies",
@@ -366,7 +373,8 @@
     "cannot_add": "Impossible d'ajouter un nouveau passage d'évaluation",
     "comment": {
       "_": "Commentaire",
-      "no": "Pas de commentaire"
+      "no": "Pas de commentaire",
+      "public": "@:evaluation.comment._ public"
     },
     "competencies": {
       "_": "@:global.competencies._",
@@ -380,6 +388,7 @@
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer ce passage d'évaluation ?"
     },
     "edit": "@:general.edit un passage d'évaluation",
+    "evaluation_nb": "Passage d'évaluation {nb}",
     "evaluator": "Évaluateur",
     "explanation": {
       "_": "Explication",
@@ -392,7 +401,8 @@
     "no": "Il n'y a pas de passages d'évaluation pour le moment",
     "note": {
       "_": "Note",
-      "no": "Pas de note"
+      "no": "Pas de note",
+      "private": "@:evaluation.note._ privée"
     },
     "publish": "@:global.publish",
     "rejectionReason": "Raison du rejet",
@@ -401,12 +411,14 @@
       "delete": {
         "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette demande de passage d'évaluation ?"
       },
+      "instructions": "En demandant un passage pour cette évaluation, vous informez le(s) enseignant(e)s que vous avez terminé de travailler sur cette évaluation et que vous êtes prêt(e) à être évalué. Avant de demander un passage d'évaluation, vérifiez attentivement tous les éléments des checklists des compétences obligatoires.",
       "too_old": "La demande de passage d'évaluation la plus ancienne date d'il y a plus de {days} jours",
       "reject": {
         "_": "Rejet d'une demande d'évaluation",
         "dialog_instructions": "Expliquez la raison pour laquelle vous voulez rejeter cette demande d'évaluation :"
       }
     },
+    "resources": "Ressources",
     "status": {
       "_": "@:global.status._",
       "accepted": "Acceptée",
@@ -418,7 +430,9 @@
       "requested_on": "Demandé le {date}",
       "unpublished": "@:global.status.unpublished"
     },
-    "unpublished_warning": "Il y a des passages d'évaluation non publiés pour cette instance et ces derniers ne sont pas pris en compte dans l'historique montré ci-dessous."
+    "unpublished_warning": "Il y a des passages d'évaluation non publiés pour cette instance et ces derniers ne sont pas pris en compte dans l'historique montré ci-dessous.",
+    "URL": "@:general.URL",
+    "with_oral_defense": "Avec défense orale"
   },
   "event": {
     "_": "Évènement | Évènements",
@@ -443,6 +457,7 @@
     "dashboard": "Tableau de bord",
     "deadline": "Échéance",
     "delete": "Supprimer",
+    "details": "Détails",
     "edit": "Modifier",
     "export": "Export",
     "filter": {
@@ -494,6 +509,7 @@
     "update": "Mettre à jour",
     "upload": "Téléverser",
     "upload_click_drag": "Cliquez ou faites glisser le fichier ici pour le téléverser",
+    "URL": "URL",
     "yes": "Oui"
   },
   "global": {
@@ -546,6 +562,7 @@
       "training": "Formation",
       "unit": "Unité"
     },
+    "unpublish": "Dépublier",
     "visibility": {
       "_": "Visibilité",
       "invite_only": "Sur invitation uniquement",
@@ -568,7 +585,8 @@
     "_": "Instance | Instances",
     "delete": {
       "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette instance ?"
-    }
+    },
+    "instance_nb": "Instance {nb}"
   },
   "learner": {
     "_": "Apprenant | Apprenants",
@@ -701,6 +719,7 @@
     "EVALUATION_CREATE": "Passage d'évaluation créé avec succès",
     "EVALUATION_DELETE": "Passage d'évaluation supprimé avec succès",
     "EVALUATION_PUBLISH": "Passage d'évaluation publié avec succès",
+    "EVALUATION_REQUEST": "Passage d'évaluation demandé avec succès",
     "EVALUATION_REQUEST_ACCEPT": "Demande de passage d'évaluation acceptée avec succès",
     "EVALUATION_REQUEST_DELETE": "Demande de passage d'évaluation supprimé avec succès",
     "EVALUATION_REQUEST_REJECT": "Demande de passage d'évaluation rejetée avec succès",

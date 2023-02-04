@@ -1,3 +1,5 @@
+#import "../fragments/evaluationCompetencyParts.graphql"
+
 query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
   course(code: $courseCode) {
     code
@@ -10,17 +12,11 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       id
       name
       provider
+      requireEvaluationRequestURL
     }
     comment
     competencies {
-      checklist {
-        public
-      }
-      competency {
-        code
-      }
-      learningOutcomes
-      selected
+      ...EvaluationCompetencyParts
     }
     data
     explanation
@@ -29,7 +25,9 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       content
       id
     }
+    phase
     rejectionReason
     status
+    url
   }
 }

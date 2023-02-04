@@ -30,6 +30,7 @@ query GetAssessment($assessmentId: ID!, $teacherView: Boolean! = true) {
     }
     provider
     providerConfig
+    requireEvaluationRequestURL
     start
     takes
     type

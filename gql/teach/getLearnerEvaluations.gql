@@ -12,7 +12,7 @@ query GetLearnerEvaluations($assessment: ID!, $courseCode: ID!, $learner: ID!) {
     takes
   }
 
-  assessmentInstances(assessment: $assessment, learner: $learner) {
+  instances(assessment: $assessment, learner: $learner) {
     datetime
     id
   }

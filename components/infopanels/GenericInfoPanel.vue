@@ -31,7 +31,13 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-list-group v-else :key="i" v-model="item.active" no-action>
+          <v-list-group
+            v-else
+            :key="i"
+            v-model="item.active"
+            no-action
+            class="group"
+          >
             <v-list-item slot="activator" class="pl-0">
               <v-list-item-icon class="ma-auto">
                 <v-tooltip v-if="item.icon" left open-delay="500">
@@ -95,6 +101,10 @@ export default {
 <style scoped>
 .content {
   white-space: inherit;
+}
+.group:deep(.v-list-group__header) {
+  max-height: 24px;
+  min-height: 24px;
 }
 .item {
   min-height: 10px !important;

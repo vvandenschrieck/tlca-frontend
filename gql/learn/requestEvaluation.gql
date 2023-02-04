@@ -3,12 +3,16 @@ mutation RequestEvaluation(
   $competencies: [EvaluationCompetencyInput!]
   $explanation: String
   $instance: ID
+  $phase: Int
+  $url: String
 ) {
   requestEvaluation(
     assessment: $assessment
     competencies: $competencies
     explanation: $explanation
     instance: $instance
+    phase: $phase
+    url: $url
   ) {
     id
   }

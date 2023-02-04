@@ -21,7 +21,7 @@ query GetPastEvaluations(
     type
   }
 
-  assessmentInstances(assessment: $assessmentId, learner: $learner)
+  instances(assessment: $assessmentId, learner: $learner)
     @skip(if: $massCreation) {
     datetime
     id

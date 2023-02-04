@@ -14,6 +14,7 @@ mutation EditAssessment(
   $oralDefense: Boolean
   $phased: Boolean
   $phases: [AssessmentPhaseInput!]
+  $requireEvaluationRequestURL: Boolean
   $start: DateTime
   $takes: Int
 ) {
@@ -33,6 +34,7 @@ mutation EditAssessment(
     oralDefense: $oralDefense
     phased: $phased
     phases: $phases
+    requireEvaluationRequestURL: $requireEvaluationRequestURL
     start: $start
     takes: $takes
   ) {

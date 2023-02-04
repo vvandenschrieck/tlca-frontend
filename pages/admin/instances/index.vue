@@ -2,7 +2,7 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/admin/getInstances.gql')"
-    :update="(data) => data.assessmentInstances"
+    :update="(data) => data.instances"
     @result="setResult"
   >
     <page-title :loading="!!isLoading" :value="title" />
@@ -80,13 +80,13 @@ export default {
     onInstanceDeleted(id) {
       const { defaultClient: apolloClient } = this.$apolloProvider
       const data = apolloClient.readQuery({ query: getInstances })
-      const i = data.assessmentInstances.findIndex((i) => i.id === id)
+      const i = data.instances.findIndex((i) => i.id === id)
       apolloClient.writeQuery({
         query: getInstances,
         data: {
-          assessmentInstances: [
-            ...data.assessmentInstances.slice(0, i),
-            ...data.assessmentInstances.slice(i + 1),
+          instances: [
+            ...data.instances.slice(0, i),
+            ...data.instances.slice(i + 1),
           ],
         },
       })

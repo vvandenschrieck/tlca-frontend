@@ -20,7 +20,7 @@
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
                 <div v-if="showCompetencies">
-                  <h4>{{ $tc('competency._', 2) }}</h4>
+                  <h4>{{ $t('evaluation.competencies.in_progress') }}</h4>
 
                   <assessment-competencies-list
                     v-if="evaluation"
@@ -34,8 +34,16 @@
                   />
                 </div>
 
+                <div v-if="assessment?.requireEvaluationRequestURL">
+                  <h4>{{ $t('evaluation.resources') }}</h4>
+
+                  <a :href="evaluation.url" target="_blank">
+                    {{ evaluation.url }}
+                  </a>
+                </div>
+
                 <div v-if="showComment">
-                  <h4>{{ $t('evaluation.comment._') }}</h4>
+                  <h4>{{ $t('evaluation.comment.public') }}</h4>
 
                   <description-content
                     entity="evaluation.comment"
@@ -59,7 +67,7 @@
                 </div>
 
                 <div v-if="showNote">
-                  <h4>{{ $t('evaluation.note._') }}</h4>
+                  <h4>{{ $t('evaluation.note.private') }}</h4>
 
                   <description-content
                     entity="evaluation.note"
@@ -182,14 +190,26 @@ export default {
     customActions() {
       if (
         !this.evaluation ||
-        !['ACCEPTED', 'UNPUBLISHED'].includes(this.evaluation.status)
+        !['ACCEPTED', 'PUBLISHED', 'UNPUBLISHED'].includes(
+          this.evaluation.status
+        )
       ) {
         return null
       }
 
+      if (this.evaluation.status === 'PUBLISHED') {
+        return [
+          {
+            icon: 'mdi-publish-off',
+            key: 'unpublish',
+            tooltip: this.$t('global.unpublish'),
+          },
+        ]
+      }
+
       return [
         {
-          icon: 'mdi-cloud-upload',
+          icon: 'mdi-publish',
           key: 'publish',
           tooltip: this.$t('global.publish'),
         },
@@ -311,8 +331,8 @@ export default {
     },
   },
   methods: {
-    async accept() {
-      await this.execute({
+    accept() {
+      this.execute({
         key: 'EVALUATION_REQUEST_ACCEPT',
         mutation: require('~/gql/teach/acceptEvaluationRequest.gql'),
         name: 'acceptEvaluationRequest',
@@ -370,21 +390,25 @@ export default {
         this.executing = false
       }
     },
-    async onCustomActionClicked(key) {
-      if (key === 'publish') {
-        await this.publish()
+    onCustomActionClicked(key) {
+      switch (key) {
+        case 'publish':
+          return this.publish()
+
+        case 'unpublish':
+          return this.unpublish()
       }
     },
-    async publish() {
-      await this.execute({
+    publish() {
+      this.execute({
         key: 'EVALUATION_PUBLISH',
         mutation: require('~/gql/teach/publishEvaluation.gql'),
         name: 'publishEvaluation',
         variables: { id: this.evaluationId },
       })
     },
-    async reject(reason) {
-      await this.execute({
+    reject(reason) {
+      this.execute({
         key: 'EVALUATION_REQUEST_REJECT',
         mutation: require('~/gql/teach/rejectEvaluationRequest.gql'),
         name: 'rejectEvaluationRequest',
@@ -403,6 +427,14 @@ export default {
       this.evaluation = evaluation
       this.instance = evaluation?.instance
       this.title = this.assessment?.name ?? ''
+    },
+    unpublish() {
+      this.execute({
+        key: 'EVALUATION_UNPUBLISH',
+        mutation: require('~/gql/teach/unpublishEvaluation.gql'),
+        name: 'unpublishEvaluation',
+        variables: { id: this.evaluationId },
+      })
     },
   },
   meta: {

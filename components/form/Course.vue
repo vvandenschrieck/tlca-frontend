@@ -246,6 +246,14 @@
                 vid="schedule-registrationsStart"
               />
             </v-col>
+
+            <v-col cols="12" md="4">
+              <date-time-picker-with-validation
+                v-model="schedule.evaluationRequestsEnd"
+                :label="$t('course.schedule.evaluationRequestsEnd')"
+                vid="schedule-evaluationRequestsEnd"
+              />
+            </v-col>
           </v-row>
 
           <v-row>
@@ -268,7 +276,6 @@
             <v-col cols="12" md="4">
               <date-time-picker-with-validation
                 v-model="schedule.evaluationsEnd"
-                class="align-self-end d-block"
                 :label="$t('course.schedule.evaluationsEnd')"
                 vid="schedule-evaluationsEnd"
               />
@@ -359,6 +366,7 @@ export default {
       partners: [],
       schedule: {
         end: '',
+        evaluationRequestsEnd: '',
         evaluationsEnd: '',
         registrationsEnd: '',
         registrationsStart: '',
@@ -451,6 +459,7 @@ export default {
       // Initialise the schedule.
       const schedule = {
         end: '',
+        evaluationRequestsEnd: '',
         evaluationsEnd: '',
         registrationsEnd: '',
         registrationsStart: '',

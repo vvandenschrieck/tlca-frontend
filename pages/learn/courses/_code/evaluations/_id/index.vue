@@ -26,10 +26,19 @@
                     :assessment-id="evaluation.assessment.id"
                     :course-code="courseCode"
                     form
+                    :phase="evaluation.phase"
                     readonly
                     :selected="evaluation.competencies"
                     student-view
                   />
+                </div>
+
+                <div v-if="assessment?.requireEvaluationRequestURL">
+                  <h4>{{ $t('evaluation.resources') }}</h4>
+
+                  <a :href="evaluation.url" target="_blank">
+                    {{ evaluation.url }}
+                  </a>
                 </div>
 
                 <div v-if="showComment">

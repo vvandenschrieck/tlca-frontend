@@ -4,7 +4,7 @@
     :headers="headers"
     hide-default-footer
     :items="learners"
-    @click:row="goToLearner"
+    @dblclick:row="goToLearner"
   >
     <template #item.progress.basic="{ item: { progress } }">
       <competencies-progress dense :value="progress.basic" />
@@ -12,6 +12,10 @@
 
     <template #item.progress.advanced="{ item: { progress } }">
       <competencies-progress dense :value="progress.advanced" />
+    </template>
+
+    <template #item.actions="{ item: { user } }">
+      <detail-link-btn :to="learnerLink(user)" />
     </template>
   </v-data-table>
 </template>
@@ -78,9 +82,7 @@ export default {
 
       items.push({
         cellClass: 'text-right',
-        class: 'text-right',
         sortable: false,
-        text: this.$tc('general.action', 2),
         value: 'actions',
       })
 
@@ -99,11 +101,17 @@ export default {
     },
   },
   methods: {
-    goToLearner({ user: { username } }) {
-      this.$router.push({
+    goToLearner(_, { item: { user } }) {
+      this.$router.push(this.learnerLink(user))
+    },
+    learnerLink(learner) {
+      return {
         name: 'teach-courses-code-learners-username',
-        params: { code: this.courseCode, username },
-      })
+        params: {
+          code: this.courseCode,
+          username: learner.username,
+        },
+      }
     },
   },
 }

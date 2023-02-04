@@ -2,6 +2,8 @@ query GetAssessment($courseCode: ID!, $assessmentId: ID!) {
   assessment(id: $assessmentId) {
     canRequestEvaluation
     description
+    hasEvaluations
+    hasSchedule
     id
     name
     phases {
@@ -9,6 +11,7 @@ query GetAssessment($courseCode: ID!, $assessmentId: ID!) {
       name
     }
     provider
+    requireEvaluationRequestURL
   }
 
   course(code: $courseCode) {

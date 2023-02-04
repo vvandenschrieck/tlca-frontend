@@ -11,20 +11,21 @@
       <v-col cols="12" md="9">
         <ValidationObserver ref="form" v-slot="{ handleSubmit }">
           <v-form :disabled="formBusy" @submit.prevent="handleSubmit(submit)">
-            <v-alert v-if="formError" class="mt-5" dense outlined type="error">
-              {{ $t(formError) }}
-            </v-alert>
-
             <v-card>
               <v-card-text class="text--primary">
+                <v-alert v-if="formError" dense outlined type="error">
+                  {{ $t(formError) }}
+                </v-alert>
+
+                <p>{{ $t('evaluation.request.instructions') }}</p>
+
                 <assessment-instance-selector
+                  v-model="config"
                   :assessment-id="assessmentId"
                   :course-code="courseCode"
                   @change="updateForm"
                 >
                   <template #body="{ selected }">
-                    <v-divider />
-
                     <h4>{{ $t('evaluation.competencies._') }}</h4>
 
                     <assessment-competencies-list
@@ -32,9 +33,30 @@
                       :assessment-id="assessmentId"
                       :course-code="courseCode"
                       form
+                      :phase="config?.phase"
                       :selected="selected"
                       student-view
                     />
+
+                    <div v-if="assessment.requireEvaluationRequestURL">
+                      <h4>{{ $t('evaluation.resources') }}</h4>
+
+                      <v-row>
+                        <v-col cols="12" md="12">
+                          <v-text-field-with-validation
+                            v-model="url"
+                            clearable
+                            :label="$t('evaluation.URL')"
+                            required
+                            rules="required|url"
+                            type="url"
+                            vid="url"
+                          />
+                        </v-col>
+                      </v-row>
+                    </div>
+
+                    <h4>{{ $t('evaluation.comment._') }}</h4>
 
                     <v-row>
                       <v-col cols="12" md="12">
@@ -44,6 +66,7 @@
                           clear-icon="mdi-close-circle"
                           clearable
                           filled
+                          hide-details
                           :label="$t('evaluation.comment._')"
                         />
                       </v-col>
@@ -76,23 +99,25 @@
 <script>
 import { ValidationObserver } from 'vee-validate'
 
+import errors from '@/mixins/errors.js'
 import titles from '@/mixins/titles.js'
 
 export default {
   name: 'LearnCourseAssessmentRequestEvaluationPage',
   components: { ValidationObserver },
-  mixins: [titles],
+  mixins: [errors, titles],
   data() {
     return {
       assessment: null,
+      config: null,
       course: null,
       explanation: '',
       formBusy: false,
       formError: null,
-      preselectedCompetencies: [],
       selectedCompetencies: [],
       showActions: false,
       title: '',
+      url: '',
     }
   },
   head() {
@@ -127,6 +152,7 @@ export default {
     async submit() {
       this.formBusy = true
 
+      // Prepare the list of selected competencies.
       const selectedCompetencies = this.selectedCompetencies
         .filter((c) => !c.disabled)
         .map((c) => ({
@@ -137,14 +163,19 @@ export default {
           ),
           selected: c.selected,
         }))
+
+      // Build the data to send to the mutation.
       const data = {
         assessment: this.assessmentId,
         competencies: selectedCompetencies,
         explanation: this.explanation,
-        instance: this.instance,
+        instance: this.config?.instance,
+        phase: this.config?.phase,
+        url: this.url,
       }
       const mutation = require(`~/gql/learn/requestEvaluation.gql`)
 
+      // Call the mutation.
       try {
         const response = await this.$apollo
           .mutate({
@@ -155,9 +186,9 @@ export default {
 
         if (response) {
           const id = response.id
-          // this.reset()
+
           this.$notificationManager.displaySuccessMessage(
-            this.$t('success.EVALUATION_CREATE')
+            this.$t('success.EVALUATION_REQUEST')
           )
           this.$router.push({
             name: 'learn-courses-code-evaluations-id',
@@ -166,19 +197,9 @@ export default {
           return
         }
       } catch (err) {
-        if (err.graphQLErrors?.length) {
-          const gqlError = err.graphQLErrors[0]
-          if (gqlError.extensions?.formErrors) {
-            this.$refs.form.setErrors(gqlError.extensions.formErrors)
-          } else {
-            this.formError = `error.${gqlError.message}`
-          }
-        }
+        this.formError = this.handleError(err, this.$refs.form)
       }
 
-      if (!this.formError) {
-        this.formError = 'error._'
-      }
       this.formBusy = false
     },
     updateForm(canAddEvaluation) {

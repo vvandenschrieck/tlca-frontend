@@ -20,6 +20,9 @@
             <v-tab href="#competencies">
               {{ $t('assessment.competencies._') }}
             </v-tab>
+            <v-tab v-if="assessment?.hasEvaluations" href="#evaluations">
+              {{ $tc('evaluation._', 2) }}
+            </v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
@@ -41,6 +44,14 @@
                   student-view
                 />
               </v-tab-item>
+
+              <v-tab-item v-if="assessment?.hasEvaluations" value="evaluations">
+                <assessment-evaluations-list
+                  :assessment-id="assessmentId"
+                  :course-code="courseCode"
+                  student-view
+                />
+              </v-tab-item>
             </v-tabs-items>
           </v-card-text>
         </v-card>
@@ -52,7 +63,11 @@
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
         <assessment-info-panel :assessment-id="assessmentId" />
-        <assessment-schedule-panel :assessment-id="assessmentId" class="mt-5" />
+        <assessment-schedule-panel
+          v-if="assessment?.hasSchedule"
+          :assessment-id="assessmentId"
+          class="mt-5"
+        />
 
         <actions-menu
           :custom-actions="customActions"
@@ -133,13 +148,13 @@ export default {
       this.createEvaluation = true
 
       try {
-        const mutation = require(`~/gql/learn/createAssessmentInstance.gql`)
+        const mutation = require(`~/gql/learn/createInstance.gql`)
         const response = await this.$apollo
           .mutate({
             mutation,
             variables: { id },
           })
-          .then(({ data }) => data && data.createAssessmentInstance)
+          .then(({ data }) => data && data.createInstance)
 
         if (response) {
           this.$router.push({

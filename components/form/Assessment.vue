@@ -74,6 +74,7 @@
                 class="ml-3"
                 dense
                 :disabled="isPhased"
+                hide-details
                 :label="$t('assessment.type.incremental')"
               />
             </v-col>
@@ -98,9 +99,10 @@
             <v-col cols="12" md="4">
               <v-switch
                 v-model="isPhased"
-                class="ml-3"
+                class="mb-3 ml-3"
                 dense
                 :disabled="isIncremental"
+                hide-details
                 :label="$t('assessment.type.phased')"
               />
             </v-col>
@@ -166,23 +168,39 @@
           </v-row>
         </stepper-step>
 
-        <stepper-step step="5" :title="$t('general.information.additional')">
+        <stepper-step step="5" :title="$tc('evaluation._', 2)">
           <v-row>
             <v-col cols="12" md="6">
               <v-switch
                 v-model="hasOralDefense"
                 class="ml-3"
                 dense
-                :label="$t('assessment.oral_defense')"
+                hide-details
+                :label="$t('evaluation.with_oral_defense')"
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-switch
+                v-model="evaluationRequest"
+                class="mb-3 ml-3"
+                dense
+                hide-details
+                :label="$t('assessment.evaluation_request.allow')"
+                @change="switchEvaluationRequest"
               />
             </v-col>
 
             <v-col cols="12" md="6">
               <v-switch
-                v-model="evaluationRequest"
+                v-model="requireEvaluationRequestURL"
                 class="ml-3"
                 dense
-                :label="$t('assessment.evaluation_request')"
+                :disabled="!evaluationRequest"
+                hide-details
+                :label="$t('assessment.evaluation_request.require_url')"
               />
             </v-col>
           </v-row>
@@ -291,6 +309,7 @@ export default {
         work: '',
       },
       phases: [],
+      requireEvaluationRequestURL: false,
       start: '',
       takes: '',
     }
@@ -394,6 +413,8 @@ export default {
           })),
           __typename: undefined,
         })) ?? []
+      this.requireEvaluationRequestURL =
+        assessment?.requireEvaluationRequestURL ?? false
       this.start = assessment?.start ?? ''
       this.takes = assessment?.takes ?? ''
     },
@@ -441,6 +462,7 @@ export default {
         oralDefense: this.hasOralDefense,
         phased: this.isPhased,
         phases,
+        requireEvaluationRequestURL: this.requireEvaluationRequestURL,
         start: this.start,
         takes: parseInt(this.takes, 10),
       }
@@ -487,6 +509,11 @@ export default {
         this.formError = 'error._'
       }
       this.formBusy = false
+    },
+    switchEvaluationRequest(value) {
+      if (!value) {
+        this.requireEvaluationRequestURL = false
+      }
     },
   },
 }
