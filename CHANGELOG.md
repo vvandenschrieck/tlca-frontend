@@ -1,3 +1,27 @@
+## 1.2.0 (2023-02-04)
+
+### Features
+
+- **assessments:** configure an assessment to make URL required when requesting an evaluation
+- **assessments:** display list of existing instances (student)
+
+- **courses:** added shortcut links to create an assessment or an evaluation directly from the course detail page (teacher)
+- **courses:** define an end of evaluation requests date
+
+- **evaluations:** define an URL when requesting an evaluation
+- **evaluations:** unpublish an evaluation
+
+### Improvements
+
+- hid assessment schedule info panel when there is no schedule
+- changed the behaviour on learners list when clicking on the line: double-click or use the detail action to go to the details of a learner (teacher)
+- updated the learner detail page (teacher)
+
+### Code Refactoring
+
+- refactored the instances/evaluations list components
+- renamed the entities representing assessment instances (from assessmentInstance to just instance)
+
 ## 1.1.22 (2022-12-18)
 
 ### Bug Fixes
