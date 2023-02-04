@@ -11,8 +11,17 @@
       :loading="!!isLoading"
       :title="$tc('assessment._', 2)"
     >
-      <stats-list v-if="!error" entity="assessment" :items="stats" />
-      <span v-else>{{ $t('error.unexpected') }}</span>
+      <template #default>
+        <stats-list v-if="!error" entity="assessment" :items="stats" />
+        <span v-else>{{ $t('error.unexpected') }}</span>
+      </template>
+
+      <template v-if="showCreateButton" #actions>
+        <v-btn color="success" outlined small :to="createLink">
+          <v-icon left>mdi-plus</v-icon>
+          <span>{{ $t('general.create') }}</span>
+        </v-btn>
+      </template>
     </generic-info-card>
   </ApolloQuery>
 </template>
@@ -26,6 +35,10 @@ export default {
       required: true,
     },
     hideClosed: {
+      type: Boolean,
+      default: false,
+    },
+    hideCreateButton: {
       type: Boolean,
       default: false,
     },
@@ -45,6 +58,12 @@ export default {
     }
   },
   computed: {
+    createLink() {
+      return {
+        name: 'manage-courses-code-assessments-create',
+        params: { code: this.courseCode },
+      }
+    },
     hasAssessments() {
       return this.assessments?.length > 0
     },
@@ -57,6 +76,9 @@ export default {
           params: { code: this.courseCode },
         },
       }
+    },
+    showCreateButton() {
+      return !this.hideCreateButton && this.course?.isCoordinator
     },
     stats() {
       if (!this.hasAssessments) {

@@ -9,6 +9,8 @@
       <slot />
 
       <div v-if="link" class="mt-3 text-right">
+        <slot name="actions" />
+
         <v-btn color="primary" outlined small :to="link.to">
           <v-icon left>{{ link.icon }}</v-icon>
           <span>{{ link.text }}</span>

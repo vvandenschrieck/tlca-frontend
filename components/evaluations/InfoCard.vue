@@ -2,7 +2,6 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/cards/getEvaluationsInfo.gql')"
-    :update="(data) => data.evaluations"
     :variables="{ courseCode }"
     @result="setResult"
   >
@@ -12,8 +11,17 @@
       :loading="!!isLoading"
       :title="$tc('evaluation._', 2)"
     >
-      <stats-list v-if="!error" entity="evaluation" :items="stats" />
-      <span v-else>{{ $t('error.unexpected') }}</span>
+      <template #default>
+        <stats-list v-if="!error" entity="evaluation" :items="stats" />
+        <span v-else>{{ $t('error.unexpected') }}</span>
+      </template>
+
+      <template v-if="showCreateButton" #actions>
+        <v-btn color="success" outlined small :to="createLink">
+          <v-icon left>mdi-plus</v-icon>
+          <span>{{ $t('general.create') }}</span>
+        </v-btn>
+      </template>
     </generic-info-card>
   </ApolloQuery>
 </template>
@@ -28,6 +36,10 @@ export default {
       type: String,
       required: true,
     },
+    hideCreateButton: {
+      type: Boolean,
+      default: false,
+    },
     space: {
       type: String,
       required: true,
@@ -39,10 +51,17 @@ export default {
   },
   data() {
     return {
+      course: null,
       evaluations: null,
     }
   },
   computed: {
+    createLink() {
+      return {
+        name: 'teach-courses-code-evaluations-create',
+        params: { code: this.courseCode },
+      }
+    },
     hasEvaluations() {
       return this.evaluations?.length > 0
     },
@@ -55,6 +74,12 @@ export default {
           params: { code: this.courseCode },
         },
       }
+    },
+    showCreateButton() {
+      return (
+        !this.hideCreateButton &&
+        (this.course?.isCoordinator || this.course?.isTeacher)
+      )
     },
     stats() {
       if (!this.hasEvaluations) {
@@ -103,8 +128,13 @@ export default {
     },
   },
   methods: {
-    setResult({ data: evaluations }) {
-      this.evaluations = evaluations
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.course = data.course
+      this.evaluations = data.evaluations
     },
   },
 }
