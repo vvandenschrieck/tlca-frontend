@@ -6,6 +6,7 @@ mutation EditAssessment(
   $description: String!
   $end: DateTime
   $evaluationRequest: Boolean
+  $group: Boolean
   $id: ID!
   $incremental: Boolean
   $instances: Int
@@ -26,6 +27,7 @@ mutation EditAssessment(
     description: $description
     end: $end
     evaluationRequest: $evaluationRequest
+    group: $group
     id: $id
     incremental: $incremental
     instances: $instances

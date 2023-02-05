@@ -172,6 +172,18 @@
           <v-row>
             <v-col cols="12" md="6">
               <v-switch
+                v-model="isForGroup"
+                class="ml-3"
+                dense
+                hide-details
+                :label="$t('assessment.is_for_group')"
+              />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-switch
                 v-model="hasOralDefense"
                 class="ml-3"
                 dense
@@ -299,6 +311,7 @@ export default {
       formError: null,
       hasOralDefense: false,
       instances: '',
+      isForGroup: false,
       isIncremental: false,
       isPhased: false,
       name: '',
@@ -387,6 +400,7 @@ export default {
       this.evaluationRequest = assessment?.evaluationRequest ?? false
       this.hasOralDefense = assessment?.hasOralDefense ?? false
       this.instances = assessment?.instances ?? ''
+      this.isForGroup = assessment?.isForGroup ?? false
       this.isIncremental = assessment?.isIncremental ?? false
       this.isPhased = assessment?.isPhased ?? false
       this.name = assessment?.name ?? ''
@@ -455,6 +469,7 @@ export default {
         description: this.description,
         end: this.end,
         evaluationRequest: this.evaluationRequest,
+        group: this.isForGroup,
         incremental: this.isIncremental,
         instances: parseInt(this.instances, 10),
         load,

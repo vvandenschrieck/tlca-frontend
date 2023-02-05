@@ -116,6 +116,14 @@ export default {
         })
       }
 
+      // Individual or group.
+      const take = assessment.isForGroup ? 'group' : 'individual'
+      items.push({
+        icon: 'mdi-account-settings',
+        text: this.$t(`assessment.take.${take}`),
+        tooltip: this.$t('assessment.takes._'),
+      })
+
       // Evaluation request.
       if (this.teacherView) {
         const details = []

@@ -57,6 +57,7 @@
       "new": "New instance",
       "nb": "{n} instance | {n} instances"
     },
+    "is_for_group": "Group assessment",
     "learning_outcomes": {
       "targeted": "Targeted @.lower:competency.learning_outcomes._"
     },
@@ -94,6 +95,8 @@
     },
     "take": {
       "_": "Take",
+      "group": "By group",
+      "individual": "Individual",
       "send": {
         "dialog_instructions": "Are you sure you want to send and finalise this take?"
       }

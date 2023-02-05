@@ -57,6 +57,7 @@
       "new": "Nouvelle instance",
       "nb": "{n} instance | {n} instances"
     },
+    "is_for_group": "Évaluation de groupe",
     "learning_outcomes": {
       "targeted": "@:competency.learning_outcomes._ visé(s)"
     },
@@ -94,6 +95,8 @@
     },
     "take": {
       "_": "Passer",
+      "group": "Par groupe",
+      "individual": "Individuel",
       "send": {
         "dialog_instructions": "Êtes-vous sûr de vouloir envoyer et finaliser ce passage ?"
       }
