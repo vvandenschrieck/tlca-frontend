@@ -1,6 +1,7 @@
 mutation PublishCourse($code: ID!) {
   publishCourse(code: $code) {
     code
+    isPublished
     published
     status
   }

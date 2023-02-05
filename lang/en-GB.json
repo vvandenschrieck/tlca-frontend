@@ -714,7 +714,7 @@
     "CONFIRMATION_EMAIL_SEND": "Confirmation email successfully sent",
     "COURSE_ARCHIVED": "Course successfully archived!",
     "COURSE_CREATED": "Course successfully created!",
-    "COURSE_PUBLISHED": "Course successfully published!",
+    "COURSE_PUBLISH": "Course successfully published!",
     "EVALUATION_CORRECT": "Evaluation successfully corrected",
     "EVALUATION_CREATE": "Evaluation successfully created",
     "EVALUATION_DELETE": "Evaluation successfully deleted",
