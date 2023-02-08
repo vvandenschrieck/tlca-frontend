@@ -1,3 +1,13 @@
+## 1.2.2 (2023-02-08)
+
+### Features
+
+- **evaluations:** provide an optional acceptance comment when accepting an evaluation request (teacher)
+
+### Bug Fixes
+
+- fixed the details page of learners by directly showing the competencies progress (teacher)
+
 ## 1.2.1 (2023-02-04)
 
 ### Bug Fixes

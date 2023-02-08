@@ -19,6 +19,14 @@
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
+                <v-alert v-if="showRejectionReason" dense outlined type="info">
+                  {{
+                    $t('evaluation.request.rejected_on', {
+                      date: formatDateTimeFull(evaluation?.rejected),
+                    })
+                  }}
+                </v-alert>
+
                 <div v-if="showCompetencies">
                   <h4>{{ $t('evaluation.competencies.in_progress') }}</h4>
 
@@ -61,7 +69,7 @@
                 </div>
 
                 <div v-if="showRejectionReason">
-                  <h4>{{ $t('evaluation.rejectionReason') }}</h4>
+                  <h4>{{ $t('evaluation.rejection_reason') }}</h4>
 
                   <description-content :text="evaluation?.rejectionReason" />
                 </div>
@@ -88,6 +96,14 @@
               </v-tab-item>
 
               <v-tab-item v-if="showRequest">
+                <v-alert dense outlined type="info">
+                  {{
+                    $t('evaluation.request.accepted_on', {
+                      date: formatDateTimeFull(evaluation?.accepted),
+                    })
+                  }}
+                </v-alert>
+
                 <h4>{{ $tc('competency._', 2) }}</h4>
 
                 <assessment-competencies-list
@@ -103,6 +119,13 @@
                 <description-content
                   entity="evaluation.explanation"
                   :text="evaluation?.explanation"
+                />
+
+                <h4>{{ $t('evaluation.acceptance_comment._') }}</h4>
+
+                <description-content
+                  entity="evaluation.acceptance_comment"
+                  :text="evaluation?.acceptanceComment"
                 />
               </v-tab-item>
 
@@ -120,7 +143,7 @@
 
         <div v-if="evaluation?.isRequestPending" class="text-right mt-3">
           <evaluation-request-reject-btn v-if="!hasProvider" @reject="reject" />
-          <accept-btn v-if="!hasProvider" @accept="accept" />
+          <evaluation-request-accept-btn v-if="!hasProvider" @accept="accept" />
           <evaluation-correct-btn
             v-if="showCorrectBtn"
             :loading="correcting"
@@ -156,13 +179,14 @@
 </template>
 
 <script>
+import datetime from '@/mixins/datetime.js'
 import titles from '@/mixins/titles.js'
 
 import correctEvaluation from '~/gql/teach/correctEvaluation.gql'
 
 export default {
   name: 'TeachEvaluationPage',
-  mixins: [titles],
+  mixins: [datetime, titles],
   data() {
     return {
       assessment: null,
@@ -331,12 +355,12 @@ export default {
     },
   },
   methods: {
-    accept() {
+    accept(comment) {
       this.execute({
         key: 'EVALUATION_REQUEST_ACCEPT',
         mutation: require('~/gql/teach/acceptEvaluationRequest.gql'),
         name: 'acceptEvaluationRequest',
-        variables: { id: this.evaluationId },
+        variables: { comment, id: this.evaluationId },
       })
     },
     async correct() {

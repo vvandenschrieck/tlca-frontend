@@ -4,6 +4,7 @@ query GetAssessmentInfo($id: ID!, $teacherView: Boolean!) {
     hasOralDefense
     id
     instances
+    isForGroup
     load {
       defense
       work

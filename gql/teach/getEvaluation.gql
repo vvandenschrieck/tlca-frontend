@@ -8,6 +8,8 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
   }
 
   evaluation(id: $evaluationId) {
+    acceptanceComment
+    accepted
     assessment {
       hasProvider
       id
@@ -41,6 +43,7 @@ query GetEvaluation($courseCode: ID!, $evaluationId: ID!) {
       ...EvaluationCompetencyParts
     }
     phase
+    rejected
     rejectionReason
     requestedCompetencies {
       ...EvaluationCompetencyParts

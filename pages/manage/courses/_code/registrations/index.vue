@@ -20,6 +20,7 @@
               <v-tab-item>
                 <div class="text-right">
                   <course-send-invitation-btn
+                    v-if="course?.isPublished"
                     :course-code="courseCode"
                     @error="invitationSendError"
                     @success="(r) => invitationSendSuccess(course, r)"

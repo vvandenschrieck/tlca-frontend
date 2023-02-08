@@ -13,6 +13,7 @@ query GetAssessment($assessmentId: ID!, $teacherView: Boolean! = true) {
     hasOralDefense
     id
     instances
+    isForGroup
     isIncremental
     isPhased
     load {
