@@ -368,6 +368,10 @@
   },
   "evaluation": {
     "_": "Passage d'évaluation | Passages d'évaluations",
+    "acceptance_comment": {
+      "_": "Commentaire d'acceptation",
+      "no": "Pas de commentaire d'acceptation"
+    },
     "answer": {
       "_": "Réponse",
       "mine": "Ma réponse"
@@ -394,7 +398,7 @@
     "evaluation_nb": "Passage d'évaluation {nb}",
     "evaluator": "Évaluateur",
     "explanation": {
-      "_": "Explication",
+      "_": "Explication de l'apprenant",
       "no": "Pas d'explication"
     },
     "group_by_status": "Grouper par statut",
@@ -408,9 +412,14 @@
       "private": "@:evaluation.note._ privée"
     },
     "publish": "@:global.publish",
-    "rejectionReason": "Raison du rejet",
+    "rejection_reason": "Raison du rejet",
     "request": {
       "_": "Demander un passage d'évaluation",
+      "accept": {
+        "_": "Acceptation d'une demande d'évaluation",
+        "dialog_instructions": "Fournissez optionnellement un commentaire qui sera envoyé à l'apprenant(e) avec la notification d'acceptation de cette demande d'évaluation :"
+      },
+      "accepted_on": "Demande de passage d'évaluation acceptée le {date}",
       "delete": {
         "dialog_instructions": "Êtes-vous sûr de vouloir supprimer cette demande de passage d'évaluation ?"
       },
@@ -418,8 +427,9 @@
       "too_old": "La demande de passage d'évaluation la plus ancienne date d'il y a plus de {days} jours",
       "reject": {
         "_": "Rejet d'une demande d'évaluation",
-        "dialog_instructions": "Expliquez la raison pour laquelle vous voulez rejeter cette demande d'évaluation :"
-      }
+        "dialog_instructions": "Expliquez la raison pour laquelle vous rejetez cette demande d'évaluation :"
+      },
+      "rejected_on": "Demande de passage d'évaluation rejetée le {date}"
     },
     "resources": "Ressources",
     "status": {

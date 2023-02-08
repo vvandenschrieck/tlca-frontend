@@ -1,11 +1,5 @@
 <template>
-  <v-btn
-    color="success"
-    :disabled="disabled"
-    :loading="loading"
-    text
-    @click="$emit('accept')"
-  >
+  <v-btn :disabled="disabled" :loading="loading" text @click="$emit('click')">
     {{ $t('general.accept') }}
   </v-btn>
 </template>
