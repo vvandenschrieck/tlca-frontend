@@ -14,7 +14,6 @@
     >
       <v-card-text v-if="error">{{ $t('error.unexpected') }}</v-card-text>
       <!-- <div v-if="$auth.user" class="text-center">
-        <course-publish-btn :course="course" @success="published" />
         <course-archive-btn :course="course" @success="archived" />
         <course-clone-btn :course="course" @success="cloned" />
       </div> -->
@@ -61,11 +60,6 @@ export default {
     //   })
 
     //   // TODO: Fix the cache and redirect to the URL with the new course code
-    // },
-    // published() {
-    //   this.$notificationManager.displaySuccessMessage(
-    //     this.$t('success.COURSE_PUBLISHED')
-    //   )
     // },
     setItems({ data: course }) {
       if (!course) {

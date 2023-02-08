@@ -1,5 +1,8 @@
-mutation AcceptEvaluationRequest($id: ID!) {
-  acceptEvaluationRequest(id: $id) {
+mutation AcceptEvaluationRequest($comment: String, $id: ID!) {
+  acceptEvaluationRequest(comment: $comment, id: $id) {
+    acceptanceComment
+    accepted
+    comment
     competencies {
       checklist {
         public

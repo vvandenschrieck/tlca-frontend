@@ -193,7 +193,7 @@ export default {
         { title: this.$tc('competency._', 1), size: 6 },
         { title: this.$t('assessment.progress_measure'), size: 3 },
         {
-          title: this.$t('assessment.competencies.optional'),
+          title: this.$tc('assessment.competencies.optional', 1),
           size: 1,
           class: 'text-center',
         },

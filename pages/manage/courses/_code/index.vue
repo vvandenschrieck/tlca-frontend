@@ -2,7 +2,6 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/manage/getCourse.gql')"
-    :update="(data) => data.course"
     :variables="{ code: courseCode }"
     @result="setResult"
   >
@@ -42,10 +41,9 @@
       </v-col>
 
       <actions-menu
-        :edit-link="{
-          name: 'manage-courses-code-edit',
-          params: { code: courseCode },
-        }"
+        :custom-actions="customActions"
+        :edit-link="editLink"
+        @customActionClicked="onCustomActionClicked"
       />
     </v-row>
 
@@ -62,6 +60,7 @@ export default {
   data() {
     return {
       course: null,
+      executing: false,
       title: '',
     }
   },
@@ -76,6 +75,25 @@ export default {
     },
     courseCode() {
       return this.$route.params.code
+    },
+    customActions() {
+      if (!this.course || this.course.isPublished) {
+        return null
+      }
+
+      return [
+        {
+          icon: 'mdi-cloud-upload',
+          key: 'publish',
+          tooltip: this.$t('course.publish'),
+        },
+      ]
+    },
+    editLink() {
+      return {
+        name: 'manage-courses-code-edit',
+        params: { code: this.courseCode },
+      }
     },
     spaces() {
       if (!this.course) {
@@ -100,9 +118,43 @@ export default {
     },
   },
   methods: {
-    setResult({ data: course }) {
-      this.course = course
-      this.title = course?.name ?? ''
+    onCustomActionClicked(key) {
+      switch (key) {
+        case 'publish':
+          return this.publish()
+      }
+    },
+    async publish() {
+      if (this.executing) {
+        return
+      }
+
+      const key = 'COURSE_PUBLISH'
+      const mutation = require('~/gql/manage/publishCourse.gql')
+      const name = 'publishCourse'
+      const variables = { code: this.courseCode }
+
+      try {
+        const response = await this.$apollo
+          .mutate({ mutation, variables })
+          .then(({ data }) => data && data[name])
+
+        if (response) {
+          this.$notificationManager.displaySuccessMessage(
+            this.$t(`success.${key}`)
+          )
+        }
+      } finally {
+        this.executing = false
+      }
+    },
+    setResult({ data }) {
+      if (!data) {
+        return
+      }
+
+      this.course = data.course
+      this.title = data.course?.name ?? ''
     },
   },
   meta: {

@@ -7,6 +7,7 @@ mutation CreateAssessment(
   $description: String!
   $end: DateTime
   $evaluationRequest: Boolean
+  $group: Boolean
   $incremental: Boolean
   $instances: Int
   $load: AssessmentLoadInput
@@ -27,6 +28,7 @@ mutation CreateAssessment(
     description: $description
     end: $end
     evaluationRequest: $evaluationRequest
+    group: $group
     incremental: $incremental
     instances: $instances
     load: $load
