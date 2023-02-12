@@ -2,11 +2,15 @@
 
 ### Features
 
+- **assessments:** configure an assessment to be a 'group' assessment or not (teacher)
+
 - **evaluations:** provide an optional acceptance comment when accepting an evaluation request (teacher)
 
 ### Bug Fixes
 
+- added the course publish button in the actions menu (teacher)
 - fixed the details page of learners by directly showing the competencies progress (teacher)
+- removed the invitation send button for unpublished courses (teacher)
 
 ## 1.2.1 (2023-02-04)
 
