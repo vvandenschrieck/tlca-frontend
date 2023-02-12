@@ -1,18 +1,20 @@
 <template>
   <ApolloQuery
-    v-slot="{ isLoading, result: { data, error } }"
+    v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getAssessmentsList.gql')"
+    :update="(data) => data.assessments"
     :variables="{ courseCode: $route.params.code, teacherView }"
+    @result="setResult"
   >
     <v-data-table
       v-if="!error"
       :group-by="groupByCategory ? 'categoryText' : null"
       :group-desc="false"
       :headers="dataHeaders"
-      :items="assessments(data?.assessments)"
+      :items="assessments ?? []"
       :items-per-page="-1"
       :loading="!!isLoading"
-      @click:row="goToAssessment"
+      @dblclick:row="goToAssessment"
     >
       <template #group.header="{ group, headers, isOpen, toggle }">
         <td :colspan="headers.length">
@@ -23,7 +25,9 @@
 
             <v-col align="right">
               <v-btn icon @click="toggle">
-                <v-icon>{{ `mdi-chevron-${isOpen ? 'up' : 'down'}` }}</v-icon>
+                <v-icon>
+                  {{ isOpen ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+                </v-icon>
               </v-btn>
             </v-col>
           </v-row>
@@ -38,10 +42,6 @@
         </v-switch>
       </template>
 
-      <template #item.name="{ item: assessment }">
-        {{ assessmentName(assessment) }}
-      </template>
-
       <template #item.category="{ item: { categoryText } }">
         {{ categoryText }}
       </template>
@@ -50,8 +50,9 @@
         <v-icon small>{{ isHidden ? 'mdi-eye-off' : 'mdi-eye' }}</v-icon>
       </template>
 
-      <template v-if="!hideActions" #item.actions="{ item }">
+      <template #item.actions="{ item }">
         <slot name="actions" :item="item" />
+        <detail-link-btn :to="item.link" />
       </template>
     </v-data-table>
 
@@ -60,16 +61,15 @@
 </template>
 
 <script>
+import assessments from '@/mixins/assessments.js'
+
 export default {
   name: 'AssessmentsList',
+  mixins: [assessments],
   props: {
     courseCode: {
       type: String,
       required: true,
-    },
-    hideActions: {
-      type: Boolean,
-      default: false,
     },
     hideOpenness: {
       type: Boolean,
@@ -86,6 +86,7 @@ export default {
   },
   data() {
     return {
+      assessments: null,
       groupByCategory: true,
     }
   },
@@ -112,15 +113,11 @@ export default {
         })
       }
 
-      if (!this.hideActions) {
-        headers.push({
-          cellClass: 'text-right',
-          class: 'text-right',
-          sortable: false,
-          text: this.$tc('general.action', 2),
-          value: 'actions',
-        })
-      }
+      headers.push({
+        cellClass: 'text-right',
+        sortable: false,
+        value: 'actions',
+      })
 
       return headers
     },
@@ -129,28 +126,28 @@ export default {
     },
   },
   methods: {
-    assessmentName(assessment) {
-      const closed =
-        !this.hideOpenness && assessment.isClosed
-          ? `[${this.$t('assessment.closed')}] `
-          : ''
-      const prefix = assessment.code ? `${assessment.code} – ` : ''
+    goToAssessment(_, { item: { link } }) {
+      this.$router.push(link)
+    },
+    setResult({ data: assessments }) {
+      if (!assessments) {
+        return
+      }
 
-      return closed + prefix + assessment.name
-    },
-    assessments(items) {
-      return items?.map((i) => ({
-        ...i,
+      this.assessments = assessments.map((assessment) => ({
+        ...assessment,
         categoryText: this.$t(
-          `assessment.category.${i.category.toLowerCase()}`
+          `assessment.category.${assessment.category.toLowerCase()}`
         ),
+        link: {
+          name: `${this.space}-courses-code-assessments-id`,
+          params: { code: this.courseCode, id: assessment.id },
+        },
+        name:
+          (!this.hideOpenness && assessment.isClosed
+            ? `[${this.$t('assessment.closed')}] `
+            : '') + this.assessmentName(assessment),
       }))
-    },
-    goToAssessment({ id }) {
-      this.$router.push({
-        name: `${this.space}-courses-code-assessments-id`,
-        params: { code: this.courseCode, id },
-      })
     },
   },
 }
