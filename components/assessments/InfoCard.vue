@@ -2,7 +2,7 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/cards/getAssessmentsInfo.gql')"
-    :variables="{ courseCode, teacherView }"
+    :variables="{ courseCode, teacherView, hideTakesStatus }"
     @result="setResult"
   >
     <generic-info-card
@@ -12,7 +12,14 @@
       :title="$tc('assessment._', 2)"
     >
       <template #default>
-        <stats-list v-if="!error" entity="assessment" :items="stats" />
+        <template v-if="!error">
+          <stats-list entity="assessment" :items="stats" />
+          <assessments-takes-status
+            v-if="!hideTakesStatus"
+            :assessments="assessments"
+            class="mx-2 mt-1"
+          />
+        </template>
         <span v-else>{{ $t('error.unexpected') }}</span>
       </template>
 
@@ -39,6 +46,10 @@ export default {
       default: false,
     },
     hideCreateButton: {
+      type: Boolean,
+      default: false,
+    },
+    hideTakesStatus: {
       type: Boolean,
       default: false,
     },

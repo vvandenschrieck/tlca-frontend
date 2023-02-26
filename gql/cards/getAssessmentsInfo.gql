@@ -1,8 +1,15 @@
-query GetAssessmentsInfo($courseCode: ID!, $teacherView: Boolean!) {
+query GetAssessmentsInfo(
+  $courseCode: ID!
+  $teacherView: Boolean!
+  $hideTakesStatus: Boolean!
+) {
   assessments(courseCode: $courseCode) {
     isClosed
     id
     isHidden @include(if: $teacherView)
+    takesStatus @skip(if: $hideTakesStatus) {
+      status
+    }
   }
 
   course(code: $courseCode) {
