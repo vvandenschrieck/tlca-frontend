@@ -1,7 +1,7 @@
 <template>
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
-    :query="require('~/gql/infopanels/getEvaluationTakesInfo.gql')"
+    :query="require('~/gql/infopanels/getAssessmentTakesInfo.gql')"
     :update="(data) => data.assessment"
     :variables="{ id: assessmentId }"
     @result="setResult"
@@ -21,28 +21,12 @@
 </template>
 
 <script>
-import assessments from '@/mixins/assessments.js'
-import datetime from '@/mixins/datetime.js'
-
 export default {
-  name: 'EvaluationTakesInfoPanel',
-  mixins: [assessments, datetime],
+  name: 'AssessmentTakesInfoPanel',
   props: {
     assessmentId: {
       type: String,
       required: true,
-    },
-    hideAssessment: {
-      type: Boolean,
-      default: false,
-    },
-    hideLearner: {
-      type: Boolean,
-      default: false,
-    },
-    teacherView: {
-      type: Boolean,
-      default: false,
     },
   },
   data() {

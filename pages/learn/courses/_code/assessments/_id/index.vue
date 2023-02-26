@@ -68,7 +68,7 @@
           :assessment-id="assessmentId"
           class="mt-5"
         />
-        <evaluation-takes-info-panel
+        <assessment-takes-info-panel
           :assessment-id="assessmentId"
           class="mt-5"
         />

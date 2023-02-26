@@ -117,6 +117,7 @@
       "assessments_available": "Des évaluations sur lesquelles vous pouvez travailler sont disponibles.",
       "assessments_finished": "Il n'y a pas d'évaluations disponibles sur lesquelles vous pouvez travailler.",
       "assessments_pending": "Des passages d'évaluation étant en attente de publication, il n'y a pour le moment pas d'évaluations disponibles sur lesquelles vous pouvez travailler.",
+      "closed": "Cette évaluation est fermée, vous ne pouvez pas travailler dessus.",
       "instance_available_evaluation_finished": "Vous pouvez présenter une nouvelle instance pour cette évaluation.",
       "instance_available_evaluation_pending": "Vous pouvez présenter une nouvelle instance pour cette évaluation, mais, des passages d'évaluation étant en attente de publication, vous ne pouvez pour le moment plus avancer dans les existantes.",
       "instance_finished_evaluation_available": "Vous ne pouvez plus présenter de nouvelles instances pour cette évaluation, mais vous pouvez avancer dans des existantes.",

@@ -117,6 +117,7 @@
       "assessments_available": "Assessments that you can take are available.",
       "assessments_finished": "There are no available assessments that you can take.",
       "assessments_pending": "Evaluations still pending publication, there are no available assessments that you can take, for now.",
+      "closed": "This assessment is closed, you cannot work on it.",
       "instance_available_evaluation_finished": "You can take a new instance for this assessment.",
       "instance_available_evaluation_pending": "You can take a new instance for this assessment but, evaluations still pending publication, you cannot make any progress for existing ones for now.",
       "instance_finished_evaluation_available": "You cannot take new instances for this assessment but you can make progress for existing ones.",

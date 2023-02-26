@@ -31,6 +31,12 @@ export default {
         return null
       }
 
+      // Cannot take closed assessment.
+      if (this.assessment.isClosed) {
+        return 'error'
+      }
+
+      // Return the color depending on the take status.
       return {
         AVAILABLE: 'success',
         FINISHED: 'error',
@@ -42,6 +48,12 @@ export default {
         return null
       }
 
+      // Cannot take closed assessment.
+      if (this.assessment.isClosed) {
+        return this.$t('assessment.takes_status.closed')
+      }
+
+      // Return the explanation depending on the take status.
       const takesStatus = this.assessment.takesStatus
       const suffix = this.assessment.isIncremental ? '_inc' : ''
       const key = {
