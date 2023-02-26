@@ -57,6 +57,7 @@
       "new": "Nouvelle instance",
       "nb": "{n} instance | {n} instances"
     },
+    "instances_status": "État des instances",
     "is_for_group": "Évaluation de groupe",
     "learning_outcomes": {
       "targeted": "@:competency.learning_outcomes._ visé(s)"
@@ -104,6 +105,20 @@
     "takes": {
       "_": "Passages",
       "max_nb": "Nombre de passages max"
+    },
+    "takes_status": {
+      "_": "État des passages d'évaluations",
+      "all_available": "Vous pouvez présenter une nouvelle instance pour cette évaluation.",
+      "all_available_inc": "Vous pouvez présenter une nouvelle instance pour cette évaluation, et également avancer dans des existantes.",
+      "all_finished": "Vous ne pouvez plus présenter de nouvelles instances pour cette évaluation.",
+      "all_finished_inc": "Vous ne pouvez plus présenter de nouvelles instances pour cette évaluation, ni avancer dans les existantes.",
+      "all_pending": "Des passages d'évaluation étant en attente de publication, vous ne pouvez pour le moment plus présenter de nouvelles instances pour cette évaluation.",
+      "all_pending_inc": "Des passages d'évaluation étant en attente de publication, vous ne pouvez pour le moment plus présenter de nouvelles instances pour cette évaluation, ni avancer dans les existantes.",
+      "instance_available_evaluation_finished": "Vous pouvez présenter une nouvelle instance pour cette évaluation.",
+      "instance_available_evaluation_pending": "Vous pouvez présenter une nouvelle instance pour cette évaluation, mais, des passages d'évaluation étant en attente de publication, vous ne pouvez pour le moment plus avancer dans les existantes.",
+      "instance_finished_evaluation_available": "Vous ne pouvez plus présenter de nouvelles instances pour cette évaluation, mais vous pouvez avancer dans des existantes.",
+      "instance_finished_evaluation_pending": "Vous ne pouvez plus présenter de nouvelles instances pour cette évaluation et, des passages d'évaluation étant en attente de publication, vous ne pouvez pour le moment plus avancer dans les existantes.",
+      "instance_pending_evaluation_available": "Des passages d'évaluation étant en attente de publication, vous ne pouvez pour le moment plus présenter de nouvelles instances pour cette évaluation, mais vous pouvez avancer dans des existantes."
     },
     "timeline": "Ligne du temps",
     "type": {

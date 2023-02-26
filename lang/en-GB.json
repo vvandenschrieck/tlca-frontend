@@ -57,6 +57,7 @@
       "new": "New instance",
       "nb": "{n} instance | {n} instances"
     },
+    "instances_status": "Instances status",
     "is_for_group": "Group assessment",
     "learning_outcomes": {
       "targeted": "Targeted @.lower:competency.learning_outcomes._"
@@ -104,6 +105,20 @@
     "takes": {
       "_": "Takes",
       "max_nb": "Maximal number of takes"
+    },
+    "takes_status": {
+      "_": "Evaluations status",
+      "all_available": "You can take a new instance for this assessment.",
+      "all_available_inc": "You can take a new instance for this assessment, and make progress for existing ones.",
+      "all_finished": "You cannot take new instances for this assessment.",
+      "all_finished_inc": "You cannot take new instances for this assessment nor make any progress for existing ones.",
+      "all_pending": "Evaluations still pending publication, you cannot take new instances for this assessment.",
+      "all_pending_inc": "Evaluations still pending publication, you cannot take new instances for this assessment nor make any progress for existing ones for now.",
+      "instance_available_evaluation_finished": "You can take a new instance for this assessment.",
+      "instance_available_evaluation_pending": "You can take a new instance for this assessment but, evaluations still pending publication, you cannot make any progress for existing ones for now.",
+      "instance_finished_evaluation_available": "You cannot take new instances for this assessment but you can make progress for existing ones.",
+      "instance_finished_evaluation_pending": "You cannot take new instances for this assessment and, evaluations still pending publication, you cannot make any progress for existing ones for now.",
+      "instance_pending_evaluation_available": "Evaluations still pending publication, you cannot take new instances for this assessment fow now but you can make progress for existing ones"
     },
     "timeline": "Timeline",
     "type": {
