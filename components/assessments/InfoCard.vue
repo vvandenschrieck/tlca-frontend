@@ -2,7 +2,7 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/cards/getAssessmentsInfo.gql')"
-    :variables="{ courseCode, teacherView, hideTakesStatus }"
+    :variables="{ courseCode, hideTakesStatus, teacherView }"
     @result="setResult"
   >
     <generic-info-card
