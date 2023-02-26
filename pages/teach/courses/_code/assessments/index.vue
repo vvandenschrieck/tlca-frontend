@@ -22,6 +22,7 @@
                 <assessments-list
                   :course-code="courseCode"
                   hide-actions
+                  hide-takes-status
                   space="teach"
                 />
               </v-tab-item>

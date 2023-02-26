@@ -42,6 +42,10 @@
         </v-switch>
       </template>
 
+      <template #item.takesStatus="{ item: assessment }">
+        <assessment-takes-status :assessment="assessment" dense />
+      </template>
+
       <template #item.category="{ item: { categoryText } }">
         {{ categoryText }}
       </template>
@@ -75,6 +79,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hideTakesStatus: {
+      type: Boolean,
+      default: false,
+    },
     hideVisibility: {
       type: Boolean,
       default: false,
@@ -92,12 +100,21 @@ export default {
   },
   computed: {
     dataHeaders() {
-      const headers = [
-        {
-          text: this.$t('assessment.name'),
-          value: 'name',
-        },
-      ]
+      const headers = []
+
+      if (!this.hideTakesStatus) {
+        headers.push({
+          cellClass: 'pl-2 pr-0',
+          class: 'pl-2 pr-0',
+          value: 'takesStatus',
+          width: 5,
+        })
+      }
+
+      headers.push({
+        text: this.$t('assessment.name'),
+        value: 'name',
+      })
 
       if (!this.groupByCategory) {
         headers.push({
