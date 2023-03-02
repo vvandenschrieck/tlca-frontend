@@ -2,7 +2,7 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/cards/getAssessmentsInfo.gql')"
-    :variables="{ courseCode, hideTakesStatus, teacherView }"
+    :variables="{ courseCode, hideTakesStatus, learnerUsername, teacherView }"
     @result="setResult"
   >
     <generic-info-card
@@ -53,6 +53,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    learnerUsername: {
+      type: String,
+      default: null,
+    },
     space: {
       type: String,
       required: true,
@@ -79,17 +83,24 @@ export default {
       return this.assessments?.length > 0
     },
     link() {
+      const learner =
+        this.teacherView && this.learnerUsername ? '-learners-username' : ''
+
       return {
         icon: 'mdi-view-list',
         text: this.$t('general.list'),
         to: {
-          name: `${this.space}-courses-code-assessments`,
-          params: { code: this.courseCode },
+          name: `${this.space}-courses-code${learner}-assessments`,
+          params: { code: this.courseCode, username: this.learnerUsername },
         },
       }
     },
     showCreateButton() {
-      return !this.hideCreateButton && this.course?.isCoordinator
+      return (
+        !this.hideCreateButton &&
+        this.course?.isCoordinator &&
+        !this.learnerUsername
+      )
     },
     stats() {
       if (!this.hasAssessments) {

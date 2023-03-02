@@ -3,7 +3,7 @@
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getAssessmentsList.gql')"
     :update="(data) => data.assessments"
-    :variables="{ courseCode: $route.params.code, teacherView }"
+    :variables="{ courseCode, hideTakesStatus, learnerUsername, teacherView }"
     @result="setResult"
   >
     <v-data-table
@@ -87,6 +87,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    learnerUsername: {
+      type: String,
+      default: null,
+    },
     space: {
       type: String,
       required: true,
@@ -151,14 +155,20 @@ export default {
         return
       }
 
+      const learner = this.learnerUsername ? '-learners-username' : ''
+
       this.assessments = assessments.map((assessment) => ({
         ...assessment,
         categoryText: this.$t(
           `assessment.category.${assessment.category.toLowerCase()}`
         ),
         link: {
-          name: `${this.space}-courses-code-assessments-id`,
-          params: { code: this.courseCode, id: assessment.id },
+          name: `${this.space}-courses-code${learner}-assessments-id`,
+          params: {
+            code: this.courseCode,
+            id: assessment.id,
+            learner: this.learnerUsername,
+          },
         },
         name:
           (!this.hideOpenness && assessment.isClosed
