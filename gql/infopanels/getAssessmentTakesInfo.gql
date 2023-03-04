@@ -1,0 +1,15 @@
+query GetEvaluationTakesInfo($id: ID!) {
+  assessment(id: $id) {
+    takesStatus {
+      evaluations
+      instances
+      status
+    }
+    id
+    instances
+    isClosed
+    isIncremental
+    nbEvaluations
+    nbInstances
+  }
+}

@@ -24,6 +24,7 @@
           <v-col cols="12" md="6">
             <assessments-info-card
               :course-code="courseCode"
+              hide-takes-status
               space="manage"
               :teacher-view="true"
             />

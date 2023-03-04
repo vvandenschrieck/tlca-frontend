@@ -23,10 +23,19 @@
 
             <v-list-item-content class="py-0">
               <v-list-item-title class="content">
-                <span v-if="!item.status">{{ item.text }}</span>
-                <v-chip v-else :color="item.status" small>
+                <v-chip v-if="item.status" :color="item.status" small>
                   {{ item.text }}
                 </v-chip>
+                <v-progress-linear
+                  v-else-if="item.percentage !== undefined"
+                  height="16"
+                  :value="item.percentage"
+                >
+                  <span class="font-weight-black text-caption">
+                    {{ item.text }}
+                  </span>
+                </v-progress-linear>
+                <span v-else>{{ item.text }}</span>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>

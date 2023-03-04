@@ -6,32 +6,12 @@
     :variables="{ code: courseCode }"
     @result="setResult"
   >
-    <page-title :loading="!!isLoading" :spaces="spaces" :value="title" />
+    <page-title :loading="!!isLoading" :value="title" />
 
     <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-card>
-          <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
-            <v-tab>{{ $t('general.statistics._') }}</v-tab>
-          </v-tabs>
-
-          <v-card-text class="text--primary">
-            <v-tabs-items v-model="currentTab">
-              <v-tab-item>
-                <assessments-list
-                  :course-code="courseCode"
-                  hide-actions
-                  hide-takes-status
-                  space="teach"
-                />
-              </v-tab-item>
-
-              <v-tab-item>
-                <v-alert dense outlined type="info">Upcoming feature</v-alert>
-              </v-tab-item>
-            </v-tabs-items>
-          </v-card-text>
+          <v-alert dense outlined type="info">Upcoming feature</v-alert>
         </v-card>
       </v-col>
 
@@ -43,7 +23,6 @@
         <course-schedule-panel :course-code="courseCode" />
       </v-col>
     </v-row>
-
     <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
@@ -52,12 +31,11 @@
 import titles from '@/mixins/titles.js'
 
 export default {
-  name: 'TeachCourseAssessmentsPage',
+  name: 'TeachLearnerAssessmentPage',
   mixins: [titles],
   data() {
     return {
       course: null,
-      currentTab: 0,
       title: '',
     }
   },
@@ -73,27 +51,18 @@ export default {
     courseCode() {
       return this.$route.params.code
     },
-    spaces() {
-      if (!this.course) {
-        return null
-      }
-
-      const items = {}
-
-      if (this.course.isCoordinator) {
-        items.manage = {
-          name: 'manage-courses-code-assessments',
-          params: { code: this.courseCode },
-        }
-      }
-
-      return items
+    learnerUsername() {
+      return this.$route.params.username
     },
   },
   methods: {
     setResult({ data: course }) {
+      if (!course) {
+        return
+      }
+
       this.course = course
-      this.title = course?.name ?? ''
+      this.title = course.name
     },
   },
   meta: {

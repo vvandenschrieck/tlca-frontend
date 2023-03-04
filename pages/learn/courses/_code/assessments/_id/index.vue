@@ -68,6 +68,10 @@
           :assessment-id="assessmentId"
           class="mt-5"
         />
+        <assessment-takes-info-panel
+          :assessment-id="assessmentId"
+          class="mt-5"
+        />
 
         <actions-menu
           :custom-actions="customActions"

@@ -23,6 +23,7 @@
                 <assessments-list
                   :course-code="courseCode"
                   hide-openness
+                  hide-takes-status
                   hide-visibility
                   space="manage"
                 >

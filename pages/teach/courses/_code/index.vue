@@ -20,6 +20,7 @@
             <assessments-info-card
               :course-code="courseCode"
               hide-create-button
+              hide-takes-status
               space="teach"
             />
             <evaluations-info-card
