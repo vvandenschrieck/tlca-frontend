@@ -1,3 +1,20 @@
+## 1.2.3 (2023-03-04)
+
+### Features
+
+- **assessments:** display the assessments list and details for a given student (teacher)
+- **assessments:** display the general assessments takes status on the assessment info card (teacher and student)
+- **assessments:** display the takes status for each assessment on the assessments list and on the assessment detail page (teacher and student)
+
+### Improvements
+
+- added a progress bar type of information to the info panel component
+- defined a new assessment takes status info panel
+
+### Code Refactoring
+
+- refactored assessments list component
+
 ## 1.2.2 (2023-02-08)
 
 ### Features
