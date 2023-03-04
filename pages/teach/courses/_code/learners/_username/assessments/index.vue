@@ -2,6 +2,7 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/teach/getCourse.gql')"
+    :update="(data) => data.course"
     :variables="{ code: courseCode }"
     @result="setResult"
   >
@@ -11,49 +12,27 @@
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
-            <v-tab>{{ $tc('competency._', 2) }}</v-tab>
-            <v-tab>{{ $t('general.progress') }}</v-tab>
+            <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
+            <v-tab>{{ $t('general.statistics._') }}</v-tab>
           </v-tabs>
 
           <v-card-text class="text--primary">
             <v-tabs-items v-model="currentTab">
               <v-tab-item>
-                <course-competencies-progress-list
+                <assessments-list
                   :course-code="courseCode"
-                  :learner="learnerUsername"
+                  hide-actions
+                  hide-visibility
+                  :learner-username="learnerUsername"
+                  space="teach"
                 />
               </v-tab-item>
-
               <v-tab-item>
-                <v-alert type="info" dense outlined>Upcoming feature</v-alert>
+                <v-alert dense outlined type="info">Upcoming feature</v-alert>
               </v-tab-item>
             </v-tabs-items>
           </v-card-text>
         </v-card>
-
-        <v-row class="mt-5">
-          <v-col cols="12" md="6">
-            <assessments-info-card
-              :course-code="courseCode"
-              :learner-username="learnerUsername"
-              space="teach"
-              teacher-view
-            />
-          </v-col>
-          <v-col cols="12" md="6"></v-col>
-        </v-row>
-
-        <!-- <v-row>
-          <v-col cols="12" md="6">
-            <progress-info-card
-              :course-code="courseCode"
-              teacher-view
-              :learner-username="learnerUsername"
-            />
-          </v-col>
-
-          <v-col cols="12" md="6"> </v-col>
-        </v-row> -->
       </v-col>
 
       <v-col
@@ -61,13 +40,9 @@
         md="3"
         :order="$vuetify.breakpoint.smAndDown ? 'first' : undefined"
       >
-        <learner-info-panel
-          :course-code="courseCode"
-          :learner="learnerUsername"
-        />
+        <course-schedule-panel :course-code="courseCode" />
       </v-col>
     </v-row>
-
     <div v-else>{{ $t('error.unexpected') }}</div>
   </ApolloQuery>
 </template>
@@ -76,7 +51,7 @@
 import titles from '@/mixins/titles.js'
 
 export default {
-  name: 'TeachLearnerPage',
+  name: 'TeachLearnerAssessmentsPage',
   mixins: [titles],
   data() {
     return {
@@ -87,7 +62,7 @@ export default {
   },
   head() {
     return {
-      title: this.getTitle(this.title, null, 'teach'),
+      title: this.getTitle(this.title, 'assessment._', 'teach'),
     }
   },
   computed: {
@@ -102,13 +77,13 @@ export default {
     },
   },
   methods: {
-    setResult({ data }) {
-      if (!data) {
+    setResult({ data: course }) {
+      if (!course) {
         return
       }
 
-      this.course = data.course
-      this.title = data.course?.name ?? ''
+      this.course = course
+      this.title = course.name
     },
   },
   meta: {
