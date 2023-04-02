@@ -35,9 +35,9 @@
       disable-sort
       :headers="headers"
       hide-default-footer
-      item-class="itemStyle"
       :items-per-page="-1"
       :items="items"
+      item-class="rowClass"
       :loading="!!isLoading"
       show-select
     >
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       assessments: [],
-      competencies: [],
+      course_competencies: [],
       selectedFilter: null,
       selected: [],
       showSelected: false,
@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     filters() {
-      return this.competencies.map(({ competency }) => competency.code)
+      return this.course_competencies.map(({ competency }) => competency.code)
     },
     headers() {
       const headers = [
@@ -82,7 +82,7 @@ export default {
         },
       ]
 
-      this.competencies.forEach(({ competency }) =>
+      this.course_competencies.forEach(({ competency }) =>
         headers.push({
           text: competency.code,
           value: competency.code,
@@ -92,7 +92,6 @@ export default {
       return headers
     },
     items() {
-      // For each competency, get the stars earnable by this assignment.
       const items = []
 
       // Collect ids of assessments that must be shown.
@@ -104,17 +103,19 @@ export default {
           idToShow.push(assessment.id)
         }
 
-      // Initialize dict for stars sum.
-      const totalStars = {
-        name: 'Total',
+      // Initialize total row properties
+      const totalStarsOrLO = {
+        name: this.$t('assessment.coverage'),
         id: 'total',
         isSelectable: false,
-        itemStyle: 'totalRow',
+        rowClass: 'totalRow',
       }
-      for (const { competency } of this.competencies) {
-        totalStars[competency.code] = 0
+      // Initialize dict for stars/LO total computation.
+      for (const { competency } of this.course_competencies) {
+        if (competency.learningOutcomes) totalStarsOrLO[competency.code] = []
+        else totalStarsOrLO[competency.code] = 0
       }
-
+      //
       for (const assessmentId of idToShow) {
         const assessment = this.assessments.filter(
           (x) => x.id === assessmentId
@@ -125,29 +126,59 @@ export default {
         }
         const assessmentComp = {}
 
-        // Collect star information for this assigment in a dict instead of a list.
+        // Collect star/LO information for this assigment in a dict instead of a list.
         let passFilter = false
-        for (const { competency, stars } of assessment.competencies) {
-          assessmentComp[competency.code] = stars
+        for (const {
+          competency,
+          stars,
+          learningOutcomes,
+        } of assessment.competencies) {
+          if (!stars) {
+            assessmentComp[competency.code] = []
+            for (const learningOutcome of learningOutcomes) {
+              assessmentComp[competency.code].push(
+                this.$t('competency.learning_outcomes.abbr') +
+                  (learningOutcome + 1)
+              )
+            }
+          }
+          if (!learningOutcomes) assessmentComp[competency.code] = stars
+
           if (this.selectedFilter === competency.code) passFilter = true
         }
 
-        // Do not display this assignment if it doesn't contain filter competency.
+        // Do not consider this assignment if it doesn't contain filter competency.
         if (this.selectedFilter && !passFilter) continue
 
-        // Collect complete stars information for all competencies.
-        for (const { competency } of this.competencies) {
+        // Collect LO/stars information for this assignment.
+        for (const { competency } of this.course_competencies) {
           if (assessmentComp[competency.code]) {
             row[competency.code] = assessmentComp[competency.code]
-
-            // Update total.
-            totalStars[competency.code] += assessmentComp[competency.code]
+            // Update total if LO
+            if (competency.learningOutcomes) {
+              for (const learningOutcome of assessmentComp[competency.code]) {
+                if (!totalStarsOrLO[competency.code].includes(learningOutcome))
+                  totalStarsOrLO[competency.code].push(learningOutcome)
+              }
+            } // Update total if stars.
+            else
+              totalStarsOrLO[competency.code] += assessmentComp[competency.code]
           } else row[competency.code] = ''
         }
         items.push(row)
       }
-
-      items.push(totalStars)
+      // Reformat LO/Stars coverage information.
+      for (const { competency } of this.course_competencies) {
+        if (competency.learningOutcomes) {
+          totalStarsOrLO[competency.code] =
+            totalStarsOrLO[competency.code].length +
+            '/' +
+            competency.learningOutcomes.length
+        } else
+          totalStarsOrLO[competency.code] =
+            totalStarsOrLO[competency.code] + '/5'
+      }
+      items.push(totalStarsOrLO)
 
       return items
     },
@@ -155,7 +186,7 @@ export default {
   methods: {
     setCompetencies({ data }) {
       this.assessments = data?.assessments ?? []
-      this.competencies = data?.course.competencies ?? []
+      this.course_competencies = data?.course.competencies ?? []
     },
     shortName(assessment) {
       return assessment.code ?? assessment.name.slice(0, 9)
@@ -164,12 +195,12 @@ export default {
 }
 </script>
 
-<style scoped>
-.totalRow {
+<style>
+tr.totalRow {
   background-color: lightgray;
-  font-weight: bold;
+  font-weight: bold !important;
 }
-.totalRow .v-simple-checkbox {
+.totalRow .v-simple-checkbox--disabled {
   display: none;
 }
 </style>
