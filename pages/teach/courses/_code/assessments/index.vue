@@ -13,6 +13,8 @@
         <v-card>
           <v-tabs v-model="currentTab" show-arrows>
             <v-tab>{{ $tc('assessment._', 2) }}</v-tab>
+            <v-tab>{{ $t('assessment.coverage') }}</v-tab>
+            <v-tab>{{ $t('assessment.timeline') }}</v-tab>
             <v-tab>{{ $t('general.statistics._') }}</v-tab>
           </v-tabs>
 
@@ -25,6 +27,14 @@
                   hide-takes-status
                   space="teach"
                 />
+              </v-tab-item>
+
+              <v-tab-item>
+                <assessments-coverage :course-code="courseCode" />
+              </v-tab-item>
+
+              <v-tab-item>
+                <assessments-timeline :course-code="courseCode" />
               </v-tab-item>
 
               <v-tab-item>
