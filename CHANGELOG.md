@@ -1,3 +1,9 @@
+## 1.2.4 (2023-09-13)
+
+### Bug Fixes
+
+- added the buttons to archive and clone a course in the actions menu
+
 ## 1.2.3 (2023-03-04)
 
 ### Features
