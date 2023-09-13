@@ -13,10 +13,6 @@
       :loading="!!isLoading"
     >
       <v-card-text v-if="error">{{ $t('error.unexpected') }}</v-card-text>
-      <!-- <div v-if="$auth.user" class="text-center">
-        <course-archive-btn :course="course" @success="archived" />
-        <course-clone-btn :course="course" @success="cloned" />
-      </div> -->
     </generic-info-panel>
   </ApolloQuery>
 </template>
@@ -39,28 +35,6 @@ export default {
     }
   },
   methods: {
-    // archived(course) {
-    //   this.$notificationManager.displaySuccessMessage(
-    //     this.$t('success.COURSE_ARCHIVED')
-    //   )
-    //   this.$router.push({
-    //     name: 'manage-courses-code',
-    //     params: { code: course.code },
-    //   })
-
-    //   // TODO: Fix the cache and redirect to the URL with the new course code
-    // },
-    // cloned(course) {
-    //   this.$notificationManager.displaySuccessMessage(
-    //     this.$t('success.COURSE_CLONED')
-    //   )
-    //   this.$router.push({
-    //     name: 'manage-courses-code',
-    //     params: { code: course.code },
-    //   })
-
-    //   // TODO: Fix the cache and redirect to the URL with the new course code
-    // },
     setItems({ data: course }) {
       if (!course) {
         return []
