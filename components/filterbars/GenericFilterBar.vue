@@ -27,7 +27,10 @@
 
       <v-card>
         <v-card-text>
-          <slot :filter="filter" :on="{ input: (value) => (filter = value) }" />
+          <slot
+            :filter="innerFilter"
+            :on="{ input: (value) => (innerFilter = value) }"
+          />
         </v-card-text>
 
         <v-card-actions>
@@ -57,9 +60,15 @@
 </template>
 
 <script>
+import { useLocalStorage } from '@vueuse/core'
+
 export default {
   name: 'GenericFilterBar',
   props: {
+    cacheKey: {
+      type: String,
+      default: 'filter',
+    },
     createLink: {
       type: Object,
       default: null,
@@ -78,9 +87,13 @@ export default {
       },
     },
   },
+  setup(props) {
+    const filter = useLocalStorage(props.cacheKey, {})
+    return { filter }
+  },
   data() {
     return {
-      filter: {},
+      innerFilter: null,
       showMenu: false,
       text: '',
     }
@@ -88,22 +101,33 @@ export default {
   computed: {
     filterIcon() {
       const { options } = this.value
-      return options && Object.values(options).some((v) => v)
+      return options &&
+        Object.values(options).some((v) => v !== undefined && v !== null)
         ? 'mdi-filter'
         : 'mdi-filter-outline'
     },
   },
   watch: {
+    showMenu(value) {
+      if (value) {
+        this.innerFilter = { ...this.filter }
+      }
+    },
     value: {
       handler(value) {
-        this.filter = { ...value.options }
+        this.filter = { ...this.filter, ...value.options }
         this.text = value.text
       },
       immediate: true,
     },
   },
+  mounted() {
+    this.innerFilter = this.filter
+    this.apply()
+  },
   methods: {
     apply() {
+      this.filter = this.innerFilter
       this.$emit('input', { text: this.text, options: { ...this.filter } })
     },
     initialise(open) {
@@ -113,7 +137,7 @@ export default {
       }
     },
     reset() {
-      this.filter = {}
+      this.innerFilter = null
       this.showMenu = false
       this.apply()
     },

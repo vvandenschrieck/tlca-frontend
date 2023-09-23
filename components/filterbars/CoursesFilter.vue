@@ -4,11 +4,11 @@
       <v-col cols="3">{{ $t('course.status.archived') }}</v-col>
       <v-col cols="9">
         <v-switch
+          v-model="innerValue.includeArchived"
           class="mt-0 pt-0"
           dense
           hide-details
-          :value="value.includeArchived"
-          @change="update('includeArchived', $event)"
+          @change="update"
         />
       </v-col>
     </v-row>
@@ -17,13 +17,13 @@
       <v-col cols="3">{{ $t('course.filter.role') }}</v-col>
       <v-col cols="9">
         <v-select
+          v-model="innerValue.roles"
           clearable
           dense
           hide-details
           :items="rolesList"
           multiple
-          :value="value.roles"
-          @input="update('roles', $event)"
+          @input="update"
         />
       </v-col>
     </v-row>
@@ -31,8 +31,13 @@
 </template>
 
 <script>
+const defaultValue = {
+  includeArchived: true,
+  roles: null,
+}
+
 export default {
-  name: 'ProgramsFilter',
+  name: 'CoursesFilter',
   props: {
     hideRoles: {
       type: Boolean,
@@ -44,13 +49,13 @@ export default {
     },
     value: {
       type: Object,
-      default: () => {
-        return {
-          includeArchived: false,
-          roles: null,
-        }
-      },
+      default: () => {},
     },
+  },
+  data() {
+    return {
+      innerValue: {},
+    }
   },
   computed: {
     rolesList() {
@@ -60,9 +65,21 @@ export default {
       ]
     },
   },
+  watch: {
+    value: {
+      handler(newValue) {
+        this.innerValue = { ...defaultValue, ...newValue }
+      },
+      immediate: true,
+    },
+  },
   methods: {
-    update(field, value) {
-      this.$emit('input', { ...this.value, [field]: value })
+    update() {
+      const newValue = Object.entries(this.innerValue).reduce(
+        (acc, [k, v]) => (v !== defaultValue[k] ? { ...acc, [k]: v } : acc),
+        {}
+      )
+      this.$emit('input', newValue)
     },
   },
 }
