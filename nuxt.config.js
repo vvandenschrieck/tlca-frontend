@@ -112,7 +112,23 @@ export default {
   alias: {
     vue: 'vue/dist/vue.runtime.esm.js',
   },
-  build: {},
+  build: {
+    extend(config) {
+      if (!config.resolve.extensions) {
+        config.resolve.extensions = []
+      }
+      config.resolve.extensions.push('.mjs')
+
+      if (!config.module.rules) {
+        config.module.rules = []
+      }
+      config.module.rules.push({
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
+      })
+    },
+  },
   publicRuntimeConfig: {
     graphqlEndpoint: process.env.GRAPHQL_ENDPOINT || 'http://localhost:4001',
   },
