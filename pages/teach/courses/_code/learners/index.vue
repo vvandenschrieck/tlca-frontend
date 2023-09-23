@@ -10,7 +10,7 @@
     <v-row v-if="!error && canShowContent">
       <v-col cols="12" md="9">
         <v-card>
-          <v-tabs v-model="currentTab" show-arrows>
+          <v-tabs v-model="currentTab" optional show-arrows>
             <v-tab v-if="course?.isCoordinator" href="#all">
               {{ $t('learner.all') }}
             </v-tab>
@@ -96,7 +96,6 @@ export default {
   data() {
     return {
       course: null,
-      currentTab: 0,
       noGroup: [],
       registrations: [],
       teachingGroups: [],
@@ -114,6 +113,14 @@ export default {
     },
     courseCode() {
       return this.$route.params.code
+    },
+    currentTab: {
+      get() {
+        return this.$route.hash.slice(1)
+      },
+      set(tab) {
+        this.$router.replace({ hash: tab })
+      },
     },
     hideAdvancedCompetencies() {
       return !this.course || !this.course.hasAdvancedCompetencies
@@ -186,10 +193,12 @@ export default {
           })) ?? []
 
       // Set the default tab to show.
-      if (data.course?.isCoordinator) {
-        this.currentTab = 'all'
-      } else {
-        this.currentTab = this.teachingGroups?.length ? 'group0' : 'nogroup'
+      if (!this.$route.hash) {
+        if (data.course?.isCoordinator) {
+          this.currentTab = 'all'
+        } else {
+          this.currentTab = this.teachingGroups?.length ? 'group0' : 'nogroup'
+        }
       }
     },
   },
