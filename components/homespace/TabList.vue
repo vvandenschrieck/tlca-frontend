@@ -5,13 +5,11 @@
     :pagination="{ perPage: 4 }"
     :prop-name="propName"
   >
-    <template #append>
-      <div align="center" class="py-8">
-        <v-btn :to="{ name }">
-          {{ $t(`homepage.see_all_${name}`) }}
-        </v-btn>
-      </div>
-    </template>
+    <div slot="append" class="action py-8">
+      <v-btn small :to="{ name }">
+        {{ $t(`homepage.see_all_${name}`) }}
+      </v-btn>
+    </div>
   </card-list>
 </template>
 
@@ -34,8 +32,14 @@ export default {
   },
   computed: {
     name() {
-      return this.propName + 's'
+      return `${this.propName}s`
     },
   },
 }
 </script>
+
+<style scoped>
+.action {
+  text-align: center;
+}
+</style>
