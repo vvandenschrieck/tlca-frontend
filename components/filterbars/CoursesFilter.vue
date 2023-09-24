@@ -31,13 +31,11 @@
 </template>
 
 <script>
-const defaultValue = {
-  includeArchived: true,
-  roles: null,
-}
+import filterStorage from '@/mixins/filter-storage.js'
 
 export default {
   name: 'CoursesFilter',
+  mixins: [filterStorage],
   props: {
     hideRoles: {
       type: Boolean,
@@ -54,6 +52,10 @@ export default {
   },
   data() {
     return {
+      defaultValue: {
+        includeArchived: false,
+        roles: null,
+      },
       innerValue: {},
     }
   },
@@ -63,23 +65,6 @@ export default {
         { text: this.$t('course.coordinator'), value: 'COORDINATOR' },
         { text: this.$tc('course.teacher', 1), value: 'TEACHER' },
       ]
-    },
-  },
-  watch: {
-    value: {
-      handler(newValue) {
-        this.innerValue = { ...defaultValue, ...newValue }
-      },
-      immediate: true,
-    },
-  },
-  methods: {
-    update() {
-      const newValue = Object.entries(this.innerValue).reduce(
-        (acc, [k, v]) => (v !== defaultValue[k] ? { ...acc, [k]: v } : acc),
-        {}
-      )
-      this.$emit('input', newValue)
     },
   },
 }

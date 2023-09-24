@@ -10,6 +10,7 @@
       <generic-filter-bar
         v-slot="{ filter: innerFilter, on }"
         v-model="filter"
+        cache-key="manage-courses"
         :create-link="{ name: 'manage-courses-create' }"
       >
         <courses-filter hide-roles :value="innerFilter" v-on="on" />

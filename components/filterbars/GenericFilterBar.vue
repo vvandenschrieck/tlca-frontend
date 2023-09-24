@@ -67,7 +67,7 @@ export default {
   props: {
     cacheKey: {
       type: String,
-      default: 'filter',
+      default: null,
     },
     createLink: {
       type: Object,
@@ -88,7 +88,8 @@ export default {
     },
   },
   setup(props) {
-    const filter = useLocalStorage(props.cacheKey, {})
+    const key = props.cacheKey ? `${props.cacheKey}-filter` : 'filter'
+    const filter = useLocalStorage(key, {})
     return { filter }
   },
   data() {

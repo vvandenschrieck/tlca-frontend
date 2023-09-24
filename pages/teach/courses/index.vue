@@ -7,7 +7,11 @@
     <page-title :loading="!!isLoading" :spaces="spaces" :value="title" />
 
     <div v-if="!error">
-      <generic-filter-bar v-slot="{ filter: innerFilter, on }" v-model="filter">
+      <generic-filter-bar
+        v-slot="{ filter: innerFilter, on }"
+        v-model="filter"
+        cache-key="teach-courses"
+      >
         <courses-filter hide-unpublished :value="innerFilter" v-on="on" />
       </generic-filter-bar>
 

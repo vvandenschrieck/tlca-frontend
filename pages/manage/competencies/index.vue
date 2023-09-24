@@ -10,6 +10,7 @@
       <generic-filter-bar
         v-slot="{ filter: innerFilter, on }"
         v-model="filter"
+        cache-key="manage-competencies"
         :create-link="{ name: 'manage-competencies-create' }"
       >
         <competencies-filter :value="innerFilter" v-on="on" />

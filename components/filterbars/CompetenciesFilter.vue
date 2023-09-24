@@ -4,11 +4,11 @@
       <v-col cols="3">{{ $t('competency.filter.public') }}</v-col>
       <v-col cols="9">
         <v-switch
+          v-model="innerValue.includePublic"
           class="mt-0 pt-0"
           dense
           hide-details
-          :value="value.includePublic"
-          @change="update('includePublic', $event)"
+          @change="update"
         />
       </v-col>
     </v-row>
@@ -17,11 +17,11 @@
       <v-col cols="3">{{ $t('competency.filter.archived') }}</v-col>
       <v-col cols="9">
         <v-switch
+          v-model="innerValue.includeArchived"
           class="mt-0 pt-0"
           dense
           hide-details
-          :value="value.includeArchived"
-          @change="update('includeArchived', $event)"
+          @change="update"
         />
       </v-col>
     </v-row>
@@ -30,13 +30,13 @@
       <v-col cols="3">{{ $t('competency.filter.creator') }}</v-col>
       <v-col cols="9">
         <v-select
+          v-model="innerValue.creators"
           clearable
           dense
           hide-details
           :items="creatorsList"
           multiple
-          :value="value.creators"
-          @input="update('creators', $event)"
+          @input="update"
         />
       </v-col>
     </v-row>
@@ -45,6 +45,7 @@
       <v-col cols="3">{{ $t('competency.filter.tags') }}</v-col>
       <v-col cols="9">
         <v-combobox
+          v-model="innerValue.tags"
           append-icon=""
           chips
           clearable
@@ -53,8 +54,7 @@
           hide-details
           multiple
           small-chips
-          :value="value.tags"
-          @input="update('tags', $event)"
+          @input="update"
         />
       </v-col>
     </v-row>
@@ -62,36 +62,35 @@
 </template>
 
 <script>
+import filterStorage from '@/mixins/filter-storage.js'
+
 export default {
   name: 'CompetenciesFilter',
+  mixins: [filterStorage],
   props: {
     value: {
       type: Object,
-      default: () => {
-        return {
-          creators: null,
-          includeArchived: false,
-          includePublic: false,
-          tags: null,
-        }
-      },
+      default: () => {},
     },
+  },
+  data() {
+    return {
+      defaultValue: {
+        creators: null,
+        includeArchived: false,
+        includePublic: false,
+        tags: null,
+      },
+      innerValue: {},
+    }
   },
   computed: {
     creatorsList() {
-      const creators = []
-
-      creators.push(
+      return [
         { text: this.$t('competency.creator.own'), value: 'OWN' },
         { text: this.$t('competency.creator.partners'), value: 'PARTNERS' },
-        { text: this.$t('competency.creator.external'), value: 'EXTERNAL' }
-      )
-      return creators
-    },
-  },
-  methods: {
-    update(field, value) {
-      this.$emit('input', { ...this.value, [field]: value })
+        { text: this.$t('competency.creator.external'), value: 'EXTERNAL' },
+      ]
     },
   },
 }
