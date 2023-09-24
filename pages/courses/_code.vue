@@ -18,7 +18,7 @@
               <v-tab href="#competencies">
                 {{ $t('course.competencies._') }}
               </v-tab>
-              <v-tab v-if="course?.schedule" href="#schedule">
+              <v-tab v-show="course?.schedule" href="#schedule">
                 {{ $t('course.schedule._') }}
               </v-tab>
             </v-tabs>
@@ -70,8 +70,11 @@
 </template>
 
 <script>
+import currentTab from '@/mixins/current-tab.js'
+
 export default {
   name: 'CoursePage',
+  mixins: [currentTab],
   data() {
     return {
       title: '',
@@ -85,14 +88,6 @@ export default {
   computed: {
     courseCode() {
       return this.$route.params.code
-    },
-    currentTab: {
-      get() {
-        return this.$route.hash.slice(1)
-      },
-      set(tab) {
-        this.$router.replace({ hash: tab })
-      },
     },
   },
   methods: {

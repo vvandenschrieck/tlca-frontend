@@ -11,15 +11,15 @@
       <v-col cols="12" md="9">
         <v-card>
           <v-tabs v-model="currentTab" optional show-arrows>
-            <v-tab v-if="course?.isCoordinator" href="#all">
+            <v-tab v-show="course?.isCoordinator" href="#all">
               {{ $t('learner.all') }}
             </v-tab>
 
             <template v-for="(group, i) in teachingGroups">
-              <v-tab :key="i" :href="'#group' + i">{{ group.name }}</v-tab>
+              <v-tab :key="i" :href="`#group${i}`">{{ group.name }}</v-tab>
             </template>
 
-            <v-tab v-if="showNoGroup" href="#nogroup">
+            <v-tab v-show="showNoGroup" href="#nogroup">
               {{
                 $t(
                   course?.hasTeachingGroups
