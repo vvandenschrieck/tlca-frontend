@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     showBreadCrumb() {
-      return this.$route.fullPath !== '/'
+      return this.$route.name !== 'index'
     },
   },
 }

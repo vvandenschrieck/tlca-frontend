@@ -2767,6 +2767,11 @@
   dependencies:
     http-proxy-middleware "^1.0.6"
 
+"@nuxtjs/redirect-module@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/redirect-module/-/redirect-module-0.3.1.tgz#90a6986882337401cb0576cdf9479d4e3b552cce"
+  integrity sha512-yL2unrYfUSqs+4cUtkQvEQMsuTeCOlQd+Y5sTqMZzWBadF8h01tCVDG95zmOTNIiCupb+sQho2Tixwl1f826aw==
+
 "@nuxtjs/vuetify@^1.12.3":
   version "1.12.3"
   resolved "https://registry.yarnpkg.com/@nuxtjs/vuetify/-/vuetify-1.12.3.tgz#d4adf84e18fd474044bf971e7cc978e25eb16ba1"

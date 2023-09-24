@@ -57,6 +57,7 @@ export default {
         publishRelease: true,
       },
     ],
+    '@nuxtjs/redirect-module',
   ],
   apollo: {
     clientConfigs: {
@@ -102,8 +103,17 @@ export default {
     langDir: 'lang/',
     defaultLocale: 'en-GB',
   },
+  redirect: {
+    rules: [
+      {
+        from: '^.*(?<!/)$',
+        to: (_from, req) => req.url + '/',
+      },
+    ],
+  },
   router: {
     middleware: 'roles-auth',
+    trailingSlash: true,
   },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
