@@ -91,7 +91,11 @@ export default {
       return () => item.part
     },
     async generateBreadCrumb() {
-      const parts = decodeURI(this.$route.fullPath).slice(1).split('/')
+      // Split URI into pieces and remove hashs.
+      const parts = decodeURI(this.$route.fullPath)
+        .slice(1)
+        .split('/')
+        .filter((part) => part && !part.startsWith('#'))
       const isHomeSpace = !['admin', 'learn', 'manage', 'teach'].includes(
         parts[0]
       )
@@ -112,6 +116,7 @@ export default {
           .map(async (i) => ({
             ...i,
             text: await this.getText(i),
+            to: `${i.to}/`,
           }))
       )
 
@@ -123,6 +128,7 @@ export default {
           to: '/',
         })
       }
+
       this.items = items
     },
   },

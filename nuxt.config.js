@@ -50,13 +50,14 @@ export default {
       {
         apiKey: process.env.BUGSNAG_BROWSER_API_KEY,
         config: {
-          appVersion: '1.2.4',
+          appVersion: '1.2.5',
           enabledReleaseStages: ['production'],
           environment: process.env.NODE_ENV,
         },
         publishRelease: true,
       },
     ],
+    '@nuxtjs/redirect-module',
   ],
   apollo: {
     clientConfigs: {
@@ -78,10 +79,10 @@ export default {
       },
     },
     redirect: {
-      login: '/login',
+      login: '/login/',
       logout: '/',
       callback: false,
-      home: '/dashboard',
+      home: '/dashboard/',
     },
   },
   i18n: {
@@ -102,8 +103,17 @@ export default {
     langDir: 'lang/',
     defaultLocale: 'en-GB',
   },
+  redirect: {
+    rules: [
+      {
+        from: '^.*(?<!/)$',
+        to: (_from, req) => req.url + '/',
+      },
+    ],
+  },
   router: {
     middleware: 'roles-auth',
+    trailingSlash: true,
   },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -112,7 +122,23 @@ export default {
   alias: {
     vue: 'vue/dist/vue.runtime.esm.js',
   },
-  build: {},
+  build: {
+    extend(config) {
+      if (!config.resolve.extensions) {
+        config.resolve.extensions = []
+      }
+      config.resolve.extensions.push('.mjs')
+
+      if (!config.module.rules) {
+        config.module.rules = []
+      }
+      config.module.rules.push({
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto',
+      })
+    },
+  },
   publicRuntimeConfig: {
     graphqlEndpoint: process.env.GRAPHQL_ENDPOINT || 'http://localhost:4001',
   },

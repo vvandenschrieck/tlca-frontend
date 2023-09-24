@@ -4,11 +4,11 @@
       <v-col cols="3">{{ $t('course.status.archived') }}</v-col>
       <v-col cols="9">
         <v-switch
+          v-model="innerValue.includeArchived"
           class="mt-0 pt-0"
           dense
           hide-details
-          :value="value.includeArchived"
-          @change="update('includeArchived', $event)"
+          @change="update"
         />
       </v-col>
     </v-row>
@@ -17,13 +17,13 @@
       <v-col cols="3">{{ $t('course.filter.role') }}</v-col>
       <v-col cols="9">
         <v-select
+          v-model="innerValue.roles"
           clearable
           dense
           hide-details
           :items="rolesList"
           multiple
-          :value="value.roles"
-          @input="update('roles', $event)"
+          @input="update"
         />
       </v-col>
     </v-row>
@@ -31,8 +31,11 @@
 </template>
 
 <script>
+import filterStorage from '@/mixins/filter-storage.js'
+
 export default {
-  name: 'ProgramsFilter',
+  name: 'CoursesFilter',
+  mixins: [filterStorage],
   props: {
     hideRoles: {
       type: Boolean,
@@ -44,13 +47,17 @@ export default {
     },
     value: {
       type: Object,
-      default: () => {
-        return {
-          includeArchived: false,
-          roles: null,
-        }
-      },
+      default: () => {},
     },
+  },
+  data() {
+    return {
+      defaultValue: {
+        includeArchived: false,
+        roles: null,
+      },
+      innerValue: {},
+    }
   },
   computed: {
     rolesList() {
@@ -58,11 +65,6 @@ export default {
         { text: this.$t('course.coordinator'), value: 'COORDINATOR' },
         { text: this.$tc('course.teacher', 1), value: 'TEACHER' },
       ]
-    },
-  },
-  methods: {
-    update(field, value) {
-      this.$emit('input', { ...this.value, [field]: value })
     },
   },
 }

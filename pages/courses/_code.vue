@@ -14,16 +14,18 @@
         <v-col cols="12" md="9">
           <v-card>
             <v-tabs v-model="currentTab" show-arrows>
-              <v-tab>{{ $t('course.description') }}</v-tab>
-              <v-tab>{{ $t('course.competencies._') }}</v-tab>
-              <v-tab v-if="course?.schedule">
+              <v-tab href="#description">{{ $t('course.description') }}</v-tab>
+              <v-tab href="#competencies">
+                {{ $t('course.competencies._') }}
+              </v-tab>
+              <v-tab v-show="course?.schedule" href="#schedule">
                 {{ $t('course.schedule._') }}
               </v-tab>
             </v-tabs>
 
             <v-card-text class="text--primary">
               <v-tabs-items v-model="currentTab">
-                <v-tab-item>
+                <v-tab-item value="description">
                   <div v-html="course?.description" />
 
                   <div v-if="course?.colophon">
@@ -32,11 +34,11 @@
                   </div>
                 </v-tab-item>
 
-                <v-tab-item>
+                <v-tab-item value="competencies">
                   <course-competencies-list :course-code="courseCode" />
                 </v-tab-item>
 
-                <v-tab-item v-if="course?.schedule">
+                <v-tab-item v-if="course?.schedule" value="schedule">
                   <schedule-timeline
                     :items="course.schedule"
                     name-prefix="course.schedule"
@@ -68,11 +70,13 @@
 </template>
 
 <script>
+import currentTab from '@/mixins/current-tab.js'
+
 export default {
   name: 'CoursePage',
+  mixins: [currentTab],
   data() {
     return {
-      currentTab: 0,
       title: '',
     }
   },

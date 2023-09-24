@@ -1,3 +1,10 @@
+## 1.2.5 (2023-09-24)
+
+### Improvements
+
+- saved filters configuration into local storage
+- saved last selected tab into navigation history
+
 ## 1.2.4 (2023-09-13)
 
 ### Bug Fixes
