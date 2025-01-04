@@ -31,7 +31,8 @@
       :group-desc="false"
       :headers="headers"
       :items="filteredEvaluations(evaluations, filter)"
-      :items-per-page="15"
+      :items-per-page="25"
+      :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
       :loading="!!isLoading"
       @click:row="goToEvaluation"
     >
