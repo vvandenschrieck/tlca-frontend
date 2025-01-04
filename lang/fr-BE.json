@@ -420,6 +420,7 @@
       "_": "Explication de l'apprenant",
       "no": "Pas d'explication"
     },
+    "group": "Groupe",
     "group_by_status": "Grouper par statut",
     "learner": "Apprenant",
     "mass_creation": "Création en masse",

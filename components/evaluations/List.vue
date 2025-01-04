@@ -2,7 +2,7 @@
   <ApolloQuery
     v-slot="{ isLoading, result: { error } }"
     :query="require('~/gql/components/getEvaluationsList.gql')"
-    :update="(data) => data.evaluations"
+    :update="(data) => data"
     :variables="{
       assessmentId,
       courseCode,
@@ -143,6 +143,10 @@ export default {
           text: this.$t('evaluation.learner'),
           value: 'learner.displayName',
         })
+        items.push({
+          text: this.$t('evaluation.group'),
+          value: 'group',
+        })
       }
 
       items.push({
@@ -177,11 +181,24 @@ export default {
         params: { code: this.$route.params.code, id },
       })
     },
-    setResult({ data: evaluations }) {
-      if (!evaluations) {
+    setResult({ data }) {
+      if (!data) {
         return
       }
-
+      const { evaluations, course, registrations } = data
+      const learners = {}
+      if (course.hasTeachingGroups && registrations.length !== 0) {
+        // Obtain dict with teaching group for each learner username
+        course.groups.teaching.forEach((g, i) => {
+          // For each teaching group : g is group, i is the index (used in registrations)
+          const withGroup = registrations.filter((r) => r.group?.teaching === i)
+          if (withGroup.length) {
+            withGroup.forEach((r, i) => {
+              learners[r.user.username] = g.name
+            })
+          }
+        })
+      }
       this.evaluations = evaluations.map((e) => ({
         ...e,
         assessment: {
@@ -194,6 +211,10 @@ export default {
           color: this.statusColor(e.status),
           text: this.$t(`evaluation.status.${e.status.toLowerCase()}`),
         },
+        group:
+          learners[e.learner.username] !== undefined
+            ? learners[e.learner.username]
+            : '-',
       }))
     },
     statusColor(status) {

@@ -23,4 +23,22 @@ query GetEvaluationsList(
     }
     status
   }
+  course(code: $courseCode) {
+    code
+    groups {
+      teaching {
+        name
+      }
+    }
+    hasTeachingGroups
+  }
+
+  registrations(confirmed: true, courseCode: $courseCode) {
+    group {
+      teaching
+    }
+    user {
+      username
+    }
+  }
 }

@@ -420,6 +420,7 @@
       "_": "Learner's explanation",
       "no": "No explanation"
     },
+    "group": "Group",
     "group_by_status": "Group by status",
     "learner": "Learner",
     "mass_creation": "Mass creation",
